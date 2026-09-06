@@ -3,10 +3,13 @@ set -euo pipefail
 
 : "${CUPID_SOURCE_OVERLAY:?CUPID_SOURCE_OVERLAY is required}"
 : "${CUPID_OUTPUT_OVERLAY:?CUPID_OUTPUT_OVERLAY is required}"
+: "${CUPID_KAOLIN_WHEELHOUSE:?CUPID_KAOLIN_WHEELHOUSE is required}"
 
 CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 KAOLIN_WHEEL_URL="${KAOLIN_WHEEL_URL:-http://nvidia-kaolin.s3.us-east-2.amazonaws.com/torch-2.4.1_cu118/kaolin-0.18.0-cp312-cp312-linux_x86_64.whl}"
 KAOLIN_WHEEL_SHA256="${KAOLIN_WHEEL_SHA256:-6339c695a099d3907aa39bb63cc51381ba4cd8a05813ef466da850156052c153}"
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+wheel_manifest="$script_dir/cupid_kaolin_runtime_wheels.sha256"
 partial_overlay="${CUPID_OUTPUT_OVERLAY}.partial"
 temp_dir="$(mktemp -d /tmp/cupid_kaolin.XXXXXX)"
 wheel_path="$temp_dir/kaolin-0.18.0-cp312-cp312-linux_x86_64.whl"
@@ -17,8 +20,12 @@ cleanup() {
 trap cleanup EXIT
 
 test -d "$CUPID_SOURCE_OVERLAY"
+test -d "$CUPID_KAOLIN_WHEELHOUSE"
+test -f "$wheel_manifest"
 test ! -e "$CUPID_OUTPUT_OVERLAY"
 test ! -e "$partial_overlay"
+
+(cd "$CUPID_KAOLIN_WHEELHOUSE" && sha256sum -c "$wheel_manifest")
 
 cp -al "$CUPID_SOURCE_OVERLAY" "$partial_overlay"
 export http_proxy="${http_proxy:-http://hkuhpc.com:7999}"
@@ -72,7 +79,8 @@ require_package warp 'warp-lang==1.17.0'
 if ((${#missing_specs[@]})); then
     printf 'DEPENDENCY_INSTALL=%s\n' "${missing_specs[*]}"
     "$CUPID_PYTHON" -m pip install \
-        --target "$partial_overlay" --no-deps "${missing_specs[@]}"
+        --target "$partial_overlay" --no-deps --no-index \
+        --find-links "$CUPID_KAOLIN_WHEELHOUSE" "${missing_specs[@]}"
 fi
 
 PYTHONPATH="$partial_overlay" "$CUPID_PYTHON" -c \
