@@ -7,7 +7,6 @@ import utils3d.torch
 from .components import StandardDatasetBase, TextConditionedMixin, ImageConditionedMixin, TransformConditionedMixin
 from ..modules.sparse.basic import SparseTensor
 from .. import models
-from ..utils.render_utils import get_renderer
 from ..utils.data_utils import load_balanced_group_indices
 from ..utils.voxel_utils import *
 
@@ -57,6 +56,8 @@ class SLatVisMixin:
 
     @torch.no_grad()
     def visualize_sample(self, x_0: Union[SparseTensor, dict]):
+        from ..utils.render_utils import get_renderer
+
         x_0 = x_0 if isinstance(x_0, SparseTensor) else x_0['x_0']
         reps = self.decode_latent(x_0.cuda())
         
