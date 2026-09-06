@@ -14,7 +14,7 @@
 # limitations under the License.
 import torch
 from .tables import *
-from kaolin.utils.testing import check_tensor
+from cupid.utils.tensor_checks import check_tensor
 
 __all__ = [
     'FlexiCubes'
