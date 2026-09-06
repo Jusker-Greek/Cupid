@@ -250,6 +250,11 @@ class SparseTensor:
         return sparse_unbind(self, dim)
 
     def replace(self, feats: torch.Tensor, coords: Optional[torch.Tensor] = None) -> 'SparseTensor':
+        # DataLoader workers initialize this process-local lazy binding independently.
+        init_SparseTensor()
+        if SparseTensorData is None:
+            raise RuntimeError(f"Sparse tensor backend is not initialized: {BACKEND}")
+
         new_shape = [self.shape[0]]
         new_shape.extend(feats.shape[1:])
         if BACKEND == 'torchsparse':
