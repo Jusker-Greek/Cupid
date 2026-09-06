@@ -18,7 +18,11 @@ ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
 export LD_LIBRARY_PATH="/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export http_proxy="${http_proxy:-http://hkuhpc.com:7999}"
 export https_proxy="${https_proxy:-http://hkuhpc.com:7999}"
-export no_proxy="${no_proxy:+$no_proxy,}github.com,codeload.github.com,pypi.org,files.pythonhosted.org"
+export HTTP_PROXY="$http_proxy"
+export HTTPS_PROXY="$https_proxy"
+export no_proxy="${CUPID_NO_PROXY:-localhost,127.0.0.1}"
+export NO_PROXY="$no_proxy"
+export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 
 "$CUPID_PYTHON" -m pip install \
     --upgrade \
@@ -35,3 +39,6 @@ export no_proxy="${no_proxy:+$no_proxy,}github.com,codeload.github.com,pypi.org,
 
 PYTHONPATH="$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}" \
     "$CUPID_PYTHON" -c "import spconv, utils3d; print('CUPID_ENV_READY')"
+
+PYTHONPATH="$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}" \
+    "$CUPID_PYTHON" -c "import torch; torch.hub.load('facebookresearch/dinov2:main', 'dinov2_vitl14_reg', pretrained=True, trust_repo=True, skip_validation=True); print('CUPID_DINOV2_READY')"

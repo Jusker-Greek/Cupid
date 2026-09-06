@@ -1,3 +1,4 @@
+import os
 from typing import *
 import torch
 import torch.nn.functional as F
@@ -6,6 +7,17 @@ import numpy as np
 from PIL import Image
 
 from ....utils import dist_utils
+
+
+def _load_dinov2(image_cond_model: str):
+    repo = os.environ.get('CUPID_DINOV2_REPO', 'facebookresearch/dinov2:main')
+    return torch.hub.load(
+        repo,
+        image_cond_model,
+        pretrained=True,
+        trust_repo=True,
+        skip_validation=True,
+    )
 
 
 class ImageConditionedMixin:
@@ -28,14 +40,14 @@ class ImageConditionedMixin:
         if hasattr(super(ImageConditionedMixin, ImageConditionedMixin), 'prepare_for_training'):
             super(ImageConditionedMixin, ImageConditionedMixin).prepare_for_training(**kwargs)
         # download the model
-        torch.hub.load('facebookresearch/dinov2', image_cond_model, pretrained=True)
+        _load_dinov2(image_cond_model)
         
     def _init_image_cond_model(self):
         """
         Initialize the image conditioning model.
         """
         with dist_utils.local_master_first():
-            dinov2_model = torch.hub.load('facebookresearch/dinov2', self.image_cond_model_name, pretrained=True)
+            dinov2_model = _load_dinov2(self.image_cond_model_name)
         dinov2_model.eval().cuda()
         transform = transforms.Compose([
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
@@ -122,14 +134,14 @@ class VisualImageConditionedMixin:
         if hasattr(super(ImageConditionedMixin, ImageConditionedMixin), 'prepare_for_training'):
             super(ImageConditionedMixin, ImageConditionedMixin).prepare_for_training(**kwargs)
         # download the model
-        torch.hub.load('facebookresearch/dinov2', image_cond_model, pretrained=True)
+        _load_dinov2(image_cond_model)
         
     def _init_image_cond_model(self):
         """
         Initialize the image conditioning model.
         """
         with dist_utils.local_master_first():
-            dinov2_model = torch.hub.load('facebookresearch/dinov2', self.image_cond_model_name, pretrained=True)
+            dinov2_model = _load_dinov2(self.image_cond_model_name)
         dinov2_model.eval().cuda()
         transform = transforms.Compose([
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
