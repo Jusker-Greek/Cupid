@@ -40,8 +40,8 @@ test "$download_complete" -eq 1
 
 actual_sha256="$(sha256sum "$wheel_path" | awk '{print $1}')"
 test "$actual_sha256" = "$KAOLIN_WHEEL_SHA256"
-"$CUPID_PYTHON" -m pip install \
-    --target "$partial_overlay" --no-deps --no-index "$wheel_path"
+PYTHONPATH="$partial_overlay" "$CUPID_PYTHON" -m pip install \
+    --target "$partial_overlay" "$wheel_path"
 
 PYTHONPATH="$partial_overlay" "$CUPID_PYTHON" -c \
     'import kaolin, torch; from kaolin.utils.testing import check_tensor; print(f"KAOLIN_IMPORT_OK={kaolin.__version__}|TORCH={torch.__version__}|CUDA={torch.version.cuda}|CHECK_TENSOR={check_tensor.__module__}.{check_tensor.__name__}")'
