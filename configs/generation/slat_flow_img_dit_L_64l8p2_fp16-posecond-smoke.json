@@ -20,7 +20,8 @@
                 "io_block_channels": [128],
                 "pe_mode": "ape",
                 "qk_rms_norm": true,
-                "use_fp16": true
+                "use_fp16": true,
+                "pretrained_slat_enc": "/data/haobin/huggingface/hub/models--microsoft--TRELLIS-image-large/snapshots/25e0d31ffbebe4b5a97464dd851910efc3002d96/ckpts/slat_enc_swin8_B_64l8_fp16"
             }
         }
     },
