@@ -25,7 +25,7 @@ export http_proxy="${http_proxy:-http://hkuhpc.com:7999}"
 export https_proxy="${https_proxy:-http://hkuhpc.com:7999}"
 export no_proxy="${no_proxy:+$no_proxy,}nvidia-kaolin.s3.us-east-2.amazonaws.com"
 export NO_PROXY="${NO_PROXY:+$NO_PROXY,}nvidia-kaolin.s3.us-east-2.amazonaws.com"
-curl --fail --location --retry 4 --retry-all-errors \
+curl --fail --location --continue-at - --retry 4 --retry-all-errors \
     --connect-timeout 15 --max-time 300 \
     "$KAOLIN_WHEEL_URL" -o "$wheel_path"
 
