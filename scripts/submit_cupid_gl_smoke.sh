@@ -24,8 +24,16 @@ export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:${PYTHONPATH:-}"
 
 cd "$CUPID_PROJECT_DIR"
+if git_commit="$(git rev-parse HEAD 2>/dev/null)"; then
+    :
+elif [[ -n "${CUPID_COMMIT:-}" ]]; then
+    git_commit="$CUPID_COMMIT"
+else
+    echo "CUPID_COMMIT is required when the checkout has no .git directory" >&2
+    exit 2
+fi
 echo "HOST=$(hostname)"
-echo "COMMIT=$(git rev-parse HEAD)"
+echo "COMMIT=$git_commit"
 echo "PYTHON=$CUPID_PYTHON"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 
