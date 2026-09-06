@@ -73,7 +73,7 @@ require_package dataclasses_json 'dataclasses-json==0.6.7'
 require_package deprecated 'Deprecated==1.3.1'
 require_package pygltflib 'pygltflib==1.16.5'
 require_package pxr 'usd-core==26.8'
-require_package warp 'warp-lang==1.17.0'
+require_package warp 'warp-lang==1.8.1'
 
 if ((${#missing_specs[@]})); then
     printf 'DEPENDENCY_INSTALL=%s\n' "${missing_specs[*]}"
