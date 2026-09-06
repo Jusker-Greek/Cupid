@@ -250,6 +250,7 @@ class SparseTensor:
         return sparse_unbind(self, dim)
 
     def replace(self, feats: torch.Tensor, coords: Optional[torch.Tensor] = None) -> 'SparseTensor':
+        init_SparseTensor()
         new_shape = [self.shape[0]]
         new_shape.extend(feats.shape[1:])
         if BACKEND == 'torchsparse':
