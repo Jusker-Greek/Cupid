@@ -1,5 +1,15 @@
-from . import samplers
-from .pipeline import Cupid3DPipeline
+import importlib
+
+
+def __getattr__(name):
+    if name == "samplers":
+        value = importlib.import_module(".samplers", __name__)
+    elif name == "Cupid3DPipeline":
+        value = getattr(importlib.import_module(".pipeline", __name__), name)
+    else:
+        raise AttributeError(f"module {__name__} has no attribute {name}")
+    globals()[name] = value
+    return value
 
 
 def from_pretrained(path: str):
@@ -21,4 +31,4 @@ def from_pretrained(path: str):
 
     with open(config_file, 'r') as f:
         config = json.load(f)
-    return globals()[config['name']].from_pretrained(path)
+    return __getattr__(config['name']).from_pretrained(path)
