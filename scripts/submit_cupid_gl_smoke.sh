@@ -15,6 +15,8 @@ CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:-/public/home/ricky/CODE/Cupid}"
 CUPID_OUTPUT_DIR="${CUPID_OUTPUT_DIR:-/public/home/ricky/RESULTS/CUPID_REPRO_GL_SMOKE_V1}"
 CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312}"
+CUPID_DINOV2_COMMIT="${CUPID_DINOV2_COMMIT:-7764ea0f912e53c92e82eb78a2a1631e92725fc8}"
+CUPID_DINOV2_CHECKPOINT_SIZE="${CUPID_DINOV2_CHECKPOINT_SIZE:-1217607321}"
 
 mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
@@ -26,8 +28,12 @@ export HTTPS_PROXY="$https_proxy"
 export no_proxy="${CUPID_NO_PROXY:-localhost,127.0.0.1,codeload.github.com,dl.fbaipublicfiles.com}"
 export NO_PROXY="$no_proxy"
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
+export CUPID_DINOV2_REPO="facebookresearch/dinov2:$CUPID_DINOV2_COMMIT"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
+
+test -f "$TORCH_HOME/hub/facebookresearch_dinov2_$CUPID_DINOV2_COMMIT/hubconf.py"
+test "$(stat -c '%s' "$TORCH_HOME/hub/checkpoints/dinov2_vitl14_reg4_pretrain.pth")" = "$CUPID_DINOV2_CHECKPOINT_SIZE"
 
 cd "$CUPID_PROJECT_DIR"
 if git_commit="$(git rev-parse HEAD 2>/dev/null)"; then

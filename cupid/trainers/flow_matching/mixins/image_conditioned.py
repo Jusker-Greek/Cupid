@@ -10,7 +10,10 @@ from ....utils import dist_utils
 
 
 def _load_dinov2(image_cond_model: str):
-    repo = os.environ.get('CUPID_DINOV2_REPO', 'facebookresearch/dinov2:main')
+    repo = os.environ.get(
+        'CUPID_DINOV2_REPO',
+        'facebookresearch/dinov2:7764ea0f912e53c92e82eb78a2a1631e92725fc8',
+    )
     return torch.hub.load(
         repo,
         image_cond_model,
