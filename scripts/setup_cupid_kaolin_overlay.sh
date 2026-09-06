@@ -25,9 +25,18 @@ export http_proxy="${http_proxy:-http://hkuhpc.com:7999}"
 export https_proxy="${https_proxy:-http://hkuhpc.com:7999}"
 export no_proxy="${no_proxy:+$no_proxy,}nvidia-kaolin.s3.us-east-2.amazonaws.com"
 export NO_PROXY="${NO_PROXY:+$NO_PROXY,}nvidia-kaolin.s3.us-east-2.amazonaws.com"
-curl --fail --location --continue-at - --retry 4 --retry-all-errors \
-    --connect-timeout 15 --max-time 300 \
-    "$KAOLIN_WHEEL_URL" -o "$wheel_path"
+download_complete=0
+for attempt in 1 2 3 4 5 6; do
+    current_bytes="$(stat -c '%s' "$wheel_path" 2>/dev/null || printf '0')"
+    printf 'KAOLIN_DOWNLOAD_ATTEMPT=%s|RESUME_FROM=%s\n' "$attempt" "$current_bytes"
+    if curl --fail --location --continue-at - \
+        --connect-timeout 15 --max-time 240 \
+        "$KAOLIN_WHEEL_URL" -o "$wheel_path"; then
+        download_complete=1
+        break
+    fi
+done
+test "$download_complete" -eq 1
 
 actual_sha256="$(sha256sum "$wheel_path" | awk '{print $1}')"
 test "$actual_sha256" = "$KAOLIN_WHEEL_SHA256"
