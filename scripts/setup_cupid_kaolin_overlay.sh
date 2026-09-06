@@ -23,8 +23,9 @@ test ! -e "$partial_overlay"
 cp -al "$CUPID_SOURCE_OVERLAY" "$partial_overlay"
 export http_proxy="${http_proxy:-http://hkuhpc.com:7999}"
 export https_proxy="${https_proxy:-http://hkuhpc.com:7999}"
-export no_proxy="${no_proxy:+$no_proxy,}nvidia-kaolin.s3.us-east-2.amazonaws.com"
-export NO_PROXY="${NO_PROXY:+$NO_PROXY,}nvidia-kaolin.s3.us-east-2.amazonaws.com"
+direct_hosts="nvidia-kaolin.s3.us-east-2.amazonaws.com,pypi.org,files.pythonhosted.org"
+export no_proxy="${no_proxy:+$no_proxy,}$direct_hosts"
+export NO_PROXY="${NO_PROXY:+$NO_PROXY,}$direct_hosts"
 download_complete=0
 for attempt in 1 2 3 4 5 6; do
     current_bytes="$(stat -c '%s' "$wheel_path" 2>/dev/null || printf '0')"
