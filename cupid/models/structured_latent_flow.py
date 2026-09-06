@@ -441,6 +441,9 @@ class VisualLatentConditioningSLatFlowModel(LatentConditioningSLatFlowModel):
         visual_feat_resolution: int = 256, 
         visual_feat_channels: List[int] = [4, 4, 4, 4],
         visual_conv_kernel_size: int = 3,
+        pretrained_slat_enc: str = 'microsoft/TRELLIS-image-large/ckpts/slat_enc_swin8_B_64l8_fp16',
+        slat_enc_path: Optional[str] = None,
+        slat_enc_ckpt: Optional[str] = None,
     ):
         super().__init__(
             resolution,
@@ -463,6 +466,9 @@ class VisualLatentConditioningSLatFlowModel(LatentConditioningSLatFlowModel):
             share_mod,
             qk_rms_norm,
             qk_rms_norm_cross,
+            pretrained_slat_enc,
+            slat_enc_path,
+            slat_enc_ckpt,
         )
         self.visual_input_channels = visual_input_channels
         self.visual_feat_resolution = visual_feat_resolution
