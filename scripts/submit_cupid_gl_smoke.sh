@@ -47,6 +47,7 @@ import spconv
 import tensorboard
 import utils3d
 import xformers
+import xformers.ops as xops
 
 from cupid.representations.mesh.flexicubes.flexicubes import FlexiCubes
 from cupid.utils.tensor_checks import check_tensor
@@ -54,7 +55,8 @@ from cupid.utils.tensor_checks import check_tensor
 assert check_tensor.__module__ == "cupid.utils.tensor_checks"
 assert "kaolin" not in sys.modules
 assert "warp" not in sys.modules
-print("CUPID_IMPORT_GATE_PASS=LOCAL_TENSOR_CHECK_NO_KAOLIN_WARP")
+assert callable(xops.fmha.attn_bias.BlockDiagonalMask.from_seqlens)
+print("CUPID_IMPORT_GATE_PASS=LOCAL_TENSOR_CHECK_NO_KAOLIN_WARP_XFORMERS_ATTN_BIAS_API")
 PY
 
 "$CUPID_PYTHON" -u cupid_train.py \

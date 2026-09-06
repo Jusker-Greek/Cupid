@@ -205,7 +205,7 @@ def sparse_scaled_dot_product_attention(*args, attn_bias: Optional[torch.Tensor]
         q = q.unsqueeze(0)
         k = k.unsqueeze(0)
         v = v.unsqueeze(0)
-        mask = xops.fmha.BlockDiagonalMask.from_seqlens(q_seqlen, kv_seqlen)
+        mask = xops.fmha.attn_bias.BlockDiagonalMask.from_seqlens(q_seqlen, kv_seqlen)
         out = xops.memory_efficient_attention(q, k, v, mask)[0]
     elif backend == 'flash_attn':
         assert attn_bias is None, "Flash attention does not support attn bias"
