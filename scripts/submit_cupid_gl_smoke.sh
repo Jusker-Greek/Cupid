@@ -39,7 +39,7 @@ echo "HOST=$(hostname)"
 echo "COMMIT=$git_commit"
 echo "PYTHON=$CUPID_PYTHON"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
-"$CUPID_PYTHON" -c "import orjson, spconv, tensorboard, utils3d, xformers"
+"$CUPID_PYTHON" -c "import kaolin, orjson, spconv, tensorboard, utils3d, xformers"
 
 "$CUPID_PYTHON" -u cupid_train.py \
     --config configs/generation/slat_flow_img_dit_L_64l8p2_fp16-posecond-smoke.json \
