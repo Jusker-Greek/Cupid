@@ -17,6 +17,9 @@ CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312}"
 CUPID_DINOV2_COMMIT="${CUPID_DINOV2_COMMIT:-7764ea0f912e53c92e82eb78a2a1631e92725fc8}"
 CUPID_DINOV2_CHECKPOINT_SIZE="${CUPID_DINOV2_CHECKPOINT_SIZE:-1217607321}"
+CUPID_SLAT_ENCODER="/data/haobin/huggingface/hub/models--microsoft--TRELLIS-image-large/snapshots/25e0d31ffbebe4b5a97464dd851910efc3002d96/ckpts/slat_enc_swin8_B_64l8_fp16"
+CUPID_SLAT_ENCODER_CONFIG_SHA256="${CUPID_SLAT_ENCODER_CONFIG_SHA256:-7b7e2bd3e831bdd5a6129cea36424a47ad73c1b9ad109d1de54e0f14af4d28a2}"
+CUPID_SLAT_ENCODER_WEIGHTS_SHA256="${CUPID_SLAT_ENCODER_WEIGHTS_SHA256:-21dceac6bee917ab6458ff52c9757ba89a779d03031c7bd17f9e7f0103bfd436}"
 
 mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
@@ -34,6 +37,8 @@ export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
 
 test -f "$TORCH_HOME/hub/facebookresearch_dinov2_$CUPID_DINOV2_COMMIT/hubconf.py"
 test "$(stat -c '%s' "$TORCH_HOME/hub/checkpoints/dinov2_vitl14_reg4_pretrain.pth")" = "$CUPID_DINOV2_CHECKPOINT_SIZE"
+test "$(sha256sum "$CUPID_SLAT_ENCODER.json" | awk '{print $1}')" = "$CUPID_SLAT_ENCODER_CONFIG_SHA256"
+test "$(sha256sum "$CUPID_SLAT_ENCODER.safetensors" | awk '{print $1}')" = "$CUPID_SLAT_ENCODER_WEIGHTS_SHA256"
 
 cd "$CUPID_PROJECT_DIR"
 if git_commit="$(git rev-parse HEAD 2>/dev/null)"; then
