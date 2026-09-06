@@ -41,8 +41,39 @@ test "$download_complete" -eq 1
 
 actual_sha256="$(sha256sum "$wheel_path" | awk '{print $1}')"
 test "$actual_sha256" = "$KAOLIN_WHEEL_SHA256"
-PYTHONPATH="$partial_overlay" "$CUPID_PYTHON" -m pip install \
-    --target "$partial_overlay" "$wheel_path"
+printf 'KAOLIN_WHEEL_SHA256=%s\n' "$actual_sha256"
+"$CUPID_PYTHON" -m pip install \
+    --target "$partial_overlay" --no-deps --no-index "$wheel_path"
+
+missing_specs=()
+require_package() {
+    local module="$1"
+    local spec="$2"
+    if PYTHONPATH="$partial_overlay" "$CUPID_PYTHON" -c "import $module" \
+        >/dev/null 2>&1; then
+        printf 'DEPENDENCY_PRESENT=%s\n' "$module"
+    else
+        missing_specs+=("$spec")
+    fi
+}
+
+require_package packaging 'packaging==26.3'
+require_package typing_extensions 'typing-extensions==4.16.0'
+require_package mypy_extensions 'mypy-extensions==1.1.0'
+require_package wrapt 'wrapt==2.4.0'
+require_package marshmallow 'marshmallow==3.26.2'
+require_package typing_inspect 'typing-inspect==0.9.0'
+require_package dataclasses_json 'dataclasses-json==0.6.7'
+require_package deprecated 'Deprecated==1.3.1'
+require_package pygltflib 'pygltflib==1.16.5'
+require_package pxr 'usd-core==26.8'
+require_package warp 'warp-lang==1.17.0'
+
+if ((${#missing_specs[@]})); then
+    printf 'DEPENDENCY_INSTALL=%s\n' "${missing_specs[*]}"
+    "$CUPID_PYTHON" -m pip install \
+        --target "$partial_overlay" --no-deps "${missing_specs[@]}"
+fi
 
 PYTHONPATH="$partial_overlay" "$CUPID_PYTHON" -c \
     'import kaolin, torch; from kaolin.utils.testing import check_tensor; print(f"KAOLIN_IMPORT_OK={kaolin.__version__}|TORCH={torch.__version__}|CUDA={torch.version.cuda}|CHECK_TENSOR={check_tensor.__module__}.{check_tensor.__name__}")'
