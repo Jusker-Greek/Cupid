@@ -25,6 +25,7 @@ export no_proxy="${no_proxy:+$no_proxy,}github.com,raw.githubusercontent.com,cod
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
+CUPID_MASTER_PORT="$((10000 + SLURM_JOB_ID % 50000))"
 
 cd "$CUPID_PROJECT_DIR"
 git_commit="$(git rev-parse HEAD)"
@@ -59,5 +60,7 @@ PY
     --ckpt none \
     --auto_retry 0 \
     --num_gpus 2 \
+    --master_addr 127.0.0.1 \
+    --master_port "$CUPID_MASTER_PORT" \
     --smoke_steps 1 \
     --smoke_max_attempts 16
