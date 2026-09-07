@@ -58,5 +58,6 @@ PY
     --auto_retry 0 \
     --num_gpus "$CUPID_NUM_GPUS" \
     --master_port "$CUPID_MASTER_PORT" \
+    --smoke_full_entry \
     --smoke_steps 1 \
     --smoke_max_attempts 16

@@ -216,7 +216,7 @@ def _validate_ddp_smoke_setup(trainer):
     dist.barrier()
 
 
-def run_smoke(trainer, smoke_steps, smoke_max_attempts):
+def run_smoke(trainer, smoke_steps, smoke_max_attempts, smoke_full_entry=False):
     if trainer.is_master:
         print(
             "\nStarting bounded smoke test for "
@@ -225,6 +225,28 @@ def run_smoke(trainer, smoke_steps, smoke_max_attempts):
         )
 
     _validate_ddp_smoke_setup(trainer)
+
+    entry_artifacts = []
+    if smoke_full_entry:
+        if trainer.is_master:
+            trainer.snapshot_dataset()
+        if dist.is_initialized():
+            dist.barrier()
+        trainer.snapshot(suffix="init")
+        if trainer.is_master:
+            samples_dir = os.path.join(trainer.output_dir, "samples")
+            entry_artifacts = sorted(
+                path
+                for path in glob.glob(os.path.join(samples_dir, "**", "*"), recursive=True)
+                if os.path.isfile(path)
+            )
+            if not entry_artifacts:
+                raise RuntimeError("Full-entry smoke produced no dataset or init snapshot artifacts")
+            print(
+                "SMOKE_FULL_ENTRY="
+                + json.dumps({"status": "PASS", "artifacts": entry_artifacts}, sort_keys=True),
+                flush=True,
+            )
 
     attempt_logs = []
     optimizer_updates = 0
@@ -301,6 +323,7 @@ def run_smoke(trainer, smoke_steps, smoke_max_attempts):
             "final_log_scale": getattr(trainer, "log_scale", None),
             "logs": _jsonable(attempt_logs),
             "checkpoints": checkpoint_paths,
+            "full_entry_artifacts": entry_artifacts,
             "observability_contract": observability_contract,
             "cuda_max_memory_gib": torch.cuda.max_memory_allocated() / 1024**3,
         }
@@ -344,7 +367,12 @@ def main(local_rank, cfg):
     if cfg.profile:
         trainer.profile()
     elif cfg.smoke_steps > 0:
-        run_smoke(trainer, cfg.smoke_steps, cfg.smoke_max_attempts)
+        run_smoke(
+            trainer,
+            cfg.smoke_steps,
+            cfg.smoke_max_attempts,
+            smoke_full_entry=cfg.smoke_full_entry,
+        )
     else:
         trainer.run()
 
@@ -360,6 +388,11 @@ def parse_args():
     parser.add_argument("--tryrun", action="store_true", help="Initialize without training")
     parser.add_argument("--profile", action="store_true", help="Profile training")
     parser.add_argument("--smoke_steps", type=int, default=0, help="Run bounded steps without snapshots")
+    parser.add_argument(
+        "--smoke_full_entry",
+        action="store_true",
+        help="Exercise the dataset and init snapshots before bounded smoke updates",
+    )
     parser.add_argument(
         "--smoke_max_attempts",
         type=int,
@@ -378,6 +411,8 @@ if __name__ == "__main__":
     opt = parse_args()
     if opt.smoke_steps < 0:
         raise ValueError("--smoke_steps must be non-negative")
+    if opt.smoke_full_entry and opt.smoke_steps == 0:
+        raise ValueError("--smoke_full_entry requires --smoke_steps")
     if opt.smoke_max_attempts < 0:
         raise ValueError("--smoke_max_attempts must be non-negative")
     if opt.smoke_steps > 0:
