@@ -15,6 +15,11 @@ CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:?CUPID_NVDIFFRAST_OVERLAY i
 CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
 NVDIFFRAST_COMMIT="${NVDIFFRAST_COMMIT:-253ac4fcea7de5f396371124af597e6cc957bfae}"
+NVDIFFRAST_ARCHIVE_SHA256="${NVDIFFRAST_ARCHIVE_SHA256:-b79ea0237cad81db8e1fc15839eb50b47ec2bfc8ae6cdcd21ef77a05ea778042}"
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+project_dir="$(dirname "$script_dir")"
+source_archive="$project_dir/third_party/nvdiffrast-${NVDIFFRAST_COMMIT}.tar.gz"
 
 test ! -e "$CUPID_NVDIFFRAST_OVERLAY"
 mkdir -p "$(dirname "$CUPID_NVDIFFRAST_OVERLAY")"
@@ -22,13 +27,13 @@ mkdir -p "$(dirname "$CUPID_NVDIFFRAST_OVERLAY")"
 build_root="$(mktemp -d "${SLURM_TMPDIR:-/tmp}/cupid_nvdiffrast.XXXXXX")"
 trap 'rm -rf "$build_root"' EXIT
 
-export http_proxy="${http_proxy:-http://hkuhpc.com:7999}"
-export https_proxy="${https_proxy:-http://hkuhpc.com:7999}"
 export CUDA_HOME="${CUDA_HOME:-/usr/local/cuda}"
 
-git clone https://github.com/NVlabs/nvdiffrast.git "$build_root/nvdiffrast"
-git -C "$build_root/nvdiffrast" checkout --detach "$NVDIFFRAST_COMMIT"
-test "$(git -C "$build_root/nvdiffrast" rev-parse HEAD)" = "$NVDIFFRAST_COMMIT"
+test -f "$source_archive"
+test "$(sha256sum "$source_archive" | awk '{print $1}')" = "$NVDIFFRAST_ARCHIVE_SHA256"
+tar -xzf "$source_archive" -C "$build_root"
+source_dir="$build_root/nvdiffrast-253ac4f"
+test -f "$source_dir/LICENSE.txt"
 
 mkdir "$CUPID_NVDIFFRAST_OVERLAY"
 "$CUPID_PYTHON" -m pip install \
@@ -36,10 +41,10 @@ mkdir "$CUPID_NVDIFFRAST_OVERLAY"
     --no-deps \
     --no-cache-dir \
     --no-build-isolation \
-    "$build_root/nvdiffrast"
+    "$source_dir"
 
 export PYTHONPATH="$CUPID_NVDIFFRAST_OVERLAY:$CUPID_BASE_PYTHON_OVERLAY:${PYTHONPATH:-}"
-export CUPID_NVDIFFRAST_OVERLAY NVDIFFRAST_COMMIT
+export CUPID_NVDIFFRAST_OVERLAY NVDIFFRAST_COMMIT NVDIFFRAST_ARCHIVE_SHA256
 "$CUPID_PYTHON" - <<'PY'
 import json
 import os
@@ -65,6 +70,7 @@ receipt = {
     "status": "PASS",
     "source": "https://github.com/NVlabs/nvdiffrast.git",
     "commit": os.environ["NVDIFFRAST_COMMIT"],
+    "archive_sha256": os.environ["NVDIFFRAST_ARCHIVE_SHA256"],
     "overlay": os.environ["CUPID_NVDIFFRAST_OVERLAY"],
     "torch": torch.__version__,
     "torch_cuda": torch.version.cuda,
