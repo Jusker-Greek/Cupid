@@ -14,14 +14,16 @@ set -euo pipefail
 echo "NVDIFFRAST_BUILD_STAGE=START host=$(hostname) job=${SLURM_JOB_ID:-NONE}"
 
 CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:?CUPID_NVDIFFRAST_OVERLAY is required}"
+CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:?CUPID_PROJECT_DIR is required}"
+CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is required}"
 CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
 NVDIFFRAST_COMMIT="${NVDIFFRAST_COMMIT:-253ac4fcea7de5f396371124af597e6cc957bfae}"
 NVDIFFRAST_ARCHIVE_SHA256="${NVDIFFRAST_ARCHIVE_SHA256:-b79ea0237cad81db8e1fc15839eb50b47ec2bfc8ae6cdcd21ef77a05ea778042}"
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-project_dir="$(dirname "$script_dir")"
-source_archive="$project_dir/third_party/nvdiffrast-${NVDIFFRAST_COMMIT}.tar.gz"
+test "$(git -C "$CUPID_PROJECT_DIR" rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
+test -z "$(git -C "$CUPID_PROJECT_DIR" status --porcelain --untracked-files=all)"
+source_archive="$CUPID_PROJECT_DIR/third_party/nvdiffrast-${NVDIFFRAST_COMMIT}.tar.gz"
 echo "NVDIFFRAST_BUILD_STAGE=PATHS overlay=$CUPID_NVDIFFRAST_OVERLAY archive=$source_archive"
 
 test ! -e "$CUPID_NVDIFFRAST_OVERLAY"
