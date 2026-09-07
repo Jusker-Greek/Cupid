@@ -56,11 +56,30 @@ def main():
 
     checkpoint_records = []
     for checkpoint in checkpoints:
+        if checkpoint.suffix:
+            required_files = [checkpoint]
+            kind = "file"
+        else:
+            # models.from_pretrained() resolves a local model prefix to this pair.
+            required_files = [
+                Path(f"{checkpoint}.json"),
+                Path(f"{checkpoint}.safetensors"),
+            ]
+            kind = "model_prefix"
+        files = [
+            {
+                "path": str(path),
+                "exists": path.is_file(),
+                "size": path.stat().st_size if path.is_file() else None,
+            }
+            for path in required_files
+        ]
         checkpoint_records.append(
             {
                 "path": str(checkpoint),
-                "exists": checkpoint.exists(),
-                "size": checkpoint.stat().st_size if checkpoint.is_file() else None,
+                "kind": kind,
+                "exists": all(item["exists"] for item in files),
+                "files": files,
             }
         )
 
