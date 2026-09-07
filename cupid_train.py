@@ -90,6 +90,87 @@ def _gather_rank_records(record):
     return records
 
 
+def _numeric_leaves(value, path=""):
+    if isinstance(value, dict):
+        for key, child in value.items():
+            child_path = f"{path}/{key}" if path else str(key)
+            yield from _numeric_leaves(child, child_path)
+    elif isinstance(value, torch.Tensor) and value.numel() == 1:
+        yield path, value.item()
+    elif isinstance(value, (bool, int, float, np.number)):
+        yield path, value
+
+
+def _write_smoke_observability(trainer, attempt_logs, checkpoint_paths):
+    if not trainer.is_master:
+        return None
+
+    scalar_tags = set()
+    for attempt_log in attempt_logs:
+        step = attempt_log["trainer_step"]
+        for tag, value in _numeric_leaves(attempt_log["step_log"]):
+            if not math.isfinite(float(value)):
+                raise RuntimeError(f"Non-finite TensorBoard scalar at {tag}: {value}")
+            full_tag = f"smoke/{tag}"
+            trainer.writer.add_scalar(full_tag, value, step)
+            scalar_tags.add(full_tag)
+        trainer.writer.add_scalar(
+            "train/loss_total", attempt_log["step_log"]["loss"]["loss"], step
+        )
+        trainer.writer.add_scalar(
+            "smoke/optimizer_step_applied", int(attempt_log["optimizer_step_applied"]), step
+        )
+        trainer.writer.add_scalar("smoke/optimizer_updates", attempt_log["optimizer_updates"], step)
+        if attempt_log["log_scale_after"] is not None:
+            trainer.writer.add_scalar("smoke/log_scale", attempt_log["log_scale_after"], step)
+
+    final_step = attempt_logs[-1]["trainer_step"]
+    trainer.writer.add_scalar("smoke/checkpoint_written", 1, final_step)
+    trainer.writer.add_text(
+        "contract/validation_loss",
+        "NOT_APPLICABLE: the published CUPID G_L training config defines no validation dataset or evaluation hook.",
+        final_step,
+    )
+    trainer.writer.add_text(
+        "contract/pose_metrics",
+        "NOT_APPLICABLE: this G_L denoiser predicts structured latents; camera transforms are conditioning inputs, not supervised pose outputs.",
+        final_step,
+    )
+    trainer.writer.flush()
+    trainer.writer.close()
+
+    contract = {
+        "schema": "cupid_smoke_observability/v1",
+        "status": "PASS",
+        "final_step": final_step,
+        "required_scalar_tags": sorted(
+            scalar_tags
+            | {
+                "train/loss_total",
+                "smoke/optimizer_step_applied",
+                "smoke/optimizer_updates",
+                "smoke/log_scale",
+                "smoke/checkpoint_written",
+            }
+        ),
+        "not_applicable": {
+            "validation_loss": "Published CUPID G_L config has no validation dataset or evaluation hook.",
+            "test_loss": "Published CUPID G_L config has no test dataset or evaluation hook.",
+            "pose_rotation_error": "Camera transforms are conditioning inputs, not predicted pose targets.",
+            "pose_direction_error": "Camera transforms are conditioning inputs, not predicted pose targets.",
+            "pose_translation_scale": "Camera transforms are conditioning inputs, not predicted pose targets.",
+            "pose_translation_norm": "Camera transforms are conditioning inputs, not predicted pose targets.",
+        },
+        "checkpoints": checkpoint_paths,
+        "evidence_eligibility": "DEBUG_ONLY / NO_SCIENCE",
+    }
+    contract_path = os.path.join(trainer.output_dir, "smoke_observability.json")
+    with open(contract_path, "w") as fp:
+        json.dump(contract, fp, indent=2, sort_keys=True)
+        fp.write("\n")
+    return contract_path
+
+
 def _validate_ddp_smoke_setup(trainer):
     if not dist.is_initialized():
         return None
@@ -208,6 +289,9 @@ def run_smoke(trainer, smoke_steps, smoke_max_attempts):
         missing = [path for path in checkpoint_paths if not os.path.isfile(path)]
         if missing:
             raise RuntimeError(f"Smoke checkpoint files are missing: {missing}")
+        observability_contract = _write_smoke_observability(
+            trainer, attempt_logs, checkpoint_paths
+        )
         result = {
             "status": "PASS",
             "required_optimizer_updates": smoke_steps,
@@ -217,6 +301,7 @@ def run_smoke(trainer, smoke_steps, smoke_max_attempts):
             "final_log_scale": getattr(trainer, "log_scale", None),
             "logs": _jsonable(attempt_logs),
             "checkpoints": checkpoint_paths,
+            "observability_contract": observability_contract,
             "cuda_max_memory_gib": torch.cuda.max_memory_allocated() / 1024**3,
         }
         print("SMOKE_RESULT=" + json.dumps(result, sort_keys=True), flush=True)
