@@ -15,7 +15,7 @@ CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:?CUPID_PROJECT_DIR is required}"
 CUPID_OUTPUT_DIR="${CUPID_OUTPUT_DIR:?CUPID_OUTPUT_DIR is required}"
 CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is required}"
 CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
-CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312}"
+CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
 
 mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
@@ -31,9 +31,19 @@ test -z "$(git status --porcelain)"
 
 echo "HOST=$(hostname)"
 echo "COMMIT=$actual_commit"
+echo "PYTHON_OVERLAY=$CUPID_PYTHON_OVERLAY"
 echo "RUN_CLASS=SMOKE_DEBUG"
 echo "EVIDENCE_ELIGIBILITY=DEBUG_ONLY/NO_SCIENCE"
 nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader
+
+"$CUPID_PYTHON" - <<'PY'
+import spconv
+import tensorboard
+import utils3d
+import xformers
+
+print("CUPID_FULLCFG_IMPORT_GATE=PASS")
+PY
 
 "$CUPID_PYTHON" -u cupid_train.py \
     --config configs/generation/slat_flow_img_dit_L_64l8p2_fp16-posecond-cluster.json \
