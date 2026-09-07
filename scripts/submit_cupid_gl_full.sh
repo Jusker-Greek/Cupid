@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+#SBATCH --job-name=cupid_gl_full
+#SBATCH --partition=gpu
+#SBATCH --ntasks-per-node=1
+#SBATCH --output=/public/home/ricky/RESULTS/cupid_gl_full_%j.out
+
+set -euo pipefail
+
+CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:?CUPID_PROJECT_DIR is required}"
+CUPID_OUTPUT_DIR="${CUPID_OUTPUT_DIR:?CUPID_OUTPUT_DIR is required}"
+CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is required}"
+CUPID_GPUS_PER_NODE="${CUPID_GPUS_PER_NODE:?CUPID_GPUS_PER_NODE is required}"
+CUPID_EXPECTED_WORLD_SIZE="${CUPID_EXPECTED_WORLD_SIZE:?CUPID_EXPECTED_WORLD_SIZE is required}"
+CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
+CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
+CUPID_DATA_DIR="${CUPID_DATA_DIR:-/data/group_gao/trellis/HSSD}"
+CUPID_CONFIG="${CUPID_CONFIG:-configs/generation/slat_flow_img_dit_L_64l8p2_fp16-posecond-cluster.json}"
+CUPID_LOAD_DIR="${CUPID_LOAD_DIR:-$CUPID_OUTPUT_DIR}"
+CUPID_CKPT="${CUPID_CKPT:-latest}"
+CUPID_MASTER_PORT="${CUPID_MASTER_PORT:-29517}"
+
+test "$CUPID_GPUS_PER_NODE" -ge 1
+test "$CUPID_EXPECTED_WORLD_SIZE" -eq "$((SLURM_NNODES * CUPID_GPUS_PER_NODE))"
+test ! -e "$CUPID_OUTPUT_DIR"
+
+cd "$CUPID_PROJECT_DIR"
+actual_commit="$(git rev-parse HEAD)"
+test "$actual_commit" = "$CUPID_EXPECTED_COMMIT"
+test -z "$(git status --porcelain --untracked-files=all)"
+
+mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
+ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
+export LD_LIBRARY_PATH="/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
+export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
+export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
+export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
+
+master_addr="$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)"
+export CUPID_PROJECT_DIR CUPID_OUTPUT_DIR CUPID_EXPECTED_COMMIT
+export CUPID_GPUS_PER_NODE CUPID_EXPECTED_WORLD_SIZE CUPID_PYTHON
+export CUPID_DATA_DIR CUPID_CONFIG CUPID_LOAD_DIR CUPID_CKPT CUPID_MASTER_PORT
+export master_addr
+
+echo "HOSTS=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | paste -sd, -)"
+echo "COMMIT=$actual_commit"
+echo "RUN_CLASS=FULL_SCIENTIFIC"
+echo "EVIDENCE_ELIGIBILITY=PENDING_S09_REVIEW"
+echo "NUM_NODES=$SLURM_NNODES"
+echo "GPUS_PER_NODE=$CUPID_GPUS_PER_NODE"
+echo "WORLD_SIZE=$CUPID_EXPECTED_WORLD_SIZE"
+echo "OUTPUT_DIR=$CUPID_OUTPUT_DIR"
+echo "LOAD_DIR=$CUPID_LOAD_DIR"
+
+"$CUPID_PYTHON" - <<'PY'
+import json
+import os
+from pathlib import Path
+
+project_dir = Path(os.environ["CUPID_PROJECT_DIR"])
+output_dir = Path(os.environ["CUPID_OUTPUT_DIR"])
+with (project_dir / os.environ["CUPID_CONFIG"]).open() as config_file:
+    config = json.load(config_file)
+trainer = config["trainer"]["args"]
+receipt = {
+    "schema": "cupid_full_launch/v1",
+    "status": "SUBMITTED",
+    "run_class": "FULL_SCIENTIFIC",
+    "evidence_eligibility": "PENDING_S09_REVIEW",
+    "commit": os.environ["CUPID_EXPECTED_COMMIT"],
+    "config": os.environ["CUPID_CONFIG"],
+    "data_dir": os.environ["CUPID_DATA_DIR"],
+    "output_dir": str(output_dir),
+    "load_dir": os.environ["CUPID_LOAD_DIR"],
+    "ckpt": os.environ["CUPID_CKPT"],
+    "num_nodes": int(os.environ["SLURM_NNODES"]),
+    "gpus_per_node": int(os.environ["CUPID_GPUS_PER_NODE"]),
+    "world_size": int(os.environ["CUPID_EXPECTED_WORLD_SIZE"]),
+    "max_steps": trainer["max_steps"],
+    "batch_size_per_gpu": trainer["batch_size_per_gpu"],
+    "global_batch_size": trainer["batch_size_per_gpu"]
+    * int(os.environ["CUPID_EXPECTED_WORLD_SIZE"]),
+    "batch_split": trainer["batch_split"],
+    "optimizer": trainer["optimizer"],
+    "lr_scheduler": trainer["lr_scheduler"],
+    "ema_rate": trainer["ema_rate"],
+    "fp16_mode": trainer["fp16_mode"],
+    "log_interval": trainer["i_log"],
+    "sample_interval": trainer["i_sample"],
+    "checkpoint_interval": trainer["i_save"],
+    "wandb_run": None,
+    "tensorboard_dir": str(output_dir / "tb_logs"),
+}
+(output_dir / "full_launch_receipt.json").write_text(
+    json.dumps(receipt, indent=2, sort_keys=True) + "\n"
+)
+print("CUPID_FULL_LAUNCH=" + json.dumps(receipt, sort_keys=True), flush=True)
+PY
+
+srun --nodes="$SLURM_NNODES" --ntasks="$SLURM_NNODES" --ntasks-per-node=1 \
+    bash -c '
+        set -euo pipefail
+        node_rank="$SLURM_NODEID"
+        "$CUPID_PYTHON" -u "$CUPID_PROJECT_DIR/cupid_train.py" \
+            --config "$CUPID_CONFIG" \
+            --data_dir "$CUPID_DATA_DIR" \
+            --output_dir "$CUPID_OUTPUT_DIR" \
+            --load_dir "$CUPID_LOAD_DIR" \
+            --ckpt "$CUPID_CKPT" \
+            --auto_retry 0 \
+            --num_nodes "$SLURM_NNODES" \
+            --node_rank "$node_rank" \
+            --num_gpus "$CUPID_GPUS_PER_NODE" \
+            --master_addr "$master_addr" \
+            --master_port "$CUPID_MASTER_PORT"
+    '
+
+echo "FULL_TERMINAL=COMPLETED"
