@@ -30,7 +30,9 @@ test "$CUPID_NUM_GPUS" -ge 1
 
 mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
-export LD_LIBRARY_PATH="/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
+python_root="$(dirname "$(dirname "$CUPID_PYTHON")")"
+test -f "$python_root/lib/libpython3.12.so.1.0"
+export LD_LIBRARY_PATH="$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"

@@ -37,9 +37,11 @@ echo "NVDIFFRAST_BUILD_STAGE=TEMP_READY path=$build_root"
 export CUDA_HOME="${CUDA_HOME:-/usr/local/cuda}"
 mkdir -p /tmp/ricky_lib
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
-export LD_LIBRARY_PATH="/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
+python_root="$(dirname "$(dirname "$CUPID_PYTHON")")"
+test -f "$python_root/lib/libpython3.12.so.1.0"
+export LD_LIBRARY_PATH="$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export PYTHONPATH="$CUPID_BASE_PYTHON_OVERLAY:${PYTHONPATH:-}"
-echo "NVDIFFRAST_BUILD_STAGE=PYTHON_READY path=$CUPID_PYTHON"
+echo "NVDIFFRAST_BUILD_STAGE=PYTHON_READY path=$CUPID_PYTHON lib=$python_root/lib"
 
 test -f "$source_archive"
 test "$(sha256sum "$source_archive" | awk '{print $1}')" = "$NVDIFFRAST_ARCHIVE_SHA256"
