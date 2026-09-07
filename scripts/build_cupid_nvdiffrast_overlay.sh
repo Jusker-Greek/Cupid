@@ -11,6 +11,8 @@
 
 set -euo pipefail
 
+echo "NVDIFFRAST_BUILD_STAGE=START host=$(hostname) job=${SLURM_JOB_ID:-NONE}"
+
 CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:?CUPID_NVDIFFRAST_OVERLAY is required}"
 CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
@@ -20,31 +22,39 @@ NVDIFFRAST_ARCHIVE_SHA256="${NVDIFFRAST_ARCHIVE_SHA256:-b79ea0237cad81db8e1fc158
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 project_dir="$(dirname "$script_dir")"
 source_archive="$project_dir/third_party/nvdiffrast-${NVDIFFRAST_COMMIT}.tar.gz"
+echo "NVDIFFRAST_BUILD_STAGE=PATHS overlay=$CUPID_NVDIFFRAST_OVERLAY archive=$source_archive"
 
 test ! -e "$CUPID_NVDIFFRAST_OVERLAY"
 mkdir -p "$(dirname "$CUPID_NVDIFFRAST_OVERLAY")"
+echo "NVDIFFRAST_BUILD_STAGE=TARGET_READY"
 
-build_root="$(mktemp -d "${SLURM_TMPDIR:-/tmp}/cupid_nvdiffrast.XXXXXX")"
+build_root="$(mktemp -d /tmp/cupid_nvdiffrast.XXXXXX)"
 trap 'rm -rf "$build_root"' EXIT
+echo "NVDIFFRAST_BUILD_STAGE=TEMP_READY path=$build_root"
 
 export CUDA_HOME="${CUDA_HOME:-/usr/local/cuda}"
 
 test -f "$source_archive"
 test "$(sha256sum "$source_archive" | awk '{print $1}')" = "$NVDIFFRAST_ARCHIVE_SHA256"
+echo "NVDIFFRAST_BUILD_STAGE=ARCHIVE_VERIFIED sha256=$NVDIFFRAST_ARCHIVE_SHA256"
 tar -xzf "$source_archive" -C "$build_root"
 source_dir="$build_root/nvdiffrast-253ac4f"
 test -f "$source_dir/LICENSE.txt"
+echo "NVDIFFRAST_BUILD_STAGE=SOURCE_EXTRACTED path=$source_dir"
 
 mkdir "$CUPID_NVDIFFRAST_OVERLAY"
+echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_START"
 "$CUPID_PYTHON" -m pip install \
     --target "$CUPID_NVDIFFRAST_OVERLAY" \
     --no-deps \
     --no-cache-dir \
     --no-build-isolation \
     "$source_dir"
+echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_DONE"
 
 export PYTHONPATH="$CUPID_NVDIFFRAST_OVERLAY:$CUPID_BASE_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export CUPID_NVDIFFRAST_OVERLAY NVDIFFRAST_COMMIT NVDIFFRAST_ARCHIVE_SHA256
+echo "NVDIFFRAST_BUILD_STAGE=CUDA_PROBE_START"
 "$CUPID_PYTHON" - <<'PY'
 import json
 import os
