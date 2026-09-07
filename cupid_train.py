@@ -106,14 +106,16 @@ def _write_smoke_observability(trainer, attempt_logs, checkpoint_paths):
         return None
 
     scalar_tags = set()
-    for attempt_log in attempt_logs:
+    for attempt_index, attempt_log in enumerate(attempt_logs):
         step = attempt_log["trainer_step"]
+        wandb_metrics = {}
         for tag, value in _numeric_leaves(attempt_log["step_log"]):
             if not math.isfinite(float(value)):
                 raise RuntimeError(f"Non-finite TensorBoard scalar at {tag}: {value}")
             full_tag = f"smoke/{tag}"
             trainer.writer.add_scalar(full_tag, value, step)
             scalar_tags.add(full_tag)
+            wandb_metrics[full_tag] = value
         trainer.writer.add_scalar(
             "train/loss_total", attempt_log["step_log"]["loss"]["loss"], step
         )
@@ -123,6 +125,21 @@ def _write_smoke_observability(trainer, attempt_logs, checkpoint_paths):
         trainer.writer.add_scalar("smoke/optimizer_updates", attempt_log["optimizer_updates"], step)
         if attempt_log["log_scale_after"] is not None:
             trainer.writer.add_scalar("smoke/log_scale", attempt_log["log_scale_after"], step)
+        if trainer.wandb_run is not None:
+            wandb_metrics.update(
+                {
+                    "train/loss_total": attempt_log["step_log"]["loss"]["loss"],
+                    "train/learning_rate": trainer.optimizer.param_groups[0]["lr"],
+                    "train/global_step": step,
+                    "smoke/optimizer_step_applied": int(attempt_log["optimizer_step_applied"]),
+                    "smoke/optimizer_updates": attempt_log["optimizer_updates"],
+                }
+            )
+            if attempt_log["log_scale_after"] is not None:
+                wandb_metrics["smoke/log_scale"] = attempt_log["log_scale_after"]
+            if attempt_index == len(attempt_logs) - 1:
+                wandb_metrics["smoke/checkpoint_written"] = 1
+            trainer.wandb_run.log(wandb_metrics, step=step)
 
     final_step = attempt_logs[-1]["trainer_step"]
     trainer.writer.add_scalar("smoke/checkpoint_written", 1, final_step)
@@ -138,7 +155,6 @@ def _write_smoke_observability(trainer, attempt_logs, checkpoint_paths):
     )
     trainer.writer.flush()
     trainer.writer.close()
-
     contract = {
         "schema": "cupid_smoke_observability/v1",
         "status": "PASS",
@@ -162,6 +178,17 @@ def _write_smoke_observability(trainer, attempt_logs, checkpoint_paths):
             "pose_translation_norm": "Camera transforms are conditioning inputs, not predicted pose targets.",
         },
         "checkpoints": checkpoint_paths,
+        "wandb_run": (
+            {
+                "id": trainer.wandb_run.id,
+                "name": trainer.wandb_run.name,
+                "project": trainer.wandb_run.project,
+                "entity": trainer.wandb_run.entity,
+                "url": trainer.wandb_run.url,
+            }
+            if trainer.wandb_run is not None
+            else None
+        ),
         "evidence_eligibility": "DEBUG_ONLY / NO_SCIENCE",
     }
     contract_path = os.path.join(trainer.output_dir, "smoke_observability.json")
@@ -353,28 +380,65 @@ def main(local_rank, cfg):
             with open(os.path.join(cfg.output_dir, f"{name}_model_summary.txt"), "w") as fp:
                 fp.write(model_summary)
 
-    trainer = getattr(trainers, cfg.trainer.name)(
-        model_dict,
-        dataset,
-        **cfg.trainer.args,
-        output_dir=cfg.output_dir,
-        load_dir=cfg.load_dir,
-        step=cfg.load_ckpt,
-    )
+    wandb_run = None
+    if rank == 0 and cfg.wandb_project:
+        import wandb
 
-    if cfg.tryrun:
-        return
-    if cfg.profile:
-        trainer.profile()
-    elif cfg.smoke_steps > 0:
-        run_smoke(
-            trainer,
-            cfg.smoke_steps,
-            cfg.smoke_max_attempts,
-            smoke_full_entry=cfg.smoke_full_entry,
+        wandb_dir = os.path.join(cfg.output_dir, "wandb")
+        os.makedirs(wandb_dir, exist_ok=True)
+        wandb_run = wandb.init(
+            project=cfg.wandb_project,
+            entity=cfg.wandb_entity or None,
+            name=cfg.wandb_name or None,
+            id=cfg.wandb_id or None,
+            group=cfg.wandb_group or None,
+            resume="never",
+            dir=wandb_dir,
+            config=_jsonable(cfg),
         )
-    else:
-        trainer.run()
+        if wandb_run is None or not wandb_run.url:
+            raise RuntimeError("W&B online initialization did not return a server run URL")
+        wandb_receipt = {
+            "schema": "cupid_wandb_run/v1",
+            "id": wandb_run.id,
+            "name": wandb_run.name,
+            "project": wandb_run.project,
+            "entity": wandb_run.entity,
+            "url": wandb_run.url,
+            "mode": os.environ.get("WANDB_MODE", "online"),
+        }
+        with open(os.path.join(cfg.output_dir, "wandb_run.json"), "w") as fp:
+            json.dump(wandb_receipt, fp, indent=2, sort_keys=True)
+            fp.write("\n")
+        print("WANDB_RUN=" + json.dumps(wandb_receipt, sort_keys=True), flush=True)
+
+    try:
+        trainer = getattr(trainers, cfg.trainer.name)(
+            model_dict,
+            dataset,
+            **cfg.trainer.args,
+            output_dir=cfg.output_dir,
+            load_dir=cfg.load_dir,
+            step=cfg.load_ckpt,
+            wandb_run=wandb_run,
+        )
+
+        if cfg.tryrun:
+            return
+        if cfg.profile:
+            trainer.profile()
+        elif cfg.smoke_steps > 0:
+            run_smoke(
+                trainer,
+                cfg.smoke_steps,
+                cfg.smoke_max_attempts,
+                smoke_full_entry=cfg.smoke_full_entry,
+            )
+        else:
+            trainer.run()
+    finally:
+        if wandb_run is not None:
+            wandb_run.finish()
 
 
 def parse_args():
@@ -404,6 +468,11 @@ def parse_args():
     parser.add_argument("--num_gpus", type=int, default=-1)
     parser.add_argument("--master_addr", default="localhost")
     parser.add_argument("--master_port", default="12345")
+    parser.add_argument("--wandb_project", default="", help="Enable online W&B logging")
+    parser.add_argument("--wandb_entity", default="")
+    parser.add_argument("--wandb_name", default="")
+    parser.add_argument("--wandb_id", default="")
+    parser.add_argument("--wandb_group", default="")
     return parser.parse_args()
 
 

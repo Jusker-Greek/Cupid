@@ -18,6 +18,11 @@ CUPID_CONFIG="${CUPID_CONFIG:-configs/generation/slat_flow_img_dit_L_64l8p2_fp16
 CUPID_LOAD_DIR="${CUPID_LOAD_DIR:-$CUPID_OUTPUT_DIR}"
 CUPID_CKPT="${CUPID_CKPT:-latest}"
 CUPID_MASTER_PORT="${CUPID_MASTER_PORT:-29517}"
+CUPID_WANDB_PROJECT="${CUPID_WANDB_PROJECT:-cupid-reproduction}"
+CUPID_WANDB_ENTITY="${CUPID_WANDB_ENTITY:-}"
+CUPID_WANDB_NAME="${CUPID_WANDB_NAME:-cupid-gl-hssd-8xh200-1m-${SLURM_JOB_ID}}"
+CUPID_WANDB_ID="${CUPID_WANDB_ID:-cupid-gl-full-${SLURM_JOB_ID}}"
+CUPID_WANDB_GROUP="${CUPID_WANDB_GROUP:-CUPID_REPRO_GL_SMOKE_V1}"
 
 test "$CUPID_GPUS_PER_NODE" -ge 1
 test "$CUPID_EXPECTED_WORLD_SIZE" -eq "$((SLURM_NNODES * CUPID_GPUS_PER_NODE))"
@@ -34,11 +39,14 @@ export LD_LIBRARY_PATH="/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PA
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
+export WANDB_MODE=online
+export WANDB_DIR="$CUPID_OUTPUT_DIR/wandb"
 
 master_addr="$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)"
 export CUPID_PROJECT_DIR CUPID_OUTPUT_DIR CUPID_EXPECTED_COMMIT
 export CUPID_GPUS_PER_NODE CUPID_EXPECTED_WORLD_SIZE CUPID_PYTHON
 export CUPID_DATA_DIR CUPID_CONFIG CUPID_LOAD_DIR CUPID_CKPT CUPID_MASTER_PORT
+export CUPID_WANDB_PROJECT CUPID_WANDB_ENTITY CUPID_WANDB_NAME CUPID_WANDB_ID CUPID_WANDB_GROUP
 export master_addr
 
 echo "HOSTS=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | paste -sd, -)"
@@ -50,6 +58,9 @@ echo "GPUS_PER_NODE=$CUPID_GPUS_PER_NODE"
 echo "WORLD_SIZE=$CUPID_EXPECTED_WORLD_SIZE"
 echo "OUTPUT_DIR=$CUPID_OUTPUT_DIR"
 echo "LOAD_DIR=$CUPID_LOAD_DIR"
+echo "WANDB_PROJECT=$CUPID_WANDB_PROJECT"
+echo "WANDB_NAME=$CUPID_WANDB_NAME"
+echo "WANDB_ID=$CUPID_WANDB_ID"
 
 "$CUPID_PYTHON" - <<'PY'
 import json
@@ -87,7 +98,14 @@ receipt = {
     "log_interval": trainer["i_log"],
     "sample_interval": trainer["i_sample"],
     "checkpoint_interval": trainer["i_save"],
-    "wandb_run": None,
+    "wandb_run": {
+        "project": os.environ["CUPID_WANDB_PROJECT"],
+        "entity": os.environ["CUPID_WANDB_ENTITY"] or None,
+        "name": os.environ["CUPID_WANDB_NAME"],
+        "id": os.environ["CUPID_WANDB_ID"],
+        "mode": "online",
+        "receipt": str(output_dir / "wandb_run.json"),
+    },
     "tensorboard_dir": str(output_dir / "tb_logs"),
 }
 (output_dir / "full_launch_receipt.json").write_text(
@@ -111,7 +129,12 @@ srun --nodes="$SLURM_NNODES" --ntasks="$SLURM_NNODES" --ntasks-per-node=1 \
             --node_rank "$node_rank" \
             --num_gpus "$CUPID_GPUS_PER_NODE" \
             --master_addr "$master_addr" \
-            --master_port "$CUPID_MASTER_PORT"
+            --master_port "$CUPID_MASTER_PORT" \
+            --wandb_project "$CUPID_WANDB_PROJECT" \
+            --wandb_entity "$CUPID_WANDB_ENTITY" \
+            --wandb_name "$CUPID_WANDB_NAME" \
+            --wandb_id "$CUPID_WANDB_ID" \
+            --wandb_group "$CUPID_WANDB_GROUP"
     '
 
 echo "FULL_TERMINAL=COMPLETED"

@@ -18,6 +18,11 @@ CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
 CUPID_NUM_GPUS="${CUPID_NUM_GPUS:-1}"
 CUPID_MASTER_PORT="${CUPID_MASTER_PORT:-12345}"
+CUPID_WANDB_PROJECT="${CUPID_WANDB_PROJECT:-cupid-reproduction}"
+CUPID_WANDB_ENTITY="${CUPID_WANDB_ENTITY:-}"
+CUPID_WANDB_NAME="${CUPID_WANDB_NAME:-cupid-gl-wandb-smoke-${SLURM_JOB_ID}}"
+CUPID_WANDB_ID="${CUPID_WANDB_ID:-cupid-gl-wandb-smoke-${SLURM_JOB_ID}}"
+CUPID_WANDB_GROUP="${CUPID_WANDB_GROUP:-CUPID_REPRO_GL_SMOKE_V1}"
 
 test "$CUPID_NUM_GPUS" -ge 1
 
@@ -27,6 +32,8 @@ export LD_LIBRARY_PATH="/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PA
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
+export WANDB_MODE=online
+export WANDB_DIR="$CUPID_OUTPUT_DIR/wandb"
 
 cd "$CUPID_PROJECT_DIR"
 actual_commit="$(git rev-parse HEAD)"
@@ -45,6 +52,7 @@ nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader
 import spconv
 import tensorboard
 import utils3d
+import wandb
 import xformers
 
 print("CUPID_FULLCFG_IMPORT_GATE=PASS")
@@ -58,6 +66,13 @@ PY
     --auto_retry 0 \
     --num_gpus "$CUPID_NUM_GPUS" \
     --master_port "$CUPID_MASTER_PORT" \
+    --wandb_project "$CUPID_WANDB_PROJECT" \
+    --wandb_entity "$CUPID_WANDB_ENTITY" \
+    --wandb_name "$CUPID_WANDB_NAME" \
+    --wandb_id "$CUPID_WANDB_ID" \
+    --wandb_group "$CUPID_WANDB_GROUP" \
     --smoke_full_entry \
     --smoke_steps 1 \
     --smoke_max_attempts 16
+
+"$CUPID_PYTHON" scripts/verify_cupid_wandb.py --output_dir "$CUPID_OUTPUT_DIR"

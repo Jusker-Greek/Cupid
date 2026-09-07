@@ -46,6 +46,7 @@ class Trainer:
         i_sample=10000,
         i_save=10000,
         i_ddpcheck=10000,
+        wandb_run=None,
         **kwargs
     ):
         assert batch_size is not None or batch_size_per_gpu is not None, 'Either batch_size or batch_size_per_gpu must be specified.'
@@ -71,7 +72,8 @@ class Trainer:
         self.i_log = i_log
         self.i_sample = i_sample
         self.i_save = i_save
-        self.i_ddpcheck = i_ddpcheck        
+        self.i_ddpcheck = i_ddpcheck
+        self.wandb_run = wandb_run
 
         if dist.is_initialized():
             # Multi-GPU params
@@ -423,8 +425,15 @@ class Trainer:
                     log_show = [l for _, l in log if not dict_any(l, lambda x: np.isnan(x))]
                     log_show = dict_reduce(log_show, lambda x: np.mean(x))
                     log_show = dict_flatten(log_show, sep='/')
+                    if 'loss/loss' in log_show:
+                        log_show['train/loss_total'] = log_show['loss/loss']
+                    if hasattr(self, 'optimizer') and self.optimizer.param_groups:
+                        log_show['train/learning_rate'] = self.optimizer.param_groups[0]['lr']
+                    log_show['train/global_step'] = self.step
                     for key, value in log_show.items():
                         self.writer.add_scalar(key, value, self.step)
+                    if self.wandb_run is not None:
+                        self.wandb_run.log(log_show, step=self.step)
                     log = []
 
                 # Save checkpoint
@@ -449,4 +458,3 @@ class Trainer:
             for _ in range(wait + warmup + active):
                 self.run_step()
                 prof.step()
-            
