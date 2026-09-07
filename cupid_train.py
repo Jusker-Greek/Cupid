@@ -1,5 +1,6 @@
 import argparse
 import glob
+import itertools
 import json
 import math
 import os
@@ -81,6 +82,59 @@ def _optimizer_step_marker(optimizer):
     return max(steps, default=0.0)
 
 
+def _gather_rank_records(record):
+    if not dist.is_initialized():
+        return [record]
+    records = [None] * dist.get_world_size() if dist.get_rank() == 0 else None
+    dist.gather_object(record, records, dst=0)
+    return records
+
+
+def _validate_ddp_smoke_setup(trainer):
+    if not dist.is_initialized():
+        return None
+
+    sampler_indices = list(
+        itertools.islice(iter(trainer.data_sampler), trainer.batch_size_per_gpu)
+    )
+    instance_ids = []
+    if hasattr(trainer.dataset, "instances"):
+        instance_ids = [trainer.dataset.instances[index][1] for index in sampler_indices]
+    local_record = {
+        "rank": dist.get_rank(),
+        "cuda_device": torch.cuda.current_device(),
+        "sampler_indices": sampler_indices,
+        "instance_ids": instance_ids,
+    }
+    records = _gather_rank_records(local_record)
+    if trainer.is_master:
+        devices = [record["cuda_device"] for record in records]
+        if len(set(devices)) != trainer.world_size:
+            raise RuntimeError(f"DDP smoke ranks do not use distinct CUDA devices: {devices}")
+        flattened_instances = [
+            instance_id
+            for record in records
+            for instance_id in record["instance_ids"]
+        ]
+        if flattened_instances and len(set(flattened_instances)) != len(flattened_instances):
+            raise RuntimeError(
+                f"DDP smoke sampler assigned duplicate instances across ranks: {flattened_instances}"
+            )
+        print(
+            "SMOKE_DDP_SETUP="
+            + json.dumps(
+                {
+                    "world_size": trainer.world_size,
+                    "global_batch_size": trainer.batch_size,
+                    "ranks": records,
+                },
+                sort_keys=True,
+            ),
+            flush=True,
+        )
+    dist.barrier()
+
+
 def run_smoke(trainer, smoke_steps, smoke_max_attempts):
     if trainer.is_master:
         print(
@@ -88,6 +142,8 @@ def run_smoke(trainer, smoke_steps, smoke_max_attempts):
             f"{smoke_steps} optimizer update(s) within {smoke_max_attempts} attempt(s)...",
             flush=True,
         )
+
+    _validate_ddp_smoke_setup(trainer)
 
     attempt_logs = []
     optimizer_updates = 0
@@ -102,6 +158,16 @@ def run_smoke(trainer, smoke_steps, smoke_max_attempts):
         optimizer_step_after = _optimizer_step_marker(trainer.optimizer)
         log_scale_after = getattr(trainer, "log_scale", None)
         optimizer_step_applied = optimizer_step_after > optimizer_step_before
+        if dist.is_initialized():
+            update_flag = torch.tensor(
+                int(optimizer_step_applied), device=trainer.device, dtype=torch.int32
+            )
+            update_min = update_flag.clone()
+            update_max = update_flag.clone()
+            dist.all_reduce(update_min, op=dist.ReduceOp.MIN)
+            dist.all_reduce(update_max, op=dist.ReduceOp.MAX)
+            if update_min.item() != update_max.item():
+                raise RuntimeError("DDP ranks disagree on whether optimizer.step() completed")
         optimizer_updates += int(optimizer_step_applied)
         attempt_log = {
             "attempt": attempt,
@@ -126,6 +192,9 @@ def run_smoke(trainer, smoke_steps, smoke_max_attempts):
             f"after {smoke_max_attempts} attempts; final log_scale="
             f"{getattr(trainer, 'log_scale', None)}"
         )
+
+    if dist.is_initialized():
+        trainer.check_ddp()
 
     if trainer.is_master:
         trainer.save()
