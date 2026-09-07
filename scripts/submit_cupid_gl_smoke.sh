@@ -66,4 +66,5 @@ PY
     --ckpt none \
     --auto_retry 0 \
     --num_gpus 1 \
-    --smoke_steps 1
+    --smoke_steps 1 \
+    --smoke_max_attempts 16

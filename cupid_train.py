@@ -70,21 +70,64 @@ def _jsonable(value):
     return value
 
 
-def run_smoke(trainer, smoke_steps):
-    if trainer.is_master:
-        print(f"\nStarting bounded smoke test for {smoke_steps} step(s)...", flush=True)
+def _optimizer_step_marker(optimizer):
+    steps = []
+    for state in optimizer.state.values():
+        step = state.get("step")
+        if isinstance(step, torch.Tensor):
+            step = step.item()
+        if isinstance(step, (int, float, np.number)):
+            steps.append(float(step))
+    return max(steps, default=0.0)
 
-    step_logs = []
-    for _ in range(smoke_steps):
+
+def run_smoke(trainer, smoke_steps, smoke_max_attempts):
+    if trainer.is_master:
+        print(
+            "\nStarting bounded smoke test for "
+            f"{smoke_steps} optimizer update(s) within {smoke_max_attempts} attempt(s)...",
+            flush=True,
+        )
+
+    attempt_logs = []
+    optimizer_updates = 0
+    for attempt in range(1, smoke_max_attempts + 1):
+        optimizer_step_before = _optimizer_step_marker(trainer.optimizer)
+        log_scale_before = getattr(trainer, "log_scale", None)
         data_list = trainer.load_data()
         step_log = trainer.run_step(data_list)
         _assert_finite(step_log)
         trainer.step += 1
-        step_logs.append(step_log)
+
+        optimizer_step_after = _optimizer_step_marker(trainer.optimizer)
+        log_scale_after = getattr(trainer, "log_scale", None)
+        optimizer_step_applied = optimizer_step_after > optimizer_step_before
+        optimizer_updates += int(optimizer_step_applied)
+        attempt_log = {
+            "attempt": attempt,
+            "trainer_step": trainer.step,
+            "optimizer_step_before": optimizer_step_before,
+            "optimizer_step_after": optimizer_step_after,
+            "optimizer_step_applied": optimizer_step_applied,
+            "optimizer_updates": optimizer_updates,
+            "log_scale_before": log_scale_before,
+            "log_scale_after": log_scale_after,
+            "step_log": step_log,
+        }
+        attempt_logs.append(attempt_log)
+        if trainer.is_master:
+            print("SMOKE_ATTEMPT=" + json.dumps(_jsonable(attempt_log), sort_keys=True), flush=True)
+        if optimizer_updates >= smoke_steps:
+            break
+
+    if optimizer_updates < smoke_steps:
+        raise RuntimeError(
+            f"Smoke completed {optimizer_updates}/{smoke_steps} required optimizer updates "
+            f"after {smoke_max_attempts} attempts; final log_scale="
+            f"{getattr(trainer, 'log_scale', None)}"
+        )
 
     if trainer.is_master:
-        if not trainer.optimizer.state:
-            raise RuntimeError("Optimizer has no state after the smoke step; optimizer.step() did not complete")
         trainer.save()
         checkpoint_paths = [
             os.path.join(trainer.output_dir, "ckpts", f"{name}_step{trainer.step:07d}.pt")
@@ -98,9 +141,12 @@ def run_smoke(trainer, smoke_steps):
             raise RuntimeError(f"Smoke checkpoint files are missing: {missing}")
         result = {
             "status": "PASS",
-            "steps": smoke_steps,
+            "required_optimizer_updates": smoke_steps,
+            "optimizer_updates": optimizer_updates,
+            "attempts": len(attempt_logs),
             "final_step": trainer.step,
-            "logs": _jsonable(step_logs),
+            "final_log_scale": getattr(trainer, "log_scale", None),
+            "logs": _jsonable(attempt_logs),
             "checkpoints": checkpoint_paths,
             "cuda_max_memory_gib": torch.cuda.max_memory_allocated() / 1024**3,
         }
@@ -144,7 +190,7 @@ def main(local_rank, cfg):
     if cfg.profile:
         trainer.profile()
     elif cfg.smoke_steps > 0:
-        run_smoke(trainer, cfg.smoke_steps)
+        run_smoke(trainer, cfg.smoke_steps, cfg.smoke_max_attempts)
     else:
         trainer.run()
 
@@ -160,6 +206,12 @@ def parse_args():
     parser.add_argument("--tryrun", action="store_true", help="Initialize without training")
     parser.add_argument("--profile", action="store_true", help="Profile training")
     parser.add_argument("--smoke_steps", type=int, default=0, help="Run bounded steps without snapshots")
+    parser.add_argument(
+        "--smoke_max_attempts",
+        type=int,
+        default=0,
+        help="Maximum training attempts used to obtain the requested smoke optimizer updates",
+    )
     parser.add_argument("--num_nodes", type=int, default=1)
     parser.add_argument("--node_rank", type=int, default=0)
     parser.add_argument("--num_gpus", type=int, default=-1)
@@ -172,6 +224,13 @@ if __name__ == "__main__":
     opt = parse_args()
     if opt.smoke_steps < 0:
         raise ValueError("--smoke_steps must be non-negative")
+    if opt.smoke_max_attempts < 0:
+        raise ValueError("--smoke_max_attempts must be non-negative")
+    if opt.smoke_steps > 0:
+        if opt.smoke_max_attempts == 0:
+            opt.smoke_max_attempts = opt.smoke_steps
+        if opt.smoke_max_attempts < opt.smoke_steps:
+            raise ValueError("--smoke_max_attempts must be at least --smoke_steps")
     opt.load_dir = opt.load_dir if opt.load_dir else opt.output_dir
     opt.num_gpus = torch.cuda.device_count() if opt.num_gpus == -1 else opt.num_gpus
 
