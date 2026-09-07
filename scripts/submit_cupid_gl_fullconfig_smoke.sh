@@ -16,6 +16,10 @@ CUPID_OUTPUT_DIR="${CUPID_OUTPUT_DIR:?CUPID_OUTPUT_DIR is required}"
 CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is required}"
 CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
 CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
+CUPID_NUM_GPUS="${CUPID_NUM_GPUS:-1}"
+CUPID_MASTER_PORT="${CUPID_MASTER_PORT:-12345}"
+
+test "$CUPID_NUM_GPUS" -ge 1
 
 mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
@@ -32,6 +36,7 @@ test -z "$(git status --porcelain)"
 echo "HOST=$(hostname)"
 echo "COMMIT=$actual_commit"
 echo "PYTHON_OVERLAY=$CUPID_PYTHON_OVERLAY"
+echo "NUM_GPUS=$CUPID_NUM_GPUS"
 echo "RUN_CLASS=SMOKE_DEBUG"
 echo "EVIDENCE_ELIGIBILITY=DEBUG_ONLY/NO_SCIENCE"
 nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader
@@ -51,6 +56,7 @@ PY
     --output_dir "$CUPID_OUTPUT_DIR" \
     --ckpt none \
     --auto_retry 0 \
-    --num_gpus 1 \
+    --num_gpus "$CUPID_NUM_GPUS" \
+    --master_port "$CUPID_MASTER_PORT" \
     --smoke_steps 1 \
     --smoke_max_attempts 16
