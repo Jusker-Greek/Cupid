@@ -44,7 +44,7 @@
 - 输出：真正由可编辑对象组成的 CUPID baseline `.drawio` 母图、渲染预览、来源和审核记录。
 - 必须保留：input、DINOv2、Occupancy & Pose Generation、UV/Occupancy cube、PnP、Pose-aligned Conditioning、Geometry & Appearance Generation、Gaussian/Mesh outputs。
 - 边界：不修改 PPT，不加入未经核实的双目 SSL 模块，不运行实验、测试或 Slurm。
-- 状态：`IN_PROGRESS / CANDIDATE`。原生可编辑 v02 和 PNG 预览已经生成，正在做排版修订与 gate 审计；现有旧候选图只是嵌入原始论文图的单图源，不是已审核的可编辑母图。
+- 状态：`GATES_PASS / CANDIDATE / NOT_USER_APPROVED`。远端提交为 `6da525c6a5b0e15a59063fd5809056533b4f7303`；Draw.io 为 `outputs/figures/p02_cupid_repro_paper_pipeline_v02_candidate.drawio`，SHA256 `b8e50697e92e25edb96be05c08f96fffd22b91c5f795fbd36923f710480ecdab`；PNG 为同 stem `.png`，SHA256 `7378e51d6b79a3be1272d584415a1c6996b3b3a5202eac865590b737ecd0e7c0`；审核记录为 `outputs/figures/p02_cupid_repro_paper_pipeline_v02_candidate_audit.md`。现有旧候选图只是嵌入原始论文图的单图源，不是已审核的可编辑母图。
 
 ### Task 2：识别上一项目双目 SSL 依据
 
@@ -55,7 +55,7 @@
 - 权威代码快照：`origin/codex/metric-scale-controller-cleanup`，本机可核验提交 `d88b19e0414aaf482b21f5630b64df604dc2c57a`。
 - 输出：候选文档名和路径、核心输入输出关系、已验证事实、冲突项、待用户确认项。
 - 边界：用户确认前不修改 CUPID 图或 PPT，不把工程 smoke/readiness 当科学结果，不运行或提交 Slurm。
-- 状态：`AUDIT_COMPLETE / USER_CONFIRMATION_REQUIRED`。
+- 状态：`AUDIT_COMPLETE / USER_CONFIRMATION_REQUIRED`。Overleaf 项目名为 `Solve Pose Prediction Metric-Scale Problem with stereo-input X-Factor model`，PDF 标题为 `Metric-Scale Camera Pose From Self-Supervised Stereo`。
 
 Task 2 已发现需要用户确认的口径冲突：
 
@@ -73,7 +73,7 @@ Task 2 已发现需要用户确认的口径冲突：
 - 输入：现有内部 PPT、Task 1 baseline 母图、Task 2 文档审计结果及用户确认。
 - 输出：新的页序和 dependency manifest、同一母图派生的 baseline/integration/zoom 图、最终 PPTX、渲染预览和逐页视觉审核结果。
 - 边界：不得把旧 PPT 中的工程问题页、smoke、preflight、Slurm ledger 或复现状态作为主科学故事；不得在用户确认前冻结双目模块名称或接口。
-- 状态：`STORYBOARD_IN_PROGRESS / BLOCKED_BY_USER_CONFIRMATION`。页序和 dependency manifest 已开始落盘，但最终集成图必须等待 Task 1、Task 2 和用户确认。
+- 状态：`STORYBOARD_COMPLETE / BLOCKED_BY_USER_CONFIRMATION`。远端提交为 `6749a235f2de5bc68cf0304a30ee766664e90083`；`docs/cupid_stereo_ssl_slides_storyboard.md` 已记录 9 页主线、母图继承关系、speaker-notes 来源映射和构建门，`docs/cupid_stereo_ssl_slides_dependencies.json` 已锁定原 deck/template SHA、CUPID 代码锚点及 Task 1/2 handoff。最终集成图和 PPTX 必须等待用户确认。
 
 ## 4. 交接顺序
 
