@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "artifact": "CUPID stereo self-supervision research deck",
+  "status": "storyboard_ready_dependencies_pending",
+  "plannedMainSlideCount": 9,
+  "plannedOutputs": {
+    "pptx": "outputs/cupid_stereo_ssl_method_story.pptx",
+    "contactSheet": "outputs/cupid_stereo_ssl_method_story_contact_sheet.png",
+    "buildSource": "outputs/cupid_stereo_ssl_method_story_work/build_cupid_stereo_ssl_story.mjs"
+  },
+  "sourceDeck": {
+    "path": "/Users/ruikegu/.codex/worktrees/5c44/Cupid/outputs/cupid_reproduction_issues_and_actions_report.pptx",
+    "sha256": "bd412b760983e5aaba30a5668ec35e49cda5d585cae324c001808068eca157ce",
+    "sourceWorktreeCommit": "a8445c0c649f4bf6c851ce5b2f0056385ec1babd",
+    "trackedByGit": false,
+    "usage": "visual and provenance source only; reproduction-debug content is excluded"
+  },
+  "sourceDeckBuild": {
+    "path": "/Users/ruikegu/.codex/worktrees/5c44/Cupid/outputs/cupid_report_work/build_cupid_report.mjs",
+    "sha256": "3979f22fdd4f5e0f3056c8556d963a783388b3d36f014c7ac696644a12d2ddf6"
+  },
+  "template": {
+    "name": "Incremental Research Pipeline Slides",
+    "referencePath": "/Users/ruikegu/.codex/skills/artifact-template-incremental-research-pipeline-slides/assets/reference.pptx",
+    "referenceSha256": "2bc6d5e18dda175d7c49d6bb09643afd864b7f705d5f99c173f3401ae519c774",
+    "previewPath": "/Users/ruikegu/.codex/skills/artifact-template-incremental-research-pipeline-slides/assets/preview.png",
+    "previewSha256": "6c9cbf55bdbd41d3f3567630d697c790e4694577512b2b8d3db6a6c0b5adbc7a"
+  },
+  "cupidCodeEvidence": {
+    "commit": "8bf5b48a9b1230eef25d8fe3f171ddfa8f57400c",
+    "files": [
+      {
+        "path": "cupid/pipelines/pipeline.py",
+        "anchors": [132, 147, 217, 305, 312, 324],
+        "role": "baseline conditioning, pose decoding, pose-aligned projection, two-stage inference, and outputs"
+      },
+      {
+        "path": "README.md",
+        "anchors": [94, 99, 101, 108, 113],
+        "role": "official pretrained pipeline usage and returned pose/3D outputs"
+      }
+    ]
+  },
+  "task1": {
+    "threadId": "01a08097-df8d-7d50-9069-c56ed3532252",
+    "title": "重建 CUPID 论文基线母图",
+    "branch": "codex/cupid-baseline-mother-v02",
+    "baseCommit": "8bf5b48a9b1230eef25d8fe3f171ddfa8f57400c",
+    "status": "in_progress",
+    "requiredFiles": [
+      {
+        "path": "outputs/figures/p02_cupid_repro_paper_pipeline_v02_candidate.drawio",
+        "role": "sole editable CUPID baseline mother diagram",
+        "status": "created_uncommitted_at_manifest_time"
+      },
+      {
+        "path": null,
+        "role": "PNG export generated from the exact v02 drawio source",
+        "status": "await_task1_exact_path"
+      },
+      {
+        "path": null,
+        "role": "INIT_GATE, PRE_EDIT_GATE, and POST_RENDER_GATE audit record",
+        "status": "await_task1_exact_path"
+      }
+    ],
+    "requiredCommit": null,
+    "acceptance": [
+      "task 1 reports the exact pushed commit",
+      "the drawio is native and editable rather than one embedded full-figure bitmap",
+      "the export passes the figure-rule audit",
+      "the candidate is not described as approved before user review"
+    ]
+  },
+  "task2": {
+    "threadId": "01a08099-b372-7b23-8be9-a037a617a34c",
+    "title": "识别上一项目双目 SSL 依据",
+    "status": "audit_complete_user_confirmation_required",
+    "overleafProject": {
+      "url": "https://www.overleaf.com/project/6a48048c08f96f16d4c14c49",
+      "verifiedProjectName": "Solve Pose Prediction Metric-Scale Problem with stereo-input X-Factor model",
+      "verifiedPdfTitle": "Metric-Scale Camera Pose From Self-Supervised Stereo"
+    },
+    "localAuthority": {
+      "path": "docs/controller_work/METRIC_SCALE_RESEARCH_OPERATING_SYSTEM.md",
+      "commit": "d88b19e0414aaf482b21f5630b64df604dc2c57a",
+      "gitRef": "origin/codex/metric-scale-controller-cleanup",
+      "freshnessCaveat": "GitHub fetch failed with an empty response; this is the locally verifiable remote-tracking tip"
+    },
+    "candidateFiles": [
+      {
+        "path": "docs/overleaf/metric_scale_pose_motivation/main.tex",
+        "role": "metric-scale stereo-rig anchor motivation",
+        "approval": "verified_subdocument_but_not_portfolio_authority"
+      },
+      {
+        "path": "docs/overleaf/problem_formulation_v1/sections/system_decomposition.tex",
+        "role": "candidate system input/output decomposition",
+        "approval": "pending"
+      },
+      {
+        "path": "docs/overleaf/stereo_ssl_setting_and_progress/sections/02_strict_self_consistency_losses.tex",
+        "role": "candidate stereo consistency/loss contract",
+        "approval": "pending_and_not_in_active_short_pdf"
+      }
+    ],
+    "requiredHandoff": {
+      "portfolioAuthorityPath": "docs/controller_work/METRIC_SCALE_RESEARCH_OPERATING_SYSTEM.md",
+      "portfolioAuthorityCommit": "d88b19e0414aaf482b21f5630b64df604dc2c57a",
+      "userApprovedStorySourcePath": null,
+      "userApprovedStorySourceCommit": null,
+      "storyLevelChoice": null,
+      "stereoSignalChoice": null,
+      "directionConvention": "T_target<-reference = C_target^-1 C_reference",
+      "historicalJointInputOutput": "[L_t0, R_t0] -> [L_t1, R_t1]",
+      "naiveDirectionBoundary": "left[t] -> right[t] is a one-way reconstruction test, not joint stereo",
+      "predictedTarget": "direct camera transforms [I_4, Q_R0, Q_L1, Q_R1] in the audited proposed path",
+      "baseReconstructionLoss": "left/right target reconstruction with existing L1 + LPIPS",
+      "proposedNumericConstraint": "mean valid abs(||t(T_R<-L)||_2 - B), B = 0.25 m",
+      "masking": "valid stereo pair/positive baseline only; non-finite predictions are hard failures",
+      "fixedGeometry": "accepted deterministic SE(3) -> c2w -> patch-ray/Plucker -> Render path is a prerequisite",
+      "gradientOwnership": "B is non-trainable dataloader metadata; the proposed baseline loss must backpropagate to the existing camera prediction path; GT pose is evaluator-only",
+      "verifiedEvidence": "missing raw metric-scale capability is supported for audited baselines; no accepted positive stereo+B CUPID result exists",
+      "unverifiedDesign": "exact B3 attachment point, camera-head ownership, CUPID insertion point, and any learned module"
+    },
+    "criticalDistinction": {
+      "sameLayer": false,
+      "statement": "metric-scale rig anchor and left-to-right reconstruction are related but distinct scientific variables",
+      "levels": [
+        "stereo observation only",
+        "self-supervised reconstruction consistency",
+        "stereo plus numeric physical baseline B"
+      ]
+    },
+    "approvedTerms": [
+      "PoseEnc",
+      "Render",
+      "Calibrated stereo observation",
+      "Physical rig baseline",
+      "B = 0.25 m",
+      "Self-supervised reconstruction",
+      "Direct camera prediction",
+      "Implicit reconstruction",
+      "Explicit geometry alignment",
+      "Stereo observation only",
+      "Stereo + physical baseline",
+      "Raw metric-scale evaluation",
+      "No alignment",
+      "No scale fitting",
+      "L_t0",
+      "R_t0",
+      "L_t1",
+      "R_t1",
+      "c2w",
+      "Plucker ray conditioning"
+    ],
+    "termsRequiringSeparateApproval": [
+      "4D Distribution Learner",
+      "4D Encoder",
+      "4D Decoder"
+    ],
+    "acceptance": [
+      "the user confirms which document is the intended previous-project authority",
+      "the handoff distinguishes metric-scale rig anchoring from left-to-right reconstruction if they are different layers",
+      "the handoff supplies exact terminology and equations without inventing a module name",
+      "the handoff separates scientific evidence from smoke, readiness, or execution status"
+    ]
+  },
+  "integrationMother": {
+    "status": "blocked",
+    "requiredParent": "task1.requiredFiles[0]",
+    "soleLocalDelta": null,
+    "newModuleNameApproval": "pending_if_a_new_learned_module_is_required",
+    "diagramLanguage": "English",
+    "slideExplanationLanguage": "Simplified Chinese"
+  },
+  "speakerNotesPolicy": {
+    "requiredBlock": "[Sources]",
+    "minimumPerSlide": true,
+    "codeClaims": "include repository-relative file path, line anchor, and exact commit",
+    "diagramClaims": "include editable drawio path, export path, sha256, review status, and exact commit",
+    "designClaims": "label explicitly as DESIGN ONLY or PENDING"
+  },
+  "finalBuildGate": {
+    "ready": false,
+    "blockingItems": [
+      "task 1 pushed commit and exact export/audit paths",
+      "task 1 user review status",
+      "user choice between project-level 4D distribution story and current metric-scale camera path",
+      "user choice between observation/reconstruction signal and numeric B anchor",
+      "approved CUPID insertion point and terminology register"
+    ]
+  }
+}
