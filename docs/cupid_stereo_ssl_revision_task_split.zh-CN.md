@@ -38,13 +38,13 @@
 ### Task 1：重建 CUPID 论文基线母图
 
 - Owner：独立 Codex 任务 1。
-- 任务标识：`client-new-thread:8ab5cb7c-639f-4fd9-930b-bc881734cc20`。
+- 任务 ID：`01a08097-df8d-7d50-9069-c56ed3532252`。
 - 工作分支：`codex/cupid-baseline-mother-v02`。
 - 输入：CUPID 论文 Figure 3、官方仓库代码命名、现有候选图 `outputs/figures/p02_cupid_repro_paper_pipeline_v01_candidate.drawio`。
 - 输出：真正由可编辑对象组成的 CUPID baseline `.drawio` 母图、渲染预览、来源和审核记录。
 - 必须保留：input、DINOv2、Occupancy & Pose Generation、UV/Occupancy cube、PnP、Pose-aligned Conditioning、Geometry & Appearance Generation、Gaussian/Mesh outputs。
 - 边界：不修改 PPT，不加入未经核实的双目 SSL 模块，不运行实验、测试或 Slurm。
-- 状态：`IN_PROGRESS / CANDIDATE`。现有旧候选图只是嵌入原始论文图的单图源，不是已审核的可编辑母图。
+- 状态：`IN_PROGRESS / CANDIDATE`。原生可编辑 v02 和 PNG 预览已经生成，正在做排版修订与 gate 审计；现有旧候选图只是嵌入原始论文图的单图源，不是已审核的可编辑母图。
 
 ### Task 2：识别上一项目双目 SSL 依据
 
@@ -55,7 +55,7 @@
 - 权威代码快照：`origin/codex/metric-scale-controller-cleanup`，本机可核验提交 `d88b19e0414aaf482b21f5630b64df604dc2c57a`。
 - 输出：候选文档名和路径、核心输入输出关系、已验证事实、冲突项、待用户确认项。
 - 边界：用户确认前不修改 CUPID 图或 PPT，不把工程 smoke/readiness 当科学结果，不运行或提交 Slurm。
-- 状态：`IN_PROGRESS / DOCUMENT_AUDIT`。
+- 状态：`AUDIT_COMPLETE / USER_CONFIRMATION_REQUIRED`。
 
 Task 2 已发现需要用户确认的口径冲突：
 
@@ -68,11 +68,12 @@ Task 2 已发现需要用户确认的口径冲突：
 ### Task 3：重构 CUPID 双目 SSL 汇报故事
 
 - Owner：独立 Codex 任务 3。
-- 任务标识：`client-new-thread:6ee71be8-071c-4df4-bbe0-4d5f96f7dda0`。
+- 任务 ID：`01a0809a-2f0d-7a13-8e28-998cc2cf73ca`。
+- 工作分支：`codex/cupid-stereo-ssl-slides-storyboard`。
 - 输入：现有内部 PPT、Task 1 baseline 母图、Task 2 文档审计结果及用户确认。
 - 输出：新的页序和 dependency manifest、同一母图派生的 baseline/integration/zoom 图、最终 PPTX、渲染预览和逐页视觉审核结果。
 - 边界：不得把旧 PPT 中的工程问题页、smoke、preflight、Slurm ledger 或复现状态作为主科学故事；不得在用户确认前冻结双目模块名称或接口。
-- 状态：`SETUP_PENDING / BLOCKED_BY_HANDOFF`。可先设计故事和依赖清单，但最终集成图必须等待 Task 1、Task 2 和用户确认。
+- 状态：`STORYBOARD_IN_PROGRESS / BLOCKED_BY_USER_CONFIRMATION`。页序和 dependency manifest 已开始落盘，但最终集成图必须等待 Task 1、Task 2 和用户确认。
 
 ## 4. 交接顺序
 
@@ -135,4 +136,3 @@ Task 2: prior-project document audit
 - Task 2 的候选文档、关键原文位置和冲突解释。
 - 用户对双目 SSL contract 的确认。
 - Task 3 的页序、dependency manifest 和待填素材清单。
-
