@@ -32,14 +32,15 @@
 ### 2. CUPID baseline：联合物体与相机生成
 
 - 页面目的：在任何项目改动出现前，先建立准确起点。
-- 视觉：完整展示任务 1 经审核的 CUPID baseline mother diagram，不用新的 slide
-  shape 重画。
+- 视觉：完整展示任务 1 通过静态 gate audit 的 CUPID baseline mother candidate，
+  不用新的 slide shape 重画；用户批准前保持 `CANDIDATE`。
 - 图外中文解释：CUPID 先预测粗结构与相机姿态，再以 pose-aligned conditioning
   生成几何和外观。
 - 代码锚点：`cupid/pipelines/pipeline.py:305` 是 stage 1；
   `cupid/pipelines/pipeline.py:312` 是 stage 2；
   `cupid/pipelines/pipeline.py:324` 返回 pose 与解码后的 3D 输出。
-- 当前状态：最终图等待任务 1 review 与 commit。
+- 当前状态：任务 1 candidate 已提交，但仍为 `NOT USER-APPROVED`，不能嵌入最终
+  PPT。
 
 ### 3. CUPID 中与双目监督相关的接口
 
@@ -72,7 +73,8 @@
 - baseline 区域：保持 CUPID 原有颜色与图形语义。
 - 新增区域：使用唯一项目色；未确认接口使用独立虚线，并明确标注 `PENDING`。
 - 禁止内容：没有来源或代码依据的新模块名、推测箭头和 loss 位置。
-- 当前状态：最终拓扑等待任务 1 commit 与用户方法选择。
+- 当前状态：baseline candidate commit 已到位；最终拓扑等待用户审核母图并选择
+  方法层级。
 
 ### 6. CUPID 内部的双目监督合同
 

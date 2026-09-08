@@ -27,7 +27,8 @@
     "previewSha256": "6c9cbf55bdbd41d3f3567630d697c790e4694577512b2b8d3db6a6c0b5adbc7a"
   },
   "cupidCodeEvidence": {
-    "commit": "8bf5b48a9b1230eef25d8fe3f171ddfa8f57400c",
+    "officialBaselineCommit": "10af9b26f9e1b55c54892dc35acb997b1c6b6bf2",
+    "localPlanningCommit": "8bf5b48a9b1230eef25d8fe3f171ddfa8f57400c",
     "files": [
       {
         "path": "cupid/pipelines/pipeline.py",
@@ -46,25 +47,37 @@
     "title": "重建 CUPID 论文基线母图",
     "branch": "codex/cupid-baseline-mother-v02",
     "baseCommit": "8bf5b48a9b1230eef25d8fe3f171ddfa8f57400c",
-    "status": "in_progress",
+    "status": "complete_candidate_not_user_approved",
     "requiredFiles": [
       {
         "path": "outputs/figures/p02_cupid_repro_paper_pipeline_v02_candidate.drawio",
         "role": "sole editable CUPID baseline mother diagram",
-        "status": "created_uncommitted_at_manifest_time"
+        "sha256": "b8e50697e92e25edb96be05c08f96fffd22b91c5f795fbd36923f710480ecdab",
+        "status": "committed_candidate"
       },
       {
-        "path": null,
+        "path": "outputs/figures/p02_cupid_repro_paper_pipeline_v02_candidate.png",
         "role": "PNG export generated from the exact v02 drawio source",
-        "status": "await_task1_exact_path"
+        "sha256": "7378e51d6b79a3be1272d584415a1c6996b3b3a5202eac865590b737ecd0e7c0",
+        "status": "committed_candidate"
       },
       {
-        "path": null,
+        "path": "outputs/figures/p02_cupid_repro_paper_pipeline_v02_candidate_audit.md",
         "role": "INIT_GATE, PRE_EDIT_GATE, and POST_RENDER_GATE audit record",
-        "status": "await_task1_exact_path"
+        "sha256": "cdac7fb0f3b6e167252c8e140e7608c5cb77f7ec59ba32b608b7be9fc70fa09b",
+        "status": "committed_candidate"
+      },
+      {
+        "path": "outputs/figures/paper_figure3_original.png",
+        "role": "immutable paper Figure 3 reference used for semantic comparison",
+        "sha256": "eca27971013150c77b06921f041666bca2d4839b4665542dab09206887d21dcd",
+        "status": "committed_reference"
       }
     ],
-    "requiredCommit": null,
+    "requiredCommit": "6da525c6a5b0e15a59063fd5809056533b4f7303",
+    "remoteTrackingBranch": "fork/codex/cupid-baseline-mother-v02",
+    "reviewStatus": "CANDIDATE / NOT USER-APPROVED",
+    "slidesEmbedRelease": false,
     "acceptance": [
       "task 1 reports the exact pushed commit",
       "the drawio is native and editable rather than one embedded full-figure bitmap",
@@ -102,6 +115,16 @@
         "path": "docs/overleaf/stereo_ssl_setting_and_progress/sections/02_strict_self_consistency_losses.tex",
         "role": "candidate stereo consistency/loss contract",
         "approval": "pending_and_not_in_active_short_pdf"
+      },
+      {
+        "path": "docs/dual_input_dual_output_stereo_xfactor_project_brief.md",
+        "role": "source for the boundary between naive left-to-right reconstruction and historical joint stereo input/output",
+        "approval": "verified_source"
+      },
+      {
+        "path": "docs/research_logs/2026-07-10-r1b-stereo-prior-contract-audit.md",
+        "role": "audit-only proposed four-view camera, reconstruction, and numeric baseline constraint contract",
+        "approval": "design_only_no_implementation_no_job"
       }
     ],
     "requiredHandoff": {
@@ -184,7 +207,6 @@
   "finalBuildGate": {
     "ready": false,
     "blockingItems": [
-      "task 1 pushed commit and exact export/audit paths",
       "task 1 user review status",
       "user choice between project-level 4D distribution story and current metric-scale camera path",
       "user choice between observation/reconstruction signal and numeric B anchor",
