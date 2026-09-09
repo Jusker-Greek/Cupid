@@ -147,3 +147,12 @@ Task 2: prior-project document audit
 4. 用户负责最终科学合同和图稿 approval。用户确认前，当前图只能标为 `Proposed / Training only / Pending review`。
 
 当前优先审计的最小 gate 是：左目沿原 CUPID 路径生成 3D 表示，利用已知左右相机关系渲染或预测右目，以真实右目提供 reconstruction 或 feature consistency；该信号作为训练期辅助约束，初始方案不无依据新增 learned relation head。最终位置和 gradient ownership 以 Task 3 的代码级审计为准。
+
+Task 3 已将上述设计收敛为 `CUPID-SAME-TIME-RIGHT-RECON-V1`，规格文件为
+`docs/CUPID_STEREO_INSERTION_SPEC_V1.md`，提交 `1d3d9af`。当前精确合同如下：
+
+- 唯一新增变量是训练期 same-time left-conditioned right-view reconstruction branch。
+- 数据流为 `Stage 2 velocity -> One-step clean latent estimate -> frozen Gaussian decoder -> fixed right-camera Render -> Right-view L1 + LPIPS -> existing Stage 2 denoiser`。
+- 右图只作为 synchronized training target，不进入 DINOv2、Stage 1、visual conditioning 或推理 API。
+- 固定相机关系为 `T_R<-L = E_R E_L^-1`；`B=0.25 m`、feature consistency、temporal quartet、learned relation head 和 metric-scale claim 均不属于 V1。
+- 当前状态为 `DESIGN ONLY / S01 UNVERIFIED / NOT IMPLEMENTED`，因此 Task 1 只绘制 integration candidate，不把它写成已实现结果。
