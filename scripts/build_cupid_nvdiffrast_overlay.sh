@@ -22,6 +22,8 @@ CUPID_CUDA_TOOLKIT_DIR="${CUPID_CUDA_TOOLKIT_DIR:-/public/home/ricky/ENVIRONMENT
 CUPID_NVIDIA_PYTHON_ROOT="${CUPID_NVIDIA_PYTHON_ROOT:-/public/home/ricky/.local/lib/python3.12/site-packages/nvidia}"
 NVDIFFRAST_COMMIT="${NVDIFFRAST_COMMIT:-253ac4fcea7de5f396371124af597e6cc957bfae}"
 NVDIFFRAST_ARCHIVE_SHA256="${NVDIFFRAST_ARCHIVE_SHA256:-a57340159afcef86b047f9a92d024b21fd7443c76bb1b5e67ab6ff8b172908ab}"
+MIP_SPLATTING_COMMIT="${MIP_SPLATTING_COMMIT:-dda02ab5ecf45d6edb8c540d9bb65c7e451345a9}"
+MIP_SPLATTING_ARCHIVE_SHA256="${MIP_SPLATTING_ARCHIVE_SHA256:-3c82ded3bb9fcf8137749fca8be01e50424c74ef3c5c8416a3ca5547aedeefe4}"
 SETUPTOOLS_WHEEL_SHA256="${SETUPTOOLS_WHEEL_SHA256:-558e47c15f1811c1fa7adbd0096669bf76c1d3f433f58324df69f3f5ecac4e8f}"
 WHEEL_WHEEL_SHA256="${WHEEL_WHEEL_SHA256:-708e7481cc80179af0e556bbf0cc00b8444c7321e2700b8d8580231d13017248}"
 TYPING_EXTENSIONS_WHEEL_SHA256="${TYPING_EXTENSIONS_WHEEL_SHA256:-04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d}"
@@ -39,6 +41,7 @@ CUDA_PACKAGE_BASE_URL="${CUDA_PACKAGE_BASE_URL:-https://conda.anaconda.org/nvidi
 test "$(git -C "$CUPID_PROJECT_DIR" rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
 test -z "$(git -C "$CUPID_PROJECT_DIR" status --porcelain --untracked-files=all)"
 source_archive="$CUPID_PROJECT_DIR/third_party/nvdiffrast-${NVDIFFRAST_COMMIT}.tar.gz"
+mip_splatting_archive="$CUPID_PROJECT_DIR/third_party/mip-splatting-${MIP_SPLATTING_COMMIT}.tar.gz"
 setuptools_wheel="$CUPID_PROJECT_DIR/third_party/setuptools-75.8.2-py3-none-any.whl"
 wheel_wheel="$CUPID_PROJECT_DIR/third_party/wheel-0.45.1-py3-none-any.whl"
 typing_extensions_wheel="$CUPID_PROJECT_DIR/third_party/typing_extensions-4.12.2-py3-none-any.whl"
@@ -153,10 +156,15 @@ echo "NVDIFFRAST_BUILD_STAGE=PYTHON_READY path=$CUPID_PYTHON lib=$python_root/li
 
 test -f "$source_archive"
 test "$(sha256sum "$source_archive" | awk '{print $1}')" = "$NVDIFFRAST_ARCHIVE_SHA256"
+test -f "$mip_splatting_archive"
+test "$(sha256sum "$mip_splatting_archive" | awk '{print $1}')" = "$MIP_SPLATTING_ARCHIVE_SHA256"
 echo "NVDIFFRAST_BUILD_STAGE=ARCHIVE_VERIFIED sha256=$NVDIFFRAST_ARCHIVE_SHA256"
 tar -xzf "$source_archive" -C "$build_root"
 source_dir="$build_root/nvdiffrast-253ac4f"
 test -f "$source_dir/LICENSE.txt"
+tar -xzf "$mip_splatting_archive" -C "$build_root"
+gaussian_source_dir="$build_root/mip-splatting-${MIP_SPLATTING_COMMIT}/submodules/diff-gaussian-rasterization"
+test -f "$gaussian_source_dir/setup.py"
 echo "NVDIFFRAST_BUILD_STAGE=SOURCE_EXTRACTED path=$source_dir"
 
 mkdir "$CUPID_NVDIFFRAST_OVERLAY"
@@ -174,10 +182,16 @@ echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_START"
     "$typing_extensions_wheel" "$platformdirs_wheel" "$packaging_wheel" \
     "$pandas_wheel" "$python_dateutil_wheel" "$tzdata_wheel" "$six_wheel" "$pillow_wheel" \
     "$protobuf_wheel" "$scipy_wheel"
+MAX_JOBS="${MAX_JOBS:-4}" "$CUPID_PYTHON" -m pip install \
+    --target "$CUPID_NVDIFFRAST_OVERLAY" \
+    --no-deps \
+    --no-cache-dir \
+    --no-build-isolation \
+    "$gaussian_source_dir"
 echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_DONE"
 
 export PYTHONPATH="$CUPID_NVDIFFRAST_OVERLAY:$PYTHONPATH"
-export CUPID_NVDIFFRAST_OVERLAY NVDIFFRAST_COMMIT NVDIFFRAST_ARCHIVE_SHA256
+export CUPID_NVDIFFRAST_OVERLAY NVDIFFRAST_COMMIT NVDIFFRAST_ARCHIVE_SHA256 MIP_SPLATTING_COMMIT
 echo "NVDIFFRAST_BUILD_STAGE=CUDA_PROBE_START"
 "$CUPID_PYTHON" - <<'PY'
 import json
@@ -193,6 +207,7 @@ import google.protobuf
 import scipy
 import torch
 import nvdiffrast.torch as dr
+from diff_gaussian_rasterization import GaussianRasterizer, GaussianRasterizationSettings
 
 context = dr.RasterizeCudaContext()
 positions = torch.tensor(
@@ -221,6 +236,7 @@ receipt = {
     "pillow": PIL.__version__,
     "protobuf": google.protobuf.__version__,
     "scipy": scipy.__version__,
+    "diff_gaussian_rasterization": os.environ["MIP_SPLATTING_COMMIT"],
     "gpu": torch.cuda.get_device_name(),
     "probe_shape": list(raster.shape),
     "evidence_eligibility": "ENGINEERING_ONLY / NO_SCIENCE",
