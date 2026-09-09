@@ -1,6 +1,12 @@
 # CUPID Stereo Insertion Specification V1
 
-状态：`DESIGN ONLY / S01 UNVERIFIED / NOT IMPLEMENTED`
+状态：`DESIGN ONLY / SUPERSEDED AS PRIMARY / RETAINED AS SUPERVISED-ASSIST CONTROL`
+
+2026-09-09 状态更新：本规格仍要求由 3D asset pipeline 缓存的真实 `x_0`
+latent，因此不能原样验证“无新 3D label 时由 stereo observation 持续改善
+representation”的项目核心命题。它现保留为 supervised-assist matched control；
+新的首选接入点和待审核 Gate 见 `docs/CUPID_STEREO_SSL_RESEARCH_CORE.md`
+第 11 节。本状态更新不表示新 Gate 已实现或已获得实验结果。
 
 本文冻结 CUPID 首个双目自监督最小 Gate 的架构合同。它只定义训练期右目
 重建路径，不声称代码已实现、训练已运行、指标已改善或物理尺度已经被学习。
