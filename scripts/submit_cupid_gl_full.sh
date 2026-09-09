@@ -12,8 +12,9 @@ CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is require
 CUPID_GPUS_PER_NODE="${CUPID_GPUS_PER_NODE:?CUPID_GPUS_PER_NODE is required}"
 CUPID_EXPECTED_WORLD_SIZE="${CUPID_EXPECTED_WORLD_SIZE:?CUPID_EXPECTED_WORLD_SIZE is required}"
 CUPID_PYTHON="${CUPID_PYTHON:-/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/bin/python3}"
-CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v1}"
+CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v13}"
 CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
+CUPID_NVIDIA_PYTHON_ROOT="${CUPID_NVIDIA_PYTHON_ROOT:-/public/home/ricky/.local/lib/python3.12/site-packages/nvidia}"
 CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-$CUPID_NVDIFFRAST_OVERLAY:$CUPID_BASE_PYTHON_OVERLAY}"
 CUPID_DATA_DIR="${CUPID_DATA_DIR:-/data/group_gao/trellis/HSSD}"
 CUPID_CONFIG="${CUPID_CONFIG:-configs/generation/slat_flow_img_dit_L_64l8p2_fp16-posecond-cluster.json}"
@@ -39,7 +40,13 @@ mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
 python_root="$(dirname "$(dirname "$CUPID_PYTHON")")"
 test -f "$python_root/lib/libpython3.12.so.1.0"
-export LD_LIBRARY_PATH="$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
+nvidia_library_path=""
+for library_dir in "$CUPID_NVIDIA_PYTHON_ROOT"/*/lib; do
+    test -d "$library_dir" || continue
+    nvidia_library_path="${nvidia_library_path:+$nvidia_library_path:}$library_dir"
+done
+test -n "$nvidia_library_path"
+export LD_LIBRARY_PATH="$nvidia_library_path:$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
