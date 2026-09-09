@@ -27,6 +27,10 @@ WHEEL_WHEEL_SHA256="${WHEEL_WHEEL_SHA256:-708e7481cc80179af0e556bbf0cc00b8444c73
 TYPING_EXTENSIONS_WHEEL_SHA256="${TYPING_EXTENSIONS_WHEEL_SHA256:-04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d}"
 PLATFORMDIRS_WHEEL_SHA256="${PLATFORMDIRS_WHEEL_SHA256:-ff7059bb7eb1179e2685604f4aaf157cfd9535242bd23742eadc3c13542139b4}"
 PACKAGING_WHEEL_SHA256="${PACKAGING_WHEEL_SHA256:-09abb1bccd265c01f4a3aa3f7a7db064b36514d2cba19a2f694fe6150451a759}"
+PANDAS_WHEEL_SHA256="${PANDAS_WHEEL_SHA256:-fffb8ae78d8af97f849404f21411c95062db1496aeb3e56f146f0355c9989319}"
+PYTHON_DATEUTIL_WHEEL_SHA256="${PYTHON_DATEUTIL_WHEEL_SHA256:-a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427}"
+TZDATA_WHEEL_SHA256="${TZDATA_WHEEL_SHA256:-7e127113816800496f027041c570f50bcd464a020098a3b6b199517772303639}"
+SIX_WHEEL_SHA256="${SIX_WHEEL_SHA256:-4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274}"
 CUDA_PACKAGE_BASE_URL="${CUDA_PACKAGE_BASE_URL:-https://conda.anaconda.org/nvidia/linux-64}"
 
 test "$(git -C "$CUPID_PROJECT_DIR" rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
@@ -37,6 +41,10 @@ wheel_wheel="$CUPID_PROJECT_DIR/third_party/wheel-0.45.1-py3-none-any.whl"
 typing_extensions_wheel="$CUPID_PROJECT_DIR/third_party/typing_extensions-4.12.2-py3-none-any.whl"
 platformdirs_wheel="$CUPID_PROJECT_DIR/third_party/platformdirs-4.3.8-py3-none-any.whl"
 packaging_wheel="$CUPID_PROJECT_DIR/third_party/packaging-24.2-py3-none-any.whl"
+pandas_wheel="$CUPID_PROJECT_DIR/third_party/pandas-2.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+python_dateutil_wheel="$CUPID_PROJECT_DIR/third_party/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
+tzdata_wheel="$CUPID_PROJECT_DIR/third_party/tzdata-2025.1-py2.py3-none-any.whl"
+six_wheel="$CUPID_PROJECT_DIR/third_party/six-1.17.0-py2.py3-none-any.whl"
 echo "NVDIFFRAST_BUILD_STAGE=PATHS overlay=$CUPID_NVDIFFRAST_OVERLAY archive=$source_archive"
 
 test ! -e "$CUPID_NVDIFFRAST_OVERLAY"
@@ -123,6 +131,10 @@ test "$(sha256sum "$wheel_wheel" | awk '{print $1}')" = "$WHEEL_WHEEL_SHA256"
 test "$(sha256sum "$typing_extensions_wheel" | awk '{print $1}')" = "$TYPING_EXTENSIONS_WHEEL_SHA256"
 test "$(sha256sum "$platformdirs_wheel" | awk '{print $1}')" = "$PLATFORMDIRS_WHEEL_SHA256"
 test "$(sha256sum "$packaging_wheel" | awk '{print $1}')" = "$PACKAGING_WHEEL_SHA256"
+test "$(sha256sum "$pandas_wheel" | awk '{print $1}')" = "$PANDAS_WHEEL_SHA256"
+test "$(sha256sum "$python_dateutil_wheel" | awk '{print $1}')" = "$PYTHON_DATEUTIL_WHEEL_SHA256"
+test "$(sha256sum "$tzdata_wheel" | awk '{print $1}')" = "$TZDATA_WHEEL_SHA256"
+test "$(sha256sum "$six_wheel" | awk '{print $1}')" = "$SIX_WHEEL_SHA256"
 PYTHONPATH="$bootstrap_pythonpath" "$CUPID_PYTHON" -m pip install \
     --target "$build_backend" --no-deps --no-index \
     "$setuptools_wheel" "$wheel_wheel" "$typing_extensions_wheel"
@@ -150,7 +162,8 @@ echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_START"
     --target "$CUPID_NVDIFFRAST_OVERLAY" \
     --no-deps \
     --no-index \
-    "$typing_extensions_wheel" "$platformdirs_wheel" "$packaging_wheel"
+    "$typing_extensions_wheel" "$platformdirs_wheel" "$packaging_wheel" \
+    "$pandas_wheel" "$python_dateutil_wheel" "$tzdata_wheel" "$six_wheel"
 echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_DONE"
 
 export PYTHONPATH="$CUPID_NVDIFFRAST_OVERLAY:$PYTHONPATH"
@@ -163,6 +176,7 @@ from pathlib import Path
 
 import platformdirs
 import packaging
+import pandas
 import torch
 import nvdiffrast.torch as dr
 
@@ -189,6 +203,7 @@ receipt = {
     "torch_cuda": torch.version.cuda,
     "platformdirs": platformdirs.__version__,
     "packaging": packaging.__version__,
+    "pandas": pandas.__version__,
     "gpu": torch.cuda.get_device_name(),
     "probe_shape": list(raster.shape),
     "evidence_eligibility": "ENGINEERING_ONLY / NO_SCIENCE",
