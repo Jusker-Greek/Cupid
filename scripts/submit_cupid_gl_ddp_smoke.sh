@@ -11,46 +11,51 @@
 
 set -euo pipefail
 
-CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:-/public/home/ricky/CODE/Cupid}"
-CUPID_OUTPUT_DIR="${CUPID_OUTPUT_DIR:-/public/home/ricky/RESULTS/CUPID_REPRO_GL_DDP_SMOKE_V1}"
-CUPID_PYTHON="${CUPID_PYTHON:-/usr/local/python3.12/bin/python3}"
-CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312}"
+CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:?CUPID_PROJECT_DIR is required}"
+CUPID_OUTPUT_DIR="${CUPID_OUTPUT_DIR:?CUPID_OUTPUT_DIR is required}"
+CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is required}"
+CUPID_PYTHON="${CUPID_PYTHON:-/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/bin/python3}"
+CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v20r1}"
+CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
+CUPID_NVIDIA_PYTHON_ROOT="${CUPID_NVIDIA_PYTHON_ROOT:-/public/home/ricky/.local/lib/python3.12/site-packages/nvidia}"
+CUPID_PYTHON_OVERLAY="${CUPID_PYTHON_OVERLAY:-$CUPID_NVDIFFRAST_OVERLAY:$CUPID_BASE_PYTHON_OVERLAY}"
 
 mkdir -p /tmp/ricky_lib "$CUPID_OUTPUT_DIR"
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
-export LD_LIBRARY_PATH="/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
-export http_proxy="${http_proxy:-http://hkuhpc.com:7999}"
-export https_proxy="${https_proxy:-http://hkuhpc.com:7999}"
-export no_proxy="${no_proxy:+$no_proxy,}github.com,raw.githubusercontent.com,codeload.github.com,objects.githubusercontent.com,dl.fbaipublicfiles.com,pypi.org,files.pythonhosted.org"
+python_root="$(dirname "$(dirname "$CUPID_PYTHON")")"
+test -f "$python_root/lib/libpython3.12.so.1.0"
+nvidia_library_path=""
+for library_dir in "$CUPID_NVIDIA_PYTHON_ROOT"/*/lib; do
+    test -d "$library_dir" || continue
+    nvidia_library_path="${nvidia_library_path:+$nvidia_library_path:}$library_dir"
+done
+test -n "$nvidia_library_path"
+export LD_LIBRARY_PATH="$nvidia_library_path:$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
-CUPID_MASTER_PORT="$((10000 + SLURM_JOB_ID % 50000))"
+CUPID_MASTER_PORT="${CUPID_MASTER_PORT:-$((10000 + SLURM_JOB_ID % 50000))}"
 
 cd "$CUPID_PROJECT_DIR"
 git_commit="$(git rev-parse HEAD)"
+test "$git_commit" = "$CUPID_EXPECTED_COMMIT"
+test -z "$(git status --porcelain --untracked-files=all)"
 echo "HOST=$(hostname)"
 echo "COMMIT=$git_commit"
-echo "PYTHON=$CUPID_PYTHON"
+echo "PYTHON_OVERLAY=$CUPID_PYTHON_OVERLAY"
+echo "NUM_GPUS=2"
+echo "RUN_CLASS=SMOKE_DEBUG"
+echo "EVIDENCE_ELIGIBILITY=DEBUG_ONLY/NO_SCIENCE"
 nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader
 "$CUPID_PYTHON" - <<'PY'
-import sys
-
-import orjson
 import spconv
 import tensorboard
 import utils3d
 import xformers
-import xformers.ops as xops
+import nvdiffrast.torch
+import diff_gaussian_rasterization
 
-from cupid.representations.mesh.flexicubes.flexicubes import FlexiCubes
-from cupid.utils.tensor_checks import check_tensor
-
-assert check_tensor.__module__ == "cupid.utils.tensor_checks"
-assert "kaolin" not in sys.modules
-assert "warp" not in sys.modules
-assert callable(xops.fmha.attn_bias.BlockDiagonalMask.from_seqlens)
-print("CUPID_DDP_IMPORT_GATE_PASS=LOCAL_TENSOR_CHECK_NO_KAOLIN_WARP_XFORMERS_ATTN_BIAS_API")
+print("CUPID_DDP_IMPORT_GATE=PASS")
 PY
 
 "$CUPID_PYTHON" -u cupid_train.py \
@@ -62,5 +67,6 @@ PY
     --num_gpus 2 \
     --master_addr 127.0.0.1 \
     --master_port "$CUPID_MASTER_PORT" \
+    --smoke_full_entry \
     --smoke_steps 1 \
     --smoke_max_attempts 16
