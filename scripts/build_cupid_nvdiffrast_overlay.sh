@@ -33,6 +33,7 @@ TZDATA_WHEEL_SHA256="${TZDATA_WHEEL_SHA256:-7e127113816800496f027041c570f50bcd46
 SIX_WHEEL_SHA256="${SIX_WHEEL_SHA256:-4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274}"
 PILLOW_WHEEL_SHA256="${PILLOW_WHEEL_SHA256:-7fdadc077553621911f27ce206ffcbec7d3f8d7b50e0da39f10997e8e2bb7f6a}"
 PROTOBUF_WHEEL_SHA256="${PROTOBUF_WHEEL_SHA256:-0a18ed4a24198528f2333802eb075e59dea9d679ab7a6c5efb017a59004d849f}"
+SCIPY_WHEEL_SHA256="${SCIPY_WHEEL_SHA256:-0fb57b30f0017d4afa5fe5f5b150b8f807618819287c21cbe51130de7ccdaed2}"
 CUDA_PACKAGE_BASE_URL="${CUDA_PACKAGE_BASE_URL:-https://conda.anaconda.org/nvidia/linux-64}"
 
 test "$(git -C "$CUPID_PROJECT_DIR" rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
@@ -49,6 +50,7 @@ tzdata_wheel="$CUPID_PROJECT_DIR/third_party/tzdata-2025.1-py2.py3-none-any.whl"
 six_wheel="$CUPID_PROJECT_DIR/third_party/six-1.17.0-py2.py3-none-any.whl"
 pillow_wheel="$CUPID_PROJECT_DIR/third_party/pillow-11.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 protobuf_wheel="$CUPID_PROJECT_DIR/third_party/protobuf-5.29.3-py3-none-any.whl"
+scipy_wheel="$CUPID_PROJECT_DIR/third_party/scipy-1.15.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 echo "NVDIFFRAST_BUILD_STAGE=PATHS overlay=$CUPID_NVDIFFRAST_OVERLAY archive=$source_archive"
 
 test ! -e "$CUPID_NVDIFFRAST_OVERLAY"
@@ -141,6 +143,7 @@ test "$(sha256sum "$tzdata_wheel" | awk '{print $1}')" = "$TZDATA_WHEEL_SHA256"
 test "$(sha256sum "$six_wheel" | awk '{print $1}')" = "$SIX_WHEEL_SHA256"
 test "$(sha256sum "$pillow_wheel" | awk '{print $1}')" = "$PILLOW_WHEEL_SHA256"
 test "$(sha256sum "$protobuf_wheel" | awk '{print $1}')" = "$PROTOBUF_WHEEL_SHA256"
+test "$(sha256sum "$scipy_wheel" | awk '{print $1}')" = "$SCIPY_WHEEL_SHA256"
 PYTHONPATH="$bootstrap_pythonpath" "$CUPID_PYTHON" -m pip install \
     --target "$build_backend" --no-deps --no-index \
     "$setuptools_wheel" "$wheel_wheel" "$typing_extensions_wheel"
@@ -170,7 +173,7 @@ echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_START"
     --no-index \
     "$typing_extensions_wheel" "$platformdirs_wheel" "$packaging_wheel" \
     "$pandas_wheel" "$python_dateutil_wheel" "$tzdata_wheel" "$six_wheel" "$pillow_wheel" \
-    "$protobuf_wheel"
+    "$protobuf_wheel" "$scipy_wheel"
 echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_DONE"
 
 export PYTHONPATH="$CUPID_NVDIFFRAST_OVERLAY:$PYTHONPATH"
@@ -187,6 +190,7 @@ import pandas
 import PIL
 from PIL import Image
 import google.protobuf
+import scipy
 import torch
 import nvdiffrast.torch as dr
 
@@ -216,6 +220,7 @@ receipt = {
     "pandas": pandas.__version__,
     "pillow": PIL.__version__,
     "protobuf": google.protobuf.__version__,
+    "scipy": scipy.__version__,
     "gpu": torch.cuda.get_device_name(),
     "probe_shape": list(raster.shape),
     "evidence_eligibility": "ENGINEERING_ONLY / NO_SCIENCE",
