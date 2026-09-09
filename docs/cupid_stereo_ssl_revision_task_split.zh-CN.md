@@ -156,3 +156,13 @@ Task 3 已将上述设计收敛为 `CUPID-SAME-TIME-RIGHT-RECON-V1`，规格文�
 - 右图只作为 synchronized training target，不进入 DINOv2、Stage 1、visual conditioning 或推理 API。
 - 固定相机关系为 `T_R<-L = E_R E_L^-1`；`B=0.25 m`、feature consistency、temporal quartet、learned relation head 和 metric-scale claim 均不属于 V1。
 - 当前状态为 `DESIGN ONLY / S01 UNVERIFIED / NOT IMPLEMENTED`，因此 Task 1 只绘制 integration candidate，不把它写成已实现结果。
+
+Task 1 已按该规格生成 v03 integration candidate：
+
+- 分支：`codex/cupid-stereo-integration-v03`
+- 远端提交：`4ff75c32d2968ee9ca8e96a3e19ece3634b9c5ca`
+- Draw.io：`outputs/figures/p02_cupid_same_time_right_recon_v03_candidate.drawio`
+- PNG：`outputs/figures/p02_cupid_same_time_right_recon_v03_candidate.png`
+- Audit：`outputs/figures/p02_cupid_same_time_right_recon_v03_candidate_audit.md`
+- 三项 gate：`PASS`
+- 释放状态：`DESIGN ONLY / NOT USER-APPROVED / SLIDES_EMBED_RELEASE=NO`
