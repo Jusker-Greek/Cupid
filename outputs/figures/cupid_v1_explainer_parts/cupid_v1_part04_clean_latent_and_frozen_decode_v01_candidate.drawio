@@ -1,0 +1,111 @@
+<mxfile host="app.diagrams.net" modified="2026-09-09T15:30:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="part04-clean-latent-and-frozen-decode" name="CUPID V1 Part 04 Clean Latent and Frozen Decode Candidate">
+    <mxGraphModel dx="810" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="810" pageHeight="854" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="stage2-flow" value="Geometry &amp; Appearance&lt;br&gt;Flow Model" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#F1B687;strokeColor=none;fontColor=#55585C;fontFamily=Arial;fontSize=22;fontStyle=1;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="305" y="83" width="130" height="355" as="geometry" />
+        </mxCell>
+        <mxCell id="stage2-train-outer" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#F46624;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="389" y="106" width="21" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="stage2-train-inner" value="" style="shape=triangle;whiteSpace=wrap;html=1;fillColor=#FFD04A;strokeColor=none;direction=north;" vertex="1" parent="1">
+          <mxGeometry x="394" y="113" width="11" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="stage2-cycle" value="&#8635;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#596067;fontFamily=Arial;fontSize=35;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="315" y="101" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gaussian-dec" value="Gaussian&lt;br&gt;Dec." style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=16;whiteSpace=wrap;html=1;fillColor=#F1B687;strokeColor=none;fontColor=#55585C;fontFamily=Arial;fontSize=19;fontStyle=1;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="83" width="100" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="lock-gs-body" value="" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#5E6266;strokeColor=#5E6266;" vertex="1" parent="1">
+          <mxGeometry x="520" y="103" width="18" height="17" as="geometry" />
+        </mxCell>
+        <mxCell id="lock-gs-loop" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#5E6266;strokeWidth=4;" vertex="1" parent="1">
+          <mxGeometry x="523" y="95" width="12" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="gaussian-frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#BFC2C5;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="585" y="63" width="180" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-body" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#F4F5F6;strokeColor=#A2A7AB;strokeWidth=1;opacity=92;" vertex="1" parent="1">
+          <mxGeometry x="635" y="126" width="80" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-head" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#F7F8F9;strokeColor=#A2A7AB;strokeWidth=1;opacity=92;" vertex="1" parent="1">
+          <mxGeometry x="653" y="90" width="45" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-blue" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#1D55B5;strokeColor=none;opacity=88;" vertex="1" parent="1">
+          <mxGeometry x="655" y="143" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-yellow" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#F7D21E;strokeColor=none;opacity=88;" vertex="1" parent="1">
+          <mxGeometry x="668" y="144" width="15" height="31" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-arm-left" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#ECEEEF;strokeColor=#A2A7AB;strokeWidth=1;opacity=90;rotation=22;" vertex="1" parent="1">
+          <mxGeometry x="613" y="132" width="28" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-arm-right" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#ECEEEF;strokeColor=#A2A7AB;strokeWidth=1;opacity=90;rotation=-22;" vertex="1" parent="1">
+          <mxGeometry x="711" y="132" width="28" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-leg-left" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#ECEEEF;strokeColor=#A2A7AB;strokeWidth=1;opacity=90;" vertex="1" parent="1">
+          <mxGeometry x="645" y="190" width="31" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-leg-right" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#ECEEEF;strokeColor=#A2A7AB;strokeWidth=1;opacity=90;" vertex="1" parent="1">
+          <mxGeometry x="680" y="190" width="31" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-foot-left" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#E93935;strokeColor=#B72824;strokeWidth=1;opacity=92;" vertex="1" parent="1">
+          <mxGeometry x="639" y="222" width="40" height="13" as="geometry" />
+        </mxCell>
+        <mxCell id="gs-foot-right" value="" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#E93935;strokeColor=#B72824;strokeWidth=1;opacity=92;" vertex="1" parent="1">
+          <mxGeometry x="677" y="222" width="40" height="13" as="geometry" />
+        </mxCell>
+        <mxCell id="gaussian-label" value="Gaussian Splats" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontColor=#7A7D80;fontFamily=Arial;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="575" y="235" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-stage2-gsdec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;endSize=8;strokeColor=#5C6267;strokeWidth=2.5;exitX=1;exitY=0.28;entryX=0;entryY=0.5;" edge="1" parent="1" source="stage2-flow" target="gaussian-dec">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-gsdec-output" value="" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=8;strokeColor=#5C6267;strokeWidth=2.5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="gaussian-dec" target="gaussian-frame">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1-clean-estimate" value="One-step clean&lt;br&gt;latent estimate" style="shape=note;whiteSpace=wrap;html=1;size=18;fillColor=#FFFFFF;strokeColor=#0F766E;strokeWidth=3;fontColor=#0F5F59;fontFamily=Arial;fontSize=19;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="35" y="673" width="225" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="v1-clean-note" value="deterministic v -&gt; x0 estimate" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontColor=#39716C;fontFamily=Arial;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="30" y="800" width="235" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="v1-frozen-decoder-callout" value="Frozen for V1 supervision" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#E7F5F2;strokeColor=#0F766E;strokeWidth=2;fontColor=#0F5F59;fontFamily=Arial;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="435" y="30" width="190" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="v1-reuse-gaussians-callout" value="Reused 3D Gaussians" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#E7F5F2;strokeColor=#0F766E;strokeWidth=2;fontColor=#0F5F59;fontFamily=Arial;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="620" y="30" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="v1-velocity-label" value="velocity -&gt; x0 estimate" style="text;html=1;strokeColor=none;fillColor=#E7F5F2;align=center;verticalAlign=middle;whiteSpace=wrap;fontColor=#0F5F59;fontFamily=Arial;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="618" width="215" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="v1-edge-stage2-clean" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;endSize=8;strokeColor=#0F766E;strokeWidth=3;exitX=0.35;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="stage2-flow" target="v1-clean-estimate">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="648" />
+              <mxPoint x="148" y="648" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v1-edge-clean-decoder" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;endSize=8;strokeColor=#0F766E;strokeWidth=3;exitX=1;exitY=0.25;entryX=0.5;entryY=1;" edge="1" parent="1" source="v1-clean-estimate" target="gaussian-dec">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="285" y="703" />
+              <mxPoint x="285" y="533" />
+              <mxPoint x="510" y="533" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v1-edge-callout-decoder" value="" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#0F766E;strokeWidth=2;dashed=1;" edge="1" parent="1" source="v1-frozen-decoder-callout" target="gaussian-dec">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1-edge-callout-gaussians" value="" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#0F766E;strokeWidth=2;dashed=1;" edge="1" parent="1" source="v1-reuse-gaussians-callout" target="gaussian-frame">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
