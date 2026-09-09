@@ -153,6 +153,23 @@ def _write_smoke_observability(trainer, attempt_logs, checkpoint_paths):
         "NOT_APPLICABLE: this G_L denoiser predicts structured latents; camera transforms are conditioning inputs, not supervised pose outputs.",
         final_step,
     )
+    if trainer.wandb_run is not None:
+        not_applicable = {
+            "contract/validation_loss": "NOT_APPLICABLE: the published CUPID G_L training config defines no validation dataset or evaluation hook.",
+            "contract/test_loss": "NOT_APPLICABLE: the published CUPID G_L training config defines no test dataset or evaluation hook.",
+            "contract/pose_rotation_error": "NOT_APPLICABLE: camera transforms are conditioning inputs, not predicted pose targets.",
+            "contract/pose_direction_error": "NOT_APPLICABLE: camera transforms are conditioning inputs, not predicted pose targets.",
+            "contract/pose_translation_scale": "NOT_APPLICABLE: camera transforms are conditioning inputs, not predicted pose targets.",
+            "contract/pose_translation_norm": "NOT_APPLICABLE: camera transforms are conditioning inputs, not predicted pose targets.",
+        }
+        trainer.wandb_run.summary.update(not_applicable)
+        trainer.wandb_run.summary.update(
+            {
+                "contract/evidence_eligibility": "DEBUG_ONLY / NO_SCIENCE",
+                "contract/final_step": final_step,
+            }
+        )
+        trainer.wandb_run.summary.update()
     trainer.writer.flush()
     trainer.writer.close()
     contract = {

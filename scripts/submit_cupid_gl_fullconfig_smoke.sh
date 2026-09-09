@@ -43,7 +43,7 @@ export LD_LIBRARY_PATH="$nvidia_library_path:$python_root/lib:/tmp/ricky_lib:/us
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export PYTHONPATH="$CUPID_PROJECT_DIR:$CUPID_PYTHON_OVERLAY:${PYTHONPATH:-}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
-export WANDB_MODE=online
+source "$CUPID_PROJECT_DIR/scripts/lib/wandb_env.sh"
 export WANDB_DIR="$CUPID_OUTPUT_DIR/wandb"
 
 cd "$CUPID_PROJECT_DIR"
