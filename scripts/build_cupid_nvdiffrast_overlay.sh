@@ -19,6 +19,7 @@ CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is require
 CUPID_PYTHON="${CUPID_PYTHON:-/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/bin/python3}"
 CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
 CUPID_CUDA_TOOLKIT_DIR="${CUPID_CUDA_TOOLKIT_DIR:-/public/home/ricky/ENVIRONMENT/cupid_cuda_toolkit_11_8_89_v1}"
+CUPID_NVIDIA_PYTHON_ROOT="${CUPID_NVIDIA_PYTHON_ROOT:-/public/home/ricky/.local/lib/python3.12/site-packages/nvidia}"
 NVDIFFRAST_COMMIT="${NVDIFFRAST_COMMIT:-253ac4fcea7de5f396371124af597e6cc957bfae}"
 NVDIFFRAST_ARCHIVE_SHA256="${NVDIFFRAST_ARCHIVE_SHA256:-a57340159afcef86b047f9a92d024b21fd7443c76bb1b5e67ab6ff8b172908ab}"
 SETUPTOOLS_WHEEL_SHA256="${SETUPTOOLS_WHEEL_SHA256:-558e47c15f1811c1fa7adbd0096669bf76c1d3f433f58324df69f3f5ecac4e8f}"
@@ -81,11 +82,29 @@ export CUDA_HOME="$CUPID_CUDA_TOOLKIT_DIR"
 export PATH="$CUDA_HOME/bin:$PATH"
 echo "NVDIFFRAST_BUILD_STAGE=CUDA_TOOLKIT_READY path=$CUDA_HOME version=$(nvcc --version | grep release | xargs)"
 
+nvidia_include_path=""
+nvidia_library_path=""
+for include_dir in "$CUPID_NVIDIA_PYTHON_ROOT"/*/include; do
+    test -d "$include_dir" || continue
+    nvidia_include_path="${nvidia_include_path:+$nvidia_include_path:}$include_dir"
+done
+for library_dir in "$CUPID_NVIDIA_PYTHON_ROOT"/*/lib; do
+    test -d "$library_dir" || continue
+    nvidia_library_path="${nvidia_library_path:+$nvidia_library_path:}$library_dir"
+done
+test -n "$nvidia_include_path"
+test -n "$nvidia_library_path"
+test -f "$CUPID_NVIDIA_PYTHON_ROOT/cusparse/include/cusparse.h"
+test -f "$CUPID_NVIDIA_PYTHON_ROOT/cusparse/lib/libcusparse.so.11"
+export CPATH="$nvidia_include_path:${CPATH:-}"
+export LIBRARY_PATH="$nvidia_library_path:${LIBRARY_PATH:-}"
+echo "NVDIFFRAST_BUILD_STAGE=CUDA_DEPENDENCY_PATHS_READY root=$CUPID_NVIDIA_PYTHON_ROOT"
+
 mkdir -p /tmp/ricky_lib
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
 python_root="$(dirname "$(dirname "$CUPID_PYTHON")")"
 test -f "$python_root/lib/libpython3.12.so.1.0"
-export LD_LIBRARY_PATH="$CUDA_HOME/lib:$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
+export LD_LIBRARY_PATH="$nvidia_library_path:$CUDA_HOME/lib:$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export PYTHONNOUSERSITE=1
 bootstrap_pythonpath="$CUPID_BASE_PYTHON_OVERLAY:/public/home/ricky/.local/lib/python3.12/site-packages:${PYTHONPATH:-}"
 build_backend="$build_root/build_backend"
