@@ -1,10 +1,18 @@
 # CUPID 双目自监督汇报 Storyboard
 
-状态：`STORYBOARD_READY / FINAL_FIGURES_BLOCKED`
+状态：`DIAGRAM-FIRST REVIEW DECK BUILT / USER REVIEW REQUIRED`
 
 本文档把原来的复现故障叙事改为面向师兄和老师的方法故事，规定每页目的、
-证据边界和统一母图合同。本文档不批准某一种双目方法，不为新模块命名，也不
-把设计写成结果。
+证据边界和统一母图合同。2026-09-10 根据用户要求，Step 3 改成先画图、再用 slides
+讲清楚改动/冻结边界、输入输出、梯度和 pose provider；当前 review deck 已构建，
+但仍不批准某一种双目方法，也不把设计写成结果。
+
+当前审查产物：
+
+- `outputs/figures/cupid_stereo_ssl_explanation_pipeline_v01.drawio`
+- `outputs/figures/cupid_stereo_ssl_explanation_pipeline_v01.png`
+- `outputs/cupid_stereo_ssl_step3_review_v02.pptx`
+- `outputs/cupid_stereo_ssl_step3_review_v02_contact_sheet.png`
 
 ## 故事主轴
 

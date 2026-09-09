@@ -1,13 +1,13 @@
 # CUPID 双目自监督表征学习核心文档
 
-状态：`STEP 3 COMPLETE / USER REVIEW REQUIRED / STEP 4 BLOCKED`
+状态：`STEP 3 DIAGRAM-FIRST REVIEW / USER REVIEW REQUIRED / STEP 4 BLOCKED`
 
-更新时间：2026-09-09
+更新时间：2026-09-10
 
 本文档是 CUPID 双目自监督新项目的核心研究记录。步骤 1、2 已经由用户审核通过；
-本轮完成步骤 3：比较 Stage 1 UV/pose、Stage 2 structured-latent distribution、
-VAE/decoder 与跨 Stage 1+2 端到端路径，并提出一个待审核的首个最小 Gate。
-步骤 4 在用户审核步骤 3 后才修改 draw.io 母图。
+本轮把步骤 3 改为 diagram-first review：先用一张从 CUPID baseline 增量派生的母图和
+一份中文 review deck 讲清楚改动边界、输入输出、pose provider 与梯度 ownership，再
+等待用户审核。步骤 4 在用户审核步骤 3 后才进入最终 draw.io 母图与实现规格。
 
 ## 0. 项目问题卡
 
@@ -30,7 +30,7 @@ CUPID 作为强 3D 生成先验，再研究：
 | --- | --- | --- | --- |
 | 1 | 读取旧 stereo SSL 文档与实时 Overleaf；定义 stereo、SSL、representation learning、学习条件、已有设计和已有成果；区分理论、模型与 CUPID 可迁移内容 | `APPROVED BY USER` | 已确认实时 Overleaf、核心目标和 static-object 第一阶段 |
 | 2 | 拆解 CUPID 当前学习过程：最小模块、每部分输入、输出、预测对象、监督、训练参数、冻结参数和可微路径 | `APPROVED BY USER` | 已确认三层表示、pose/3DGS 双重身份与无新 3D label 目标 |
-| 3 | 比较多个 stereo SSL 接入点；分别论证 pose、Stage 1 structure、Stage 2 distribution、3D decoder/render 路径；确定首个最小 Gate | `COMPLETE / REVIEW REQUIRED` | 用户批准唯一首选接入点、pose 提供方式与 matched controls |
+| 3 | 比较多个 stereo SSL 接入点；用 diagram-first 方式说明改动/冻结边界、输入输出、梯度和两个 pose 方案 | `DIAGRAM-FIRST REVIEW / USER REVIEW REQUIRED` | 用户批准唯一首选接入点、pose 提供方式与 matched controls |
 | 4 | 在审核过的 draw.io 母图上增量添加 stereo SSL branch，输出 editable draw.io、PNG 和图例 | `BLOCKED_BY_STEP_3_REVIEW` | 用户审核最终 pipeline 图 |
 
 ## 1. 证据级别与来源
@@ -921,6 +921,19 @@ ownership、`t` 分布和 teacher sample quality，不在同一轮加 relation h
 depth head 或 joint Stage 1 update。
 
 ## 12. 等待用户审核的 Step 3 问题
+
+### 12.1 Diagram-first review artifacts
+
+本轮先交付可视化审查材料，不把设计推进成实现：
+
+- Editable integration candidate：`outputs/figures/cupid_stereo_ssl_explanation_pipeline_v01.drawio`。
+- Rendered integration figure：`outputs/figures/cupid_stereo_ssl_explanation_pipeline_v01.png`。
+- Chinese review deck：`outputs/cupid_stereo_ssl_step3_review_v02.pptx`。
+- Deck contact sheet：`outputs/cupid_stereo_ssl_step3_review_v02_contact_sheet.png`。
+
+审核时应按第 4、5、6、7、8 页顺序检查：完整计算图、改动/冻结清单、输入输出合同、
+两个 pose 的边界、loss 与梯度终点。当前这些材料都属于 `DESIGN ONLY`；用户批准前不
+得将 `CUPID-S2-STEREO-OBS-CORRECTION-G1` 写成已确定的方法、已实现代码或实验结果。
 
 步骤 4 开始前，请审核：
 
