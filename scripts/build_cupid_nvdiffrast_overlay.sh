@@ -82,6 +82,10 @@ export CUDA_HOME="$CUPID_CUDA_TOOLKIT_DIR"
 export PATH="$CUDA_HOME/bin:$PATH"
 echo "NVDIFFRAST_BUILD_STAGE=CUDA_TOOLKIT_READY path=$CUDA_HOME version=$(nvcc --version | grep release | xargs)"
 
+# CUDA 11.8 ptxas exhausts node memory on nvdiffrast's native sm90 raster kernel.
+export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.0+PTX}"
+echo "NVDIFFRAST_BUILD_STAGE=CUDA_ARCH_READY arch=$TORCH_CUDA_ARCH_LIST"
+
 nvidia_include_path=""
 nvidia_library_path=""
 for include_dir in "$CUPID_NVIDIA_PYTHON_ROOT"/*/include; do
