@@ -12,8 +12,8 @@
   的双目自监督关系。
 - 核心问题：双目信号应在 CUPID 的哪个接口施加约束，同时不改变原论文两阶段
   生成链的语义。
-- 当前信息增量：CUPID 的论文/代码 baseline 已可定位，上一项目的双目资料也已
-  定位；但可迁移的精确信号与接入路径仍需用户确认。
+- 当前信息增量：CUPID 的论文/代码 baseline、上一项目的双目资料，以及首个
+  same-time right-view reconstruction 接入规格均已定位；该规格仍待用户科学审核。
 - 证据边界：论文和代码事实属于证据；reviewed diagram 属于经审核的表达；没有
   代码和实验结果的 integration diagram 仍是设计。
 - 需要老师裁决：上一项目的故事层级、双目信号含义、loss/constraint 归属、
@@ -53,7 +53,8 @@
 - 代码锚点：`cupid/pipelines/pipeline.py:132` 生成图像 conditioning；
   `cupid/pipelines/pipeline.py:147` 将 UV 解码为 camera pose；
   `cupid/pipelines/pipeline.py:217` 使用预测的 extrinsics/intrinsics 投影稀疏坐标。
-- 当前状态：页面结构已确定；具体接入点仍为 `PENDING`。
+- 当前状态：接入点已由 `docs/CUPID_STEREO_INSERTION_SPEC_V1.md` 定义为 Stage 2
+  denoiser 的 training-only render-loss branch，状态仍为 `DESIGN ONLY`。
 
 ### 4. 上一项目：双目观测、自监督重建与物理 baseline
 
@@ -71,22 +72,27 @@
 - 页面目的：让观众一眼看到新增内容与未变内容。
 - 视觉：复制任务 1 完整母图，只加入用户批准的双目路径，并使用稳定项目色。
 - baseline 区域：保持 CUPID 原有颜色与图形语义。
-- 新增区域：使用唯一项目色；未确认接口使用独立虚线，并明确标注 `PENDING`。
+- 新增区域：使用唯一项目色；按 `docs/CUPID_STEREO_INSERTION_SPEC_V1.md` 暴露
+  `One-step clean latent estimate`、fixed right-camera `Render` 和
+  `Right-view L1 + LPIPS`，所有未实现接口仍用独立虚线并标注 `DESIGN ONLY`。
 - 禁止内容：没有来源或代码依据的新模块名、推测箭头和 loss 位置。
-- 当前状态：baseline candidate commit 已到位；最终拓扑等待用户审核母图并选择
-  方法层级。
+- 当前状态：V1 insertion spec 已完成，但 baseline mother 与 integration 拓扑仍
+  等待用户审核；不得把 spec 当作实现或结果。
 
 ### 6. CUPID 内部的双目监督合同
 
 - 页面目的：在不重画系统的前提下，让训练信号可审计。
 - 视觉：从 integration mother diagram 裁切双目增量区域。
-- 若用户选择 reconstruction 层：标出左右目标重建、L1 + LPIPS、有效 pair mask
-  与 renderer/gradient ownership。
-- 若用户选择 numeric baseline 层：标出 `B = 0.25 m`、baseline-norm constraint、
-  有效 stereo term 的全局平均，以及对既有 camera prediction path 的梯度。
+- 当前 V1 只提出 same-time `L_t -> R_t` observation reconstruction：标出同步右图
+  target、`E_R = T_R<-L E_L` fixed geometry、L1 + LPIPS、`stereo_valid AND
+  cfg_conditioned` mask 与 renderer/gradient ownership；明确这是
+  `DESIGN ONLY / S01 UNVERIFIED`。
+- numeric `B = 0.25 m` / baseline-norm constraint 只作为后续独立 Gate 提及，
+  不进入当前 integration crop。
 - 必须区分 learned module、fixed geometry/conversion、renderer/consumer 和
   supervision contract，四者不能共用同一种 shape。
-- 当前状态：只保留素材位；批准前不放最终标签。
+- `B = 0.25 m`、feature consistency、temporal quartet 和 learned relation head
+  均保持 out of scope；批准前不放 `RESULT` 标签。
 
 ### 7. 改动边界：保留的 CUPID 与项目新增部分
 
@@ -94,9 +100,11 @@
 - 视觉：一个原生双列表格，加一张 integration mother diagram 小缩略图。
 - baseline 保留项：CUPID 两阶段生成、DINOv2 conditioning、UV-to-pose decoding、
   pose-aligned conditioning 和 3D output decoders。
-- 项目改动项：精确双目输入、信号/loss、接入点、trainable ownership 和推理时
-  行为。只允许从批准后的设计与实际实现代码填入。
-- 当前状态：baseline 列已有依据；改动列为 `PENDING`。
+- 项目改动项：精确同步 stereo pair carrier、right-view L1 + LPIPS、接入点、
+  trainable ownership 和 left-only 推理行为；以 insertion spec 与实际实现代码
+  填入，当前均标 `DESIGN ONLY`。
+- 当前状态：baseline 列已有依据；改动列由 V1 spec 定义但仍是
+  `DESIGN ONLY / NOT IMPLEMENTED`。
 
 ### 8. 证据状态：来源事实、设计与结果
 
@@ -123,6 +131,8 @@
 ## 母图与术语合同
 
 - 任务 1 经审核的 CUPID baseline `.drawio` 是唯一 baseline mother。
+- `docs/CUPID_STEREO_INSERTION_SPEC_V1.md` 是当前 integration 的唯一架构合同；
+  它冻结一个 right-view reconstruction 变量，不批准任何 learned module 名称。
 - integration mother 必须从该 `.drawio` 复制；所有 crop/zoom 必须能回溯到它。
 - 图内只用英文；中文标题和解释使用原生 slide 对象。
 - 稳定颜色归属：CUPID source、previous-project source、project adaptation、fixed

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "artifact": "CUPID stereo self-supervision research deck",
-  "status": "storyboard_ready_dependencies_pending",
+  "status": "storyboard_ready_insertion_spec_pending",
   "plannedMainSlideCount": 9,
   "plannedOutputs": {
     "pptx": "outputs/cupid_stereo_ssl_method_story.pptx",
@@ -41,6 +41,35 @@
         "role": "official pretrained pipeline usage and returned pose/3D outputs"
       }
     ]
+  },
+  "integrationSpec": {
+    "path": "docs/CUPID_STEREO_INSERTION_SPEC_V1.md",
+    "status": "DESIGN_ONLY / S01_UNVERIFIED / NOT_IMPLEMENTED",
+    "gateName": "CUPID-SAME-TIME-RIGHT-RECON-V1",
+    "singleChangedVariable": "training-only same-time left-conditioned right-view reconstruction branch/loss",
+    "sourceSink": "left image conditioning and existing Stage 2 denoiser -> one-step clean latent -> frozen Gaussian decoder -> fixed right-camera Render -> right-view L1 + LPIPS -> Stage 2 denoiser",
+    "inferenceContract": "left-only CUPID inference unchanged; right target/camera/render/loss are training-only",
+    "fixedGeometry": "T_R<-L = C_R^-1 C_L = E_R E_L^-1; E_R = T_R<-L E_L; no B=0.25 m loss or model input",
+    "gradientBoundary": "right reconstruction gradient returns only to existing Stage 2 denoiser; no Stage 1, camera metadata, decoder/renderer parameters, target, mask, or new learned head",
+    "implementationGap": "current ImageConditionedSLatWithUVTransforms samples one view and current flow trainer computes velocity MSE only; paired carrier, differentiable clean-latent branch, frozen decoder/renderer glue, and CFG-conditioned mask exposure are not yet implemented",
+    "codeAnchors": [
+      "cupid/trainers/flow_matching/sparse_flow_matching.py:95",
+      "cupid/trainers/flow_matching/sparse_flow_matching.py:100",
+      "cupid/trainers/flow_matching/sparse_flow_matching.py:104",
+      "cupid/pipelines/samplers/flow_euler.py:31",
+      "cupid/pipelines/pipeline.py:266",
+      "cupid/datasets/structured_latent.py:157",
+      "cupid/datasets/structured_latent.py:234",
+      "cupid/renderers/gaussian_render.py:169",
+      "cupid/models/structured_latent_vae/decoder_gs.py:118",
+      "cupid/trainers/basic.py:442"
+    ],
+    "alternativesPostponed": [
+      "full 50-step sampler-end render loss (rejected: sampler is @torch.no_grad and changes protocol/compute)",
+      "DINO/voxel/latent feature consistency (postponed: different signal and extra target/weight/stop-gradient variable)"
+    ],
+    "visualDelta": "synchronized right train target; fixed Calibrated T_R<-L; One-step clean latent estimate; Render (right camera); Right-view L1 + LPIPS; backward-only gradient to Stage 2; TRAIN ONLY bracket; left-only inference unchanged",
+    "sha256": "d2feb711f923cfe3ee7e11f11ebcb8d6ce7b2f8661f04c6677c047ac9bcc1643"
   },
   "task1": {
     "threadId": "01a08097-df8d-7d50-9069-c56ed3532252",
@@ -190,9 +219,9 @@
     ]
   },
   "integrationMother": {
-    "status": "blocked",
+    "status": "design_only_spec_ready / blocked_until_user_review",
     "requiredParent": "task1.requiredFiles[0]",
-    "soleLocalDelta": null,
+    "soleLocalDelta": "docs/CUPID_STEREO_INSERTION_SPEC_V1.md",
     "newModuleNameApproval": "pending_if_a_new_learned_module_is_required",
     "diagramLanguage": "English",
     "slideExplanationLanguage": "Simplified Chinese"
@@ -208,6 +237,8 @@
     "ready": false,
     "blockingItems": [
       "task 1 user review status",
+      "CUPID V1 insertion spec user/scientific approval",
+      "real calibrated same-time stereo pair schema and crop/calibration replay contract",
       "user choice between project-level 4D distribution story and current metric-scale camera path",
       "user choice between observation/reconstruction signal and numeric B anchor",
       "approved CUPID insertion point and terminology register"
