@@ -24,6 +24,7 @@ NVDIFFRAST_COMMIT="${NVDIFFRAST_COMMIT:-253ac4fcea7de5f396371124af597e6cc957bfae
 NVDIFFRAST_ARCHIVE_SHA256="${NVDIFFRAST_ARCHIVE_SHA256:-a57340159afcef86b047f9a92d024b21fd7443c76bb1b5e67ab6ff8b172908ab}"
 SETUPTOOLS_WHEEL_SHA256="${SETUPTOOLS_WHEEL_SHA256:-558e47c15f1811c1fa7adbd0096669bf76c1d3f433f58324df69f3f5ecac4e8f}"
 WHEEL_WHEEL_SHA256="${WHEEL_WHEEL_SHA256:-708e7481cc80179af0e556bbf0cc00b8444c7321e2700b8d8580231d13017248}"
+TYPING_EXTENSIONS_WHEEL_SHA256="${TYPING_EXTENSIONS_WHEEL_SHA256:-04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d}"
 CUDA_PACKAGE_BASE_URL="${CUDA_PACKAGE_BASE_URL:-https://conda.anaconda.org/nvidia/linux-64}"
 
 test "$(git -C "$CUPID_PROJECT_DIR" rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
@@ -31,6 +32,7 @@ test -z "$(git -C "$CUPID_PROJECT_DIR" status --porcelain --untracked-files=all)
 source_archive="$CUPID_PROJECT_DIR/third_party/nvdiffrast-${NVDIFFRAST_COMMIT}.tar.gz"
 setuptools_wheel="$CUPID_PROJECT_DIR/third_party/setuptools-75.8.2-py3-none-any.whl"
 wheel_wheel="$CUPID_PROJECT_DIR/third_party/wheel-0.45.1-py3-none-any.whl"
+typing_extensions_wheel="$CUPID_PROJECT_DIR/third_party/typing_extensions-4.12.2-py3-none-any.whl"
 echo "NVDIFFRAST_BUILD_STAGE=PATHS overlay=$CUPID_NVDIFFRAST_OVERLAY archive=$source_archive"
 
 test ! -e "$CUPID_NVDIFFRAST_OVERLAY"
@@ -114,9 +116,10 @@ bootstrap_pythonpath="$CUPID_BASE_PYTHON_OVERLAY:/public/home/ricky/.local/lib/p
 build_backend="$build_root/build_backend"
 test "$(sha256sum "$setuptools_wheel" | awk '{print $1}')" = "$SETUPTOOLS_WHEEL_SHA256"
 test "$(sha256sum "$wheel_wheel" | awk '{print $1}')" = "$WHEEL_WHEEL_SHA256"
+test "$(sha256sum "$typing_extensions_wheel" | awk '{print $1}')" = "$TYPING_EXTENSIONS_WHEEL_SHA256"
 PYTHONPATH="$bootstrap_pythonpath" "$CUPID_PYTHON" -m pip install \
     --target "$build_backend" --no-deps --no-index \
-    "$setuptools_wheel" "$wheel_wheel"
+    "$setuptools_wheel" "$wheel_wheel" "$typing_extensions_wheel"
 export PYTHONPATH="$build_backend:$bootstrap_pythonpath"
 "$CUPID_PYTHON" -c 'import setuptools, setuptools.build_meta, torch; print(f"NVDIFFRAST_BUILD_BACKEND=setuptools:{setuptools.__version__}|torch:{torch.__version__}|cuda:{torch.version.cuda}")'
 echo "NVDIFFRAST_BUILD_STAGE=PYTHON_READY path=$CUPID_PYTHON lib=$python_root/lib"
@@ -137,6 +140,11 @@ echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_START"
     --no-cache-dir \
     --no-build-isolation \
     "$source_dir"
+"$CUPID_PYTHON" -m pip install \
+    --target "$CUPID_NVDIFFRAST_OVERLAY" \
+    --no-deps \
+    --no-index \
+    "$typing_extensions_wheel"
 echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_DONE"
 
 export PYTHONPATH="$CUPID_NVDIFFRAST_OVERLAY:$PYTHONPATH"
