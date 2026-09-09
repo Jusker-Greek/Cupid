@@ -18,10 +18,12 @@ CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:?CUPID_PROJECT_DIR is required}"
 CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is required}"
 CUPID_PYTHON="${CUPID_PYTHON:-/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/bin/python3}"
 CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
+CUPID_CUDA_TOOLKIT_DIR="${CUPID_CUDA_TOOLKIT_DIR:-/public/home/ricky/ENVIRONMENT/cupid_cuda_toolkit_11_8_89_v1}"
 NVDIFFRAST_COMMIT="${NVDIFFRAST_COMMIT:-253ac4fcea7de5f396371124af597e6cc957bfae}"
 NVDIFFRAST_ARCHIVE_SHA256="${NVDIFFRAST_ARCHIVE_SHA256:-a57340159afcef86b047f9a92d024b21fd7443c76bb1b5e67ab6ff8b172908ab}"
 SETUPTOOLS_WHEEL_SHA256="${SETUPTOOLS_WHEEL_SHA256:-558e47c15f1811c1fa7adbd0096669bf76c1d3f433f58324df69f3f5ecac4e8f}"
 WHEEL_WHEEL_SHA256="${WHEEL_WHEEL_SHA256:-708e7481cc80179af0e556bbf0cc00b8444c7321e2700b8d8580231d13017248}"
+CUDA_PACKAGE_BASE_URL="${CUDA_PACKAGE_BASE_URL:-https://conda.anaconda.org/nvidia/linux-64}"
 
 test "$(git -C "$CUPID_PROJECT_DIR" rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
 test -z "$(git -C "$CUPID_PROJECT_DIR" status --porcelain --untracked-files=all)"
@@ -38,12 +40,52 @@ build_root="$(mktemp -d /tmp/cupid_nvdiffrast.XXXXXX)"
 trap 'rm -rf "$build_root"' EXIT
 echo "NVDIFFRAST_BUILD_STAGE=TEMP_READY path=$build_root"
 
-export CUDA_HOME="${CUDA_HOME:-/usr/local/cuda}"
+cuda_packages=(
+    "cuda-nvcc-11.8.89-0.tar.bz2:23ee509485627c7e402d0d6c4567e02641430a37581f1da0a4d5478dd5cecc0e"
+    "cuda-cudart-11.8.89-0.tar.bz2:f8cf96ae45acf1bef5ff0be3e849d87e3543144ec8c0075db235f4933113a3b0"
+    "cuda-cudart-dev-11.8.89-0.tar.bz2:46f31a6b45ebdb09e03f3e0ec8a3cba13ceef53805de87de5ab0056b7ff69d80"
+    "cuda-cccl-11.8.89-0.tar.bz2:cc68223476b91e15de718d4e31470ac9166e86eb123528bb61ec0b83c2ea1474"
+)
+
+verify_cuda_toolkit() {
+    test -x "$CUPID_CUDA_TOOLKIT_DIR/bin/nvcc"
+    test -f "$CUPID_CUDA_TOOLKIT_DIR/include/cuda_runtime.h"
+    test -f "$CUPID_CUDA_TOOLKIT_DIR/lib/libcudart.so.11.8.89"
+    "$CUPID_CUDA_TOOLKIT_DIR/bin/nvcc" --version | grep -q 'release 11.8'
+}
+
+if ! verify_cuda_toolkit 2>/dev/null; then
+    test ! -e "$CUPID_CUDA_TOOLKIT_DIR"
+    cuda_partial="${CUPID_CUDA_TOOLKIT_DIR}.partial-${SLURM_JOB_ID:-manual}"
+    test ! -e "$cuda_partial"
+    mkdir -p "$cuda_partial" "$build_root/cuda_packages"
+    echo "NVDIFFRAST_BUILD_STAGE=CUDA_TOOLKIT_DOWNLOAD_START target=$CUPID_CUDA_TOOLKIT_DIR"
+    for package_spec in "${cuda_packages[@]}"; do
+        package_name="${package_spec%%:*}"
+        package_sha256="${package_spec##*:}"
+        package_path="$build_root/cuda_packages/$package_name"
+        curl --fail --location --retry 3 --retry-all-errors \
+            "$CUDA_PACKAGE_BASE_URL/$package_name" --output "$package_path"
+        test "$(sha256sum "$package_path" | awk '{print $1}')" = "$package_sha256"
+        tar -xjf "$package_path" -C "$cuda_partial"
+    done
+    ln -s lib "$cuda_partial/lib64"
+    test -x "$cuda_partial/bin/nvcc"
+    test -f "$cuda_partial/include/cuda_runtime.h"
+    test -f "$cuda_partial/lib/libcudart.so.11.8.89"
+    "$cuda_partial/bin/nvcc" --version | grep -q 'release 11.8'
+    mv "$cuda_partial" "$CUPID_CUDA_TOOLKIT_DIR"
+fi
+verify_cuda_toolkit
+export CUDA_HOME="$CUPID_CUDA_TOOLKIT_DIR"
+export PATH="$CUDA_HOME/bin:$PATH"
+echo "NVDIFFRAST_BUILD_STAGE=CUDA_TOOLKIT_READY path=$CUDA_HOME version=$(nvcc --version | grep release | xargs)"
+
 mkdir -p /tmp/ricky_lib
 ln -sf /usr/lib/x86_64-linux-gnu/libffi.so.8 /tmp/ricky_lib/libffi.so.6
 python_root="$(dirname "$(dirname "$CUPID_PYTHON")")"
 test -f "$python_root/lib/libpython3.12.so.1.0"
-export LD_LIBRARY_PATH="$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
+export LD_LIBRARY_PATH="$CUDA_HOME/lib:$python_root/lib:/tmp/ricky_lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export PYTHONNOUSERSITE=1
 bootstrap_pythonpath="$CUPID_BASE_PYTHON_OVERLAY:/public/home/ricky/.local/lib/python3.12/site-packages:${PYTHONPATH:-}"
 build_backend="$build_root/build_backend"
