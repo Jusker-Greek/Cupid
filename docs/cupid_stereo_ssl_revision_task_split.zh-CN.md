@@ -136,3 +136,14 @@ Task 2: prior-project document audit
 - Task 2 的候选文档、关键原文位置和冲突解释。
 - 用户对双目 SSL contract 的确认。
 - Task 3 的页序、dependency manifest 和待填素材清单。
+
+## 9. Phase 2：当前集成图责任划分
+
+原始 CUPID baseline 母图完成后，当前集成图按以下责任链推进：
+
+1. Task 2 是上一项目双目 SSL 科学合同 owner。它负责阅读用户之前的思路与项目文档，并输出 `STEREO_SSL_CONTRACT_V1`，明确 source/target view、fixed geometry、prediction target、loss、mask、gradient ownership、训练/推理边界以及已验证与 proposed 内容。
+2. Task 3 是 CUPID integration architecture owner。它负责同时阅读 Task 2 合同、CUPID 论文与官方代码，并输出 `CUPID_STEREO_INSERTION_SPEC_V1`，决定信号加入 CUPID 的精确位置、保持不变的 baseline 路径、唯一新增变量、loss 和 gradient path。
+3. Task 1 是 Draw.io implementation/review owner。它不得自行决定科研结构；收到 Task 3 的完整规格后，从 baseline v02 复制新的 integration candidate，只实现经审核的局部 delta，不覆盖 baseline。
+4. 用户负责最终科学合同和图稿 approval。用户确认前，当前图只能标为 `Proposed / Training only / Pending review`。
+
+当前优先审计的最小 gate 是：左目沿原 CUPID 路径生成 3D 表示，利用已知左右相机关系渲染或预测右目，以真实右目提供 reconstruction 或 feature consistency；该信号作为训练期辅助约束，初始方案不无依据新增 learned relation head。最终位置和 gradient ownership 以 Task 3 的代码级审计为准。
