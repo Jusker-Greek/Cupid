@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
-#SBATCH --mem=64G
+#SBATCH --mem=200G
 #SBATCH --time=00:30:00
 #SBATCH --output=/public/home/ricky/RESULTS/cupid_nvdiffrast_build_%j.out
 
