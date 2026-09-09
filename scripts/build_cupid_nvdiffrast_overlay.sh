@@ -36,6 +36,10 @@ SIX_WHEEL_SHA256="${SIX_WHEEL_SHA256:-4721f391ed90541fddacab5acf947aa0d3dc7d27b2
 PILLOW_WHEEL_SHA256="${PILLOW_WHEEL_SHA256:-7fdadc077553621911f27ce206ffcbec7d3f8d7b50e0da39f10997e8e2bb7f6a}"
 PROTOBUF_WHEEL_SHA256="${PROTOBUF_WHEEL_SHA256:-0a18ed4a24198528f2333802eb075e59dea9d679ab7a6c5efb017a59004d849f}"
 SCIPY_WHEEL_SHA256="${SCIPY_WHEEL_SHA256:-0fb57b30f0017d4afa5fe5f5b150b8f807618819287c21cbe51130de7ccdaed2}"
+PYDANTIC_WHEEL_SHA256="${PYDANTIC_WHEEL_SHA256:-427d664bf0b8a2b34ff5dd0f5a18df00591adcee7198fbd71981054cef37b584}"
+PYDANTIC_CORE_WHEEL_SHA256="${PYDANTIC_CORE_WHEEL_SHA256:-6fb4aadc0b9a0c063206846d603b92030eb6f03069151a625667f982887153e2}"
+ANNOTATED_TYPES_WHEEL_SHA256="${ANNOTATED_TYPES_WHEEL_SHA256:-1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53}"
+TYPING_INSPECTION_WHEEL_SHA256="${TYPING_INSPECTION_WHEEL_SHA256:-389055682238f53b04f7badcb49b989835495a96700ced5dab2d8feae4b26f51}"
 CUDA_PACKAGE_BASE_URL="${CUDA_PACKAGE_BASE_URL:-https://conda.anaconda.org/nvidia/linux-64}"
 
 test "$(git -C "$CUPID_PROJECT_DIR" rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
@@ -54,6 +58,10 @@ six_wheel="$CUPID_PROJECT_DIR/third_party/six-1.17.0-py2.py3-none-any.whl"
 pillow_wheel="$CUPID_PROJECT_DIR/third_party/pillow-11.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 protobuf_wheel="$CUPID_PROJECT_DIR/third_party/protobuf-5.29.3-py3-none-any.whl"
 scipy_wheel="$CUPID_PROJECT_DIR/third_party/scipy-1.15.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+pydantic_wheel="$CUPID_PROJECT_DIR/third_party/pydantic-2.10.6-py3-none-any.whl"
+pydantic_core_wheel="$CUPID_PROJECT_DIR/third_party/pydantic_core-2.27.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+annotated_types_wheel="$CUPID_PROJECT_DIR/third_party/annotated_types-0.7.0-py3-none-any.whl"
+typing_inspection_wheel="$CUPID_PROJECT_DIR/third_party/typing_inspection-0.4.1-py3-none-any.whl"
 echo "NVDIFFRAST_BUILD_STAGE=PATHS overlay=$CUPID_NVDIFFRAST_OVERLAY archive=$source_archive"
 
 test ! -e "$CUPID_NVDIFFRAST_OVERLAY"
@@ -147,6 +155,10 @@ test "$(sha256sum "$six_wheel" | awk '{print $1}')" = "$SIX_WHEEL_SHA256"
 test "$(sha256sum "$pillow_wheel" | awk '{print $1}')" = "$PILLOW_WHEEL_SHA256"
 test "$(sha256sum "$protobuf_wheel" | awk '{print $1}')" = "$PROTOBUF_WHEEL_SHA256"
 test "$(sha256sum "$scipy_wheel" | awk '{print $1}')" = "$SCIPY_WHEEL_SHA256"
+test "$(sha256sum "$pydantic_wheel" | awk '{print $1}')" = "$PYDANTIC_WHEEL_SHA256"
+test "$(sha256sum "$pydantic_core_wheel" | awk '{print $1}')" = "$PYDANTIC_CORE_WHEEL_SHA256"
+test "$(sha256sum "$annotated_types_wheel" | awk '{print $1}')" = "$ANNOTATED_TYPES_WHEEL_SHA256"
+test "$(sha256sum "$typing_inspection_wheel" | awk '{print $1}')" = "$TYPING_INSPECTION_WHEEL_SHA256"
 PYTHONPATH="$bootstrap_pythonpath" "$CUPID_PYTHON" -m pip install \
     --target "$build_backend" --no-deps --no-index \
     "$setuptools_wheel" "$wheel_wheel" "$typing_extensions_wheel"
@@ -182,6 +194,7 @@ echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_START"
     "$typing_extensions_wheel" "$platformdirs_wheel" "$packaging_wheel" \
     "$pandas_wheel" "$python_dateutil_wheel" "$tzdata_wheel" "$six_wheel" "$pillow_wheel" \
     "$protobuf_wheel" "$scipy_wheel"
+    "$pydantic_wheel" "$pydantic_core_wheel" "$annotated_types_wheel" "$typing_inspection_wheel"
 MAX_JOBS="${MAX_JOBS:-4}" "$CUPID_PYTHON" -m pip install \
     --target "$CUPID_NVDIFFRAST_OVERLAY" \
     --no-deps \
@@ -204,6 +217,9 @@ import pandas
 import PIL
 from PIL import Image
 import google.protobuf
+import pydantic
+import pydantic_core
+import wandb
 import scipy
 import torch
 import nvdiffrast.torch as dr
@@ -236,6 +252,8 @@ receipt = {
     "pillow": PIL.__version__,
     "protobuf": google.protobuf.__version__,
     "scipy": scipy.__version__,
+    "pydantic": pydantic.__version__,
+    "pydantic_core": pydantic_core.__version__,
     "diff_gaussian_rasterization": os.environ["MIP_SPLATTING_COMMIT"],
     "gpu": torch.cuda.get_device_name(),
     "probe_shape": list(raster.shape),
