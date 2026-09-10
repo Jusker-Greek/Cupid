@@ -169,7 +169,6 @@ def _write_smoke_observability(trainer, attempt_logs, checkpoint_paths):
                 "contract/final_step": final_step,
             }
         )
-        trainer.wandb_run.summary.update()
     trainer.writer.flush()
     trainer.writer.close()
     contract = {
