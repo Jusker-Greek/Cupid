@@ -42,7 +42,8 @@ def main():
     last_seen = set()
     for attempt in range(1, args.attempts + 1):
         run = wandb.Api().run(run_path)
-        rows = list(run.scan_history(keys=sorted(required_keys), page_size=1000))
+        # Fetch all rows because sparse per-bin loss keys are not present on every step.
+        rows = list(run.scan_history(page_size=1000))
         last_seen = {key for row in rows for key in required_keys if row.get(key) is not None}
         summary = dict(run.summary)
         summary_ok = all(
