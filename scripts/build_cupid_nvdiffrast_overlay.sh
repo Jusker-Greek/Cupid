@@ -193,7 +193,7 @@ echo "NVDIFFRAST_BUILD_STAGE=PIP_INSTALL_START"
     --no-index \
     "$typing_extensions_wheel" "$platformdirs_wheel" "$packaging_wheel" \
     "$pandas_wheel" "$python_dateutil_wheel" "$tzdata_wheel" "$six_wheel" "$pillow_wheel" \
-    "$protobuf_wheel" "$scipy_wheel"
+    "$protobuf_wheel" "$scipy_wheel" \
     "$pydantic_wheel" "$pydantic_core_wheel" "$annotated_types_wheel" "$typing_inspection_wheel"
 MAX_JOBS="${MAX_JOBS:-4}" "$CUPID_PYTHON" -m pip install \
     --target "$CUPID_NVDIFFRAST_OVERLAY" \
