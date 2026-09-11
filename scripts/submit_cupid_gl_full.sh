@@ -6,6 +6,9 @@
 
 set -euo pipefail
 
+# Slurm may provide scheduler variables without adding its command directory.
+export PATH="/opt/gridview/slurm/bin:${PATH}"
+
 CUPID_PROJECT_DIR="${CUPID_PROJECT_DIR:?CUPID_PROJECT_DIR is required}"
 CUPID_OUTPUT_DIR="${CUPID_OUTPUT_DIR:?CUPID_OUTPUT_DIR is required}"
 CUPID_EXPECTED_COMMIT="${CUPID_EXPECTED_COMMIT:?CUPID_EXPECTED_COMMIT is required}"
