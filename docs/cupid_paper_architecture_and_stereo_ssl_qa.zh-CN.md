@@ -4,7 +4,7 @@
 
 更新时间：2026-09-14
 
-本文将已经完成的 12 个论文/架构问答整理成一份可供师兄、老师审核的技术记录。目的
+本文将已经完成的 13 个论文/架构问答整理成一份可供师兄、老师审核的技术记录。目的
 不是把讨论内容写成已经完成的科学结果，而是明确：我们从哪个 CUPID baseline 出发，
 论文和代码实际做了什么，上一项目的双目自监督思想可以怎样迁移，以及当前 proposed
 架构还缺什么证据。
@@ -432,6 +432,94 @@ latent decoder 将其转换为 Gaussian/Mesh/RF
 decoder/render loss 主要属于表示 codec 训练或 proposed observation branch
 ```
 
+### 9.3 Object (O) 与 camera pose \(\theta\) 到底由什么监督
+
+这是最容易被“联合建模”这句话误导的地方。论文中的
+
+\[
+I=P(O,\theta),\qquad p(O,\theta\mid I_{\mathrm{cond}})
+\]
+
+是问题定义，不等于代码里有一个网络直接输出两个变量、再分别计算一个
+`object loss` 和一个 `pose loss`。
+
+| 量 | 训练时实际使用的 target | 是否直接回归 | 监督来源 |
+| --- | --- | --- | --- |
+| 物体粗结构 | canonical occupancy cube；由 3D asset 的 voxel PLY 构造 | 否；先编码为 structure latent，再由 Stage 1 Flow 生成 | 3D asset/occupancy 标签，属于数据监督 |
+| 相机因素 | 与 canonical voxel 配对的 UV cube，`u_i=pi(P,x_i)` | 否；Stage 1 生成 UV latent，解码后用 DLT/PnP 求 `P=K[R|t]` | 渲染相机的 intrinsics/extrinsics 通过投影生成 UV target，属于间接 pose 监督 |
+| 物体细节 | canonical active voxel 上的 DINOv2 聚合特征，经 SLat VAE 得到 cached `z_slat` | 否；Stage 2 生成 SLat latent，之后由 decoder 读出 Gaussian/Mesh | 3D asset、multi-view render 和预训练 SLat codec |
+| 最终 Gaussian/Mesh | Stage 2 latent 的 decoder 输出 | 不是 Stage 1/2 Flow 的直接 target | decoder/VAE 阶段的渲染、几何、正则损失 |
+
+`[论文事实]` 论文 §3.2--§3.3 明确把物体写成
+`O={(x_i,f_i)}`，把 pose 重参数化成 `{(x_i,u_i)}`，并说明第一阶段生成 occupancy
+cube 与 UV cube，第二阶段生成 active voxel 的 feature `f_i`。因此 pose 的“ground
+truth”首先以 UV correspondence 形式进入训练，而不是以一个独立的 6D/12D pose
+回归标签进入 Flow loss。
+
+`[代码事实]` `cupid/datasets/sparse_structure.py:39-45` 从 canonical voxel PLY 构造
+occupancy；`cupid/datasets/sparse_uv_structure.py:63-81` 使用 `extrinsics`、`intrinsics`
+把 voxel center 投影成 UV volume；`cupid/datasets/sparse_structure_latent.py:168-173`
+和 `cupid/datasets/sparse_uv_structure_latent.py:216-229` 读取 cached latent 作为
+`x_0`。`cupid/pipelines/processing.py:158-175` 再把预测 UV 通过 DLT/EPnP 解成相机
+pose。
+
+`[论文事实][代码事实]` Flow 阶段的直接损失是 latent 上的 Conditional Flow Matching
+velocity MSE：
+
+\[
+\mathcal L_{\mathrm{CFM}}
+ =\left\|v_\phi(x_t,t,I_{\mathrm{cond}})-v^*(x_t,t)\right\|_2^2,
+\qquad
+v^*=(1-\sigma_{\min})\epsilon-x_0 .
+\]
+
+也就是说，`x_0` 是由 3D asset/camera pipeline 生成或缓存的 latent target；Gaussian、
+Mesh 和显式 pose 矩阵不会在主 Flow trainer 中单独提供一个直接回归损失。
+
+#### 哪些是预训练的，哪些需要重新训练
+
+| 组件 | 原 CUPID 中的状态 | 是否在主 Flow 训练中更新 |
+| --- | --- | --- |
+| DINOv2 image encoder | 外部预训练视觉 encoder | 通常冻结；只提取 conditioning feature |
+| occupancy VAE / decoder | 由 occupancy reconstruction + KL 训练好的 codec | 通常冻结；提供 structure latent 和解码 |
+| UV VAE / decoder | 由 UV/support reconstruction + KL 训练好的 codec | 通常冻结；提供 pose latent 和 UV 解码 |
+| SLat encoder/decoder | TRELLIS 风格的独立 3D latent codec，使用 render/geometry 等损失训练 | 通常冻结；提供 `z_slat` 与 Gaussian/Mesh readout |
+| Stage 1 `G_S` | 以 TRELLIS checkpoint 初始化，再在 CUPID 数据上训练/微调 | 需要训练 |
+| Stage 2 `G_L` | 以 TRELLIS checkpoint 初始化，再在 pose-aligned 条件上训练/微调 | 需要训练 |
+| DLT/PnP | 确定性几何求解器 | 不训练 |
+
+`[论文事实]` Appendix A.1 写明：数据来自约 260K 个 3D assets；每个 asset 通过
+occupancy grid 和 structured latent 编码，并从随机视角渲染 conditioning images；模型
+使用 TRELLIS 预训练权重初始化，随后分别训练 `G_S` 与 `G_L`。因此“已经有预训练模型，
+所以两个量都不用训练”不准确：预训练模型提供表示 codec、DINO 特征和初始化权重，
+但 CUPID 的两个 Flow denoiser 仍然要训练。
+
+#### “有监督”还是“自监督”
+
+- `[论文事实]` **原 CUPID 的主训练不是纯自监督。** 它依赖 3D asset、canonical voxel、
+  渲染相机参数和 cached latent；更准确的说法是“3D-data-supervised / latent-supervised
+  conditional generative training”。
+- `[代码事实]` **Stage 1/Stage 2 的 Flow 训练**使用 `x_0` latent 与随机噪声构造 CFM
+  target，再优化 velocity MSE；因此虽然损失形式不是 mesh loss，它仍然有来自 3D 数据
+  pipeline 的 target，不应称为 stereo self-supervision。
+- `[代码事实]` **VAE/decoder 训练**使用 occupancy、UV、渲染 RGB、mask/depth/normal 和
+  geometry 等重建或正则信号，属于表示 codec 的有监督/重建训练。
+- `[通用知识]` DINOv2 的预训练本身使用其作者定义的自监督视觉目标，但在 CUPID 中它是
+  冻结的外部 feature extractor；不能因此把 CUPID 整体称为自监督。
+- `[架构推断]` 我们的双目扩展才引入“新增样本不提供 mesh/Gaussian/depth label”的
+  observation-level self-supervision：右目真实图像作为 target，已有 CUPID 3D prior、
+  decoder 和相机关系作为固定条件。首个 Gate 计划只微调 Stage 2 denoiser；这属于
+  “基于预训练 3D 先验的双目自监督增量训练”，不是从零 stereo-only 学习。
+
+给老师的最短口径是：
+
+> 原 CUPID 确实同时学习 object 和 camera 因素，但不是两个独立回归头。object 由
+> occupancy/UV/SLat latent 表示，pose 由 UV correspondence 间接表示并通过 DLT/PnP
+> 求出。Flow 的直接监督是这些由 3D asset 和渲染相机产生的 cached latent 的 velocity
+> MSE；DINO、VAE、decoder 是预训练或独立训练的组件，真正需要在 CUPID 阶段重新训练的
+> 是 Stage 1 和 Stage 2 两个 Flow denoiser。双目方案新增的才是右目 observation-level
+> self-supervision，首 Gate 先只更新 Stage 2。
+
 ## 10. 上一项目的双目 SSL 思想如何映射
 
 `[来源事实]` 用户确认的实时 Overleaf 和旧 stereo 文档共同支持以下层次区分：
@@ -643,7 +731,7 @@ Gate 的同时变量。
 - “右目重建变好就证明 3D representation 变好了”；
 - “论文原方法已经包含我们 proposed 的右目 L1+LPIPS 分支”。
 
-## 15. 12 个问答任务与本文件章节映射
+## 15. 13 个问答任务与本文件章节映射
 
 | 对话 | 问题 | 本文件位置 |
 | --- | --- | --- |
@@ -659,6 +747,7 @@ Gate 的同时变量。
 | 10 | PnP、pose 矩阵和可逆转换 | §7 |
 | 11 | canonical frame、尺度、多视角共享 | §8 |
 | 12 | 双目双路架构、交叉监督和两项收益 | §10--§13 |
+| 13 | Object 与 pose 的 ground truth、预训练、重新训练和监督类型 | §9.3 |
 
 ## 16. 当前状态、图稿和责任边界
 
@@ -705,4 +794,3 @@ Gate 的同时变量。
 - 当前不确定性：公开论文对 released checkpoint 的所有 crop-latent 细节、pose metric 定义和多视角 runtime API 并不完整；需要继续以代码和可复现实验核对。
 - 可能的盲点：右目重建、pose 误差或 3DGS 视觉质量改善，都可能来自 decoder/pose compensation，而不是 shared representation 变好。
 - 最可能的失败模式：一次同时加入双路输入、pose cycle、feature consistency、baseline loss 和 temporal loss，导致即使指标变化也无法归因；首 Gate 必须保持单一变量。
-
