@@ -5,10 +5,10 @@
 ## 本地查到什么
 
 1. 当前Cupid目录、同级项目的GSO文件名检索、用户文档目录Spotlight文件名检索：找到GSO消费端loader/config，未找到与该trajectory_info相关的生成脚本或原始mesh。没有全盘递归、没有解压大ZIP、没有把其他项目结果并入本实验。
-2. 同级`Stereo_Foundation_Model/data/dataset_stereo_gso.py:24-26`明确支持`object/trajectory/{left,right}/000.png,000.npy`和trajectory_info.json，匹配该副本结构。
+2. 同级`Stereo_Foundation_Model/data/dataset_stereo_gso.py:20-27`明确支持`object/trajectory/{left,right}/000.png,000.npy`和trajectory_info.json，匹配该副本结构。
 3. 该文件:386-418把NPY称为c2w，遇det<0执行`R @ diag(1,1,-1)`并翻转第三个平移分量；README:175-178记载过反射修正。**这是历史消费端实现，不是生成器证据**；不要据此自动套用到新双目几何。
 4. 同级`Stereo_Foundation_Model/docs/TRAINING_CONFIGURATION_FINAL.md:122`给出历史集群数据路径`/public/home/ricky/DATASET/gso_stereo_output/Android_Figure_Panda`。
-5. 同级`xfactor_reproduce_overfit/train/configs/config_2v_GSO_left_right_only.py:41`附近给出`/public/home/ricky/DATASET/GSO_1K_200`；Stereo_Foundation_Model README:69另有gso_stereo_normalized_zaxis_5traj_7f_1。**这些是后续远端定向查找入口，尚未验证存在，不能等同random副本。**
+5. 同级`xfactor_reproduce_overfit/train/configs/config_2v_GSO_left_right_only.py:30`给出`/public/home/ricky/DATASET/GSO_1K_200`；Stereo_Foundation_Model README:69另有gso_stereo_normalized_zaxis_5traj_7f_1。**这些是后续远端定向查找入口，尚未验证存在，不能等同random副本。**
 
 目前仍未定位：真实原始3D文件绝对路径、生成脚本绝对路径/commit、renderer运行命令。集群无法进入，不能伪造这些结果。
 

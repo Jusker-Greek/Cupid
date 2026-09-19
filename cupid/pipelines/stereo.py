@@ -5,7 +5,7 @@ from pathlib import Path
 
 from .pipeline import Cupid3DPipeline
 from .processing import ImageEncoder
-from .samplers.stereo import sample_shared_structure
+from .samplers.stereo import sample_shared_structure, resolved_stereo_params
 from ..modules import sparse as sp
 from ..utils.stereo_geometry import crop_uv_to_pixels, triangulate_and_fit
 
@@ -109,6 +109,7 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
             noise[1, ss_channels:] = noise[0, ss_channels:]
         params = {**self.sparse_structure_sampler_params, **(sampler_params or {})}
         params.setdefault("verbose", True)
+        params = resolved_stereo_params(self.sparse_structure_sampler, params)
         latent = sample_shared_structure(self.sparse_structure_sampler, flow, noise, ss_channels=ss_channels, **cond, **params)
         result = self._decode_stereo(latent, ss_channels, uv_channels)
         for side, trace in (("left", trace_left), ("right", trace_right)):

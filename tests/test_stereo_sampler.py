@@ -3,7 +3,7 @@
 import unittest
 import torch
 
-from cupid.pipelines.samplers.flow_euler import FlowEulerCfgSampler
+from cupid.pipelines.samplers.flow_euler import FlowEulerCfgSampler, FlowEulerGuidanceIntervalSampler
 from cupid.pipelines.samplers.stereo import sample_shared_structure
 
 
@@ -18,6 +18,16 @@ class RecordingVelocity(torch.nn.Module):
 
 
 class StereoSamplerTest(unittest.TestCase):
+    def test_interval_sampler_preserves_default_cfg_strength(self):
+        model = RecordingVelocity()
+        result = sample_shared_structure(FlowEulerGuidanceIntervalSampler(sigma_min=1e-5), model,
+            torch.zeros(2, 2, 1, 1, 1), cond=torch.tensor([1., 3.]), neg_cond=torch.zeros(2),
+            ss_channels=1, steps=2, cfg_interval=(0.0, .75))
+        # t=1 outside interval: velocity=[1,3]; t=.5: default CFG gives [4,12].
+        torch.testing.assert_close(result[:, :1], torch.full_like(result[:, :1], -5))
+        torch.testing.assert_close(result[0, 1:], torch.full_like(result[0, 1:], -2.5))
+        torch.testing.assert_close(result[1, 1:], torch.full_like(result[1, 1:], -7.5))
+
     def test_guidance_and_structure_shared_at_every_step_uv_stays_separate(self):
         model = RecordingVelocity()
         noise = torch.zeros(2, 4, 1, 1, 1)

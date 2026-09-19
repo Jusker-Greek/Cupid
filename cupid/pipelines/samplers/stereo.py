@@ -3,7 +3,20 @@
 import numpy as np
 import torch
 
-from .flow_euler import FlowEulerSampler
+from .flow_euler import FlowEulerSampler, FlowEulerCfgSampler, FlowEulerGuidanceIntervalSampler
+
+
+def resolved_stereo_params(sampler, params=None):
+    """Keep defaults normally supplied by sampler.sample, which we bypass."""
+    resolved = dict(params or {})
+    resolved.setdefault('steps', 50)
+    resolved.setdefault('rescale_t', 1.0)
+    resolved.setdefault('verbose', False)
+    if isinstance(sampler, (FlowEulerCfgSampler, FlowEulerGuidanceIntervalSampler)):
+        resolved.setdefault('cfg_strength', 3.0)
+    if isinstance(sampler, FlowEulerGuidanceIntervalSampler):
+        resolved.setdefault('cfg_interval', (0.0, 1.0))
+    return resolved
 
 
 @torch.no_grad()
@@ -20,6 +33,10 @@ def sample_shared_structure(
     """
     if not isinstance(sampler, FlowEulerSampler):
         raise TypeError("Stereo sharing currently supports FlowEulerSampler subclasses only")
+    resolved = resolved_stereo_params(sampler, kwargs)
+    for key in ('steps', 'rescale_t', 'verbose'):
+        resolved.pop(key)
+    kwargs = resolved
     if noise.ndim != 5 or noise.shape[0] != 2:
         raise ValueError("Expected exactly two views in [2,C,D,H,W]")
     if not 0 < ss_channels < noise.shape[1]:
