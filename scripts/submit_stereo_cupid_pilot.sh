@@ -21,11 +21,11 @@ set -euo pipefail
 
 # Reuse the repository's existing runtime paths. No installs or rebuilds.
 CUPID_PYTHON="${CUPID_PYTHON:-/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/bin/python3}"
-CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r1}"
+CUPID_NVDIFFRAST_OVERLAY="${CUPID_NVDIFFRAST_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2}"
 CUPID_BASE_PYTHON_OVERLAY="${CUPID_BASE_PYTHON_OVERLAY:-/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1}"
 CUPID_NVIDIA_PYTHON_ROOT="${CUPID_NVIDIA_PYTHON_ROOT:-/public/home/ricky/.local/lib/python3.12/site-packages/nvidia}"
 python_root="$(dirname "$(dirname "$CUPID_PYTHON")")"
-runtime_libraries="$python_root/lib:/usr/lib/x86_64-linux-gnu"
+runtime_libraries="/public/home/ricky/lib:$python_root/lib:/usr/lib/x86_64-linux-gnu"
 if [[ -d /tmp/ricky_lib ]]; then
     runtime_libraries="/tmp/ricky_lib:$runtime_libraries"
 fi

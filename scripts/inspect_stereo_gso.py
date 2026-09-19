@@ -74,17 +74,33 @@ def main():
     vertices = np.array([[float(v) for v in line.split()[1:4]] for line in mesh.read_text().splitlines() if line.startswith('v ')])
     report['mesh'] = {'path': str(mesh), 'vertices': len(vertices),
         'raw_bounds': [vertices.min(0).tolist(), vertices.max(0).tolist()]}
+    # Blender OBJ default import axes hypothesis: source (x,y,z) -> (x,-z,y).
+    imported = vertices[:, [0, 2, 1]] * [1, -1, 1]
+    inferred_scale = 1 / np.ptp(imported, axis=0).max()
+    inferred_offset = -(imported.min(0) + imported.max(0)) / 2 * inferred_scale
+    normalized = imported * meta['normalization']['scale'] + meta['normalization']['offset']
+    report['mesh']['obj_axis_hypothesis'] = {
+        'mapping': '(x,y,z)->(x,-z,y)', 'derived_scale': float(inferred_scale),
+        'derived_offset': inferred_offset.tolist(),
+        'metadata_offset_error_max': float(np.max(np.abs(inferred_offset-meta['normalization']['offset']))),
+        'normalized_bounds': [normalized.min(0).tolist(), normalized.max(0).tolist()],
+        'historical_importer_version_not_proven': True}
     report['hdf5'] = {}
     with h5py.File(pair / '0.hdf5', 'r') as handle:
         def inspect(name, item):
             if not isinstance(item, h5py.Dataset):
                 return
             entry = {'shape': list(item.shape), 'dtype': str(item.dtype)}
+            if item.shape == () and item.dtype.kind == 'S':
+                entry['value'] = item[()].decode('utf-8', errors='replace')
             if item.size < 3000000 and np.issubdtype(item.dtype, np.number):
                 array = item[()]
                 finite = np.asarray(array)[np.isfinite(array)]
                 entry.update(finite_count=int(finite.size), min=float(finite.min()) if finite.size else None,
                              max=float(finite.max()) if finite.size else None)
+                if name == 'colors' and array.shape == (2, 512, 512, 4):
+                    entry['matches_png_exactly'] = [bool(np.array_equal(array[i], np.asarray(Image.open(pair / side / '000.png'))))
+                                                  for i, side in enumerate(['left', 'right'])]
                 if 'depth' in name and array.shape == (2, 512, 512):
                     # Diagnostic warp under explicit rectified pinhole hypothesis.
                     # Nearest right depth comparison; exclude invalid/outside/occluded pixels.

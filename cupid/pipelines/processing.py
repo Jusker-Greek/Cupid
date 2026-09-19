@@ -5,7 +5,6 @@ import torch.nn.functional as F
 from torchvision import transforms
 from PIL import Image
 import numpy as np
-import rembg
 
 from .types import ProcessedImage, CropParameters, CameraPose
 
@@ -21,6 +20,7 @@ class ImageProcessor:
     @property
     def rembg_session(self):
         if self._rembg_session is None:
+            import rembg
             self._rembg_session = rembg.new_session('u2net')
         return self._rembg_session
 
@@ -29,6 +29,7 @@ class ImageProcessor:
         if self._has_alpha(image):
             return ProcessedImage.from_image(image)
 
+        import rembg
         rgb_image = self._resize_if_needed(image.convert('RGB'))
         rgba_image = rembg.remove(rgb_image, session=self.rembg_session)
         return ProcessedImage.from_image(rgba_image)
