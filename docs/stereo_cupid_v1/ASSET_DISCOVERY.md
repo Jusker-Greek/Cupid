@@ -1,3 +1,7 @@
+# 最新实查入口
+
+2026-09-20集群已恢复：真实原OBJ、renderer、GSO小集和大集计划清单已找到，且首对已在Slurm读取。本文下方早期“未找到/网络失败”内容为历史；当前结论与绝对路径以 [INSPECTION_REPORT.md](audit_20260920/INSPECTION_REPORT.md) 为准。
+
 # GSO 资产与渲染器定位记录
 
 2026-09-20。用户确认上一轮找到的`CUPID+Hi3DGen/gso_stereo_output_random/Android_Figure_Panda`就是本轮GSO-toy副本。已确认的125对计数仍仅针对该副本。

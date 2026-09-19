@@ -1,0 +1,60 @@
+        "within_0_01_scene_unit_fraction": 0.9932088285229203,
+        "not_proof_of_absolute_pose_or_physical_meters": true
+      }
+    }
+  }
+}
+test_stereo_crop (unittest.loader._FailedTest.test_stereo_crop) ... ERROR
+test_degenerate_fit_does_not_return_identity (test_stereo_geometry.StereoGeometryTest.test_degenerate_fit_does_not_return_identity) ... ok
+test_invalid_correspondence_remains_in_failure_denominator (test_stereo_geometry.StereoGeometryTest.test_invalid_correspondence_remains_in_failure_denominator) ... ok
+test_negative_depth_rejected (test_stereo_geometry.StereoGeometryTest.test_negative_depth_rejected) ... ok
+test_nonrectified_unequal_intrinsics_known_metric_transform (test_stereo_geometry.StereoGeometryTest.test_nonrectified_unequal_intrinsics_known_metric_transform) ... ok
+test_pixels_include_resize_padding_and_half_pixel (test_stereo_geometry.StereoGeometryTest.test_pixels_include_resize_padding_and_half_pixel) ... ok
+test_reflection_camera_rejected (test_stereo_geometry.StereoGeometryTest.test_reflection_camera_rejected) ... ok
+test_guidance_and_structure_shared_at_every_step_uv_stays_separate (test_stereo_sampler.StereoSamplerTest.test_guidance_and_structure_shared_at_every_step_uv_stays_separate) ... ok
+test_interval_sampler_preserves_default_cfg_strength (test_stereo_sampler.StereoSamplerTest.test_interval_sampler_preserves_default_cfg_strength) ... ok
+test_stereo_support (unittest.loader._FailedTest.test_stereo_support) ... ERROR
+
+======================================================================
+ERROR: test_stereo_crop (unittest.loader._FailedTest.test_stereo_crop)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_stereo_crop
+Traceback (most recent call last):
+  File "/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/public/home/ricky/CODE/stereo_cupid_d709196_a2/tests/test_stereo_crop.py", line 7, in <module>
+    from cupid.pipelines.processing import ImageProcessor
+  File "/public/home/ricky/CODE/stereo_cupid_d709196_a2/cupid/pipelines/processing.py", line 8, in <module>
+    import rembg
+ModuleNotFoundError: No module named 'rembg'
+
+
+======================================================================
+ERROR: test_stereo_support (unittest.loader._FailedTest.test_stereo_support)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_stereo_support
+Traceback (most recent call last):
+  File "/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/public/home/ricky/CODE/stereo_cupid_d709196_a2/tests/test_stereo_support.py", line 7, in <module>
+    from cupid.pipelines.stereo import StereoCupid3DPipeline
+  File "/public/home/ricky/CODE/stereo_cupid_d709196_a2/cupid/pipelines/stereo.py", line 6, in <module>
+    from .pipeline import Cupid3DPipeline
+  File "/public/home/ricky/CODE/stereo_cupid_d709196_a2/cupid/pipelines/pipeline.py", line 11, in <module>
+    from .processing import (
+  File "/public/home/ricky/CODE/stereo_cupid_d709196_a2/cupid/pipelines/processing.py", line 8, in <module>
+    import rembg
+ModuleNotFoundError: No module named 'rembg'
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.257s
+
+FAILED (errors=2)
+[SPARSE] Backend: spconv, Attention: xformers / sdpa (with attn bias)

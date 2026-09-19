@@ -1,0 +1,435 @@
+{
+  "job": "304070",
+  "host": "server14",
+  "root": "/public/home/ricky/DATASET/gso_stereo_output_random",
+  "scope": "five Panda manifests; first pair contents only",
+  "renderer_sha256": "bb9c170dee05521002404452a6903a289ed02d4921182f44f92c375749cc745a",
+  "mesh_sha256": "a528ad5461401b8ddf636be857c2fe305a03cf7d875ce25d75c59af26ef30485",
+  "root_object_directory_count": 1,
+  "manifests": [
+    {
+      "path": "/public/home/ricky/DATASET/gso_stereo_output_random/Android_Figure_Panda/random_linear_0",
+      "metadata": {
+        "num_frames": 25,
+        "baseline": 0.1,
+        "radius": 2.0,
+        "resolution": [
+          512,
+          512
+        ],
+        "fov": 51.0,
+        "trajectory_type": "random_linear",
+        "description": "random_linear_0: start=[0.16706066 0.71791175 0.95220452], end=[0.36181921 0.6823473  0.9238447 ], fixed rotation, min_distance=1.2m",
+        "normalized": true,
+        "normalization": {
+          "scale": 13.203237612918903,
+          "offset": [
+            -0.00462774932384491,
+            0.5000527998217876,
+            0.0006204992532730103
+          ],
+          "aabb": [
+            [
+              -0.5,
+              -0.5,
+              -0.5
+            ],
+            [
+              0.5,
+              0.5,
+              0.5
+            ]
+          ]
+        }
+      },
+      "counts": {
+        "left_png": 25,
+        "left_npy": 25,
+        "right_png": 25,
+        "right_npy": 25,
+        "hdf5": 25
+      }
+    },
+    {
+      "path": "/public/home/ricky/DATASET/gso_stereo_output_random/Android_Figure_Panda/random_linear_1",
+      "metadata": {
+        "num_frames": 25,
+        "baseline": 0.1,
+        "radius": 2.0,
+        "resolution": [
+          512,
+          512
+        ],
+        "fov": 51.0,
+        "trajectory_type": "random_linear",
+        "description": "random_linear_1: start=[-0.23303635 -0.45410231  1.0906352 ], end=[-0.34993172 -0.58392763  0.99326548], fixed rotation, min_distance=1.2m",
+        "normalized": true,
+        "normalization": {
+          "scale": 13.203237612918903,
+          "offset": [
+            -0.00462774932384491,
+            0.5000527998217876,
+            0.0006204992532730103
+          ],
+          "aabb": [
+            [
+              -0.5,
+              -0.5,
+              -0.5
+            ],
+            [
+              0.5,
+              0.5,
+              0.5
+            ]
+          ]
+        }
+      },
+      "counts": {
+        "left_png": 25,
+        "left_npy": 25,
+        "right_png": 25,
+        "right_npy": 25,
+        "hdf5": 25
+      }
+    },
+    {
+      "path": "/public/home/ricky/DATASET/gso_stereo_output_random/Android_Figure_Panda/random_linear_2",
+      "metadata": {
+        "num_frames": 25,
+        "baseline": 0.1,
+        "radius": 2.0,
+        "resolution": [
+          512,
+          512
+        ],
+        "fov": 51.0,
+        "trajectory_type": "random_linear",
+        "description": "random_linear_2: start=[-0.03368042  0.93863459 -0.75354544], end=[-0.1946649   0.99527398 -0.64925749], fixed rotation, min_distance=1.2m",
+        "normalized": true,
+        "normalization": {
+          "scale": 13.203237612918903,
+          "offset": [
+            -0.00462774932384491,
+            0.5000527998217876,
+            0.0006204992532730103
+          ],
+          "aabb": [
+            [
+              -0.5,
+              -0.5,
+              -0.5
+            ],
+            [
+              0.5,
+              0.5,
+              0.5
+            ]
+          ]
+        }
+      },
+      "counts": {
+        "left_png": 25,
+        "left_npy": 25,
+        "right_png": 25,
+        "right_npy": 25,
+        "hdf5": 25
+      }
+    },
+    {
+      "path": "/public/home/ricky/DATASET/gso_stereo_output_random/Android_Figure_Panda/random_linear_3",
+      "metadata": {
+        "num_frames": 25,
+        "baseline": 0.1,
+        "radius": 2.0,
+        "resolution": [
+          512,
+          512
+        ],
+        "fov": 51.0,
+        "trajectory_type": "random_linear",
+        "description": "random_linear_3: start=[-0.62065209 -0.6253677   0.82079609], end=[-0.48518779 -0.55689614  0.95103076], fixed rotation, min_distance=1.2m",
+        "normalized": true,
+        "normalization": {
+          "scale": 13.203237612918903,
+          "offset": [
+            -0.00462774932384491,
+            0.5000527998217876,
+            0.0006204992532730103
+          ],
+          "aabb": [
+            [
+              -0.5,
+              -0.5,
+              -0.5
+            ],
+            [
+              0.5,
+              0.5,
+              0.5
+            ]
+          ]
+        }
+      },
+      "counts": {
+        "left_png": 25,
+        "left_npy": 25,
+        "right_png": 25,
+        "right_npy": 25,
+        "hdf5": 25
+      }
+    },
+    {
+      "path": "/public/home/ricky/DATASET/gso_stereo_output_random/Android_Figure_Panda/random_linear_4",
+      "metadata": {
+        "num_frames": 25,
+        "baseline": 0.1,
+        "radius": 2.0,
+        "resolution": [
+          512,
+          512
+        ],
+        "fov": 51.0,
+        "trajectory_type": "random_linear",
+        "description": "random_linear_4: start=[ 1.06435387 -0.53710182 -0.16932945], end=[ 1.03954846 -0.60751633  0.01621431], fixed rotation, min_distance=1.2m",
+        "normalized": true,
+        "normalization": {
+          "scale": 13.203237612918903,
+          "offset": [
+            -0.00462774932384491,
+            0.5000527998217876,
+            0.0006204992532730103
+          ],
+          "aabb": [
+            [
+              -0.5,
+              -0.5,
+              -0.5
+            ],
+            [
+              0.5,
+              0.5,
+              0.5
+            ]
+          ]
+        }
+      },
+      "counts": {
+        "left_png": 25,
+        "left_npy": 25,
+        "right_png": 25,
+        "right_npy": 25,
+        "hdf5": 25
+      }
+    }
+  ],
+  "large_registry": {
+    "path": "/public/home/ricky/CODE/GSO_dataset/task_allocations/GSO_1K_200/object_registry.tsv",
+    "rows": 1025,
+    "unique_objects": 1025,
+    "statuses": [
+      "planned"
+    ],
+    "warning": "assignment manifest, not completed/rendered trajectory count"
+  },
+  "candidate_K_from_current_renderer": [
+    [
+      536.7151613665727,
+      0.0,
+      256.0
+    ],
+    [
+      0.0,
+      536.7151613665727,
+      256.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "images": {
+    "left": {
+      "sha256": "3a86530449135a6188b833f2ea5aa119b07fb2eda19d4fccb1c511301ff55e49",
+      "shape": [
+        512,
+        512,
+        4
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "mask_pixels": 122086,
+      "bbox_xyxy": [
+        0,
+        0,
+        406,
+        443
+      ]
+    },
+    "right": {
+      "sha256": "caf78957b9107a6cb1cabe1c70a4bcf72c1382c01df523bd69361487145da285",
+      "shape": [
+        512,
+        512,
+        4
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "mask_pixels": 113373,
+      "bbox_xyxy": [
+        0,
+        0,
+        348,
+        443
+      ]
+    }
+  },
+  "cameras": {
+    "saved_w2c": [
+      [
+        [
+          -0.9354957934222492,
+          0.35333826143618186,
+          -6.790252475424553e-08,
+          -0.04738108527044232
+        ],
+        [
+          0.276200005544616,
+          0.7312649335001559,
+          -0.623670791031153,
+          0.02273625824699836
+        ],
+        [
+          0.22036668607226378,
+          0.5834413081338615,
+          0.7816872222761331,
+          -1.1999999709387588
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          -0.9354957934222492,
+          0.35333826143618186,
+          -6.790252475424553e-08,
+          -0.14738108527044233
+        ],
+        [
+          0.276200005544616,
+          0.7312649335001559,
+          -0.623670791031153,
+          0.02273625824699836
+        ],
+        [
+          0.22036668607226378,
+          0.5834413081338615,
+          0.7816872222761331,
+          -1.1999999709387588
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "determinants": [
+      -1.0000002789789706,
+      -1.0000002789789706
+    ],
+    "orthogonality_error": [
+      2.989040410739108e-07,
+      2.989040410739108e-07
+    ],
+    "right_from_left_saved_axes": [
+      [
+        0.9999999999999999,
+        6.970085527277959e-17,
+        2.1427841294045486e-17,
+        -0.1
+      ],
+      [
+        -1.1200341885066904e-17,
+        0.9999999999999999,
+        -6.058846524044712e-17,
+        -1.734723475976807e-17
+      ],
+      [
+        -1.5274118745439978e-17,
+        -3.455934129466948e-17,
+        0.9999999999999999,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "baseline_scene_units": 0.1,
+    "metric_meters_verified": false
+  },
+  "mesh": {
+    "path": "/public/home/ricky/DATASET/Gazebo/Android_Figure_Panda/meshes/model.obj",
+    "vertices": 5311,
+    "raw_bounds": [
+      [
+        -0.03003,
+        -0.023188,
+        4e-06
+      ],
+      [
+        0.030731,
+        0.023094,
+        0.075743
+      ]
+    ]
+  },
+  "hdf5": {
+    "blender_proc_version": {
+      "shape": [],
+      "dtype": "|S5"
+    },
+    "colors": {
+      "shape": [
+        2,
+        512,
+        512,
+        4
+      ],
+      "dtype": "uint8",
+      "finite_count": 2097152,
+      "min": 0.0,
+      "max": 255.0
+    },
+    "depth": {
+      "shape": [
+        2,
+        512,
+        512
+      ],
+      "dtype": "float32",
+      "finite_count": 524288,
+      "min": 0.7595342397689819,
+      "max": 10000000000.0,
+      "rectified_depth_warp_diagnostic": {
+        "tested": 1767,
+        "median_absolute_depth_difference": 0.00019603967666625977,
+        "within_0_01_scene_unit_fraction": 0.9932088285229203,
+        "not_proof_of_absolute_pose_or_physical_meters": true
+      }
+    }
+  }
+}

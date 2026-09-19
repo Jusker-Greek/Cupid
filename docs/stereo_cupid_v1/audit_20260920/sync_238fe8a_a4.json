@@ -1,0 +1,16 @@
+{
+  "schema": "verified_git_bundle_remote/v1",
+  "sync_mode": "verified_incremental_git_bundle",
+  "github_branch": "codex/stereo-cupid-v1-20260920",
+  "expected_commit": "238fe8ac2d882dd7c54e2190eaa52df44db5361a",
+  "base_commit": "cc95f36fc26b5d90054ffd920df6c1c1b54c3e4d",
+  "checkout_head": "238fe8ac2d882dd7c54e2190eaa52df44db5361a",
+  "checkout_tree": "fbda08ce0c670f20aeb6bd54a2a509545f9a30b6",
+  "checkout_clean": true,
+  "checkout_clean_method": "diff-index plus ls-files others; gitlinks uninitialized",
+  "bundle_sha256": "0eea49e8a90bea1a5deb1c336d88acd28032b94cac63fcef7c12be4c9be3fcf4",
+  "manifest_sha256": "901e8322970061807793d14d83fca37a643c545b80adef8200b340434423a068",
+  "remote_mirror": "/public/home/ricky/CODE/.verified-bundle-mirrors/stereo_cupid_238fe8a_a4.git",
+  "remote_checkout": "/public/home/ricky/CODE/stereo_cupid_238fe8a_a4",
+  "slurm_submission_authorized": false
+}

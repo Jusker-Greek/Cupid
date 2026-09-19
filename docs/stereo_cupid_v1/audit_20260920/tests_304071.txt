@@ -1,0 +1,24 @@
+JobID             State ExitCode    Elapsed        NodeList 
+------------ ---------- -------- ---------- --------------- 
+304070           FAILED      1:0   00:00:13        server14 
+304071        COMPLETED      0:0   00:00:11        server14 
+    }
+  }
+}
+test_existing_alpha_preprocessing_preserves_input (test_stereo_crop.StereoCropTest.test_existing_alpha_preprocessing_preserves_input) ... ok
+test_rounded_odd_crop_and_padding (test_stereo_crop.StereoCropTest.test_rounded_odd_crop_and_padding) ... ok
+test_degenerate_fit_does_not_return_identity (test_stereo_geometry.StereoGeometryTest.test_degenerate_fit_does_not_return_identity) ... ok
+test_invalid_correspondence_remains_in_failure_denominator (test_stereo_geometry.StereoGeometryTest.test_invalid_correspondence_remains_in_failure_denominator) ... ok
+test_negative_depth_rejected (test_stereo_geometry.StereoGeometryTest.test_negative_depth_rejected) ... ok
+test_nonrectified_unequal_intrinsics_known_metric_transform (test_stereo_geometry.StereoGeometryTest.test_nonrectified_unequal_intrinsics_known_metric_transform) ... ok
+test_pixels_include_resize_padding_and_half_pixel (test_stereo_geometry.StereoGeometryTest.test_pixels_include_resize_padding_and_half_pixel) ... ok
+test_reflection_camera_rejected (test_stereo_geometry.StereoGeometryTest.test_reflection_camera_rejected) ... ok
+test_guidance_and_structure_shared_at_every_step_uv_stays_separate (test_stereo_sampler.StereoSamplerTest.test_guidance_and_structure_shared_at_every_step_uv_stays_separate) ... ok
+test_interval_sampler_preserves_default_cfg_strength (test_stereo_sampler.StereoSamplerTest.test_interval_sampler_preserves_default_cfg_strength) ... ok
+test_expanded_uv_support_is_shared_but_distinct_from_occupancy (test_stereo_support.StereoSupportTest.test_expanded_uv_support_is_shared_but_distinct_from_occupancy) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.242s
+
+OK
+[SPARSE] Backend: spconv, Attention: xformers / sdpa (with attn bias)
