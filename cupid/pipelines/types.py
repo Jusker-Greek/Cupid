@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Tuple, Dict
+from typing import Tuple, Dict, Optional
 import torch
 from PIL import Image
 
@@ -10,6 +10,10 @@ class CropParameters:
     fov_scale: float
     cx_offset: float
     cy_offset: float
+    # Exact PIL crop bounds, in edge coordinates of the preprocessed image.
+    # Optional so existing three-argument construction remains compatible.
+    box: Optional[Tuple[int, int, int, int]] = None
+    source_size: Optional[Tuple[int, int]] = None
 
     def as_tuple(self) -> Tuple[float, float, float]:
         return (self.fov_scale, self.cx_offset, self.cy_offset)

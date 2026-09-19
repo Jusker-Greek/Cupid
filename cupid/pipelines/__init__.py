@@ -6,6 +6,8 @@ def __getattr__(name):
         value = importlib.import_module(".samplers", __name__)
     elif name == "Cupid3DPipeline":
         value = getattr(importlib.import_module(".pipeline", __name__), name)
+    elif name == "StereoCupid3DPipeline":
+        value = getattr(importlib.import_module(".stereo", __name__), name)
     else:
         raise AttributeError(f"module {__name__} has no attribute {name}")
     globals()[name] = value

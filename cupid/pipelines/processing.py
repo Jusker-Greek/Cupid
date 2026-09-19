@@ -61,6 +61,8 @@ class ImageProcessor:
             fov_scale=size / max_size,
             cx_offset=crop_box[0] / max_size,
             cy_offset=crop_box[1] / max_size,
+            box=tuple(int(round(value)) for value in crop_box),
+            source_size=processed.image.size,
         )
 
         return ProcessedImage(
