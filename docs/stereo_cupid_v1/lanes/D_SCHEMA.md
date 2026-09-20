@@ -68,3 +68,5 @@ CPU回归入口`scripts/stereo_data_contract_tests.py`使用临时合成fixture�
 新增 `scripts/stereo_data_occupancy.py`只调用现有官方`_voxelize`，运行前校验源Git blob `390575ab9e26e73b467151dadc8252eae3c96424`；不重新发明voxelize算法。需要真实canonical mesh PLY和映射证据receipt，先校验hash/三角面/单位cube边界。输出occupancy.npy和SHA/provenance/失败receipt，供geometry receipt引用。只在新输出根建输入mesh symlink，不修改原始资产。CPU Slurm执行。
 
 本地现有参考路径`CUPID+Hi3DGen/TRELLIS/dataset_toolkits/voxelize.py`可读，但未对本地文件做运行/哈希，也未假定远端有同一文件。R需定位既有远端官方checkout，或按GitHub→新checkout同步固定源码；不得直接复制源码树。canonical mesh与历史相机链仍未闭合，该入口不凭空生成它们。
+
+补充：R的Panda125配置为`configs/stereo/data_panda125_audit_v1.json`，不依赖远端修改配置。source_asset_sha256额外包含trajectory_metadata摘要；load_pair会核对真实metadata未变化，避免在旧K/normalization上继续生成target。factory identity仅声明index_validated，target NPZ内容在每次访问时核验，不能把factory构造成功称所有target已验证。CPU回归现9项（新增metadata漂移拒绝）。

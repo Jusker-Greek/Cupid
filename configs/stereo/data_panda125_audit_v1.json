@@ -1,0 +1,16 @@
+{
+  "experiment_id": "STEREO_CUPID_STAGE1_TRAIN_V1",
+  "schema": "STEREO_GSO_PAIR_V1",
+  "dataset_id": "gso_stereo_output_random",
+  "root": "/public/home/ricky/DATASET/gso_stereo_output_random",
+  "registry": null,
+  "split_seed": "STEREO_CUPID_STAGE1_TRAIN_V1",
+  "split_fractions": [0.8, 0.1, 0.1],
+  "split_identity": "object_id",
+  "depth_background_exclusive": 10000000000.0,
+  "length_unit": "scene_unit",
+  "metric_meters_verified": false,
+  "calibration_policy": "per_trajectory_metadata_no_Panda_fallback",
+  "target_contract": "RAW_PAIR_AUDIT_ONLY",
+  "expected_scope_note": "Historical inventory: one object, five trajectories, 125 pairs. Recount current content; not an assertion of validity or train-validation coverage."
+}
