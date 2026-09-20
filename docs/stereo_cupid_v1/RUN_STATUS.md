@@ -1,5 +1,13 @@
 # 当前运行状态
 
+**18:59连接再次失败，不能称下载恢复。** 新CPU305794最新18:58:58读回RUNNING server14，但offset1312817152连续ReadTimeout/ConnectionError，尚未看到超过旧根的新字节；新GPU305798 PENDING Dependency。转发23722因server14不响应退出255，按同一已分配节点重建的4952也在banner交换超时退出255；无存活转发。登录节点只读SSH也多次超时，当前主要阻塞是稳定的集群网络连接，不能通过重提作业解决。继续先读fresh sacct，再仅在实际分配仍有效时恢复转发；不重复305794/305798，未查终态不换根重提。最后明确的模型状态是未运行。E00完整包已保存 `audit_20260920/E00_PROGRESS_PENDING.json`，消息工具缺失尚未发送。
+
+**18:54故障恢复：305609于18:36:27 FAILED1:0（1h5m26s），305611依赖取消、0秒无GPU。** 首失败offset1312817152，ConnectionError后4次ReadTimeout。本机 `sysctl kern.boottime` 为18:34:57；旧exec98390、SSH转发进程及/tmp主机公钥文件均已不存在，支持本机重启导致转发消失的判断，不是权重SHA错误，也不能归因于并发1失效。保留4个完整权重698047668字节及1312817152字节分块，共约2.01GB/7.27GB；剩余约5.26GB。先前4–6小时估计偏乐观，按最近一小时有效速度约7–10小时纯下载，排队/中断另计，不能承诺ETA。
+
+恢复不改模型或下载算法：已有GitHub源码 `e1bd1ed462978616cb5c68123059d9c1f3c9ad4a` / tree `3fec0a2d41dd8f4312e65a583deccc56c16e3d41` 已通过bundle同步新checkout `/public/home/ricky/CODE/stereo_cupid_e1bd1ed_a18`；下载器blob与cbb4cbf相同。新CPU **305794**，新根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a10`，只读复用停止的a9；将重建失去的转发49692，开头等待代理600秒。新公钥临时文件 `/tmp/stereo_cupid_hostkeys.VcqF15` 来自登录节点既有known_hosts，严格验证，不改SSH配置。最终节点/转发/单卡身份以本文件后续首段为准。
+
+本次另实查DINO repo可读、checkpoint1217607321字节、Python可执行、Panda metadata可读、GSO_1K_200目录存在。静态Stereo入口使用本地DINO且要求RGBA，当前完整官方bundle之外未发现新增大型资产必需项；仍需真实推理确认。Stereo训练loader/split/target、loss/optimizer及W&B/pose evaluator仍未实现，不能把下载完成当训练就绪。新工具清单暂缺send_message_to_thread，E00完整进度包将保存待发送，不能称已同步中央台账。
+
 **17:32实测恢复：305609 RUNNING server14，305611 PENDING Dependency。** 新转发exec session **98390** 已按实际分配节点建立：server14 loopback49691→本机既有7890，严格既有host key；下载终态后关闭。4个完整权重已VERIFIED_REUSED；SLAT flow在复用528482304字节后已到557842432，越过541065216旧失败offset。receipt仍DOWNLOADING，单路网络是否长期稳定尚待观察。heartbeat已经指向305609/305611，不重提。新运行身份和恢复原因见下段；证据 `audit_20260920/download_305609_recovery_1732.txt`。
 
 **17:31再恢复：305577 FAILED1:0（7m39s），305583取消、0秒无节点。** 首失败为offset541065216连续5次ReadTimeout；另3路并发连接也无完整分块进展，300秒总时限没有解决网络停滞。已保留4个完整校验权重698047668字节及SLAT flow分块528482304字节，合计约1.23GB；全套仍未完成。源码 `cbb4cbf75233fb7fa8602625a01c17ed7fc345f7` / tree `5bf38b04f947a423ecf2085f4dda55bdc339e04f` 将并发4→1，检验共享代理争用假设，尚不能称根因已验证；4MiB持久化、时限、重试和全文件SHA保持不变。GitHub精确读回及新checkout `/public/home/ricky/CODE/stereo_cupid_cbb4cbf_a17` 已通过。新CPU **305609** 已提交，新权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a9`、只读复用a8；新单卡 **305611**，afterok:305609/kill-on-invalid-dep=yes，输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_CBB4CBF_A5`。旧转发98813已结束；新端口49691须按实际分配节点建立。最新待分配/连接状态见后续记录，禁止重复提交。过去成功传输速度只能粗估剩余4–6小时，网络停滞及排队会额外延长，不能承诺完成时间。

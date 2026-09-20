@@ -129,3 +129,16 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 - `squeue -j 305609,305611 -h -o "%i %T %N %R"`实查CPU server14；随后使用与上一轮相同严格主机密钥选项建立 `ssh -N -T -J ricky@10.10.7.1 -R 127.0.0.1:49691:127.0.0.1:7890 ricky@server14`，exec session98390。旧配置未改，文件只写集群。
 - 17:32:26只读sacct+筛选VERIFIED_REUSED+tail+receipt status：4完整权重698047668字节重新校验复用，流分块从528482304增至557842432。只有新增加的29360128字节是此处观察的新网络传输，不能把复用缓存计入吞吐。该短时恢复未证明整个网络故障根因已经修复。
 - 估时依据：旧恢复成功增量约121634816字节/数分钟，约0.3–0.4MB/s有效速度；剩余约6GB只可粗估4–6小时，不包含失败、排队和恢复。新单路速度样本尚短，不能承诺ETA。使用xfactor-experiment-progress技能同步E00，最高S02/S03 DEBUGGING/NO_SCIENCE不变。
+
+## 18:46–18:57 本机重启后的连接恢复
+
+- fresh sacct发现305609在18:36:27 FAILED1:0/1h5m26s，305611取消0秒无节点；分块停在1312817152，ConnectionError后4次ReadTimeout。保存download_305609_terminal.txt。
+- 本地只读 `sysctl kern.boottime`=18:34:57，旧exec98390已不存在，精确转发进程匹配无结果，旧/tmp主机公钥文件也不存在。本机重启切断临时转发的判断与错误时间一致；无权重SHA不匹配证据。本次不改算法或模型，通过恢复实际失去的网络通道继续。
+- 新同步已有GitHub e1bd1ed462978616cb5c68123059d9c1f3c9ad4a/tree3fec0a2d41dd8f4312e65a583deccc56c16e3d41，经既有verified bundle helper到checkout /public/home/ricky/CODE/stereo_cupid_e1bd1ed_a18；bundle91098字节，SHA07cb4b6f910c26007222c4ae3bc221754c6419e7c4e1265ef6ee737ca9be1cdf。下载器blob与cbb4cbf相同，无本地测试/模型执行。
+- 从登录节点既有known_hosts经已认证SSH读取server14既有公钥，保存在新临时文件 /tmp/stereo_cupid_hostkeys.VcqF15；不扫描/接受新主机密钥，不改SSH配置。
+- 旧作业终态和squeue无本实验活动行后，`sbatch --parsable scripts/submit_cupid_weights.sh`→305794。新权重根a10只读复用a9；CUPID_DOWNLOAD_PROXY=http://127.0.0.1:49692，CUPID_WAIT_LOCAL_PROXY_SECONDS=600，CPU4核/8GB/2h不变。
+- `sbatch --parsable --dependency=afterok:305794 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh`→305798；输出STEREO_CUPID_PILOT_E1BD1ED_A6，1GPU30min完整Stage1+左Stage2，其余Panda/DINO/scene_unit参数不变。
+- fresh squeue305794确认RUNNING server14后，使用BatchMode/StrictHostKeyChecking=yes/UserKnownHostsFile=/tmp/stereo_cupid_hostkeys.VcqF15/ExitOnForwardFailure=yes/ServerAliveInterval15/CountMax3的 `ssh -N -T -J ricky@10.10.7.1 -R 127.0.0.1:49692:127.0.0.1:7890 ricky@server14`，exec23722。某次只读SSH查询发生连接超时，未重复提交作业。
+- 只读test/stat确认DINO repo hubconf.py可读、checkpoint1217607321字节、Python可执行、Panda metadata可读、GSO主数据候选存在。`cupid/pipelines/stereo.py:24`本地torch.hub source=local/pretrained=False，runner要求RGBA，不额外调用u2net。完整bundle之外当前未发现新增大型资产必需项，真实推理仍未运行。
+- 工具发现ALL_TOOLS中send_message_to_thread缺失，完整E00包保存E00_PROGRESS_PENDING.json待工具恢复发送；不冒称已更新中央台账，不因通知工具缺失停止下载。
+- 18:58:58读回305794 RUNNING/server14、305798 PENDING；下载同一旧断点1312817152连续ReadTimeout后ConnectionError，没有新增分块证据。转发23722随后返回Timeout/server14 not responding退出255；替代4952使用显式ProxyCommand给登录跳板也设10秒ConnectTimeout，banner交换超时退出255。多次登录SSH查询亦timeout。两转发均关闭，不能称已恢复；先解决既有网络并读回终态，不猜测新主机/不重复提交。

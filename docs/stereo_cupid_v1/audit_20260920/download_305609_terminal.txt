@@ -1,0 +1,16 @@
+Local read-only sysctl kern.boottime: Sun Sep 20 18:34:57 2026. Old exec98390 unknown; no ssh49691 process; old /tmp public-hostkey file absent. These support local reboot/forward loss near remote failure; no full hash mismatch reported.
+2026-09-20T18:53:24+08:00
+JobID|State|ExitCode|Start|End|Elapsed|NodeList
+305609|FAILED|1:0|2026-09-20T17:31:01|2026-09-20T18:36:27|01:05:26|server14
+305609.batch|FAILED|1:0|2026-09-20T17:31:01|2026-09-20T18:36:27|01:05:26|server14
+305609.extern|COMPLETED|0:0|2026-09-20T17:31:01|2026-09-20T18:36:28|01:05:27|server14
+305611|CANCELLED|0:0|None|2026-09-20T18:37:03|00:00:00|None assigned
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1300234240/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1304428544/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1308622848/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1312817152/2401799952
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=1312817152 attempt=1 reason=ConnectionError
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=1312817152 attempt=2 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=1312817152 attempt=3 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=1312817152 attempt=4 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=1312817152 attempt=5 reason=ReadTimeout
