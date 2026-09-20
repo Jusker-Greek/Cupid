@@ -37,5 +37,14 @@
   "slides_pdf": "/Users/ruikegu/.codex/worktrees/total-slides-results-integration-20260831/docs/overleaf/xfactor_full_experiment_ledger_stereo_reorg_2026_08_21/main.pdf",
   "slides_pages": "NONE",
   "evidence_eligibility": "ENGINEERING_ONLY_NO_SCIENCE",
-  "delivery_status": "SENT_TO_E00_TOOL_SUCCESS_2026-09-20T21:51+08:00; ledger acknowledgment not yet read"
+  "delivery_status": "ACKNOWLEDGED_BY_E00: commit8f076d9661a9ec255af4f6ca29fd54f89da8b3ce treee2a37a7e59e7e6feb114479fd228c158ce41431e; E00 reports GitHub exact-read PASS",
+  "e00_ack": {
+    "commit": "8f076d9661a9ec255af4f6ca29fd54f89da8b3ce",
+    "tree": "e2a37a7e59e7e6feb114479fd228c158ce41431e",
+    "stage": "S03/DEBUGGING",
+    "highest_completed_stage": "S02",
+    "scientific_result": "NONE",
+    "verified_weight_bytes": 3099847620,
+    "source": "E00 reply; central GitHub not independently re-read by this thread"
+  }
 }

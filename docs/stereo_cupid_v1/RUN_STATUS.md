@@ -1,6 +1,6 @@
 # 当前运行状态
 
-**21:50本地续传已实际恢复至495266996字节。** 21:51消息工具恢复，E00完整包已发送（工具成功）；未读取中央台账ack。
+**21:50本地续传已实际恢复至495266996字节。** 21:51消息工具恢复，E00完整包已发送；现已收到E00中央台账回执：commit8f076d9661a9ec255af4f6ca29fd54f89da8b3ce/treee2a37a7e59e7e6feb114479fd228c158ce41431e，E00报告GitHub exact-read PASS，仍S03/DEBUGGING、highestS02、NO_SCIENCE。
 
 **21:49恢复操作。** 原exec70764不存在，pgrep/lsof确认helper及该partial的writer均已退出；Mac未再次重启（boot18:34:57）。日志最后为HTTP/2 CANCEL/exit92，没有Python异常，因此工具会话消失与进程退出的具体因果仍未知。保留SUV partial304848052字节；本机20890仍由CMYNetwork/MaccCore监听。源码46e2d022e36eae00de007f75101e683e8efb1680已push/精确读回，将curl显式设HTTP/1.1以针对已观察HTTP/2重置；长期网络稳定性尚未证明。新helper PID21404以独立进程会话运行（start_new_session、stdin DEVNULL、fcntl锁），日志`transfer_a3.log`，进程receipt`transfer_process_a3.json`，继续同一partial，不重复下载已保存字节。无新Slurm/GPU提交，无上传成功证据；旧306009/306014/5028仍结束。
 
