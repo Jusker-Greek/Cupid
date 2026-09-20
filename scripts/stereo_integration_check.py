@@ -125,10 +125,17 @@ def inference_check(args, report):
             require(valid.shape == (n,) and valid.dtype == np.bool_, "Invalid geometry validity mask")
             require(receipt["num_input"] == n, "Geometry input denominator mismatch")
             require(receipt["num_valid"] == int(valid.sum()), "Geometry valid denominator mismatch")
+            expected_filters = {"finite_input", "inside_images", "finite_solution", "positive_depth", "reprojection", "ray_angle"}
+            require(set(receipt["filter_counts"]) == expected_filters, "Geometry filter set is incomplete")
+            masks = []
             for name, count in receipt["filter_counts"].items():
                 mask = arrays["mask_" + name]
                 require(mask.shape == (n,) and mask.dtype == np.bool_, f"Invalid {name} filter mask")
                 require(int(mask.sum()) == count, f"{name}: count mismatch")
+                masks.append(mask)
+            require(np.array_equal(valid, np.logical_and.reduce(masks)), "Validity is not the conjunction of recorded filters")
+            for name, shape in (("disparity_px", (n,)), ("reprojection_px", (n, 2)), ("ray_angle_deg", (n,))):
+                require(arrays[name].shape == shape, f"{name}: failed rows removed or wrong shape")
             points = arrays["points_left_camera"]
             require(points.shape == (n, 3), "Triangulation must preserve failed points in denominator")
             require(np.isfinite(points[valid]).all(), "Valid triangulated point is nonfinite")
@@ -177,7 +184,7 @@ def main():
     inference.add_argument("--run-commit", required=True)
     inference.add_argument("--run-job", required=True)
     args = parser.parse_args()
-    if not os.environ.get("SLURM_JOB_ID"):
+    if not os.environ.get("SLURM_JOB_ID") or not os.environ.get("SLURMD_NODENAME"):
         parser.error("Execute only inside a Slurm compute allocation")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     # Reserve before checking; never overwrite an earlier failed attempt.
