@@ -33,6 +33,7 @@ def main():
         raise RuntimeError('Use a Slurm allocation')
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--client', choices=('requests', 'huggingface'), default='requests')
     parser.add_argument('--wait-local-proxy', type=int, default=0,
                         help='Wait for a session-scoped SSH proxy on the allocated node')
     args = parser.parse_args()
@@ -90,6 +91,25 @@ def main():
     print(f'OFFICIAL_RELEASE={REVISION} FILES={len(items)} BYTES={total}', flush=True)
 
     def download(item):
+        if args.client == 'huggingface':
+            from huggingface_hub import hf_hub_download
+            # The installed official client uses hf_xet for concurrent range
+            # transfers. Keep public access explicit and independently verify
+            # against the pinned official manifest after the client returns.
+            for attempt in range(1, 4):
+                try:
+                    target = Path(hf_hub_download(REPO, item['rfilename'], revision=REVISION,
+                                                 local_dir=args.output, token=False))
+                    if not verify(target, item):
+                        raise RuntimeError('SIZE_OR_HASH_MISMATCH')
+                    print(f'VERIFIED {item["rfilename"]} {item["size"]}', flush=True)
+                    return
+                except Exception as error:
+                    print(f'DOWNLOAD_FAILURE file={item["rfilename"]} attempt={attempt} '
+                          f'reason={type(error).__name__}', flush=True)
+                    if attempt == 3:
+                        raise RuntimeError(f'Official client failed: {item["rfilename"]}') from None
+                    time.sleep(2 * attempt)
         session = requests.Session()
         session.trust_env = use_environment_proxy
         name = item['rfilename']
@@ -129,7 +149,7 @@ def main():
                 time.sleep(2 * attempt)
 
     try:
-        with ThreadPoolExecutor(max_workers=2) as pool:
+        with ThreadPoolExecutor(max_workers=4 if args.client == 'huggingface' else 2) as pool:
             list(pool.map(download, items))
         pipeline = json.loads((args.output / 'pipeline.json').read_text())
         for model in pipeline['args']['models'].values():

@@ -17,8 +17,9 @@ test "$(git rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
 git diff --quiet HEAD
 export http_proxy="${CUPID_DOWNLOAD_PROXY:-http://hkuhpc.com:7999}"
 export https_proxy="$http_proxy"
+export HF_HUB_DISABLE_IMPLICIT_TOKEN=1 HF_HUB_DISABLE_TELEMETRY=1 HF_HUB_DISABLE_PROGRESS_BARS=1
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 runtime=/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12
 export LD_LIBRARY_PATH="/public/home/ricky/lib:$runtime/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
-"$runtime/bin/python3" -u scripts/download_cupid_weights.py --output "$CUPID_MODEL_PATH" --wait-local-proxy "${CUPID_WAIT_LOCAL_PROXY_SECONDS:-0}"
+"$runtime/bin/python3" -u scripts/download_cupid_weights.py --output "$CUPID_MODEL_PATH" --wait-local-proxy "${CUPID_WAIT_LOCAL_PROXY_SECONDS:-0}" --client "${CUPID_DOWNLOAD_CLIENT:-requests}"
