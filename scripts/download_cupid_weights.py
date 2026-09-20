@@ -5,6 +5,8 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import time
+import socket
+from urllib.parse import urlsplit
 from concurrent.futures import ThreadPoolExecutor
 
 import requests
@@ -31,8 +33,24 @@ def main():
         raise RuntimeError('Use a Slurm allocation')
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--wait-local-proxy', type=int, default=0,
+                        help='Wait for a session-scoped SSH proxy on the allocated node')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
+    if args.wait_local_proxy:
+        proxy = urlsplit(os.environ.get('https_proxy', ''))
+        if proxy.hostname != '127.0.0.1' or not proxy.port:
+            raise RuntimeError('Proxy wait requires explicit loopback proxy')
+        print(f'WAITING_LOCAL_PROXY host={os.uname().nodename} port={proxy.port}', flush=True)
+        deadline = time.monotonic() + args.wait_local_proxy
+        while True:
+            try:
+                with socket.create_connection((proxy.hostname, proxy.port), timeout=2):
+                    break
+            except OSError:
+                if time.monotonic() >= deadline:
+                    raise RuntimeError('Session proxy did not become available') from None
+                time.sleep(2)
     response = None
     use_environment_proxy = True
     for mode in ('configured_proxy', 'direct'):
