@@ -1,0 +1,8 @@
+JobID|State|ExitCode|Elapsed|NodeList
+305961|COMPLETED|0:0|00:00:19|server14
+JOB=305961 HOST=server14 COMMIT=b93bbf64c8acf1c96ccfa01c90f9b73d7065423f
+PROBE route=cluster_proxy target=config HTTP=000 bytes=0 seconds=5.001068 exit=28
+PROBE route=cluster_proxy target=weight_range HTTP=000 bytes=0 seconds=5.001348 exit=28
+PROBE route=direct target=config HTTP=000 bytes=0 seconds=5.039073 exit=28
+PROBE route=direct target=weight_range HTTP=000 bytes=0 seconds=2.701682 exit=28
+Interpretation: all four individual transfers failed with timeout and zero downloaded bytes. The probe completed recording results; job exit 0 is not route PASS. No whole weights or model executed.

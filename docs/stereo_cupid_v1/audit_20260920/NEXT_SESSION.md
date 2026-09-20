@@ -1,5 +1,9 @@
 # 执行状态与下一步
 
+最新：305961已完成，7999/直连四项curl全部exit28 HTTP000 bytes0，不能把Slurm exit0当网络PASS。见transport_305961.txt。当前没有健康下载/活转发；下一轮先核验现有代理和连接是否恢复，再做计算节点有界验证与新身份续传，保持a11缓存。
+
+20:08当前唯一活动入口为CPU探测305961(PENDING)，日志 `/public/home/ricky/RESULTS/stereo_cupid_transport_305961.out`。旧305841 FAILED、305845取消、49409退出；模型根a11缓存保留，SLATflow1589641216字节。读取探测终态和route/target/HTTP/bytes/exit，不能把探测脚本exit0当各路线成功（它保留每条curl退出码）。7999或直连实际可用后按真实结果选择续传路由，在新作业/新权重根复用a11；不盲目重复旧失败路径。源码b93bbf6/a20包含原下载器及新probe；完整权重仍未齐备。
+
 19:26当前入口：CPU305841/server14 RUNNING，新权重根a11复用a10，GPU305845 PENDING afterok:305841；源码40c09dc/a19，输出STEREO_CUPID_PILOT_40C09DC_A7。当前SSH49409转发server14 loopback49693→本机实测20890（已不是7890）。已新增分块越过旧断点，保持健康作业不重提，完整receipt仍DOWNLOADING。下载终态关49409，再检查GPU；端口变更时先查实际系统代理及监听，不能沿用旧值。E00包待消息工具恢复发送。
 
 19:02最新终态：305794 FAILED1:0/4m5s，305798 CANCELLED0秒无GPU，两个转发均结束，无成功传输。下一动作是恢复既有网络通道并验证，再按新身份续传。a9/a10保留，最新E00包待发送。

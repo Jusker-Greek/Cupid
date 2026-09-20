@@ -151,3 +151,11 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 - `sbatch --parsable --dependency=afterok:305841 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh`→305845；新输出STEREO_CUPID_PILOT_40C09DC_A7，1GPU30min完整Stage1+左Stage2，既有Panda/DINO/scene_unit不变。
 - squeue确认305841实际server14后，用StrictHostKeyChecking=yes、既有UserKnownHostsFile=/tmp/stereo_cupid_hostkeys.VcqF15及显式有时限ProxyCommand的`ssh -N -T -R 127.0.0.1:49693:127.0.0.1:20890 ricky@server14`建立exec49409；只改会话参数，系统/SSH/代理配置未改。
 - 19:26:02 fresh日志：4完整权重VERIFIED_REUSED共698047668字节；SLAT flow在旧1312817152字节基础新增16777216字节至1329594368，完整receipt DOWNLOADING。旧字节不计吞吐，短时恢复不等于全量下载或科学验证完成。
+
+## 20:08 7999代理重新验证
+
+- 用户询问官方来源/VPN/是否export7999。实际源码固定hbb1/Cupid@1191de37；launcher默认7999，但旧305841 CUPID_DOWNLOAD_PROXY覆盖为loopback49693，SSH到本机20890。实查scontrol/log记录configured_proxy/49693。
+- 305841于19:45:30 FAILED1:0/20m24s，末尾offset1589641216先SSLError再ConnectionError/ProxyError，305845依赖取消0秒无节点，49409连接退出。尝试在旧分配做小型srun探测时返回allocation expired，没有实际探测执行。
+- 新增本地scripts/probe_cupid_transport.sh，CPU1核256M3min，仅比较7999和直连，官方小型config与至多1MiB Range，各35s超时，输出只含HTTP/字节/耗时/退出码，无响应体、重定向URL或凭据。commit b93bbf64c8acf1c96ccfa01c90f9b73d7065423f/tree1eb990de873a1610d40078099bd85178a0b17e81。
+- GitHub直连fetch/readback两次超时；scutil/lsof重新确认本机20890后，使用git -c http.proxy=http://127.0.0.1:20890 fetch成功；仅给同步helper进程export http_proxy/https_proxy相同地址，不改Git/SSH/系统配置。失败发生在GitHub读回前，未创建远端staging。修复后verified bundle完整同步a20，bundle103865字节、SHA908cb9b14cf04308e5da20c24bf4b06391e2dffe542866abdbee4e7dd082b8fe。
+- fresh duplicate audit无活动Stereo作业后，sbatch probe_cupid_transport.sh返回305961。最新sacct PENDING，无分配且日志不存在；不能称7999或直连通过，等待Slurm正常调度。

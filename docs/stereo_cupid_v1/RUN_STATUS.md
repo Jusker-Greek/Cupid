@@ -1,5 +1,11 @@
 # 当前运行状态
 
+**最新探测终态：305961 COMPLETED0:0（server14/19秒），但四项网络探测全部失败。** 7999代理与直连访问官方config/1MiB权重Range，均HTTP000、bytes0、curl exit28（连接超时）；探测脚本正常结束只表示记录完成，不能称路线可用。结果 `audit_20260920/transport_305961.txt`。因此不能宣称换回7999会恢复或加VPN一定更快。当前下载305841已失败、305845取消、49409退出，无健康下载；保留a11缓存。下一步需恢复并验证可用的既有代理线路，再按新身份续传；不在登录节点测试大型下载、不盲重提旧失败路径。E00完整包已记录探测终态，消息工具尚不可用。
+
+**20:08当前：下载305841于19:45:30 FAILED1:0（20m24s），305845依赖取消、0秒无GPU。** SLATflow已保留1589641216字节，另有4完整权重698047668字节；首次末段错误SSLError，后续ConnectionError/ProxyError，转发49409已退出，不能称仍在下载。用户询问7999代理后新增有界CPU探测作业 **305961**，最新PENDING、尚无分配/结果，不重复提交。探测只从Slurm计算节点比较 `http://hkuhpc.com:7999` 与直连，读取官方pipeline.json和至多1MiB权重Range，丢弃响应体，只记状态/字节/时间/退出码；不是权重完整校验或下载速度保证。
+
+探测源码 `b93bbf64c8acf1c96ccfa01c90f9b73d7065423f` / tree `1eb990de873a1610d40078099bd85178a0b17e81` 已push并同步至 `/public/home/ricky/CODE/stereo_cupid_b93bbf6_a20`；唯一新增代码 `scripts/probe_cupid_transport.sh`，模型和下载算法未改。旧本机转发路线实际export为计算节点loopback49693，经SSH到本机20890，并未使用7999；脚本默认7999但由CUPID_DOWNLOAD_PROXY覆盖。7999此前TLS失败，当前能否使用等待305961实测；不能断言加VPN更快。所有大权重仍只写集群。
+
 **19:26已实际恢复下载：CPU305841 RUNNING server14；单卡305845 PENDING Dependency。** 19:23本次SSH成功，旧305794/305798终态且squeue无本实验活动作业。本机 `scutil --proxy` 显示当前HTTP/HTTPS代理为127.0.0.1:**20890**，`lsof`确认该loopback端口监听；与此前7890不同，何时切换未核验。本次转发使用实测当前20890，不改系统/SSH/代理配置。4完整权重698047668字节已重新VERIFIED_REUSED，SLAT flow复用1312817152字节后于19:26:02实际达到1329594368字节，新增16777216字节；不能把缓存算新增流量。完整receipt仍DOWNLOADING，最高S02，模型未执行。
 
 运行源码 **40c09dc779f636df1a2c41781b5699e4043fc763** / tree **a71680c5af7855f71dc34c49a0b8d0c3d48a45a0**；下载及模型算法未变。GitHub→verified bundle→新checkout `/public/home/ricky/CODE/stereo_cupid_40c09dc_a19` 核验通过。新权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a11`，只读复用停止a10。单卡依赖afterok:305841、kill-on-invalid-dep=yes，1GPU30min完整Stage1+左Stage2，新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_40C09DC_A7`。
