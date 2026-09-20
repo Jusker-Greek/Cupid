@@ -116,6 +116,20 @@ These modes allow source/upload diagnosis before complete weights exist.
 T owns the actual training entry/config/env contract; I reviews and binds it,
 then R adds training launch modes. No other worker submits campaign GPU jobs.
 
+T `950ed8716b2f64f2d9ac3f757467d5ed85b5f5c5` subsequently published the
+entry contract. R now supports `train-smoke` (1GPU) and `train-ddp` (2GPU),
+both 8CPU/64GB/30min with torch.distributed.run nproc matching the allocation.
+Required exported fields are `CUPID_TRAIN_CONFIG` (T-owned bound config),
+`CUPID_TRAIN_CONFIG_SHA256` and fresh `CUPID_OUTPUT_DIR`, in addition to common
+source/evidence identity. Optional `CUPID_STOP_AFTER_UPDATES=10` bounds the
+first half of the 20-update resume comparison; optional
+`CUPID_RESUME_OPTIMIZER` names the trusted prior full-state checkpoint.
+T validates configuration_state, independent experiment identity, data/asset
+hashes and world size. R verifies config SHA on-node before launch. No full
+mode is defined yet: real target count and measured throughput must bind the
+full budget, and S05/S06/S07 need real evidence. This is execution plumbing,
+not evidence that targets or runtime are ready; do not run the unbound template.
+
 ## Next executable actions
 
 1. Recheck existing endpoint with strict hostkeys, then fresh squeue/sacct
