@@ -1,0 +1,39 @@
+Captured 2026-09-20 17:21 CST; read-only Slurm/log/receipt metadata. No raw data or credentials.
+JobID|State|ExitCode|Elapsed|NodeList
+305577|RUNNING|0:0|00:05:10|server14
+305577.batch|RUNNING|0:0|00:05:10|server14
+305577.extern|RUNNING|0:0|00:05:10|server14
+305583|PENDING|0:0|00:00:00|None assigned
+JobId=305583 JobName=stereo_cupid_pilot
+   UserId=ricky(2019) GroupId=mayi(2005) MCS_label=N/A
+   Priority=1000 Nice=0 Account=mayi QOS=mayi_overflow
+   JobState=PENDING Reason=Dependency Dependency=afterok:305577(unfulfilled)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:00 TimeLimit=00:30:00 TimeMin=N/A
+   SubmitTime=2026-09-20T17:17:12 EligibleTime=Unknown
+   AccrueTime=Unknown
+   StartTime=Unknown EndTime=Unknown Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-20T17:17:12 Scheduler=Main
+   Partition=gpu AllocNode:Sid=mgmtserver01:1508100
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=
+   NumNodes=1-1 NumCPUs=8 NumTasks=1 CPUs/Task=8 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=8,mem=64G,node=1,billing=8,gres/gpu=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=8 MinMemoryNode=64G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED .gitattributes 1519
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED README.md 105
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16.json 843
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16.safetensors 171450952
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_dec_mesh_swin8_B_64l8m256c_fp16.json 372
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_dec_mesh_swin8_B_64l8m256c_fp16.safetensors 181903412
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_dec_rf_swin8_B_64l8r16_fp16.json 396
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_dec_rf_swin8_B_64l8r16_fp16.safetensors 171450488
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_enc_swin8_B_64l8_fp16.json 321
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_enc_swin8_B_64l8_fp16.safetensors 173242816
+/public/home/ricky/RESULTS/stereo_cupid_weights_305577.out:VERIFIED_REUSED ckpts/slat_flow_img_dit_L_64l8p2_fp16.json 711
+/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a8/download_receipt.json:  "status": "DOWNLOADING",
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=515899392/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=520093696/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=524288000/2401799952

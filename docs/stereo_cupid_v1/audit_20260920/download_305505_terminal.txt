@@ -1,0 +1,23 @@
+    download(item)
+  File "/public/home/ricky/CODE/stereo_cupid_94c4d05_a15/scripts/download_cupid_weights.py", line 103, in download
+    return download_ranges(item, args.output, REPO, REVISION, verify,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/public/home/ricky/CODE/stereo_cupid_94c4d05_a15/scripts/cupid_range_download.py", line 92, in download_ranges
+    completed += future.result()
+                 ^^^^^^^^^^^^^^^
+  File "/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/public/home/ricky/CODE/stereo_cupid_94c4d05_a15/scripts/cupid_range_download.py", line 84, in get_part
+    raise RuntimeError(f'Range failed: {name} offset={start}') from None
+RuntimeError: Range failed: ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors offset=406847488
+JobID|State|ExitCode|Elapsed|NodeList
+305505|FAILED|1:0|00:50:14|server14
+305505.batch|FAILED|1:0|00:50:14|server14
+305505.extern|COMPLETED|0:0|00:50:15|server14
+305510|CANCELLED|0:0|00:00:00|None assigned

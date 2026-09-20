@@ -1,5 +1,9 @@
 # 当前运行状态
 
+**17:21恢复已实际验证：305577 RUNNING server14；新单卡305583 PENDING Dependency，afterok:305577，1GPU/30min，尚无GPU分配。** 新下载已重新校验并复用4个完整权重（698047668字节）；SLAT flow分块从旧根复用406847488字节后，已推进至524288000/2401799952字节，越过旧作业失败位置。完整receipt仍为DOWNLOADING，不能称全量权重完成。运行源码仍为下述a8e799e/a16；单卡新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_A8E799E_A4`。临时SSH转发exec session **98813** 存活：实际分配节点server14 `127.0.0.1:49690` → 本机既有 `127.0.0.1:7890`，严格校验既有主机密钥，未改配置。下载终态后关闭转发。禁止重复提交305577/305583；heartbeat已更新为这两个作业。证据 `audit_20260920/download_305577_recovery_1721.txt`。最高完成S02、当前S03 DEBUGGING；仍无模型smoke或Stereo训练结果。
+
+**17:15恢复：305505 FAILED 1:0（50m14s），305510依赖取消、0秒无节点。** 首个失败条件为SLAT flow权重offset406847488的4MiB分块在5次尝试中触发90秒总时限，完整权重SHA未出现不匹配。代码 `a8e799ee815b061283cf38804a30ea0db13a9fa4` / tree `5ea1c8cf383be78abdc7f7dbaf86c0d32386fd60` 将单块总时限改为300秒，保留40秒socket读超时和全部完整性检查；已push并同步至 `/public/home/ricky/CODE/stereo_cupid_a8e799e_a16`。新CPU下载 **305577** 已提交，权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a8`，只读复用已停止a7中的完整权重及持久化分块。旧session27758已随作业结束关闭。失败证据 `audit_20260920/download_305505_terminal.txt`。完整权重、模型smoke仍未完成。
+
 **16:31重查：第二个完整权重 `slat_dec_mesh_swin8_B_64l8m256c_fp16.safetensors`（181903412字节）已通过官方SHA，正在下载第三个RF decoder。** 中途若干Range出现ReadTimeout/RANGE_DEADLINE，下载器自动重试后完成该文件，未重提305505、未重下已落盘分块；本次实际验证了超时恢复。session27758仍存活，日志更新至16:30:45；305505 RUNNING、完整receipt仍DOWNLOADING，305510 PENDING且无GPU分配。脱敏证据 `audit_20260920/download_305505_retry_recovery_1631.txt`。最高完成仍S02，没有模型运行结果。
 
 **16:23实际验证：305505的首个完整权重 `slat_dec_gs_swin8_B_64l8gs32_fp16.safetensors`（171450952字节）已通过官方SHA校验，继续下载下一文件。** 证明新Range实现完成了真实分块传输、拼接与全文件校验；其余权重仍未齐备，305510仍PENDING Dependency。脱敏记录：`audit_20260920/download_305505_verified_snapshot.txt`。

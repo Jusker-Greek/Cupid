@@ -108,3 +108,12 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 - 新CPU `sbatch --parsable scripts/submit_cupid_weights.sh` 返回305505；CUPID_DOWNLOAD_CLIENT=ranges，CUPID_MODEL_PATH=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a7，CUPID_REUSE_WEIGHTS_FROM=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a6，CUPID_DOWNLOAD_PROXY=http://127.0.0.1:49689。Slurm实际分配server14后建立session27758转发；实际4MiB range写入、4小文件校验/复用记录逐步出现。
 - `sbatch --parsable --dependency=afterok:305505 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh` 返回305510；相同a15源码，fresh输出STEREO_CUPID_PILOT_94C4D05_A3，1GPU/30min、CUPID_FULL_MESH=1。不能把pending算模型验证。
 - 没有运行本地测试或改远端源码；本次运行验证为Slurm内真实HTTP range传输、长度/Content-Range检查及文件SHA流程，完整模型仍待权重齐备。
+
+## 17:21 慢速分块时限修复与复用验证
+
+- `sacct -j 305505,305510 --format=JobID,State,ExitCode,Elapsed,NodeList -P`：305505 FAILED1:0、50m14s；305510取消、0秒无节点。脱敏尾部记录见download_305505_terminal.txt。第一失败条件为offset406847488的4MiB分块5次超过90秒，不是完整文件SHA不匹配。
+- 本地修改 `scripts/cupid_range_download.py`：总时限90→300秒，保留40秒socket读超时和5次重试及全部完整性检查。commit/push `a8e799ee815b061283cf38804a30ea0db13a9fa4`，tree `5ea1c8cf383be78abdc7f7dbaf86c0d32386fd60`。既有verified bundle helper从GitHub精确验证后同步至新checkout `/public/home/ricky/CODE/stereo_cupid_a8e799e_a16`；bundle81511字节、SHA256 `8f24832352f47cff892a1ccf8e0f2d833dabbae5fe89cf7e517e339f0ed97c2e`。
+- 远端仅提交GitHub同步后的launcher：`sbatch --parsable scripts/submit_cupid_weights.sh` →305577，CUPID_MODEL_PATH=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a8，CUPID_REUSE_WEIGHTS_FROM=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a7，CUPID_DOWNLOAD_PROXY=http://127.0.0.1:49690，CPU/4核/8GB/2h。
+- squeue确认实际server14后，`ssh -N -T -J ricky@10.10.7.1 -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=/tmp/stereo_cupid_hostkeys.Fzi11a -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -R 127.0.0.1:49690:127.0.0.1:7890 ricky@server14` 建立exec session98813；既有公钥文件和既有本地代理，未修改SSH/代理配置。旧27758已结束。
+- `sbatch --parsable --dependency=afterok:305577 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh` →305583，新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_A8E799E_A4`，相同a16源码/1GPU/30min/完整Stage1+左Stage2。
+- fresh sacct/scontrol、筛选VERIFIED_REUSED和receipt status、tail自定义分块日志，保存download_305577_recovery_1721.txt：四完整权重698047668字节重新校验复用，分块复用406847488字节后已推进到524288000。receipt DOWNLOADING、GPU PENDING；无原始数据/签名URL/凭据记录。forward session98813空轮询仍存活。

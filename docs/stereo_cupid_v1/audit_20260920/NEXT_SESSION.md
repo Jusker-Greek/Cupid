@@ -1,6 +1,10 @@
 # 执行状态与下一步
 
+17:21当前入口：305577 RUNNING server14；305583 PENDING afterok:305577，无GPU分配。完整4个权重已重新校验复用，SLAT flow已从旧断点406847488推进至524288000字节。继续跟踪a8根的receipt和脱敏日志，不重提健康作业。转发session98813、计算节点loopback49690，下载终态后关闭。单卡输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_A8E799E_A4`，checkout a8e799e/a16；详情以RUN_STATUS首段为准。
+
 最终CPU复验：304071在server14运行11秒，COMPLETED 0:0，11项全部通过。最高完成S02；当前S03 DEBUGGING。用户已允许官方权重下载，不能继续以缺授权阻塞。
+
+17:15接续覆盖下方旧入口：305505在50m14s因同一range连续5次超过90秒失败，305510自动取消且未分配GPU。已将单range时限调到300秒、保留40秒无数据超时，源码a8e799e、checkout `/public/home/ricky/CODE/stereo_cupid_a8e799e_a16`。新下载305577使用新根a8、CUPID_REUSE_WEIGHTS_FROM=a7；确认复用成功并越过原失败offset，再继续依赖单卡。不要重下已完整校验的4个权重，也不要把部分权重齐备当整套模型可用。最新作业和转发身份以RUN_STATUS首段为准。
 
 16:20最新入口：跟踪CPU305505和GPU依赖305510；旧305474/305481已取消。权重根a7，运行checkout `/public/home/ricky/CODE/stereo_cupid_94c4d05_a15`；临时SSH session27758、计算节点server14、loopback49689。下载改为4MiB持久化Range，若之后中断，应确认旧作业停止后以 `CUPID_REUSE_WEIGHTS_FROM` 指向a7，在新输出根复用已验证文件和带摘要的完整分块，不能丢弃旧证据或默认重新下载全文件。只有完整官方SHA全部通过才可称下载完成。详见RUN_STATUS最新首段。
 
@@ -10,10 +14,10 @@
 |---|---|
 | S01 | 已登记独立实验 STEREO_CUPID_V1_SHARED_SS；假设不是结论 |
 | S02 | PASS：原权重双目推理实现已commit/push/同步；CPU集群11项复验通过 |
-| S03 | 单GPU预训练模型smoke尚未提交；完整pipeline路径/下载授权待回答 |
+| S03 | 单GPU305583已提交，等待CPU305577完成全量权重校验；授权已具备 |
 | S04–S05 | 未进入真实单GPU修复/通过；CPU304070失败不能记为模型smoke |
 | S06 | 尚无DDP；预训练推理不需要optimizer，若选择训练须实现并验双rank |
-| S07 | 复用E00确认的现有logger/readback；Stereo pose/scale evaluator未完成 |
+| S07 | 原CUPID logger/readback可复用；Stereo入口尚无W&B和训练loss/optimizer，pose/scale evaluator未完成 |
 | S08 | 未提交Stereo完整训练；原HSSD296164是独立PREEMPTED终态 |
 | S09 | 无Stereo完整结果 |
 | S10 | 未修改slides，不能把工程证据放成正式结果 |
