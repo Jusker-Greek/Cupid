@@ -100,7 +100,8 @@ def evaluate_sample(sample):
     if not gt:
         for key in METRICS:
             if m[key]['status'] != 'OK':
-                m[key] = result(status='NOT_APPLICABLE', reason='independent_GT_not_available')
+                m[key] = (result(reason='invalid_or_missing_raw_prediction') if key in ('translation_norm', 'pose_scale')
+                          else result(status='NOT_APPLICABLE', reason='independent_GT_not_available'))
         return out
     if gt.get('verified') is not True or not gt.get('provenance'):
         reason = 'GT_provenance_unverified'
