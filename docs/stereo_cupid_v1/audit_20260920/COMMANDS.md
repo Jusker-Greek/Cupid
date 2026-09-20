@@ -159,3 +159,13 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 - 新增本地scripts/probe_cupid_transport.sh，CPU1核256M3min，仅比较7999和直连，官方小型config与至多1MiB Range，各35s超时，输出只含HTTP/字节/耗时/退出码，无响应体、重定向URL或凭据。commit b93bbf64c8acf1c96ccfa01c90f9b73d7065423f/tree1eb990de873a1610d40078099bd85178a0b17e81。
 - GitHub直连fetch/readback两次超时；scutil/lsof重新确认本机20890后，使用git -c http.proxy=http://127.0.0.1:20890 fetch成功；仅给同步helper进程export http_proxy/https_proxy相同地址，不改Git/SSH/系统配置。失败发生在GitHub读回前，未创建远端staging。修复后verified bundle完整同步a20，bundle103865字节、SHA908cb9b14cf04308e5da20c24bf4b06391e2dffe542866abdbee4e7dd082b8fe。
 - fresh duplicate audit无活动Stereo作业后，sbatch probe_cupid_transport.sh返回305961。最新sacct PENDING，无分配且日志不存在；不能称7999或直连通过，等待Slurm正常调度。
+
+## 20:22–20:33 先续传并行找路线
+
+- 用户明确要求不要等待代理对比阻塞断点续传，并提出本地电脑下载后上传备选。先查scutil和lsof确认本机20890代理监听，fresh sacct确认旧305841/305845/305961均终态且无活动重复作业。
+- 本机仅按备选评估读取固定官方文件1MiB Range（curl --proxy http://127.0.0.1:20890 --range 0-1048575 --max-filesize1048576 --max-time25 --output /dev/null），HTTP206/1048576bytes/5.089026秒。没有整套权重本地落盘；该小样不能当全文件速度、也未测上传速度。
+- 本地脚本修改：requests异常及RANGE_DEADLINE的恢复窗口最少600秒，保持单请求40秒无数据超时/300秒总时限、4MiB块、1并发、官方SHA；非临时完整性错误仍最多5次。原5次40秒错误加短backoff会在5分钟跟进前耗尽，此修复给会话重连留下时间。实际超5次后重连分支尚未验真，不能称长期恢复保证。commit3f9d24f7945e7de4e7c7a33ce2a00a33fac16f5d/tree6e10d28bb9d579b6725e8d685f545dde3c7f3ecf已push。
+- 同步a21初次git config检查失败，随后只读commit/tree/remote.origin.url均匹配但未使用或原地修复；保留partial。新a22通过完整helper，bundle108966bytes，SHA cdfc72e9fa08d4a87886f2eba8902669c354f879451a87ad8a57362942c65d53。
+- 新CPU sbatch返回306009，roota12只读复用停止a11，loopback49694/wait600sec，4CPU8GB2h。GPU sbatch afterok:306009 kill-on-invalid-dep=yes返回306014，输出STEREO_CUPID_PILOT_3F9D24F_A8、1GPU30min完整Stage1+左Stage2/Panda/DINO/scene_unit。
+- fresh squeue确认server14后，用既有严格hostkey和有时限ProxyCommand建立exec5028，server14:49694→本机20890；没有修改配置。旧转发不复用。
+- 既有306009分配内srun --overlap --nodes1 --ntasks1 --cpus-per-task1 --mem256M运行已同步probe脚本，step306009.0完成16秒，7999与直连各2次全部HTTP000/0bytes/exit28。与此同时主下载复用1589641216流分块后增至1598029824，完整receiptDOWNLOADING。并行探测不作为主下载前置审批，不因失败取消健康下载。

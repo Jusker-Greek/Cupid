@@ -1,0 +1,22 @@
+Local proxy sample requested to assess user's local-download alternative:
+LOCAL_PROXY_SAMPLE HTTP=206 bytes=1048576 seconds=5.089026
+Proxy observed via scutil and loopback listener: http://127.0.0.1:20890
+Public bytes discarded locally, not a full asset download or training workload.
+
+2026-09-20T20:33:25+08:00
+JobID|State|ExitCode|Elapsed|NodeList
+306009|RUNNING|0:0|00:03:18|server14
+306009.0|COMPLETED|0:0|00:00:16|server14
+306014|PENDING|0:0|00:00:00|None assigned
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1589641216/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1593835520/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1598029824/2401799952
+receipt status: DOWNLOADING
+
+Concurrent bounded probe used one CPU within existing allocation via srun --overlap; did not cancel or block download:
+JOB=306009 HOST=server14 COMMIT=3f9d24f7945e7de4e7c7a33ce2a00a33fac16f5d
+PROBE route=cluster_proxy target=config HTTP=000 bytes=0 seconds=5.000922 exit=28
+PROBE route=cluster_proxy target=weight_range HTTP=000 bytes=0 seconds=5.001030 exit=28
+PROBE route=direct target=config HTTP=000 bytes=0 seconds=2.721518 exit=28
+PROBE route=direct target=weight_range HTTP=000 bytes=0 seconds=2.703411 exit=28
+All direct/7999 probes timed out within the configured small budget, but forwarded local proxy continued downloading. This does not prove all proxies or all future direct transfers unavailable.

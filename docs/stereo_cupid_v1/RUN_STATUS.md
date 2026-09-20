@@ -1,5 +1,11 @@
 # 当前运行状态
 
+**20:33已恢复续传，并行探测不再阻塞下载。** CPU **306009 RUNNING server14**，GPU **306014 PENDING afterok:306009**、kill-on-invalid-dep=yes。当前可用路线为计算节点loopback49694→SSH→本机实测20890代理；前台转发exec **5028**，严格既有主机密钥 `/tmp/stereo_cupid_hostkeys.VcqF15`，未改SSH/系统/VPN配置。4完整权重698047668字节及旧SLATflow1589641216字节复用后，20:33:25已到1598029824，实际新增8388608字节；完整receipt仍DOWNLOADING，最高S02。当前有可用路线，不能把7999/直连失败概括成所有代理不可用。
+
+运行源码 `3f9d24f7945e7de4e7c7a33ce2a00a33fac16f5d` / tree `6e10d28bb9d579b6725e8d685f545dde3c7f3ecf`，新checkout `/public/home/ricky/CODE/stereo_cupid_3f9d24f_a22`；新权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a12` 只读复用停止a11。单卡新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_3F9D24F_A8`，1GPU30min完整Stage1+左Stage2，既有Panda/DINO/scene_unit。代码只将临时网络错误的重试恢复窗口扩至10分钟，使5分钟跟进有机会重连；每请求时限和全部校验保留，非网络完整性错误仍5次耗尽。已真实执行新分块传输，超5次后重连的分支尚未实测，不宣称长期稳定。
+
+使用该分配中的1CPU srun --overlap同时检查7999/直连，两者config/1MiB Range仍HTTP000/bytes0/exit28，但未停止主下载。用户提出本地下载再上传，本次仅在本机做1MiB公共文件连通/速度样本：HTTP206，5.089秒，丢弃内容；不改变主权重只写集群的路径。整套7.27GB、当前单文件2.40GB，本地中转是否更快尚无完整吞吐/上传证据；现有下载已借用同一本机代理，先落本地未必加速，但能将HF下载与SSH断线分开。证据 `audit_20260920/network_resume_306009.txt`。a21同步即时配置检查失败，后续只读匹配但仍保留partial未使用；独立a22全部通过。
+
 **最新探测终态：305961 COMPLETED0:0（server14/19秒），但四项网络探测全部失败。** 7999代理与直连访问官方config/1MiB权重Range，均HTTP000、bytes0、curl exit28（连接超时）；探测脚本正常结束只表示记录完成，不能称路线可用。结果 `audit_20260920/transport_305961.txt`。因此不能宣称换回7999会恢复或加VPN一定更快。当前下载305841已失败、305845取消、49409退出，无健康下载；保留a11缓存。下一步需恢复并验证可用的既有代理线路，再按新身份续传；不在登录节点测试大型下载、不盲重提旧失败路径。E00完整包已记录探测终态，消息工具尚不可用。
 
 **20:08当前：下载305841于19:45:30 FAILED1:0（20m24s），305845依赖取消、0秒无GPU。** SLATflow已保留1589641216字节，另有4完整权重698047668字节；首次末段错误SSLError，后续ConnectionError/ProxyError，转发49409已退出，不能称仍在下载。用户询问7999代理后新增有界CPU探测作业 **305961**，最新PENDING、尚无分配/结果，不重复提交。探测只从Slurm计算节点比较 `http://hkuhpc.com:7999` 与直连，读取官方pipeline.json和至多1MiB权重Range，丢弃响应体，只记状态/字节/时间/退出码；不是权重完整校验或下载速度保证。
