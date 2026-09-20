@@ -39,8 +39,10 @@ def main():
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     if head != args.expected_commit:
         raise RuntimeError("Checkout is not the exact registered GitHub commit")
-    if subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=no"], text=True).strip():
+    if subprocess.run(["git", "diff", "--quiet", "HEAD", "--"], check=False).returncode != 0:
         raise RuntimeError("Tracked checkout modifications are forbidden")
+    subprocess.run(["git", "ls-files", "--error-unmatch", "scripts/train_stereo_stage1.py"],
+                   check=True, stdout=subprocess.DEVNULL)
     config = load_config(args.config)
     if config.get("configuration_state") != "BOUND_FOR_EXECUTION":
         raise ValueError("Bind asset hashes, dataset/target/split identity and budget before execution")

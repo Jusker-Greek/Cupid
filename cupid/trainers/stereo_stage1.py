@@ -445,8 +445,20 @@ def run_training(config, output_dir, resume=None, stop_after_updates=None):
     torch.cuda.set_device(local_rank)
     # torchrun supplies rank/env even for a single GPU.
     dist.init_process_group("nccl", timeout=timedelta(minutes=10))
+    trainer = None
     try:
         trainer = StereoStage1Trainer(config, output_dir, resume)
         trainer.run(stop_after_updates)
+    except Exception as error:
+        if trainer is not None:
+            # Each rank owns one diagnostic file. Do not enter a collective after
+            # an asymmetric failure; torchrun terminates the other workers.
+            with open(trainer.output / f"failure_rank_{trainer.rank}.json", "x") as handle:
+                json.dump({"error_type": type(error).__name__, "step": trainer.step,
+                    "epoch": trainer.epoch, "batch_index": trainer.batch_index,
+                    "job_id": os.environ["SLURM_JOB_ID"], "evidence_eligibility": "FAILED_ATTEMPT"}, handle)
+                handle.flush()
+                os.fsync(handle.fileno())
+        raise
     finally:
         dist.destroy_process_group()
