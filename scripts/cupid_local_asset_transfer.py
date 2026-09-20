@@ -38,7 +38,13 @@ def main():
     parser.add_argument('--wait-pid', type=int)
     parser.add_argument('--download-only', action='store_true',
                         help='Keep downloading during SSH outages; retain pending uploads')
+    parser.add_argument('--upload-only', action='store_true',
+                        help='Never download; fail if any selected local asset is absent or invalid')
+    parser.add_argument('--include-small', action='store_true',
+                        help='Include official non-LFS metadata/configs, without downloading other weights')
     args = parser.parse_args()
+    if args.upload_only and args.download_only:
+        parser.error('--upload-only and --download-only are mutually exclusive')
     lock = (args.root / 'transfer.lock').open('w')
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     manifest = json.loads((args.root / 'official_manifest.json').read_text())
@@ -53,8 +59,9 @@ def main():
                 break
             time.sleep(5)
     items = [x for x in manifest['siblings']
-             if x['rfilename'].endswith('.safetensors')
-             and not Path(x['rfilename']).name.startswith(EXCLUDED)]
+             if (x['rfilename'].endswith('.safetensors')
+                 and not Path(x['rfilename']).name.startswith(EXCLUDED))
+             or (args.include_small and 'lfs' not in x)]
     # Continue the already-started large file first, then remaining weights.
     items.sort(key=lambda x: (not x['rfilename'].startswith('ckpts/suv_flow_'),
                               not x['rfilename'].endswith('.safetensors'),
@@ -79,6 +86,8 @@ def main():
         partial = target.with_name(target.name + '.partial')
         target.parent.mkdir(parents=True, exist_ok=True)
         if not verified(target, item):
+            if args.upload_only:
+                raise RuntimeError(f'Upload-only local asset missing or invalid: {name}')
             if target.exists():
                 raise RuntimeError(f'Existing final file failed verification: {name}')
             deadline = time.monotonic() + 14400
@@ -113,6 +122,10 @@ def main():
         expected = digest.hexdigest()
         remote = args.remote_root + '/' + name
         incoming = remote + '.incoming_' + str(time.time_ns())
+        receipt['files'][name]['incoming'] = incoming
+        receipt['files'][name]['remote'] = 'UPLOAD_UNVERIFIED'
+        receipt['status'] = 'UPLOAD_IN_PROGRESS'
+        save()
         # srun receives stdin on a compute node. Login only carries the SSH
         # stream; no model bytes are written or hashed on the login node.
         body = '\n'.join([
