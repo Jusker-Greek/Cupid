@@ -1,8 +1,9 @@
-# HANDOFF_I — A3 集成包
+# HANDOFF_I — A4 集成包
 
 状态：D/T/L/R 首批及后继已整合并手工审阅；未在本地执行脚本或测试，集群验证 UNVERIFIED。
-源提交与集成 SHA 映射见 I_DEPENDENCIES.json，最新执行说明见 I_REVIEW_A3.md。
-训练 target 与外部网络尚未验证，T 尚有预测 provider/日志生命周期修复待接。本文件不声明训练就绪。
+源提交与集成 SHA 映射见 I_DEPENDENCIES.json，最新执行说明见 I_REVIEW_A4.md。
+训练 target 与外部网络尚未验证；已报告的预测 provider/日志生命周期接口问题现已静态闭合。
+本文件不声明训练就绪或任何测试通过。
 
 Owner task `01a0bfa4-bcf6-7761-a7a1-948b703719ee`；控制器 `01a0ba51-e1eb-7012-8147-c2cf36ad66b8`。
 分支 `codex/stereo-cupid-lane-i-integration`，基线 `0c77ae9c6648b918c820f79dbe15f80235c17709`。
