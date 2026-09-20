@@ -130,6 +130,20 @@ mode is defined yet: real target count and measured throughput must bind the
 full budget, and S05/S06/S07 need real evidence. This is execution plumbing,
 not evidence that targets or runtime are ready; do not run the unbound template.
 
+00:46 controller update: D `25a51bc8a5474190662c50ca20a9c9ef634461cc`
+supplies `configs/stereo/data_panda125_audit_v1.json` and 9 contract tests;
+L latest fixture has 13 cases, T `6794575` adds 4 CPU sampler/resume/collate
+contracts. New `data-contract` mode reserves the unique `D_DATA_A1` package
+on 1CPU/4GB/15min: I source (D/T/L/R required), shell syntax, D tests, L
+fixture, T contract module, and entire Panda-root content/hash audit.
+Each component's outcome remains distinct in the log; data summary counts
+are read separately and historical 125 is not assumed as current valid count.
+Use only I's A3 successor containing all fixes and bind its exact SHA/tree;
+do not use A2 with known interface failures. The package is prepared only:
+00:46 SSH still closed before banner and no allocation has been submitted.
+The large GSO discovery/content audit follows this first bounded package in
+separate fresh identities; no synthetic targets or matrix reflection repair.
+
 ## Next executable actions
 
 1. Recheck existing endpoint with strict hostkeys, then fresh squeue/sacct

@@ -41,18 +41,30 @@ printf 'JOB=%s\nNODE=%s\nCOMMIT=%s\nTREE=%s\nMODEL=%s\nMODE=%s\n' \
     "$SLURM_JOB_ID" "$SLURMD_NODENAME" "$CUPID_EXPECTED_COMMIT" "$CUPID_EXPECTED_TREE" \
     "${CUPID_MODEL_PATH:-NOT_USED}" "$CUPID_RUNTIME_MODE"
 case "$CUPID_RUNTIME_MODE" in
-    contract)
+    contract|data-contract)
         # I owns the checker; missing integration is an explicit failure.
         args=(--output "$CUPID_RUNTIME_EVIDENCE/source_contract.json" source
               --require-lane D --require-lane L --require-lane R)
-        if [[ "${CUPID_REQUIRE_T:-0}" == 1 ]]; then args+=(--require-lane T); fi
+        if [[ "${CUPID_REQUIRE_T:-0}" == 1 || "$CUPID_RUNTIME_MODE" == data-contract ]]; then
+            args+=(--require-lane T)
+        fi
         "$CUPID_PYTHON" scripts/stereo_integration_check.py "${args[@]}"
         for file in scripts/stereo_runtime_*.sh; do bash -n "$file"; done
-        "$CUPID_PYTHON" scripts/stereo_data_manifest.py \
-            --config configs/stereo/data_gso_stage1_v1.json \
-            --output "$CUPID_RUNTIME_EVIDENCE/raw_pair_audit" \
-            --verify-content --hash-assets --max-pairs 1
-        if [[ "${CUPID_EVAL_FIXTURE:-0}" == 1 ]]; then
+        if [[ "$CUPID_RUNTIME_MODE" == data-contract ]]; then
+            "$CUPID_PYTHON" scripts/stereo_data_contract_tests.py
+            "$CUPID_PYTHON" scripts/stereo_evaluate_fixture.py
+            "$CUPID_PYTHON" -m cupid.trainers.stereo_stage1_contract_tests
+            "$CUPID_PYTHON" scripts/stereo_data_manifest.py \
+                --config configs/stereo/data_panda125_audit_v1.json \
+                --output "$CUPID_RUNTIME_EVIDENCE/panda125_audit" \
+                --verify-content --hash-assets
+        else
+            "$CUPID_PYTHON" scripts/stereo_data_manifest.py \
+                --config configs/stereo/data_gso_stage1_v1.json \
+                --output "$CUPID_RUNTIME_EVIDENCE/raw_pair_audit" \
+                --verify-content --hash-assets --max-pairs 1
+        fi
+        if [[ "$CUPID_RUNTIME_MODE" == contract && "${CUPID_EVAL_FIXTURE:-0}" == 1 ]]; then
             "$CUPID_PYTHON" scripts/stereo_evaluate_fixture.py
         fi
         ;;

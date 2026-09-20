@@ -36,6 +36,7 @@ args=(--parsable --nodes=1 --ntasks=1 --time=00:30:00 --export=ALL \
     --output="$CUPID_RUNTIME_EVIDENCE.submission/slurm_%j.out")
 case "$CUPID_RUNTIME_MODE" in
     contract) args+=(--partition=cpu --cpus-per-task=1 --mem=1G --time=00:05:00 --job-name=stereo_cupid_contract) ;;
+    data-contract) args+=(--partition=cpu --cpus-per-task=1 --mem=4G --time=00:15:00 --job-name=stereo_cupid_data_a1) ;;
     asset-audit) args+=(--partition=cpu --cpus-per-task=2 --mem=4G --job-name=stereo_cupid_asset_audit) ;;
     assemble) args+=(--partition=cpu --cpus-per-task=2 --mem=4G --job-name=stereo_cupid_assemble) ;;
     pilot) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:1 --job-name=stereo_cupid_pilot) ;;
