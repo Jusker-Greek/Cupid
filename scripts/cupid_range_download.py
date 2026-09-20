@@ -41,7 +41,10 @@ def download_ranges(item, output, repo, revision, verify, trust_env, reuse=None)
                     part.write_bytes(value)
                     digest_path.write_text(hashlib.sha256(value).hexdigest() + '\n')
                     return expected_size
-        for attempt in range(1, 6):
+        attempt = 0
+        first_transient_failure = None
+        while True:
+            attempt += 1
             if stop.is_set():
                 raise RuntimeError('Range transfer cancelled')
             try:
@@ -82,10 +85,20 @@ def download_ranges(item, output, repo, revision, verify, trust_env, reuse=None)
             except (requests.RequestException, RuntimeError) as error:
                 reason = str(error) if isinstance(error, RuntimeError) else type(error).__name__
                 print(f'RANGE_RETRY file={name} start={start} attempt={attempt} reason={reason}', flush=True)
-                if attempt == 5:
+                transient = isinstance(error, requests.RequestException) or reason == 'RANGE_DEADLINE'
+                now = time.monotonic()
+                if transient and first_transient_failure is None:
+                    first_transient_failure = now
+                # Five 40-second socket failures used to end the entire job
+                # before the five-minute monitor could restore its SSH tunnel.
+                # Keep transient recovery alive for ten minutes; integrity
+                # failures still exhaust after five attempts. Slurm bounds the
+                # overall workload and each individual request stays bounded.
+                recovery_open = transient and now - first_transient_failure < 600
+                if attempt >= 5 and not recovery_open:
                     stop.set()
                     raise RuntimeError(f'Range failed: {name} offset={start}') from None
-                stop.wait(min(2 ** attempt, 15))
+                stop.wait(2 ** min(attempt, 4) if attempt < 4 else 15)
 
     # Concurrent streams through the shared proxy stalled together in a16.
     # Isolate the transport with one stream; retain the same chunks/checks.
