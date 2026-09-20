@@ -87,7 +87,7 @@ def main():
                     raise RuntimeError(f'Local transfer time budget exceeded: {name}')
                 print(f'LOCAL_DOWNLOAD {name}', flush=True)
                 result = subprocess.run([
-                    'curl', '--fail', '--silent', '--show-error', '--location',
+                    'curl', '--http1.1', '--fail', '--silent', '--show-error', '--location',
                     '--proxy', args.proxy, '--noproxy', '', '--connect-timeout', '15',
                     '--speed-limit', '1024', '--speed-time', '60', '--max-time', '1800',
                     '--continue-at', '-', '--output', str(partial),
