@@ -1,0 +1,15 @@
+{
+  "experiment_id": "STEREO_CUPID_STAGE1_TRAIN_V1",
+  "schema": "STEREO_GSO_PAIR_V1",
+  "dataset_id": "GSO_1K_200",
+  "root": "/public/home/ricky/DATASET/GSO_1K_200",
+  "registry": "/public/home/ricky/CODE/GSO_dataset/task_allocations/GSO_1K_200/object_registry.tsv",
+  "split_seed": "STEREO_CUPID_STAGE1_TRAIN_V1",
+  "split_fractions": [0.8, 0.1, 0.1],
+  "split_identity": "object_id",
+  "depth_background_exclusive": 10000000000.0,
+  "length_unit": "scene_unit",
+  "metric_meters_verified": false,
+  "calibration_policy": "per_trajectory_metadata_no_Panda_fallback",
+  "target_contract": "AWAIT_T_OFFICIAL_SS_SUV_CONTRACT"
+}
