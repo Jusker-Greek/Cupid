@@ -177,3 +177,8 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 
 
 本地用户授权的网络传输与官方资产SHA，不是本地模型测试。查看scutil --proxy/CMYNetwork process，Downloads空余88GiB。curl显式--proxy 127.0.0.1:20890，固定官方revision。helper70764命令见RUN_STATUS；首次启动错误保存在本地transfer.log，后续日志transfer_a2.log。无凭据、无原始数据外发。
+
+## 21:36 集群旧下载收尾
+**21:36切换完成：集群SLAT flow 2401799952字节已VERIFIED。** 旧CPU306009已CANCELLED（1h5m48s），旧GPU306014已CANCELLED（0秒无节点），旧转发5028退出255、已关闭。这是用户要求本地下载上传后的主动切换，不是模型失败。a12保留5完整权重共3099847620字节；完整receipt仍非VERIFIED，余下六权重由本地helper70764续传。最新本地SUV partial166324845字节，已超过原83143277断点；本地完整SHA、实际上传和1GPU尚未完成。不得恢复旧306009/306014/5028。上传目标仍独立local_upload_a1，helper每文件在Slurm CPU分配接收/复核；最终须新根合并全量校验再提交新1GPU。
+
+scancel 306014 306009 后fresh sacct确认两者CANCELLED；5028退出255。没有GPU执行。helper70764存活、partial增长166324845bytes。
