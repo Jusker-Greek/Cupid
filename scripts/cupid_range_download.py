@@ -58,7 +58,10 @@ def download_ranges(item, output, repo, revision, verify, trust_env, reuse=None)
                         elif not (response.status_code == 200 and start == 0 and expected_size == size):
                             raise RuntimeError(f'HTTP_{response.status_code}_RANGE_NOT_ACCEPTED')
                         value = bytearray()
-                        deadline = time.monotonic() + 90
+                        # The proxy can keep a stream alive below 4 MiB/90 s.
+                        # Allow slow but active progress; the 40 s socket read
+                        # timeout still catches a stalled connection.
+                        deadline = time.monotonic() + 300
                         for block in response.iter_content(64 * 1024):
                             if stop.is_set() or time.monotonic() > deadline:
                                 raise RuntimeError('RANGE_DEADLINE')
