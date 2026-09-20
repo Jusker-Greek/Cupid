@@ -82,7 +82,7 @@ class RawPairContract(unittest.TestCase):
 
     def test_content_hashes_and_fullpixel_map(self):
         pack = load_pair(self.row(),self.root,hash_assets=True)
-        self.assertEqual(len(pack['asset_sha256']),5)
+        self.assertEqual(len(pack['asset_sha256']),6)
         uv = np.array([.5,.25,1.])
         np.testing.assert_array_equal(pack['views']['right']['input_uv_to_fullpixel'] @ uv,[2,1,1])
 
@@ -96,6 +96,12 @@ class RawPairContract(unittest.TestCase):
     def test_path_escape_rejected(self):
         with self.assertRaises(ValueError):
             confined_path(self.root,'../escape.npy')
+
+    def test_metadata_changed_since_manifest_rejected(self):
+        row = self.row()
+        (self.traj/'trajectory_info.json').write_text('{}')
+        with self.assertRaisesRegex(ValueError, 'metadata changed'):
+            load_pair(row,self.root)
 
 
 if __name__ == '__main__':
