@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**统一执行版本已冻结并交R：** I A4 `a1bd82ef280edce3d9cd8e3ba3b9184df8ee9d2f` / tree `532c3f77f7122a84be0ddb77f3893ecf8f57377d` 已GitHub精确读回（I回执），含T修复和完整R wrapper。D9/L13/T9/I6共37项及Panda125待Slurm执行；0项实跑。监控当前切到R恢复SSH后的fresh queue/incoming审计与此准确版本CPU结果；CPU成功后立即上传/25文件组装/冻结V1，失败归owner修复。此前列出的接口错误已静态闭合，不重复修复或重做集成；五个冻结V1文件未变。
+
 **后继修复已交接：** T e45d232已提交generator单次物化、W&B生命周期/本地日志和NA指标修复，已交I/L复核。I A3 9ff30d8已发布，继续合入此补丁与R统一wrapper；CPU清单更新为D9/L13/T9/I6共37项及Panda125复核，全部尚未实跑。每个完成事件已立即转给下一负责人，未新增GPU作业。
 
 **当前监控已推进到后继集成与首错修复：** 五任务均已交付代码并报告GitHub精确读回，最新SHA/tree与负责人见CAMPAIGN_TASKS.json。T真实训练器、20更新/10+resume/双卡配置已提交，但均未运行；I静态发现的factory参数、raw评估数据交接及pair_weight类型错误已归T修复，I/L正在核后继提交。L另发现tracker初始化/关闭可能丢本地日志的问题，已交T修复。R已提供训练smoke/DDP启动接口，仍为唯一作业执行人。下一统一Slurm CPU包为D 9、L 13、T 4、I 6项fixture及Panda125内容审计，均尚未执行，不能算PASS。
