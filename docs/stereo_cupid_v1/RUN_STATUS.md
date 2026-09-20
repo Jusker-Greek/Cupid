@@ -1,5 +1,11 @@
 # 当前运行状态
 
+**19:26已实际恢复下载：CPU305841 RUNNING server14；单卡305845 PENDING Dependency。** 19:23本次SSH成功，旧305794/305798终态且squeue无本实验活动作业。本机 `scutil --proxy` 显示当前HTTP/HTTPS代理为127.0.0.1:**20890**，`lsof`确认该loopback端口监听；与此前7890不同，何时切换未核验。本次转发使用实测当前20890，不改系统/SSH/代理配置。4完整权重698047668字节已重新VERIFIED_REUSED，SLAT flow复用1312817152字节后于19:26:02实际达到1329594368字节，新增16777216字节；不能把缓存算新增流量。完整receipt仍DOWNLOADING，最高S02，模型未执行。
+
+运行源码 **40c09dc779f636df1a2c41781b5699e4043fc763** / tree **a71680c5af7855f71dc34c49a0b8d0c3d48a45a0**；下载及模型算法未变。GitHub→verified bundle→新checkout `/public/home/ricky/CODE/stereo_cupid_40c09dc_a19` 核验通过。新权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a11`，只读复用停止a10。单卡依赖afterok:305841、kill-on-invalid-dep=yes，1GPU30min完整Stage1+左Stage2，新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_40C09DC_A7`。
+
+当前前台SSH反向转发exec session **49409**：实际分配server14的127.0.0.1:49693→本机127.0.0.1:20890；严格使用既有主机密钥文件 `/tmp/stereo_cupid_hostkeys.VcqF15`。下载终态关闭连接。若再次中断，先确认实际代理端口与监听及Slurm节点，再按既有认证恢复；不猜端口/主机，不重复提交健康作业。短时恢复不代表长期网络故障已完全解决。E00工具仍缺，完整进度包继续保存待发送。
+
 **19:02终态读回：305794 FAILED1:0（4m5s），305798 CANCELLED0秒、未分配GPU。** 同一offset1312817152连接失败，没有越过旧断点。两个临时转发均已退出，当前没有正在成功传输的下载作业。保留a9/a10全部缓存和日志；主要阻塞是本机到集群及代理的间歇连接。下一轮先恢复并验证既有网络通道，再按新作业身份续传；不得把这个终态当健康RUNNING或声称已完成下载。自动跟进保持启用，不需要新的下载授权。
 
 **18:59连接再次失败，不能称下载恢复。** 新CPU305794最新18:58:58读回RUNNING server14，但offset1312817152连续ReadTimeout/ConnectionError，尚未看到超过旧根的新字节；新GPU305798 PENDING Dependency。转发23722因server14不响应退出255，按同一已分配节点重建的4952也在banner交换超时退出255；无存活转发。登录节点只读SSH也多次超时，当前主要阻塞是稳定的集群网络连接，不能通过重提作业解决。继续先读fresh sacct，再仅在实际分配仍有效时恢复转发；不重复305794/305798，未查终态不换根重提。最后明确的模型状态是未运行。E00完整包已保存 `audit_20260920/E00_PROGRESS_PENDING.json`，消息工具缺失尚未发送。

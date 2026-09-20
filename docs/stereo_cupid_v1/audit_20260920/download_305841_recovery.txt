@@ -1,0 +1,11 @@
+2026-09-20T19:29:59+08:00
+JobID|State|ExitCode|Elapsed|NodeList
+305841|RUNNING|0:0|00:04:53|server14
+305841.batch|RUNNING|0:0|00:04:53|server14
+305841.extern|RUNNING|0:0|00:04:53|server14
+305845|PENDING|0:0|00:00:00|None assigned
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1417674752/2401799952
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=1417674752 attempt=1 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=1417674752 attempt=2 reason=ConnectionError
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=1421869056/2401799952
+  "status": "DOWNLOADING",

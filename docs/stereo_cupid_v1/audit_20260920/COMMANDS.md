@@ -142,3 +142,12 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 - 只读test/stat确认DINO repo hubconf.py可读、checkpoint1217607321字节、Python可执行、Panda metadata可读、GSO主数据候选存在。`cupid/pipelines/stereo.py:24`本地torch.hub source=local/pretrained=False，runner要求RGBA，不额外调用u2net。完整bundle之外当前未发现新增大型资产必需项，真实推理仍未运行。
 - 工具发现ALL_TOOLS中send_message_to_thread缺失，完整E00包保存E00_PROGRESS_PENDING.json待工具恢复发送；不冒称已更新中央台账，不因通知工具缺失停止下载。
 - 18:58:58读回305794 RUNNING/server14、305798 PENDING；下载同一旧断点1312817152连续ReadTimeout后ConnectionError，没有新增分块证据。转发23722随后返回Timeout/server14 not responding退出255；替代4952使用显式ProxyCommand给登录跳板也设10秒ConnectTimeout，banner交换超时退出255。多次登录SSH查询亦timeout。两转发均关闭，不能称已恢复；先解决既有网络并读回终态，不猜测新主机/不重复提交。
+
+## 19:23–19:26 当前代理端口核验与续传
+
+- SSH fresh sacct读回305794 FAILED、305798 CANCELLED，squeue无本实验活动作业。`scutil --proxy`显示HTTP/HTTPS端口20890；`lsof -nP -iTCP:20890 -sTCP:LISTEN`确认127.0.0.1监听。何时由7890切换未核验，不把端口变化推定为全部历史故障原因。
+- 使用已push源码40c09dc779f636df1a2c41781b5699e4043fc763/treea71680c5af7855f71dc34c49a0b8d0c3d48a45a0，通过既有verified bundle helper同步新checkout /public/home/ricky/CODE/stereo_cupid_40c09dc_a19。bundle99112字节、SHA30458a637f1f5ca848e9bcb2194fdc51d76b53c8970d3f1badbd1d181b471485；模型与下载算法不变，无本地测试或依赖安装。
+- fresh duplicate audit后`sbatch --parsable scripts/submit_cupid_weights.sh`→305841；新模型根a11，只读复用停止a10。CUPID_DOWNLOAD_PROXY=http://127.0.0.1:49693，wait600sec，CPU4核8GB2h不变。
+- `sbatch --parsable --dependency=afterok:305841 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh`→305845；新输出STEREO_CUPID_PILOT_40C09DC_A7，1GPU30min完整Stage1+左Stage2，既有Panda/DINO/scene_unit不变。
+- squeue确认305841实际server14后，用StrictHostKeyChecking=yes、既有UserKnownHostsFile=/tmp/stereo_cupid_hostkeys.VcqF15及显式有时限ProxyCommand的`ssh -N -T -R 127.0.0.1:49693:127.0.0.1:20890 ricky@server14`建立exec49409；只改会话参数，系统/SSH/代理配置未改。
+- 19:26:02 fresh日志：4完整权重VERIFIED_REUSED共698047668字节；SLAT flow在旧1312817152字节基础新增16777216字节至1329594368，完整receipt DOWNLOADING。旧字节不计吞吐，短时恢复不等于全量下载或科学验证完成。
