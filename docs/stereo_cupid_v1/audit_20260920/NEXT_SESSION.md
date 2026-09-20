@@ -2,6 +2,8 @@
 
 最终CPU复验：304071在server14运行11秒，COMPLETED 0:0，11项全部通过。最高完成S02；当前S03 DEBUGGING。用户已允许官方权重下载，不能继续以缺授权阻塞。
 
+16:20最新入口：跟踪CPU305505和GPU依赖305510；旧305474/305481已取消。权重根a7，运行checkout `/public/home/ricky/CODE/stereo_cupid_94c4d05_a15`；临时SSH session27758、计算节点server14、loopback49689。下载改为4MiB持久化Range，若之后中断，应确认旧作业停止后以 `CUPID_REUSE_WEIGHTS_FROM` 指向a7，在新输出根复用已验证文件和带摘要的完整分块，不能丢弃旧证据或默认重新下载全文件。只有完整官方SHA全部通过才可称下载完成。详见RUN_STATUS最新首段。
+
 15:52接续入口：先检查CPU305474、`/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a6/download_receipt.json` 和临时转发exec session7388。运行源码bc458f2，checkout `/public/home/ricky/CODE/stereo_cupid_bc458f2_a13`。全量SHA通过后关闭下载转发，提交1GPU/30min单对完整Stage1+左Stage2 mesh，使用现有DINO路径和 `configs/stereo/gso_panda_random_linear_0_scene_unit.json`。下方表格和旧路径保留为CPU审计历史，以 `../RUN_STATUS.md` 最新更新为准。下载/单卡循环由本任务automation `stereo-cupid` 每5分钟跟进，不占用新任务。
 
 | 阶段 | 现状 |

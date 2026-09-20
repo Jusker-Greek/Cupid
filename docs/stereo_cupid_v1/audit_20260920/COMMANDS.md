@@ -99,3 +99,12 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 通过已有SSH读取DATASET顶层目录；对表中9个GSO根仅执行 `find <root> -mindepth 1 -maxdepth 1 -type d | wc -l`，对两组已定位对象/轨迹有限列举PNG/NPY/HDF5并读取trajectory_info.json。GSO_1K_200注册表1026行含表头，status=planned；损坏清单 `awk 'END {print NR}'` 为4，末行无换行。没有将目录数换算为完整pair数量。
 
 直接读取HSSD已知metadata开头2200字节、stat一个transforms.json和对应latent；ObjaverseXL仅stat两份metadata。未全量解析CSV、未在登录节点加载图像/NPY/权重。对四个本地/远端源码使用 `git rev-parse HEAD:<path>` 核验blob一致。详情与实际路径见DATASETS_AND_LOGGING.md。
+
+## 16:20 下载停滞恢复
+
+- `write_stdin(session7388)`返回SSH timeout；sacct显示305474仍RUNNING，但Xet日志停在08:06:58 UTC，无新的完整权重文件。
+- 在实际Slurm节点server14恢复严格认证的临时转发（短暂session55431），计算节点 `curl --proxy http://127.0.0.1:49688 --max-time 20 --connect-timeout 5 -s -o /dev/null -w 'HF_HTTP=%{http_code}' <固定官方pipeline.json>` 返回200；Xet仍无进展。取消305474（29m58s）和依赖305481（0秒无节点），关闭旧转发，保留a6。
+- 修复代码94c4d0550e077977ec650f15c972b5b9ef8ce891、tree bc02ca8ebe94a796fd3bb39127b24008a5347a1f，GitHub精确读回和a15同步成功。bundle76170字节，SHA256 f5ed8c82cf5bebf9b3ee1960db8c5c2f3e998d79bd0954d78ca930492c5f5d4e。
+- 新CPU `sbatch --parsable scripts/submit_cupid_weights.sh` 返回305505；CUPID_DOWNLOAD_CLIENT=ranges，CUPID_MODEL_PATH=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a7，CUPID_REUSE_WEIGHTS_FROM=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a6，CUPID_DOWNLOAD_PROXY=http://127.0.0.1:49689。Slurm实际分配server14后建立session27758转发；实际4MiB range写入、4小文件校验/复用记录逐步出现。
+- `sbatch --parsable --dependency=afterok:305505 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh` 返回305510；相同a15源码，fresh输出STEREO_CUPID_PILOT_94C4D05_A3，1GPU/30min、CUPID_FULL_MESH=1。不能把pending算模型验证。
+- 没有运行本地测试或改远端源码；本次运行验证为Slurm内真实HTTP range传输、长度/Content-Range检查及文件SHA流程，完整模型仍待权重齐备。
