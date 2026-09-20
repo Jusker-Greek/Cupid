@@ -49,8 +49,8 @@
     "R": {
       "thread_id": "01a0bfa4-b8ec-7bc3-ac05-ae1d58238a11",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": ["e867ff20a5f1f710a7b746b12bbffc951d5bb03c", "71967eba6a8c8719da39310ea38a4faaf6b499d7", "9248378cf45ed72cd1d4b817700ebc65c439a01a", "6569a7a6167f85b5cbc867d6a9bc6542c7c0c89a", "3381a59990e9858ee5ab10b267dcc9df564af3c0"],
-      "integrated_commits": ["23b2ad0ed9bb109bae7a632d48481a9cf3cae9f7", "b90482e448ceb721570aceca972b0214c0fce877", "6fa9dd8096ffe9977ceab6b72b1a3250184f6898", "6cf7fdab41d9bafca9485aaa1ad55395a7a6dd6c", "06a634413fda0765f99f271786dd44a885f64339"],
+      "source_commits": ["e867ff20a5f1f710a7b746b12bbffc951d5bb03c", "71967eba6a8c8719da39310ea38a4faaf6b499d7", "9248378cf45ed72cd1d4b817700ebc65c439a01a", "6569a7a6167f85b5cbc867d6a9bc6542c7c0c89a", "3381a59990e9858ee5ab10b267dcc9df564af3c0", "ca91a8e40456b75a959f4f991ce44c7fee46950e", "dd6523ec291296434e953bc70dcc0c09506ad505"],
+      "integrated_commits": ["23b2ad0ed9bb109bae7a632d48481a9cf3cae9f7", "b90482e448ceb721570aceca972b0214c0fce877", "6fa9dd8096ffe9977ceab6b72b1a3250184f6898", "6cf7fdab41d9bafca9485aaa1ad55395a7a6dd6c", "06a634413fda0765f99f271786dd44a885f64339", "0ef66e03f5a55e06fa355806c426e9d03b9032a3", "16339be2ea0405d844787c8abff20fde71e534dd"],
       "files": ["scripts/stereo_runtime_assets.py", "scripts/stereo_runtime_asset_audit.py", "scripts/stereo_runtime_sync.sh", "scripts/stereo_runtime_job.sh", "scripts/stereo_runtime_submit.sh", "scripts/cupid_local_asset_transfer.py", "docs/stereo_cupid_v1/lanes/R_runtime/HANDOFF_R.md", "docs/stereo_cupid_v1/lanes/R_runtime/R_official_manifest.json"],
       "state": "ASSEMBLY_PILOT_INTEGRATED_SSH_EXECUTION_PENDING",
       "completion": "Fresh exact checkout and output root, duplicate audit, complete asset verification, bounded execution, terminal and immutable artifacts."

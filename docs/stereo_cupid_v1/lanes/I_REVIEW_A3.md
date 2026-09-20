@@ -2,7 +2,7 @@
 
 2026-09-21 00:49 CST，静态审阅；没有新测试/模型实跑证据。
 
-已整合 D 至25a51bc、T至0d69d72、L至44ccef7、R至3381a59，完整映射见 I_DEPENDENCIES.json。
+已整合 D 至25a51bc、T至0d69d72、L至44ccef7、R至dd6523e，完整映射见 I_DEPENDENCIES.json。
 五个 V1 frozen 路径与0c77ae9无diff。以下命令只能由R在Slurm计算节点执行，fresh checkout/root，保留JobID与日志。
 
 ## A2首错处置
@@ -28,7 +28,8 @@
   --output "$FRESH_PANDA_AUDIT_ROOT" --verify-content --hash-assets
 ```
 
-R当前通用contract mode仍可能只带源检查/一对数据/L fixture；必须对照此包确认执行了哪些命令。
+R的 `data-contract` mode 已完整封装以上源检查→D9→L13→T4→I6→Panda内容审计，1CPU/4GB/15min。
+小 `contract` mode 仍只带源检查/一对数据/可选L fixture，不能与完整data-contract混淆。
 Panda125是历史预期（1对象5轨迹），输出summary才是当前实读数量；单对象无法同时支持对象级train/validation。
 即使程序exit0，也检查counts.content_failed/incomplete_records、全部候选分母和scope；不把“扫描完成”写成全量内容PASS。
 
