@@ -17,6 +17,8 @@ METRICS = (
 
 
 def result(value=None, status='UNVERIFIED', reason='not_evaluated', unit=None):
+    if value is not None and not math.isfinite(value):
+        return dict(value=None, status='UNVERIFIED', reason='nonfinite_derived_metric', unit=unit)
     return dict(value=value, status=status, reason=reason, unit=unit)
 
 
@@ -51,11 +53,11 @@ def rotation(value):
 
 
 def norm(v):
-    return math.sqrt(sum(x*x for x in v))
+    return math.hypot(*v)
 
 
 def angle(cosine):
-    return math.degrees(math.acos(max(-1., min(1., cosine))))
+    return math.degrees(math.acos(max(-1., min(1., number(cosine)))))
 
 
 def evaluate_sample(sample):
@@ -66,7 +68,7 @@ def evaluate_sample(sample):
     provenance:<reference>,metric_unit_verified:true/false},
     prediction_uses_gt_alignment:false (must be explicit).
     """
-    if not str(sample.get('sample_id', '')).strip():
+    if not isinstance(sample.get('sample_id'), str) or not sample['sample_id'].strip():
         raise ValueError('sample_id_required')
     out = dict(sample_id=sample['sample_id'], prediction_status=sample.get('prediction_status', 'UNVERIFIED'),
                metrics={k: result() for k in METRICS})
@@ -81,6 +83,9 @@ def evaluate_sample(sample):
         out['metrics'] = {k: result(reason=reason) for k in METRICS}
         return out
     pred = sample.get('prediction') or {}
+    if not isinstance(pred, dict):
+        out['metrics'] = {k: result(reason='malformed_prediction_record') for k in METRICS}
+        return out
     unit = pred.get('length_unit')
     unit = unit if unit and unit != 'unknown' else None
     parsed = {}
@@ -102,6 +107,11 @@ def evaluate_sample(sample):
             if m[key]['status'] != 'OK':
                 m[key] = (result(reason='invalid_or_missing_raw_prediction') if key in ('translation_norm', 'pose_scale')
                           else result(status='NOT_APPLICABLE', reason='independent_GT_not_available'))
+        return out
+    if not isinstance(gt, dict):
+        for key in METRICS:
+            if m[key]['status'] != 'OK':
+                m[key] = result(reason='malformed_GT_record')
         return out
     if gt.get('verified') is not True or not gt.get('provenance'):
         reason = 'GT_provenance_unverified'
@@ -146,7 +156,7 @@ def evaluate_sample(sample):
             m['translation_error_m'] = result(status='NOT_APPLICABLE', reason='physical_metre_not_verified', unit='m')
         m['translation_norm_ratio'] = (result(pn/gn, 'OK', 'raw_no_alignment', 'ratio') if gn > 0
             else result(status='NOT_APPLICABLE', reason='zero_GT_translation_norm'))
-        m['translation_direction_error_deg'] = (result(angle(sum(a*b for a, b in zip(pt, gt_t))/(pn*gn)),
+        m['translation_direction_error_deg'] = (result(angle(sum((a/pn)*(b/gn) for a, b in zip(pt, gt_t))),
             'OK', 'raw_no_alignment', 'deg') if pn > 0 and gn > 0 else
             result(status='NOT_APPLICABLE', reason='zero_translation_direction_undefined'))
     except (KeyError, TypeError, ValueError, OverflowError):
@@ -180,10 +190,16 @@ def summarize(samples):
         units = {x['unit'] for x in valid}
         mixed = len(units) > 1
         values = [x['value'] for x in valid]
+        all_na = bool(items) and all(x['status'] == 'NOT_APPLICABLE' for x in items)
+        status = 'NOT_APPLICABLE' if all_na else ('UNVERIFIED' if mixed or not values else 'OK')
+        reason = ('mixed_units_no_aggregation' if mixed else
+                  ('all_samples_not_applicable' if all_na else
+                   ('no_eligible_samples' if not values else 'eligible_subset_mean')))
+        mean = None if mixed or not values else sum(x/len(values) for x in values)
+        if mean is not None and not math.isfinite(mean):
+            status, reason, mean = 'UNVERIFIED', 'nonfinite_aggregate', None
         out['metrics'][key] = dict(
-            status='UNVERIFIED' if mixed or not values else 'OK',
-            reason='mixed_units_no_aggregation' if mixed else ('no_eligible_samples' if not values else 'eligible_subset_mean'),
-            mean=None if mixed or not values else sum(values)/len(values),
+            status=status, reason=reason, mean=mean,
             unit=next(iter(units)) if len(units) == 1 else None,
             num_valid=len(valid), num_expected=count,
             coverage=len(valid)/count if count else None,
