@@ -192,3 +192,9 @@ scancel 306014 306009 后fresh sacct确认两者CANCELLED；5028退出255。没�
 
 为避免SSH故障阻塞其它下载，源码972bc8e61bd0d453864afc1d25b38382b8db1ea6已push/精确读回，新增显式--download-only：保留全部本地官方SHA及上传待办，不把本地完成当上传完成。新独立helper PID33142，日志transfer_a5_download.log，进程receipt transfer_process_a5.json，ClashX7890，从本地已校验SUV继续余下5文件；SS decoder已完成，SS encoder下载中。目标local_upload_a1不变但当前--download-only不提交上传job；待SSH恢复后先fresh squeue/sacct/远端incoming审计避免重复，再完成上传。旧306009/306014/5028不恢复。完整pipeline/root、模型运行、Stereo训练仍未完成。
 
+
+## 2026-09-21 00:22 本地六文件终态
+**2026-09-21 00:22：本地六个剩余权重全部下载完成并通过官方SHA，共4168403480字节。** `local_transfer_receipt.json` 为LOCAL_SUBSET_VERIFIED_UPLOAD_PENDING；PID33142正常完成退出，transfer_a5_download.log含六个LOCAL_VERIFIED。集群a12另有五个已校验权重3099847620字节，两地合计11个权重7268251100字节。仍未形成集群25文件完整root，不能把分散权重齐备称集群模型可用。ClashX7890完成剩余5文件约3分钟，观察到本次路线明显快于旧CMY传输，但不推断唯一根因。
+
+上传阻塞仍为SSH：00:22再次Connection closed by10.10.7.1 port22。没有远端shell，无法核查先前上传是否留下job/incoming；不盲重提交、不安装、不改SSH/VPN/路由。用户校园网/VPN状态问题待答；下一轮先恢复只读SSH并审计上传job与目标，随后只上传已有校验文件，禁止重新下载完整权重。上传后在Slurm新根合并a12和local_upload_a1，补小JSON并全25文件官方SHA/pipeline引用校验，再新1GPU。当前没有任何Stereo模型运行/训练结果，最高S02，S03 DEBUGGING。
+

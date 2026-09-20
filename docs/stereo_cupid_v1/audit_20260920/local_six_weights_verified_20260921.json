@@ -1,0 +1,27 @@
+{
+  "revision": "1191de37cc33b60273a631d4e07fbbe7cee798c1",
+  "remote_root": "/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_local_upload_a1",
+  "status": "LOCAL_SUBSET_VERIFIED_UPLOAD_PENDING",
+  "files": {
+    "ckpts/suv_flow_img_dit_L_16l8_fp16.safetensors": {
+      "local": "OFFICIAL_HASH_VERIFIED",
+      "upload_readback": "Connection closed by 10.10.7.1 port 22\n",
+      "remote": "UPLOAD_UNVERIFIED"
+    },
+    "ckpts/ss_dec_conv3d_16l8_fp16.safetensors": {
+      "local": "OFFICIAL_HASH_VERIFIED"
+    },
+    "ckpts/ss_enc_conv3d_16l8_fp16.safetensors": {
+      "local": "OFFICIAL_HASH_VERIFIED"
+    },
+    "ckpts/ss_flow_img_dit_L_16l8_fp16.safetensors": {
+      "local": "OFFICIAL_HASH_VERIFIED"
+    },
+    "ckpts/uv_vae_conv3d_16l8_fp16_decoder.safetensors": {
+      "local": "OFFICIAL_HASH_VERIFIED"
+    },
+    "ckpts/uv_vae_conv3d_16l8_fp16_encoder.safetensors": {
+      "local": "OFFICIAL_HASH_VERIFIED"
+    }
+  }
+}
