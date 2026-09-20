@@ -152,6 +152,8 @@ class StereoLogger:
                 values[prefix+name] = metric['mean']
             if metric['coverage'] is not None:
                 values[prefix+name+'/coverage'] = metric['coverage']
+            # Preserve exact eligibility reasons on the server, too.
+            values[prefix+name+'/reason_counts'] = canonical(metric['reasons'])
         return self._emit('evaluation', step, values, dict(samples=evaluated, summary=summary))
 
     def __call__(self, event, step, payload):
