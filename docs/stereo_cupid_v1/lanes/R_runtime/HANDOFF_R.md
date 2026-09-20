@@ -12,7 +12,7 @@ Isolated checkout `/Users/ruikegu/.codex/worktrees/d23e/Cupid`, branch
 - [x] Implement offline 25-file assembly/hash/pipeline checks and immutable failed-attempt receipts.
 - [x] Implement exact GitHub-to-fresh-checkout sync and serialized CPU assembly/1GPU pilot submission.
 - [x] Add upload-only mode, optional official small metadata, and incoming-path persistence before transfer.
-- [ ] Commit/push and exact GitHub commit/tree readback (see milestone message).
+- [x] First implementation commit `e867ff20a5f1f710a7b746b12bbffc951d5bb03c`, tree `375473de7e197c35b80a82e358e477bd380a48b1`, push/ls-remote/fetched-tree exact readback.
 - [ ] Slurm syntax/contract checks, asset assembly and actual GPU inference.
 - [ ] I-provided training integration: single GPU, two GPU DDP, W&B readback, frozen low-card full.
 
@@ -47,6 +47,15 @@ Local six verified weights: `/Users/ruikegu/Downloads/Cupid_official_1191de37_lo
 Prior upload destination: `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_local_upload_a1`.
 Remote partial/final existence is UNKNOWN until fresh inspection.
 
+00:34 CST: local 14 small release files (8,445 bytes) were downloaded and
+official Git blob hashes verified using committed transfer helper with
+`--include-small --download-only`. All six existing weights were reused and
+rehashed; no `.safetensors` was downloaded. Terminal exit 0 and
+`LOCAL_SUBSET_VERIFIED_UPLOAD_PENDING`; log
+`/Users/ruikegu/Downloads/Cupid_official_1191de37_local_a1/transfer_R_small_a1.log`.
+The local subset is now 20 files / 4,168,411,925 bytes, not a full pipeline.
+00:33 SSH again closed before banner, no remote shell/job or upload evidence.
+
 Pinned `R_official_manifest.json` is the saved official public API response
 for `hbb1/Cupid@1191de37cc33b60273a631d4e07fbbe7cee798c1`.
 Its SHA256 is `ce25e0cff494f4b0dce0966fa74e5ae815df752eaa6fb05950ffc98627600692`.
@@ -61,6 +70,14 @@ model load to detect subsequent source mutation. EXDEV uses exclusive copy.
 `stereo_runtime_assets.py --output NEW_ROOT --source STOPPED_A --source UPLOAD_B`
 runs only in a Slurm compute allocation; `--verify-only` checks an assembled
 root again without changing it. Failure preserves a FAILED receipt and files.
+
+`stereo_runtime_asset_audit.py --root ROOT_A --root ROOT_B --receipt NEW_JSON`
+is the CPU-only read-only recovery audit. It checks each known release final
+and matching `.incoming_*`, records explicit ABSENT/mismatch/verified status,
+and never promotes or removes an incoming. A completed audit is not assembly
+PASS. After reading the receipt, pass repeated `--only-file OFFICIAL_PATH`
+to the local upload helper for only missing files; selected-file completion
+is explicitly distinguished from complete-subset completion.
 
 `stereo_runtime_sync.sh BRANCH COMMIT TREE NEW_CLUSTER_CHECKOUT` runs locally,
 checks GitHub SHA and fetched tree, and uses remote Git clone/checkout only.
