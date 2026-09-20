@@ -41,12 +41,15 @@ D负责可证明canonical occupancy与逐侧canonical-to-CV相机；不自动修
 见`datasets/components.py:214`。encoder输入固定cat([ssuv,uv_volume])。
 RGBA先按实际整数box crop，再LANCZOS resize518，最后RGB*alpha，见components.py:240。
 
-`logger_factory(config=full_config,output_dir=str,rank=0)->callback(event,step,payload)`。
+`logger_factory(full_config,output_dir,rank)->callback(event,step,payload)`（工厂用位置参数兼容L）。
 T adapter负责trackers生命周期，将train/validation映射为L的loss与optimizer事件，
 checkpoint附真实SHA，pose未绑定显式UNVERIFIED。offline不等于S07，必须L/R server readback。
 
-`eval_factory(config=full_config,output_dir=str,rank=0)->hook(model=bare_SharedStereoFlow,step=int,context=dict)`。
-hook只在rank0调用、禁止collectives；返回L的`{'split':'validation','samples':[...all_expected...]}`。
+`eval_factory(full_config,output_dir,rank)->hook(model=bare_SharedStereoFlow,step=int,context=dict)`。
+hook只在rank0调用、禁止collectives；直接接入L integration.eval_factory并保存其已评估结果。
+可选`prediction_factory(full_config,output_dir,rank)->prediction_hook(model,step,context)`由I实现，
+返回完整raw sample records；T同时传给L eval_hook与logger，不能将L已评估rows再次当raw。
+未绑定prediction hook时，L eval明确UNVERIFIED，不能用FM validation loss替代pose评估。
 所有rank进入边界，T广播rank0错误；其余rank不提前训练。context含config/device/data_identity/validation_dataset。
 内置validation FM loss由全部rank无梯度执行并按真实pair数reduce，不使用DDP单rank forward。
 

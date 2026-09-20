@@ -10,6 +10,22 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 
+def load_config(path):
+    """Small explicit JSON inheritance; child dictionaries replace parent keys."""
+    path = Path(path).resolve(strict=True)
+    with path.open() as handle:
+        config = json.load(handle)
+    parent = config.pop("extends", None)
+    if parent is not None:
+        parent_path = (path.parent / parent).resolve(strict=True)
+        with parent_path.open() as handle:
+            base = json.load(handle)
+        if "extends" in base:
+            raise ValueError("Only one explicit config inheritance level is supported")
+        config = {**base, **config}
+    return config
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
@@ -25,8 +41,7 @@ def main():
         raise RuntimeError("Checkout is not the exact registered GitHub commit")
     if subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=no"], text=True).strip():
         raise RuntimeError("Tracked checkout modifications are forbidden")
-    with open(args.config) as handle:
-        config = json.load(handle)
+    config = load_config(args.config)
     if config.get("configuration_state") != "BOUND_FOR_EXECUTION":
         raise ValueError("Bind asset hashes, dataset/target/split identity and budget before execution")
     from cupid.trainers.stereo_stage1 import run_training

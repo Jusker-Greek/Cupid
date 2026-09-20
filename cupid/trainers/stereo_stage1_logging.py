@@ -58,6 +58,13 @@ class Stage1LoggingAdapter:
             self.callback("checkpoint", step, dict(path=payload["path"], status="WRITTEN", sha256=payload["sha256"]))
         elif event == "evaluation":
             self.callback("evaluation", step, payload)
+        elif event == "evaluation_status":
+            self.callback("status", step, dict(metric="validation/pose", status="UNVERIFIED",
+                reason=payload.get("reason", "raw_prediction_manifest_unavailable")))
+        elif event == "amp_overflow":
+            self.callback("optimizer", step, dict(applied=False, grad_norm=None,
+                amp_scale=payload["new_scale"], amp_log_scale=math.log2(payload["new_scale"]),
+                reason="nonfinite_gradient_retry_same_batch_with_lower_amp_scale"))
         elif event == "start":
             self.callback("status", step, dict(metric="test/loss_total", status="UNVERIFIED",
                                                reason="held_out_test_not_executed_by_training_loop"))
