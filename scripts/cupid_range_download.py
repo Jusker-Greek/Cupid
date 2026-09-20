@@ -87,7 +87,9 @@ def download_ranges(item, output, repo, revision, verify, trust_env, reuse=None)
                     raise RuntimeError(f'Range failed: {name} offset={start}') from None
                 stop.wait(min(2 ** attempt, 15))
 
-    pool = ThreadPoolExecutor(max_workers=4)
+    # Concurrent streams through the shared proxy stalled together in a16.
+    # Isolate the transport with one stream; retain the same chunks/checks.
+    pool = ThreadPoolExecutor(max_workers=1)
     futures = [pool.submit(get_part, start) for start in starts]
     completed = 0
     try:
