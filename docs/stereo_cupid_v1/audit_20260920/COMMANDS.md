@@ -169,3 +169,11 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 - 新CPU sbatch返回306009，roota12只读复用停止a11，loopback49694/wait600sec，4CPU8GB2h。GPU sbatch afterok:306009 kill-on-invalid-dep=yes返回306014，输出STEREO_CUPID_PILOT_3F9D24F_A8、1GPU30min完整Stage1+左Stage2/Panda/DINO/scene_unit。
 - fresh squeue确认server14后，用既有严格hostkey和有时限ProxyCommand建立exec5028，server14:49694→本机20890；没有修改配置。旧转发不复用。
 - 既有306009分配内srun --overlap --nodes1 --ntasks1 --cpus-per-task1 --mem256M运行已同步probe脚本，step306009.0完成16秒，7999与直连各2次全部HTTP000/0bytes/exit28。与此同时主下载复用1589641216流分块后增至1598029824，完整receiptDOWNLOADING。并行探测不作为主下载前置审批，不因失败取消健康下载。
+
+## 21:26–21:33 本地下载授权切换
+**21:33用户明确改为本地下载后上传集群，已实际开始。** 本地根 `/Users/ruikegu/Downloads/Cupid_official_1191de37_local_a1`，CMYNetwork/MaccCore既有代理127.0.0.1:20890。首个SUV flow持久化83143277字节后HTTP/2 CANCEL中断；文件保留，原exec83692终态92。官方manifest初次获取超时导致首helper启动缺文件，重取固定revision成功后，前台helper exec70764续传（`transfer_a2.log`），没有安装依赖。helper源码6b35172d38393d62b0dad623de899d1484246436已GitHub精确读回；只处理六个剩余官方safetensors，逐文件本地官方SHA后，通过独立1CPU/1GB/1h的Slurm srun接收及复核上传SHA，不在登录节点落盘/哈希。计划上传根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_local_upload_a1`，尚无上传成功证据。每次incoming新身份、最终硬链接拒绝覆盖，保留失败证据；这是子集而非完整pipeline。
+
+集群306009/a12继续完成当前SLAT flow（最新2399141888/2401799952，末块重试），306014仍依赖旧下载；只有SLAT全文件VERIFIED后才停止旧下载及其依赖、关闭转发5028，保留a12完整文件及缓存，避免重复下载剩余六文件。之后本地上传子集与旧根经新Slurm合并/全量官方校验、新GPU输出身份，不往活跃a12写入。模型执行源码仍3f9d24f/a22，尚无推理结果。下一轮先确认helper/文件增长；原curl已停，不得重复本地writer。本地首次可见83MB并非完成、也不证明更快；当前没有Stereo训练loss/optimizer/W&B。
+
+
+本地用户授权的网络传输与官方资产SHA，不是本地模型测试。查看scutil --proxy/CMYNetwork process，Downloads空余88GiB。curl显式--proxy 127.0.0.1:20890，固定官方revision。helper70764命令见RUN_STATUS；首次启动错误保存在本地transfer.log，后续日志transfer_a2.log。无凭据、无原始数据外发。

@@ -1,5 +1,9 @@
 # 当前运行状态
 
+**21:33用户明确改为本地下载后上传集群，已实际开始。** 本地根 `/Users/ruikegu/Downloads/Cupid_official_1191de37_local_a1`，CMYNetwork/MaccCore既有代理127.0.0.1:20890。首个SUV flow持久化83143277字节后HTTP/2 CANCEL中断；文件保留，原exec83692终态92。官方manifest初次获取超时导致首helper启动缺文件，重取固定revision成功后，前台helper exec70764续传（`transfer_a2.log`），没有安装依赖。helper源码6b35172d38393d62b0dad623de899d1484246436已GitHub精确读回；只处理六个剩余官方safetensors，逐文件本地官方SHA后，通过独立1CPU/1GB/1h的Slurm srun接收及复核上传SHA，不在登录节点落盘/哈希。计划上传根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_local_upload_a1`，尚无上传成功证据。每次incoming新身份、最终硬链接拒绝覆盖，保留失败证据；这是子集而非完整pipeline。
+
+集群306009/a12继续完成当前SLAT flow（最新2399141888/2401799952，末块重试），306014仍依赖旧下载；只有SLAT全文件VERIFIED后才停止旧下载及其依赖、关闭转发5028，保留a12完整文件及缓存，避免重复下载剩余六文件。之后本地上传子集与旧根经新Slurm合并/全量官方校验、新GPU输出身份，不往活跃a12写入。模型执行源码仍3f9d24f/a22，尚无推理结果。下一轮先确认helper/文件增长；原curl已停，不得重复本地writer。本地首次可见83MB并非完成、也不证明更快；当前没有Stereo训练loss/optimizer/W&B。
+
 **20:33已恢复续传，并行探测不再阻塞下载。** CPU **306009 RUNNING server14**，GPU **306014 PENDING afterok:306009**、kill-on-invalid-dep=yes。当前可用路线为计算节点loopback49694→SSH→本机实测20890代理；前台转发exec **5028**，严格既有主机密钥 `/tmp/stereo_cupid_hostkeys.VcqF15`，未改SSH/系统/VPN配置。4完整权重698047668字节及旧SLATflow1589641216字节复用后，20:33:25已到1598029824，实际新增8388608字节；完整receipt仍DOWNLOADING，最高S02。当前有可用路线，不能把7999/直连失败概括成所有代理不可用。
 
 运行源码 `3f9d24f7945e7de4e7c7a33ce2a00a33fac16f5d` / tree `6e10d28bb9d579b6725e8d685f545dde3c7f3ecf`，新checkout `/public/home/ricky/CODE/stereo_cupid_3f9d24f_a22`；新权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a12` 只读复用停止a11。单卡新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_3F9D24F_A8`，1GPU30min完整Stage1+左Stage2，既有Panda/DINO/scene_unit。代码只将临时网络错误的重试恢复窗口扩至10分钟，使5分钟跟进有机会重连；每请求时限和全部校验保留，非网络完整性错误仍5次耗尽。已真实执行新分块传输，超5次后重连的分支尚未实测，不宣称长期稳定。
