@@ -1,5 +1,9 @@
 # 执行状态与下一步
 
+**2026-09-21 00:19：SUV flow 2239067672字节及SS decoder147591972字节已本地官方SHA通过，尚未上传成功。** CMYNetwork/MaccCore20890已关闭，scutil显示系统代理禁用；实测现有ClashX7890监听且官方API HTTP200/1.63秒。旧21404进程组已停止、lsof确认无writer后，新32204通过7890续传原2125938534断点并完成SUV SHA。上传SSH返回Connection closed by10.10.7.1 port22，32204已失败退出，日志transfer_a4.log，receipt为UPLOAD_UNVERIFIED；不能推断远端文件是否创建。三次SSH检查均在banner/keyexchange前关闭，TCP连接建立但无远端协议串。route只读显示10.10.7.1经utun8/gateway198.18.0.1，不能直接认定代理是唯一根因。未改VPN/SSH/系统配置，已向用户询问校园网/VPN是否仍连接。
+
+为避免SSH故障阻塞其它下载，源码972bc8e61bd0d453864afc1d25b38382b8db1ea6已push/精确读回，新增显式--download-only：保留全部本地官方SHA及上传待办，不把本地完成当上传完成。新独立helper PID33142，日志transfer_a5_download.log，进程receipt transfer_process_a5.json，ClashX7890，从本地已校验SUV继续余下5文件；SS decoder已完成，SS encoder下载中。目标local_upload_a1不变但当前--download-only不提交上传job；待SSH恢复后先fresh squeue/sacct/远端incoming审计避免重复，再完成上传。旧306009/306014/5028不恢复。完整pipeline/root、模型运行、Stereo训练仍未完成。
+
 **21:50本地续传已实际恢复至495266996字节。** 21:51消息工具恢复，E00完整包已发送（工具成功）；未读取中央台账ack。
 
 **21:49恢复操作。** 原exec70764不存在，pgrep/lsof确认helper及该partial的writer均已退出；Mac未再次重启（boot18:34:57）。日志最后为HTTP/2 CANCEL/exit92，没有Python异常，因此工具会话消失与进程退出的具体因果仍未知。保留SUV partial304848052字节；本机20890仍由CMYNetwork/MaccCore监听。源码46e2d022e36eae00de007f75101e683e8efb1680已push/精确读回，将curl显式设HTTP/1.1以针对已观察HTTP/2重置；长期网络稳定性尚未证明。新helper PID21404以独立进程会话运行（start_new_session、stdin DEVNULL、fcntl锁），日志`transfer_a3.log`，进程receipt`transfer_process_a3.json`，继续同一partial，不重复下载已保存字节。无新Slurm/GPU提交，无上传成功证据；旧306009/306014/5028仍结束。
