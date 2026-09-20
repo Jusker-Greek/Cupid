@@ -36,3 +36,27 @@
 
 - 未验证：全量有效pairs、标定轴变换、canonical occupancy与UV encoder训练契约。
 - 风险：只按目录ID分split无法识别重命名的同一资产；内容hash也不能证明不同渲染无资产泄漏。
+
+## 与T确认后的训练factory
+
+`build_stage1_datasets(config['data']) -> {train, validation, collate_fn, identity}`。
+配置需要 `manifest,root,target_index,target_root`，可选`target_kind='dense'|'latent'`、`ss_channels=8,uv_channels=8,image_size=518`。
+
+每sample为 `images[2,3,518,518]` 与以下之一：
+
+- latent：`ss_latent[8,16,16,16]`、`uv_latent[2,8,16,16,16]`；各侧posterior mean，未做额外normalization。
+- dense：`ss[1,64,64,64]`、`ssuv[2,1,64,64,64]`、`uv_volume[2,2,64,64,64]`。T的OfficialTargetAdapter负责encoder，D不创建GPU作业。
+
+collate在前面增加B维，保留pair_id/object/frame/unit/provenance list。target index每行包含schema（STEREO_GSO_DENSE_V1或STEREO_GSO_LATENT_V1）、pair/object/trajectory/frame/split、相对`npz`、文件`sha256`、全部`source_asset_sha256`、provenance。NPZ须有对应目标及整数`crop_xyxy[2,4]`。latent provenance额外必须有sample_posterior=false、latent_normalization='none'及两encoder SHA；两类均需geometry_receipt_sha256。
+
+目标缺失、哈希变化、身份不一致、latent shape错误、train/validation对象或完全相同图像泄漏均显式失败，不随机补样。完整训练必须由全量清单的目标coverage验收；bounded smoke另建有范围声明的清单，不改原清单。factory要求train/validation均非空，Panda单对象无法用于科学对象级validation；不可伪拆轨迹绕过。
+
+## Dense目标生成入口
+
+`scripts/stereo_data_targets.py --manifest PAIRS --root DATA_ROOT --geometry-index GEOMETRY_INDEX --geometry-root GEOMETRY_ROOT --output NEW_ROOT`。
+
+GEOMETRY_INDEX每行：pair_id、receipt（相对路径）、receipt_sha256。每份receipt是`STEREO_GSO_GEOMETRY_V1`，包含pair_id、source_asset_sha256、occupancy_npy/occupancy_sha256、w2c_cv[2,4,4]、K_fullpixel[2,3,3]、image_wh[2,2]、crop_xyxy[2,4]、const_ssuv=true、validity(canonical_occupancy_verified/canonical_to_cv_verified)、provenance(canonical_frame/asset_sha256/renderer_provenance/geometry_evidence)。现有数据不自动具备这些字段；D尚无真实可提交receipt。
+
+已核官方语义：SparseUVStructure先对64³中心project_cv，原始UV算全图ssuv，clamp UV后再仿射crop/clamp；bool const_ssuv=true保留全图ssuv。仅字符串'crop'重新算support。D保持该顺序，不能用crop K重投影替换。images先真实整数PIL crop，再RGBA LANCZOS resize518，最后RGB*alpha黑底。此语义已经控制器转达T确认。
+
+CPU回归入口`scripts/stereo_data_contract_tests.py`使用临时合成fixture，覆盖数字帧配对、重复别名、缺文件、反射保留、1e10背景、HDF5/PNG一致性、split稳定和路径限制。仅Slurm运行，测试fixture不是训练target或科学结果。
