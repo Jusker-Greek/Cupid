@@ -1,6 +1,8 @@
-# HANDOFF_I — 首个集成包
+# HANDOFF_I — A3 集成包
 
-状态：实现并手工审阅；未在本地执行脚本或测试，集群验证 UNVERIFIED。此文件不声明集成完成。
+状态：D/T/L/R 首批及后继已整合并手工审阅；未在本地执行脚本或测试，集群验证 UNVERIFIED。
+源提交与集成 SHA 映射见 I_DEPENDENCIES.json，最新执行说明见 I_REVIEW_A3.md。
+训练 target 与外部网络尚未验证，T 尚有预测 provider/日志生命周期修复待接。本文件不声明训练就绪。
 
 Owner task `01a0bfa4-bcf6-7761-a7a1-948b703719ee`；控制器 `01a0ba51-e1eb-7012-8147-c2cf36ad66b8`。
 分支 `codex/stereo-cupid-lane-i-integration`，基线 `0c77ae9c6648b918c820f79dbe15f80235c17709`。
@@ -36,7 +38,7 @@ PASS 仅代表 receipt/NPZ/mesh 基本自洽，另读 `model_status`、`complete
 
 ## 后续 owner
 
-D/T/L 提交一旦到达，I 立即审阅公共接口并 cherry-pick；训练 launcher 由 T 提供，I 绑定其真实入口/env/config 后交 R。
+D/T/L 后继提交一旦到达，I 立即审阅公共接口并 cherry-pick；T 提供训练入口，R 提供通用 Slurm launcher，I 审阅绑定。
 R 负责 SSH/资产/集群同步/唯一 GPU 提交。R 返回终态后 I 审阅并交控制器，控制器负责 E00。
 任何 owner 首错附 source/integration SHA、JobID、失败日志与下一条修复命令，不以重复文档更新代替修复。
 

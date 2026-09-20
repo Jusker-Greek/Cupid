@@ -105,10 +105,14 @@ class TrainingInterfaces(unittest.TestCase):
         torch.testing.assert_close(batch["_pair_weight"].double(), torch.tensor([1., 0.], dtype=torch.float64))
         self.assertEqual(batch["pair_id"], ["synthetic/pair/0"] * 2)
 
-    def test_L_eval_factory_accepts_T_keyword_contract(self):
-        from cupid.stereo_observability.integration import eval_factory
-        hook = eval_factory(config={}, output_dir="unused_no_write", rank=0)
-        result = hook(model=None, step=0, context={})
+    def test_T_hook_factory_invokes_L_without_runtime_side_effects(self):
+        from cupid.trainers.stereo_stage1 import StereoStage1Trainer
+        # Exercise the real factory invocation without initializing CUDA/DDP.
+        trainer = StereoStage1Trainer.__new__(StereoStage1Trainer)
+        trainer.config = {"eval_factory": "cupid.stereo_observability.integration:eval_factory"}
+        trainer.output = Path("unused_no_write")
+        trainer._init_hooks()
+        result = trainer.eval_hook(model=None, step=0, context={})
         self.assertEqual(result["status"], "UNVERIFIED")
 
 
