@@ -50,3 +50,9 @@
 - Stereo S07 evaluator需设计pose/scale/UV指标；已有W&B代码与本分支blob一致，但现有训练test/pose=N/A。
 
 反思：最易混淆的是“已有合成stereo”与“完整标定/米制GT已验证”，以及“旧HSSD训练运行过”与“新Stereo代码验证通过”。当前最实质的不确定性是完整预训练pipeline资产与历史相机反射的准确语义。
+
+## 2026-09-21 01:26 首次24小时停滞报告
+
+V1保持S03/DEBUGGING、highest S02，STALLED_24H=YES；阶段时间仍2026-09-20 01:26，不因下载、代码或文档更新重置。最新SSH证据：2026-09-21T01:26:51+08:00 endpoint=ricky@10.10.7.1 strict_hostkeys=yes connect_timeout_seconds=12 attempts=1 exit=255 first_failed_predicate=PRE_BANNER_CONNECTION_CLOSED message="Connection closed by 10.10.7.1 port 22" remote_shell=NO new_jobs=0 network_configuration_changed=NO
+
+R持续每5分钟有界检查；连接恢复立即fresh queue/incoming审计→固定A4 CPU37/Panda125→上传和25文件新根校验→冻结V1单卡。当前0项新测试/0新job/无模型结果，A4静态完成不是运行PASS。D继续真实canonical/renderer/properCV证据责任。用户校园网/VPN入口状态仍未确认；不修改配置或接受未知主机密钥。停滞报告不暂停；下一检查约5分钟，下一24小时报告阈值2026-09-22 01:26。完整包STALLED_24H_20260921.json，E00发送回执单独记录。

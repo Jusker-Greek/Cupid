@@ -1,5 +1,12 @@
 # 当前运行状态
 
+
+## 2026-09-21 01:26 首次24小时停滞报告
+
+V1保持S03/DEBUGGING、highest S02，STALLED_24H=YES；阶段时间仍2026-09-20 01:26，不因下载、代码或文档更新重置。最新SSH证据：2026-09-21T01:26:51+08:00 endpoint=ricky@10.10.7.1 strict_hostkeys=yes connect_timeout_seconds=12 attempts=1 exit=255 first_failed_predicate=PRE_BANNER_CONNECTION_CLOSED message="Connection closed by 10.10.7.1 port 22" remote_shell=NO new_jobs=0 network_configuration_changed=NO
+
+R持续每5分钟有界检查；连接恢复立即fresh queue/incoming审计→固定A4 CPU37/Panda125→上传和25文件新根校验→冻结V1单卡。当前0项新测试/0新job/无模型结果，A4静态完成不是运行PASS。D继续真实canonical/renderer/properCV证据责任。用户校园网/VPN入口状态仍未确认；不修改配置或接受未知主机密钥。停滞报告不暂停；下一检查约5分钟，下一24小时报告阈值2026-09-22 01:26。完整包STALLED_24H_20260921.json，E00发送回执单独记录。
+
 **统一执行版本已冻结并交R：** I A4 `a1bd82ef280edce3d9cd8e3ba3b9184df8ee9d2f` / tree `532c3f77f7122a84be0ddb77f3893ecf8f57377d` 已GitHub精确读回（I回执），含T修复和完整R wrapper。D9/L13/T9/I6共37项及Panda125待Slurm执行；0项实跑。监控当前切到R恢复SSH后的fresh queue/incoming审计与此准确版本CPU结果；CPU成功后立即上传/25文件组装/冻结V1，失败归owner修复。此前列出的接口错误已静态闭合，不重复修复或重做集成；五个冻结V1文件未变。
 
 **后继修复已交接：** T e45d232已提交generator单次物化、W&B生命周期/本地日志和NA指标修复，已交I/L复核。I A3 9ff30d8已发布，继续合入此补丁与R统一wrapper；CPU清单更新为D9/L13/T9/I6共37项及Panda125复核，全部尚未实跑。每个完成事件已立即转给下一负责人，未新增GPU作业。

@@ -136,3 +136,9 @@ E00回执确认可复用组件已在本分支原样存在，无需再merge：
 ## 当前边界
 
 已完成真实集群接管、源码交付、样本数据读数和失败复现。官方权重已在Slurm计算节点下载中，下载许可不是阻塞。下一条Stereo训练的目标及数据适配尚未落地。最新数据集和日志接入状态见 `DATASETS_AND_LOGGING.md`；不能把原CUPID的logger或HSSD训练当成Stereo已完成的训练。
+
+## 2026-09-21 01:26 首次24小时停滞报告
+
+V1保持S03/DEBUGGING、highest S02，STALLED_24H=YES；阶段时间仍2026-09-20 01:26，不因下载、代码或文档更新重置。最新SSH证据：2026-09-21T01:26:51+08:00 endpoint=ricky@10.10.7.1 strict_hostkeys=yes connect_timeout_seconds=12 attempts=1 exit=255 first_failed_predicate=PRE_BANNER_CONNECTION_CLOSED message="Connection closed by 10.10.7.1 port 22" remote_shell=NO new_jobs=0 network_configuration_changed=NO
+
+R持续每5分钟有界检查；连接恢复立即fresh queue/incoming审计→固定A4 CPU37/Panda125→上传和25文件新根校验→冻结V1单卡。当前0项新测试/0新job/无模型结果，A4静态完成不是运行PASS。D继续真实canonical/renderer/properCV证据责任。用户校园网/VPN入口状态仍未确认；不修改配置或接受未知主机密钥。停滞报告不暂停；下一检查约5分钟，下一24小时报告阈值2026-09-22 01:26。完整包STALLED_24H_20260921.json，E00发送回执单独记录。

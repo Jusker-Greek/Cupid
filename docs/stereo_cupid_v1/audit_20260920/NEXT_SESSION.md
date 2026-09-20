@@ -73,3 +73,9 @@ CPU作业304070、输出 `/public/home/ricky/RESULTS/STEREO_CUPID_AUDIT_D709196_
 同步路径：本地 -> GitHub fork `Jusker-Greek/Cupid` -> 项目既有 `sync_verified_git_bundle.sh` -> 新远端镜像/checkout；当前集群HTTPS代理和直连均TLS失败。不复制源码树，不编辑远端源码。helper的slurm_submission_authorized=false仅说明同步工具不提交作业，实际运行依据用户本轮明确授权另行提交。
 
 Slides终点保留用户给定路径：`/Users/ruikegu/.codex/worktrees/total-slides-results-integration-20260831/docs/overleaf/xfactor_full_experiment_ledger_stereo_reorg_2026_08_21/main.pdf`。S10必须更新可编辑源、远端编译并视觉核验，不能仅覆盖PDF。
+
+## 2026-09-21 01:26 首次24小时停滞报告
+
+V1保持S03/DEBUGGING、highest S02，STALLED_24H=YES；阶段时间仍2026-09-20 01:26，不因下载、代码或文档更新重置。最新SSH证据：2026-09-21T01:26:51+08:00 endpoint=ricky@10.10.7.1 strict_hostkeys=yes connect_timeout_seconds=12 attempts=1 exit=255 first_failed_predicate=PRE_BANNER_CONNECTION_CLOSED message="Connection closed by 10.10.7.1 port 22" remote_shell=NO new_jobs=0 network_configuration_changed=NO
+
+R持续每5分钟有界检查；连接恢复立即fresh queue/incoming审计→固定A4 CPU37/Panda125→上传和25文件新根校验→冻结V1单卡。当前0项新测试/0新job/无模型结果，A4静态完成不是运行PASS。D继续真实canonical/renderer/properCV证据责任。用户校园网/VPN入口状态仍未确认；不修改配置或接受未知主机密钥。停滞报告不暂停；下一检查约5分钟，下一24小时报告阈值2026-09-22 01:26。完整包STALLED_24H_20260921.json，E00发送回执单独记录。
