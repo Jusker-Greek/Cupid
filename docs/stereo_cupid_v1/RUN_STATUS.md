@@ -1,5 +1,9 @@
 # 当前运行状态
 
+**当前监控已推进到后继集成与首错修复：** 五任务均已交付代码并报告GitHub精确读回，最新SHA/tree与负责人见CAMPAIGN_TASKS.json。T真实训练器、20更新/10+resume/双卡配置已提交，但均未运行；I静态发现的factory参数、raw评估数据交接及pair_weight类型错误已归T修复，I/L正在核后继提交。L另发现tracker初始化/关闭可能丢本地日志的问题，已交T修复。R已提供训练smoke/DDP启动接口，仍为唯一作业执行人。下一统一Slurm CPU包为D 9、L 13、T 4、I 6项fixture及Panda125内容审计，均尚未执行，不能算PASS。
+
+**资产与外部入口：** R报告本地六权重及14小文件共20个官方文件4168411925字节已校验，a12保留其余五权重；不再重复大型下载。R最新00:44严格SSH仍在远端banner/认证前关闭，尚无新增CPU/GPU作业或确认上传。恢复后立即审计旧job/incoming、CPU检查、上传缺失文件及25文件新根组装。训练数据仍需D闭合canonical模型/occupancy、历史renderer和proper CV变换证据；已有采集与官方生成入口，不能生成假监督。网络等待期间I/T/L继续接口修复，D继续缺证整理。自动化每5分钟兜底且阶段完成立即转派，不在推理完成后自动停止。
+
 **首批已集成并转CPU检查：** I的4de419aa/tree53f68678已集成D/L/R并push exactread（worker回执），无冲突且冻结五路径无diff，仅静态非测试。已立即交R源接口检查与1pair数据检查；L的a8f275d新增11项CPUfixture/evalhook/readback、R的71967e资产审计与选择上传已交I继续集成。当前监控切到R最小CPU包及I后继集成，不等T训练器完工；SSH仍是实际运行外部阻碍，尚无新增测试/GPU结果。
 
 **五任务首轮自动交接：** D已交e05bb99原始pair接口、L已交b526495 logger/evaluator接口（worker报告push/exactread）；已立即派I精确集成、T接入。T报告真实训练engine/DDP/checkpoint代码已写但尚未提交/实跑，不能计S02完成。D继续targetfactory、L继续CPUfixture/readback、R继续SSH/运行准备。当前重点已从等待初始实现切到首批集成；详细负责人见CAMPAIGN_TASKS.json。

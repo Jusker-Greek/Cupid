@@ -4,7 +4,7 @@
   "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
   "authority_commit": "d88b19e0414aaf482b21f5630b64df604dc2c57a",
   "morning_target": "2026-09-21T08:00:00+08:00",
-  "current_focus": "I A2 realT+targetfactory+finalL/R; R D8/L13/I CPU pendingSSH; D canonical targets; T DDPreload config",
+  "current_focus": "I A3 integrates T fixes and latest D/L/R; R CPU D9 L13 T4 I6 and Panda125 pending SSH; D canonical evidence closure; T/L tracker lifecycle review",
   "gpu_submission_owner": "R",
   "max_concurrent_campaign_gpu_jobs": 1,
   "scientific_choice": "User optional preference pending; proceed with evidence-backed official Stage1 supervised fine-tuning candidate implementation/verification, separate from frozen V1. T must bind real targets and reviewed protocol before formal run.",
@@ -16,13 +16,13 @@
       "client_thread_id": "client-new-thread:2f054e63-1579-421a-a3f4-eb3154c9fe9f",
       "thread_id": "01a0bfa4-b887-7df2-a39e-2b1b776e377c",
       "status": "PARTIAL_DELIVERED",
-      "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Targetfactory committed; canonical/renderer/properCV receipt closure continues; R D8CPU",
+      "last_dispatch": "LATEST_COMMITS_AND_FIRST_ERROR_ROUTED",
+      "next_action": "R D9/Panda125 then geometry inventory; D closes canonical/renderer/properCV evidence",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_D.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/9506/Cupid",
       "branch": "codex/stereo-stage1-lane-d",
-      "delivered_commit": "f8ffd521463ad9dadd7e052f275104bb7eadf9c1",
-      "delivered_tree": "c0f482136e70ee68b1795041bd626117d9a25b85"
+      "delivered_commit": "25a51bc8a5474190662c50ca20a9c9ef634461cc",
+      "delivered_tree": "5c11236e9603c6d6c894d90ddf91de56edf85ef9"
     },
     {
       "lane": "T",
@@ -31,13 +31,13 @@
       "client_thread_id": "client-new-thread:6922f221-84dd-4de2-819b-bcf0faf75539",
       "thread_id": "01a0bfa4-b891-78c0-8348-9e7d89235947",
       "status": "PARTIAL_DELIVERED",
-      "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Realengine handed I/R; bind Dbuild_stage1_datasets/Lfinal;20update+10resume/2GPUconfigs; no runtimePASS",
+      "last_dispatch": "LATEST_COMMITS_AND_FIRST_ERROR_ROUTED",
+      "next_action": "I verifies scalar Tensor pair_weight/raw prediction fixes; T fixes tracker init/finish and missing metric status; R T4 CPU",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_T.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/7024/Cupid",
       "branch": "codex/stereo-stage1-train-t",
-      "delivered_commit": "950ed8716b2f64f2d9ac3f757467d5ed85b5f5c5",
-      "delivered_tree": "19dd71bbcc51c8e9bb6bc3ce9db665125f725574"
+      "delivered_commit": "0d69d72f92b782f71bcff5d8ab998f818a164875",
+      "delivered_tree": "d667621295188bebfcc7ea8a4a1db0145a0149d2"
     },
     {
       "lane": "L",
@@ -46,8 +46,8 @@
       "client_thread_id": "client-new-thread:76d21080-9b2b-40d6-b353-12f5dc4cf95b",
       "thread_id": "01a0bfa4-b891-78c0-8348-9e91b7e84e4e",
       "status": "PARTIAL_DELIVERED",
-      "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Finalstatic handedI/R/T;13fixtures pendingR; readonly audit Tpayload/rank/error API duringSSHoutage",
+      "last_dispatch": "LATEST_COMMITS_AND_FIRST_ERROR_ROUTED",
+      "next_action": "Readonly review T successor lifecycle/raw prediction fixes then R13 CPU failure owner",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_L.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/ddc3/Cupid",
       "branch": "codex/stereo-cupid-l-observability-v1",
@@ -61,13 +61,13 @@
       "client_thread_id": "client-new-thread:29217f12-0267-4ab7-992f-1c4ecbd38b52",
       "thread_id": "01a0bfa4-b8ec-7bc3-ac05-ae1d58238a11",
       "status": "PARTIAL_DELIVERED",
-      "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "SSH recovery then fresh A1 CPU source/data checks; include I/L11fixture successor; no testPASS yet",
+      "last_dispatch": "LATEST_COMMITS_AND_FIRST_ERROR_ROUTED",
+      "next_action": "SSH recovery and fresh incoming/jobs audit; unified I package CPU checks/upload; sole GPU submitter",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_R.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/d23e/Cupid",
       "branch": "codex/stereo-cupid-r-runtime",
-      "delivered_commit": "71967eba6a8c8719da39310ea38a4faaf6b499d7",
-      "delivered_tree": "dfdbd311a8fd7c507e39cb5a58e422d43f60c895"
+      "delivered_commit": "3381a59990e9858ee5ab10b267dcc9df564af3c0",
+      "delivered_tree": "6aa89adaa2a2a5d51310be8a4e08d860148aa470"
     },
     {
       "lane": "I",
@@ -76,13 +76,14 @@
       "client_thread_id": "client-new-thread:2f92c946-dfee-473d-b7d5-3e56d3f451f0",
       "thread_id": "01a0bfa4-bcf6-7761-a7a1-948b703719ee",
       "status": "PARTIAL_DELIVERED",
-      "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "A1 D/L/R handed to R; integrate L a8f275d and R71967e; publish successor CPU package",
+      "last_dispatch": "LATEST_COMMITS_AND_FIRST_ERROR_ROUTED",
+      "next_action": "Integrate D25a and T0d69 successor fixes; publish A3 CPU commands to R; verify real pair_weight contract",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_I.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/dc7f/Cupid",
       "branch": "codex/stereo-cupid-lane-i-integration",
-      "delivered_commit": "4de419aa03e0307cc290c9a5d9c8f04e32018fc8",
-      "delivered_tree": "53f68678bfbc1a2deb75fd6c910ff32632b11176"
+      "delivered_commit": "3c25052af4bbd1ea7e4248b3edfdf4ab6e2a4945",
+      "delivered_tree": "188a758d3d208c04efd1997e643c1684e3097905"
     }
-  ]
+  ],
+  "updated_at": "2026-09-21T00:46:50.815966+08:00"
 }
