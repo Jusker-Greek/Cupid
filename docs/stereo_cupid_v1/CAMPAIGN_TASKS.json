@@ -4,7 +4,7 @@
   "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
   "authority_commit": "d88b19e0414aaf482b21f5630b64df604dc2c57a",
   "morning_target": "2026-09-21T08:00:00+08:00",
-  "current_focus": "D/T/L implementation in parallel; R SSH/upload recovery and assembly; I interface integration",
+  "current_focus": "I integrating first D/L commits; T real training engine/static review; D targetfactory; L fixture/readback; R SSH and runtime recovery",
   "gpu_submission_owner": "R",
   "max_concurrent_campaign_gpu_jobs": 1,
   "scientific_choice": "User optional preference pending; proceed with evidence-backed official Stage1 supervised fine-tuning candidate implementation/verification, separate from frozen V1. T must bind real targets and reviewed protocol before formal run.",
@@ -15,12 +15,14 @@
       "scope": "负责数据缺口。拥有新增cupid/datasets/stereo_gso.py、scripts/stereo_data_*.py、configs/stereo/data_*.json、docs/stereo_cupid_v1/lanes/D_*；不要改训练器/采样器/logger。建立pair清单schema与成对loader，保留object/trajectory/frame身份、左右RGBA/mask/depth、K/extrinsics/crop/fullpixel映射、unit/normalization/renderer provenance及validity。GSO_1K_200903顶层对象/1025planned不是pair总数；数据根/public/home/ricky/DATASET/GSO_1K_200，registry/public/home/ricky/CODE/GSO_dataset/task_allocations/GSO_1K_200/object_registry.tsv，既有Panda root/public/home/ricky/DATASET/gso_stereo_output_random。先用现有审计文件实现reader/schema，不凭空宣称全量数；SSH恢复后Slurm清单统计有效pairs/坏样本、对象级固定split及重复泄漏检查。调查官方SS/UV target生成与已有encoder接口，准备可复用目标/latent生成入口，禁止把左右UV平均/套用Panda标定到全数据。目标生成须和T协商官方训练契约，不自行引入新算法；GPU批量target生成交R排队，轻量CPU先做。优先先交公共schema与可读单pair接口，再补训练target；接口交接后立即做真实清单与target准备，不停在代码完成。",
       "client_thread_id": "client-new-thread:2f054e63-1579-421a-a3f4-eb3154c9fe9f",
       "thread_id": "01a0bfa4-b887-7df2-a39e-2b1b776e377c",
-      "status": "IN_PROGRESS",
+      "status": "PARTIAL_DELIVERED",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Publish raw pair schema and target factory to T/L/I; continue manifest/target preparation",
+      "next_action": "I/T received rawschema; D continues target-index factory and canonical/UV correctness",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_D.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/9506/Cupid",
-      "branch": "codex/stereo-stage1-lane-d"
+      "branch": "codex/stereo-stage1-lane-d",
+      "delivered_commit": "e05bb99a52daa5dfaf9faea60716084ba8d82b7f",
+      "delivered_tree": "44f35702082b2d417af2678eab8b88942adb85c2"
     },
     {
       "lane": "T",
@@ -30,7 +32,7 @@
       "thread_id": "01a0bfa4-b891-78c0-8348-9e7d89235947",
       "status": "IN_PROGRESS",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Implement configurable real Stage1 supervised FM candidate + optimizer/checkpoint/DDP contract; publish interface to D/L/I",
+      "next_action": "Real engine implemented but uncommitted/unrun; integrate firstD/Lcontracts, confirm const_ssuv/crop with D, publishreviewablecommit",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_T.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/7024/Cupid",
       "branch": "codex/stereo-stage1-train-t"
@@ -41,12 +43,14 @@
       "scope": "负责日志评估缺口，拥有新增cupid/stereo_observability/、scripts/stereo_evaluate*.py、docs/stereo_cupid_v1/lanes/L_*。复用原CUPID及E00已有W&B/TensorBoard/readback代码；实现可接T训练器和V1推理的最小logger/evaluator接口：total/components/train/validation-test loss、LR/step/epoch、grad/optimizer/checkpoint事件、pose rotation/translation error、pose translation scale/norm及scale误差。区分AMP log_scale与pose scale。没有合法GT/共同canonical原点/米制就记理由明确的NOT_APPLICABLE/UNVERIFIED和coverage，不编假0分，不做GT对齐后评分；保留失败样本分母。支持离线缓存和服务端readback，离线文件不叫W&B已上线；密钥只用既有安全存储，禁止打印/提交。不重造已存在logger。提供小fixture CPU计算核查代码、integration callback contract和R可执行的有限检查命令；实际Slurm运行由R协调，W&B网络失败不能丢训练本地日志或悄悄算S07PASS。",
       "client_thread_id": "client-new-thread:76d21080-9b2b-40d6-b353-12f5dc4cf95b",
       "thread_id": "01a0bfa4-b891-78c0-8348-9e91b7e84e4e",
-      "status": "IN_PROGRESS",
+      "status": "PARTIAL_DELIVERED",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Implement rank-safe callback and provenance-aware evaluation compatible with T; publish interface to T/I",
+      "next_action": "I/T received callback; L continues SlurmCPU fixture/readback/replay",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_L.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/ddc3/Cupid",
-      "branch": "codex/stereo-cupid-l-observability-v1"
+      "branch": "codex/stereo-cupid-l-observability-v1",
+      "delivered_commit": "b5264958493a5b1d712b88b73a64b5838e4a9654",
+      "delivered_tree": "d858d21ffafc35d87e4a2d81c01e40a18d1db82b"
     },
     {
       "lane": "R",
@@ -69,7 +73,7 @@
       "thread_id": "01a0bfa4-bcf6-7761-a7a1-948b703719ee",
       "status": "IN_PROGRESS",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Record dependencies, review D/T/L interfaces, integrate exact commits and issue next execution package to R",
+      "next_action": "Fetch exact D/L commits, cherry-pick in isolated integration branch, reportreviewedSHA and smallest CPU runtime package to R",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_I.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/dc7f/Cupid",
       "branch": "codex/stereo-cupid-lane-i-integration"
