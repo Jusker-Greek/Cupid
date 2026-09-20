@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**16:31重查：第二个完整权重 `slat_dec_mesh_swin8_B_64l8m256c_fp16.safetensors`（181903412字节）已通过官方SHA，正在下载第三个RF decoder。** 中途若干Range出现ReadTimeout/RANGE_DEADLINE，下载器自动重试后完成该文件，未重提305505、未重下已落盘分块；本次实际验证了超时恢复。session27758仍存活，日志更新至16:30:45；305505 RUNNING、完整receipt仍DOWNLOADING，305510 PENDING且无GPU分配。脱敏证据 `audit_20260920/download_305505_retry_recovery_1631.txt`。最高完成仍S02，没有模型运行结果。
+
 **16:23实际验证：305505的首个完整权重 `slat_dec_gs_swin8_B_64l8gs32_fp16.safetensors`（171450952字节）已通过官方SHA校验，继续下载下一文件。** 证明新Range实现完成了真实分块传输、拼接与全文件校验；其余权重仍未齐备，305510仍PENDING Dependency。脱敏记录：`audit_20260920/download_305505_verified_snapshot.txt`。
 
 **16:20恢复更新：CPU下载305505 RUNNING server14；单卡305510已提交，依赖afterok:305505。** 旧305474因SSH转发超时、Xet长时间无进展而取消（29m58s）；旧305481取消，0秒无节点，未执行模型。新代码 `94c4d0550e077977ec650f15c972b5b9ef8ce891` / tree `bc02ca8ebe94a796fd3bb39127b24008a5347a1f` 已通过GitHub→集群同步，checkout `/public/home/ricky/CODE/stereo_cupid_94c4d05_a15`。改用4MiB HTTP Range、Content-Range/字节数检查、每块落盘并记录摘要、完整文件官方SHA校验。新权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a7`，只读复用已停止a6中校验通过的文件；原数据保留。临时转发exec session **27758**，server14 `127.0.0.1:49689` → 本机既有 `127.0.0.1:7890`；旧7388/55431连接已结束。新单卡输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_94C4D05_A3`。当前仅分块下载已实际验证，尚未完成全部权重校验或模型smoke。
