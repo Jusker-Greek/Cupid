@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from cupid.stereo_observability import evaluate_sample, summarize, from_v1_result
 from cupid.stereo_observability.logger import StereoLogger, logger_factory
 from cupid.stereo_observability.readback import load_events, compare_history, replay
+from cupid.stereo_observability.integration import eval_factory
 
 I = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
@@ -38,6 +39,8 @@ class Metrics(unittest.TestCase):
         m = evaluate_sample(s)['metrics']
         self.assertEqual(m['rotation_error_deg']['status'], 'NOT_APPLICABLE')
         self.assertEqual(m['pose_scale']['value'], 2.)
+        summary = summarize([evaluate_sample(s)])
+        self.assertEqual(summary['metrics']['rotation_error_deg']['status'], 'NOT_APPLICABLE')
 
     def test_common_origin_required(self):
         s = sample(); s['gt']['canonical_id'] = 'different_origin'
@@ -82,6 +85,21 @@ class Metrics(unittest.TestCase):
         v1 = dict(geometry_status='OK', similarity=s['prediction'], length_unit='m')
         m = evaluate_sample(from_v1_result(v1, 'v1', s['gt']))['metrics']
         self.assertEqual(m['translation_error']['status'], 'UNVERIFIED')
+
+    def test_invalid_records_and_overflow_never_score_zero(self):
+        s = sample(); s['prediction'] = [1, 2, 3]
+        self.assertIsNone(evaluate_sample(s)['metrics']['translation_error']['value'])
+        s = sample(); s['prediction']['translation'] = [1e308, 1e308, 1e308]
+        s['gt']['translation'] = [-1e308, -1e308, -1e308]
+        m = evaluate_sample(s)['metrics']
+        self.assertIsNone(m['translation_error']['value'])
+        json.dumps(m, allow_nan=False)
+
+    def test_rank0_hook_reports_missing_and_valid_records(self):
+        hook = eval_factory({}, '.', 0)
+        self.assertEqual(hook(model=None, step=1, context={})['status'], 'UNVERIFIED')
+        report = hook(model=None, step=1, context={'samples': [sample()]})
+        self.assertEqual(report['summary']['num_expected'], 1)
 
 
 class BrokenSink:
