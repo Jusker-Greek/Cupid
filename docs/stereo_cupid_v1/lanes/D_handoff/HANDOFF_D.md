@@ -59,3 +59,5 @@ python scripts/stereo_data_geometry_inventory.py --manifest "$D_DATA_OUTPUT/inve
 `stereo_data_occupancy.py`已提供CPU入口：传现有官方voxelizer、真实canonical mesh及其映射证据receipt，校验官方source blob后调用其_voxelize，产occupancy.npy及receipt。精确源码与接口见D_SCHEMA末段。不是从depth生成替代目标；真实canonical mapping仍需采集验证。
 
 R请求已落实：Panda配置`configs/stereo/data_panda125_audit_v1.json`已新增，直接传给stereo_data_manifest.py；不需要远端编辑config。当前CPU checks为9项，新增metadata变化拒绝；源hash契约含trajectory_metadata，避免旧target与已改相机元数据混用。factory identity只声明index核验，逐NPZ内容核验在on-access进行。
+
+继续责任已明确：`../D_GEOMETRY_EVIDENCE_CHECKLIST.md`列出G1–G6最小缺证、R回收第一包、D判定与下一步实现链。历史精确commit不是额外人为门槛；已有canonical mesh/真实camera/K足以直接证明变换链时即可闭合。反之不能只根据det修正或bbox吻合制造GT。R返回证据后D继续真实目标生成，不把此问题留作无人负责的文档阻塞。
