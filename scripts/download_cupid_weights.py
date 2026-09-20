@@ -33,10 +33,27 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
-    response = requests.get(f'https://huggingface.co/api/models/{REPO}/revision/{REVISION}',
-                            params={'blobs': 'true'}, timeout=(30, 120))
-    if response.status_code != 200:
-        raise RuntimeError(f'Model API HTTP {response.status_code}')
+    response = None
+    use_environment_proxy = True
+    for mode in ('configured_proxy', 'direct'):
+        probe = requests.Session()
+        probe.trust_env = mode == 'configured_proxy'
+        try:
+            candidate = probe.get(f'https://huggingface.co/api/models/{REPO}/revision/{REVISION}',
+                                  params={'blobs': 'true'}, timeout=(20, 40))
+            if candidate.status_code != 200:
+                print(f'API_FAILURE mode={mode} HTTP={candidate.status_code}', flush=True)
+                continue
+            response = candidate
+            use_environment_proxy = probe.trust_env
+            print(f'DOWNLOAD_TRANSPORT={mode}', flush=True)
+            break
+        except requests.RequestException as error:
+            print(f'API_FAILURE mode={mode} error={type(error).__name__}', flush=True)
+        finally:
+            probe.close()
+    if response is None:
+        raise RuntimeError('Official API unavailable through configured proxy and direct TLS')
     manifest = response.json()
     if manifest['sha'] != REVISION:
         raise RuntimeError('Release identity changed')
@@ -55,6 +72,8 @@ def main():
     print(f'OFFICIAL_RELEASE={REVISION} FILES={len(items)} BYTES={total}', flush=True)
 
     def download(item):
+        session = requests.Session()
+        session.trust_env = use_environment_proxy
         name = item['rfilename']
         target = args.output / name
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -63,7 +82,7 @@ def main():
             try:
                 # Unique query avoids stale expired CDN redirects; release remains pinned.
                 url = f'https://huggingface.co/{REPO}/resolve/{REVISION}/{name}'
-                with requests.get(url, params={'download': 'true', 'attempt': str(time.time_ns())},
+                with session.get(url, params={'download': 'true', 'attempt': str(time.time_ns())},
                                   stream=True, timeout=(30, 120)) as result:
                     if result.status_code != 200:
                         raise RuntimeError(f'HTTP_{result.status_code}')
