@@ -1,0 +1,51 @@
+{
+  "schema": "stereo_cupid_integration_dependencies/v1",
+  "controller_thread_id": "01a0ba51-e1eb-7012-8147-c2cf36ad66b8",
+  "integration_thread_id": "01a0bfa4-bcf6-7761-a7a1-948b703719ee",
+  "integration_branch": "codex/stereo-cupid-lane-i-integration",
+  "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
+  "base_tree": "13513e13816378643bd70dc8dd28c4f9dcca634b",
+  "authority_commit": "d88b19e0414aaf482b21f5630b64df604dc2c57a",
+  "report_target": "2026-09-21T08:00:00+08:00",
+  "gpu_submission_owner": "R",
+  "frozen_experiment_id": "STEREO_CUPID_V1_SHARED_SS",
+  "training_experiment_id": "STEREO_CUPID_STAGE1_TRAIN_V1",
+  "evidence_eligibility": "ENGINEERING_ONLY_NO_SCIENCE",
+  "frozen_paths": [
+    "cupid/pipelines/stereo.py",
+    "cupid/pipelines/samplers/stereo.py",
+    "cupid/utils/stereo_geometry.py",
+    "scripts/run_stereo_cupid.py",
+    "configs/stereo/gso_panda_random_linear_0_scene_unit.json"
+  ],
+  "lanes": {
+    "D": {
+      "thread_id": "01a0bfa4-b887-7df2-a39e-2b1b776e377c",
+      "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
+      "source_commits": [], "integrated_commits": [], "files": [],
+      "state": "AWAITING_OWNER_HANDOFF",
+      "completion": "Paired sample and target contract, object-disjoint split, real manifest counts and provenance; unavailable targets remain unavailable."
+    },
+    "T": {
+      "thread_id": "01a0bfa4-b891-78c0-8348-9e7d89235947",
+      "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
+      "source_commits": [], "integrated_commits": [], "files": [],
+      "state": "AWAITING_OWNER_HANDOFF",
+      "completion": "Stage1 training entry with explicit loss and target semantics, initialization versus resume, optimizer step, checkpoint and heldout hook."
+    },
+    "L": {
+      "thread_id": "01a0bfa4-b891-78c0-8348-9e91b7e84e4e",
+      "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
+      "source_commits": [], "integrated_commits": [], "files": [],
+      "state": "AWAITING_OWNER_HANDOFF",
+      "completion": "Training and heldout losses, pose and scale statuses, denominators, checkpoint/eval events, local receipt and server readback."
+    },
+    "R": {
+      "thread_id": "01a0bfa4-b8ec-7bc3-ac05-ae1d58238a11",
+      "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
+      "source_commits": [], "integrated_commits": [], "files": [],
+      "state": "AWAITING_OWNER_HANDOFF",
+      "completion": "Fresh exact checkout and output root, duplicate audit, complete asset verification, bounded execution, terminal and immutable artifacts."
+    }
+  }
+}
