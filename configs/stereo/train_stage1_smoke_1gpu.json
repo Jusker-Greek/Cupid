@@ -1,0 +1,35 @@
+{
+  "experiment_id": "STEREO_CUPID_STAGE1_TRAIN_V1",
+  "configuration_state": "CANDIDATE_REQUIRES_ASSET_AND_TARGET_BINDING",
+  "run_class": "SMOKE_DEBUG",
+  "scientific_status": "SUPERVISED_CANDIDATE_NOT_GEOMETRIC_SSL",
+  "expected_world_size": 1,
+  "pairs_per_rank": 1,
+  "precision": "fp16",
+  "seed": 20260921,
+  "validation_seed": 127,
+  "budget": {"updates": 20},
+  "optimizer": {"lr": 0.00001, "weight_decay": 0.01, "betas": [0.9, 0.999], "eps": 1e-8},
+  "grad_clip": 1.0,
+  "eval_every": 10,
+  "save_every": 10,
+  "pretrained_init": {
+    "path": "BIND_VERIFIED_MODEL_ROOT/ckpts/suv_flow_img_dit_L_16l8_fp16",
+    "sha256": "e3d0b50ffbb70295b5f6528180d0671d0d71bcf55a19e8c51e0fd19229aab459",
+    "config_sha256": "BIND_OFFICIAL_CONFIG_SHA256",
+    "official_revision": "1191de37cc33b60273a631d4e07fbbe7cee798c1"
+  },
+  "dino": {
+    "repo": "/public/home/ricky/.cache/torch/hub/facebookresearch_dinov2_7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+    "name": "dinov2_vitl14_reg",
+    "checkpoint": "/public/home/ricky/.cache/torch/hub/checkpoints/dinov2_vitl14_reg4_pretrain.pth",
+    "sha256": "BIND_VERIFIED_DINO_SHA256"
+  },
+  "data_factory": "BIND_D_TARGET_FACTORY",
+  "data": {"manifest": "BIND_VERIFIED_PAIR_MANIFEST", "target_index": "BIND_VERIFIED_TARGET_INDEX"},
+  "target_encoders": {},
+  "objective": {"name": "supervised_suv_fm", "args": {"sigma_min": 0.00001, "t_mean": 1.0, "t_std": 1.0, "p_uncond": 0.1}},
+  "logger_factory": "cupid.trainers.stereo_stage1_logging:stage1_logger_factory",
+  "logging": {"tensorboard": true, "wandb_mode": "offline", "wandb_project": "stereo-cupid-stage1"},
+  "eval_factory": null
+}
