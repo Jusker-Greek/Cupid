@@ -94,3 +94,30 @@ promoted to an audited canonical, and pose_left_predicted is not GT.
 L only adds cupid/stereo_observability/, scripts/stereo_evaluate*.py and
 lanes/L_* files. T connects callbacks; I connects optional frozen V1 postprocess;
 D owns coordinate evidence; R owns actual Slurm tests and W&B network/readback.
+
+## Rank0 evaluation factory and delivery/readback
+
+`cupid.stereo_observability.integration.eval_factory(fullconfig, output_dir, rank)`
+returns `hook(model=bareSharedStereoFlow, step=step, context={'samples': records})`.
+The hook performs no forward or collectives; T owns val FM loss on all ranks,
+barriers and exception broadcast. It evaluates raw pose records furnished by I/T
+and returns JSON. Absent records explicitly return UNVERIFIED. Call
+`callback('evaluation', step, {'samples': records})` for durable per-sample and
+aggregate logs. Do not pass the hook's already-evaluated rows back as raw records.
+
+`readback.load_events(root)` verifies event sequence, identity and hashes.
+`readback.replay(root, existing_run)` replays offline JSONL without creating a
+tracker or accessing credentials. Identical repeated event IDs are acceptable
+following interrupted replay; conflicting server records fail exact readback.
+The independent CLI `scripts/stereo_evaluate.py --wandb-root ... --run-path ...`
+scans W&B server history using the same existing CUPID scan_history approach,
+then checks every event payload, not just presence of a key. It produces
+READBACK_PASS or UNVERIFIED; **s07_status always remains UNVERIFIED**, because
+Controller must separately verify applicable contracts, S05/S06 and real run
+paths. Replay enqueue is not delivery, and readback success is not science.
+Local details hashes bind full per-sample results retained in events.jsonl.
+
+I can evaluate frozen V1 results without editing the V1 inference code:
+`--v1-manifest manifest.json` contains one object per expected sample with
+sample_id, result_path and optional independently audited gt/canonical_id.
+A missing/malformed result becomes a failed sample, preserving the denominator.
