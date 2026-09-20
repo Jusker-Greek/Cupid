@@ -151,6 +151,17 @@ Panda audit. I owns the fixture implementation and binds its updated real
 only after I's exact A3 source is frozen; no per-message job submissions.
 Frozen V1 inference remains independent of T prediction/logger completion.
 
+For D's geometry evidence request, `stereo_runtime_source_evidence.py` captures
+current-source full SHA256 plus bounded numbered excerpts without importing or
+executing renderer/library code. Run in a CPU allocation with
+`--source /public/home/ricky/CODE/GSO_dataset/render_stereo_gazebo.py --output NEW_DIR`.
+Read the resulting actual imports/API calls, then give it explicit observed
+camera/import library source paths in a second fresh capture. It performs no
+directory/host scans. Truncation is explicit and current source never proves
+the historical generator. Pair this with D's geometry inventory, actual Git
+HEAD/dirty metadata, saved camera/normalization data and known launcher evidence;
+D remains responsible for deriving the deterministic transform chain.
+
 ## Next executable actions
 
 1. Recheck existing endpoint with strict hostkeys, then fresh squeue/sacct
