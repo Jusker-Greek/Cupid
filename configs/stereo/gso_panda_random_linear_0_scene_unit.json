@@ -1,0 +1,11 @@
+{
+  "K_left": [[536.7151613665727, 0, 256], [0, 536.7151613665727, 256], [0, 0, 1]],
+  "K_right": [[536.7151613665727, 0, 256], [0, 536.7151613665727, 256], [0, 0, 1]],
+  "right_from_left": [[1, 0, 0, -0.1], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
+  "image_size_left": [512, 512],
+  "image_size_right": [512, 512],
+  "length_unit": "scene_unit",
+  "camera_convention": "opencv",
+  "distortion": "none",
+  "source": "Diagnostic relative calibration for audited Panda random_linear_0: K from current renderer and stored FOV51; relative baseline from NPY; positive-depth left-to-right warp checked in Slurm304071. Absolute pose and physical meters NOT verified. See docs/stereo_cupid_v1/audit_20260920/INSPECTION_REPORT.md."
+}
