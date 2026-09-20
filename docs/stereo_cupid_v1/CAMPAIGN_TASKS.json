@@ -58,12 +58,14 @@
       "scope": "你是唯一GPU作业提交与运行owner，负责网络恢复、权重上传组装、环境修复、所有阶段job执行监控。拥有scripts/stereo_runtime_*.sh/py及必要对现有cupid_local_asset_transfer.py的修复，docs/stereo_cupid_v1/lanes/R_*；不改模型/数据算法。接管已下载本地六文件和a12已有五文件，不重新下载！SSH恢复只用既有ricky@10.10.7.1和严格hostkeys，fresh网络路由/代理证据、不改VPN/SSH/系统、不扫描主机。连接暂不可用时先实现新根组装25文件官方SHA/pipeline检查和source同步launcher，准备后续真实运行，报告外部入口而不中断其它worker。恢复后审计旧cupid_local_upload jobs与incoming/final避免重复，再在SlurmCPU接收/哈希上传，仅模型资产允许传输，源码必须GitHub/verifiedbundle。完整新rootVERIFIED后立即新checkout/newoutput1GPU30min完整V1Stage1+左Stage2mesh/Panda单对，修真实错误并循环。I集成训练代码ready后立即依次单卡训练smoke→2GPU DDP短smoke→W&B真实readback→冻结完整训练配置后低卡训练，不空等新用户确认已授权工程步骤。最多一个本campaign GPU job活跃/排队（smoke1GPU，DDP2GPU），正式训练优先1GPU；提交前fresh duplicate/capacity审计，job/commit/tree/config/weights/dataset/split/step/log/output证据齐。全部运行只Slurm，用户已授权训练循环但不能改变未定科学变量或无界加资源。网络持续不可用则给具体失败层/下一安全动作，不能假装已提交。每个terminal立即通知控制器和I，success请求下一阶段、failure给首错与修复归属。",
       "client_thread_id": "client-new-thread:29217f12-0267-4ab7-992f-1c4ecbd38b52",
       "thread_id": "01a0bfa4-b8ec-7bc3-ac05-ae1d58238a11",
-      "status": "IN_PROGRESS",
+      "status": "PARTIAL_DELIVERED",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Restore strict SSH while implementing assembly and runtime launchers; sole GPU submitter",
+      "next_action": "20localreleasefiles officialverified; continueSSH recovery and remoteexistingasset audit; I integrates runtime package",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_R.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/d23e/Cupid",
-      "branch": "codex/stereo-cupid-r-runtime"
+      "branch": "codex/stereo-cupid-r-runtime",
+      "delivered_commit": "e867ff20a5f1f710a7b746b12bbffc951d5bb03c",
+      "delivered_tree": "375473de7e197c35b80a82e358e477bd380a48b1"
     },
     {
       "lane": "I",
@@ -71,12 +73,14 @@
       "scope": "负责独立integration worktree、审阅/cherry-pick D/T/L/R提交、端到端契约验证、最终结果文档与汇报。拥有docs/stereo_cupid_v1/lanes/I_*及scripts/stereo_integration_*.py/sh，不抢worker文件；cherry-pick只在你自己的integration branch，冲突先与owner协调，不盲回退。先建可追溯依赖manifest：各lane基线SHA、完成判据、协议字段、GPU运行由R唯一提交、失败转回具体owner。D/T/L公共接口一旦ready就整合逻辑检查并交R单卡，不等全部美化报告。V1 frozen与新训练experiment identities严格分开，训练预训练初始化/从checkpoint恢复/样本总数/实际step必须清楚。用户希望明早有结果，以2026-09-21 08:00 CST为晨间汇报目标：优先真实推理产物、训练loss曲线、checkpoint、heldout评估；若外部SSH仍阻塞，提供完成代码/验证边界及首错，不编结果。reviewed结果同步指定总slides editable源码与main.pdf需遵守Slides/Drawio技能；只有accepted科学结果进入正式科学表，工程进度明确标记。可以准备独立晨间报告与链接，不改中央E00 liveledger。调度由控制器，GPU由R；你负责集成就绪即发出下一步执行包而不闲置。",
       "client_thread_id": "client-new-thread:2f92c946-dfee-473d-b7d5-3e56d3f451f0",
       "thread_id": "01a0bfa4-bcf6-7761-a7a1-948b703719ee",
-      "status": "IN_PROGRESS",
+      "status": "PARTIAL_DELIVERED",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Fetch exact D/L commits, cherry-pick in isolated integration branch, reportreviewedSHA and smallest CPU runtime package to R",
+      "next_action": "Integrate exact D/L/R commits; source/frozen checker ready; T owns trainCLI, R executes. Review crop/const_ssuv contract.",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_I.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/dc7f/Cupid",
-      "branch": "codex/stereo-cupid-lane-i-integration"
+      "branch": "codex/stereo-cupid-lane-i-integration",
+      "delivered_commit": "9d0293b7055825cc0293a5a3e5a5824624d163de",
+      "delivered_tree": "ccda4532fd586b3b949e89dcbc9017b1b6ab270b"
     }
   ]
 }
