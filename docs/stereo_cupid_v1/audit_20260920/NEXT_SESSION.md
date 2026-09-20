@@ -1,6 +1,8 @@
 # 执行状态与下一步
 
-最终复验：304071在server14运行11秒，COMPLETED 0:0，11项全部通过。最高完成S02；当前S03 USER_DECISION_REQUIRED（完整权重位置或下载授权）。
+最终CPU复验：304071在server14运行11秒，COMPLETED 0:0，11项全部通过。最高完成S02；当前S03 DEBUGGING。用户已允许官方权重下载，不能继续以缺授权阻塞。
+
+15:52接续入口：先检查CPU305474、`/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a6/download_receipt.json` 和临时转发exec session7388。运行源码bc458f2，checkout `/public/home/ricky/CODE/stereo_cupid_bc458f2_a13`。全量SHA通过后关闭下载转发，提交1GPU/30min单对完整Stage1+左Stage2 mesh，使用现有DINO路径和 `configs/stereo/gso_panda_random_linear_0_scene_unit.json`。下方表格和旧路径保留为CPU审计历史，以 `../RUN_STATUS.md` 最新更新为准。下载/单卡循环由本任务automation `stereo-cupid` 每5分钟跟进，不占用新任务。
 
 | 阶段 | 现状 |
 |---|---|
