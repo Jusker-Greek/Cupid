@@ -54,6 +54,7 @@ case "$CUPID_RUNTIME_MODE" in
             "$CUPID_PYTHON" scripts/stereo_data_contract_tests.py
             "$CUPID_PYTHON" scripts/stereo_evaluate_fixture.py
             "$CUPID_PYTHON" -m cupid.trainers.stereo_stage1_contract_tests
+            "$CUPID_PYTHON" scripts/stereo_integration_contract_tests.py
             "$CUPID_PYTHON" scripts/stereo_data_manifest.py \
                 --config configs/stereo/data_panda125_audit_v1.json \
                 --output "$CUPID_RUNTIME_EVIDENCE/panda125_audit" \

@@ -144,6 +144,13 @@ do not use A2 with known interface failures. The package is prepared only:
 The large GSO discovery/content audit follows this first bounded package in
 separate fresh identities; no synthetic targets or matrix reflection repair.
 
+Controller's final CPU-package correction adds I's six cross-module fixtures:
+`scripts/stereo_integration_contract_tests.py`, after T contracts and before
+Panda audit. I owns the fixture implementation and binds its updated real
+`T._init_hooks` and scalar-Tensor contract in A3. Submit one unified package
+only after I's exact A3 source is frozen; no per-message job submissions.
+Frozen V1 inference remains independent of T prediction/logger completion.
+
 ## Next executable actions
 
 1. Recheck existing endpoint with strict hostkeys, then fresh squeue/sacct
