@@ -100,6 +100,15 @@ Pilot is 1GPU/8 cores/64GB/30min on `gpu,gpux` and requires `CUPID_FULL_MESH=1`.
 The job wrapper records commit/tree, exact terminal exit and runtime log.
 This wrapper does not yet implement training: I must provide that entrypoint.
 
+Subsequent additions: `CUPID_RUNTIME_MODE=contract` executes I's integrated
+`stereo_integration_check.py` source contract requiring D/L/R (also T when
+`CUPID_REQUIRE_T=1`) and shell syntax checks; it needs neither weights nor
+model/data runtime. `CUPID_RUNTIME_MODE=asset-audit` executes the read-only
+asset audit for `CUPID_ASSET_SOURCE_A/B`. Both use CPU/2 cores/4GB/30min.
+These modes allow source/upload diagnosis before complete weights exist.
+T owns the actual training entry/config/env contract; I reviews and binds it,
+then R adds training launch modes. No other worker submits campaign GPU jobs.
+
 ## Next executable actions
 
 1. Recheck existing endpoint with strict hostkeys, then fresh squeue/sacct
