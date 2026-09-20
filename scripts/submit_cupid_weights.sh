@@ -15,7 +15,8 @@ set -euo pipefail
 cd "$CUPID_PROJECT_DIR"
 test "$(git rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
 git diff --quiet HEAD
-export http_proxy=http://hkuhpc.com:7999 https_proxy=http://hkuhpc.com:7999
+export http_proxy="${CUPID_DOWNLOAD_PROXY:-http://hkuhpc.com:7999}"
+export https_proxy="$http_proxy"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 runtime=/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12
