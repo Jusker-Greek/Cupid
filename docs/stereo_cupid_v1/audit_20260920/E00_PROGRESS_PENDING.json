@@ -37,15 +37,15 @@
   "slides_pdf": "/Users/ruikegu/.codex/worktrees/total-slides-results-integration-20260831/docs/overleaf/xfactor_full_experiment_ledger_stereo_reorg_2026_08_21/main.pdf",
   "slides_pages": "NONE",
   "evidence_eligibility": "ENGINEERING_ONLY_NO_SCIENCE",
-  "delivery_status": "STALLED_24H_PACKET_PENDING_SEND",
+  "delivery_status": "E00_ACK_RECEIVED",
   "e00_ack": {
-    "commit": "8f076d9661a9ec255af4f6ca29fd54f89da8b3ce",
-    "tree": "e2a37a7e59e7e6feb114479fd228c158ce41431e",
+    "commit": "d134a08fb11cb1b678e19a2cf17fdbf03244fd82",
+    "tree": "b7270c037ce490ecff5ad66f11151a5571c6e309",
     "stage": "S03/DEBUGGING",
     "highest_completed_stage": "S02",
+    "stalled_24h": "YES",
     "scientific_result": "NONE",
-    "verified_weight_bytes": 3099847620,
-    "source": "E00 reply; central GitHub not independently re-read by this thread"
+    "source": "E00 reply reports GitHub exact-read PASS; not independently re-read by this task"
   },
   "stalled_reported_at": "2026-09-21T01:27:52+08:00",
   "next_stall_report_at": "2026-09-22T01:26:00+08:00",
