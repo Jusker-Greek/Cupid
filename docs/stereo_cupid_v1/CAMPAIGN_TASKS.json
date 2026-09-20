@@ -4,7 +4,7 @@
   "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
   "authority_commit": "d88b19e0414aaf482b21f5630b64df604dc2c57a",
   "morning_target": "2026-09-21T08:00:00+08:00",
-  "current_focus": "I A3 integrates T fixes and latest D/L/R; R CPU D9 L13 T4 I6 and Panda125 pending SSH; D canonical evidence closure; T/L tracker lifecycle review",
+  "current_focus": "I integrates T e45d fixes and R unified CPU wrapper; R D9 L13 T9 I6 (37 unrun fixtures) + Panda125 pending SSH; D geometry evidence closure",
   "gpu_submission_owner": "R",
   "max_concurrent_campaign_gpu_jobs": 1,
   "scientific_choice": "User optional preference pending; proceed with evidence-backed official Stage1 supervised fine-tuning candidate implementation/verification, separate from frozen V1. T must bind real targets and reviewed protocol before formal run.",
@@ -21,8 +21,8 @@
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_D.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/9506/Cupid",
       "branch": "codex/stereo-stage1-lane-d",
-      "delivered_commit": "25a51bc8a5474190662c50ca20a9c9ef634461cc",
-      "delivered_tree": "5c11236e9603c6d6c894d90ddf91de56edf85ef9"
+      "delivered_commit": "cf8cc24a414db6f86b20219c5c51000b960ef781",
+      "delivered_tree": "0f1c34894d14e01a4c339f6887e72812b26ed9b0"
     },
     {
       "lane": "T",
@@ -36,8 +36,8 @@
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_T.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/7024/Cupid",
       "branch": "codex/stereo-stage1-train-t",
-      "delivered_commit": "0d69d72f92b782f71bcff5d8ab998f818a164875",
-      "delivered_tree": "d667621295188bebfcc7ea8a4a1db0145a0149d2"
+      "delivered_commit": "e45d232f564b5deaefa7fa95abf6e0153440fc62",
+      "delivered_tree": "4b823c853ad416d8b9338a2fa2930d3cbcf163d4"
     },
     {
       "lane": "L",
@@ -66,8 +66,8 @@
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_R.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/d23e/Cupid",
       "branch": "codex/stereo-cupid-r-runtime",
-      "delivered_commit": "3381a59990e9858ee5ab10b267dcc9df564af3c0",
-      "delivered_tree": "6aa89adaa2a2a5d51310be8a4e08d860148aa470"
+      "delivered_commit": "ca91a8e40456b75a959f4f991ce44c7fee46950e",
+      "delivered_tree": "1bd6c528920ba40e829dae951dbd394c751e66e9"
     },
     {
       "lane": "I",
@@ -81,8 +81,8 @@
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_I.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/dc7f/Cupid",
       "branch": "codex/stereo-cupid-lane-i-integration",
-      "delivered_commit": "3c25052af4bbd1ea7e4248b3edfdf4ab6e2a4945",
-      "delivered_tree": "188a758d3d208c04efd1997e643c1684e3097905"
+      "delivered_commit": "9ff30d8e8616fec2da61b25248cd0d5e8a4d13c4",
+      "delivered_tree": "5101d92827a9dd664ee37b00274d04a2f91037fd"
     }
   ],
   "updated_at": "2026-09-21T00:46:50.815966+08:00"
