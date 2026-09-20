@@ -39,6 +39,13 @@ case "$CUPID_RUNTIME_MODE" in
         if [[ "${CUPID_REQUIRE_T:-0}" == 1 ]]; then args+=(--require-lane T); fi
         "$CUPID_PYTHON" scripts/stereo_integration_check.py "${args[@]}"
         for file in scripts/stereo_runtime_*.sh; do bash -n "$file"; done
+        "$CUPID_PYTHON" scripts/stereo_data_manifest.py \
+            --config configs/stereo/data_gso_stage1_v1.json \
+            --output "$CUPID_RUNTIME_EVIDENCE/raw_pair_audit" \
+            --verify-content --hash-assets --max-pairs 1
+        if [[ "${CUPID_EVAL_FIXTURE:-0}" == 1 ]]; then
+            "$CUPID_PYTHON" scripts/stereo_evaluate_fixture.py
+        fi
         ;;
     asset-audit)
         : "${CUPID_ASSET_SOURCE_A:?}"
