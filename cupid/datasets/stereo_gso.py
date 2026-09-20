@@ -141,6 +141,10 @@ def load_pair(record, root, *, depth_background=1e10, hash_assets=False):
         raise ValueError('record is not a complete ' + SCHEMA + ': ' + record['pair_id'])
     if not np.isfinite(depth_background) or depth_background <= 0:
         raise ValueError('depth_background must be positive and finite')
+    metadata_path = confined_path(root, record['provenance']['metadata_path'])
+    metadata_hash = sha256_file(metadata_path)
+    if metadata_hash != record['provenance']['metadata_sha256']:
+        raise ValueError('trajectory metadata changed since manifest discovery')
     pack = {key: record[key] for key in ('pair_id', 'object_id', 'trajectory_id', 'frame_id',
                                         'split', 'unit', 'normalization')}
     pack['record'] = record
@@ -194,6 +198,7 @@ def load_pair(record, root, *, depth_background=1e10, hash_assets=False):
     pack['validity']['proper_rotations'] = all(v['proper_rotation'] for v in pack['views'].values())
     if hash_assets:
         pack['asset_sha256'] = {key: sha256_file(confined_path(root, value)) for key, value in record['assets'].items()}
+        pack['asset_sha256']['trajectory_metadata'] = metadata_hash
     return pack
 
 
@@ -360,7 +365,8 @@ def build_stage1_datasets(config):
             'identity': {'schema': SCHEMA, 'manifest_sha256': sha256_file(config['manifest']),
                          'target_index_sha256': sha256_file(config['target_index']),
                          'train_pairs': len(train), 'validation_pairs': len(validation),
-                         'training_target_ready': True, 'length_unit': 'scene_unit',
+                         'target_index_validated': True,
+                         'target_content_validation': 'ON_ACCESS', 'length_unit': 'scene_unit',
                          'metric_meters_verified': False}}
 
 
