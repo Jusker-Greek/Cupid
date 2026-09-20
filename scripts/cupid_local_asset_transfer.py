@@ -42,6 +42,8 @@ def main():
                         help='Never download; fail if any selected local asset is absent or invalid')
     parser.add_argument('--include-small', action='store_true',
                         help='Include official non-LFS metadata/configs, without downloading other weights')
+    parser.add_argument('--only-file', action='append',
+                        help='After remote Slurm audit, upload only these missing official subset paths')
     args = parser.parse_args()
     if args.upload_only and args.download_only:
         parser.error('--upload-only and --download-only are mutually exclusive')
@@ -62,6 +64,11 @@ def main():
              if (x['rfilename'].endswith('.safetensors')
                  and not Path(x['rfilename']).name.startswith(EXCLUDED))
              or (args.include_small and 'lfs' not in x)]
+    if args.only_file:
+        requested = set(args.only_file)
+        if not requested.issubset({x['rfilename'] for x in items}):
+            raise RuntimeError('--only-file includes a path outside the authorized subset')
+        items = [x for x in items if x['rfilename'] in requested]
     # Continue the already-started large file first, then remaining weights.
     items.sort(key=lambda x: (not x['rfilename'].startswith('ckpts/suv_flow_'),
                               not x['rfilename'].endswith('.safetensors'),
@@ -152,13 +159,16 @@ def main():
         receipt['files'][name]['upload_readback'] = result.stdout
         if result.returncode != 0:
             receipt['files'][name]['remote'] = 'UPLOAD_UNVERIFIED'
+            receipt['status'] = 'UPLOAD_UNVERIFIED'
             save()
             raise RuntimeError(f'Upload failed; preserve incoming evidence: {name}')
         receipt['files'][name]['remote'] = 'SHA256_VERIFIED'
         receipt['files'][name]['sha256'] = expected
         save()
-    receipt['status'] = ('LOCAL_SUBSET_VERIFIED_UPLOAD_PENDING' if args.download_only
-                         else 'SUBSET_UPLOADED_VERIFIED_NOT_FULL_PIPELINE')
+    receipt['status'] = ('LOCAL_SELECTED_FILES_VERIFIED_UPLOAD_PENDING' if args.only_file and args.download_only
+                        else 'SELECTED_FILES_UPLOADED_VERIFIED_NOT_FULL_PIPELINE' if args.only_file
+                        else 'LOCAL_SUBSET_VERIFIED_UPLOAD_PENDING' if args.download_only
+                        else 'SUBSET_UPLOADED_VERIFIED_NOT_FULL_PIPELINE')
     save()
     print(receipt['status'], flush=True)
 

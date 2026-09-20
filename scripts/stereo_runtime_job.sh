@@ -42,6 +42,7 @@ case "$CUPID_RUNTIME_MODE" in
         # Rehash on the compute node immediately before load; no receipt-only PASS.
         "$CUPID_PYTHON" scripts/stereo_runtime_assets.py --output "$CUPID_MODEL_PATH" --verify-only
         [[ "${CUPID_FULL_MESH:-}" == 1 ]]
+        [[ -z "${CUPID_STEPS:-}" ]] # Freeze the official pipeline's 25-step settings.
         : "${CUPID_CAMERA_JSON:?Explicit frozen scene_unit camera required}"
         bash scripts/submit_stereo_cupid_pilot.sh
         ;;
