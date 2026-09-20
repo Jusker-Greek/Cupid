@@ -33,10 +33,16 @@ def main():
         raise RuntimeError('Use a Slurm allocation')
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--client', choices=('requests', 'huggingface'), default='requests')
+    parser.add_argument('--client', choices=('requests', 'huggingface', 'ranges'), default='requests')
+    parser.add_argument('--reuse-from', type=Path,
+                        help='Read verified files/chunks from a previous stopped attempt')
     parser.add_argument('--wait-local-proxy', type=int, default=0,
                         help='Wait for a session-scoped SSH proxy on the allocated node')
     args = parser.parse_args()
+    if args.reuse_from:
+        old_receipt = json.loads((args.reuse_from / 'download_receipt.json').read_text())
+        if old_receipt.get('repo') != REPO or old_receipt.get('revision') != REVISION:
+            raise RuntimeError('Reuse source is not the pinned official release')
     args.output.mkdir(parents=True, exist_ok=False)
     if args.wait_local_proxy:
         proxy = urlsplit(os.environ.get('https_proxy', ''))
@@ -86,11 +92,16 @@ def main():
             raise RuntimeError('Invalid model filename')
     receipt = {'schema': 'cupid_official_download/v1', 'repo': REPO, 'revision': REVISION,
                'job': os.environ['SLURM_JOB_ID'], 'host': os.uname().nodename,
-               'total_bytes': total, 'files': items, 'status': 'DOWNLOADING'}
+               'total_bytes': total, 'files': items, 'status': 'DOWNLOADING',
+               'client': args.client, 'reuse_from': str(args.reuse_from) if args.reuse_from else None}
     (args.output / 'download_receipt.json').write_text(json.dumps(receipt, indent=2))
     print(f'OFFICIAL_RELEASE={REVISION} FILES={len(items)} BYTES={total}', flush=True)
 
     def download(item):
+        if args.client == 'ranges':
+            from cupid_range_download import download_ranges
+            return download_ranges(item, args.output, REPO, REVISION, verify,
+                                   use_environment_proxy, args.reuse_from)
         if args.client == 'huggingface':
             from huggingface_hub import hf_hub_download
             # The installed official client uses hf_xet for concurrent range
@@ -149,8 +160,12 @@ def main():
                 time.sleep(2 * attempt)
 
     try:
-        with ThreadPoolExecutor(max_workers=4 if args.client == 'huggingface' else 2) as pool:
-            list(pool.map(download, items))
+        if args.client == 'ranges':
+            for item in items:
+                download(item)
+        else:
+            with ThreadPoolExecutor(max_workers=4 if args.client == 'huggingface' else 2) as pool:
+                list(pool.map(download, items))
         pipeline = json.loads((args.output / 'pipeline.json').read_text())
         for model in pipeline['args']['models'].values():
             for suffix in ('.json', '.safetensors'):
