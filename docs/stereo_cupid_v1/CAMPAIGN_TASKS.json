@@ -4,7 +4,7 @@
   "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
   "authority_commit": "d88b19e0414aaf482b21f5630b64df604dc2c57a",
   "morning_target": "2026-09-21T08:00:00+08:00",
-  "current_focus": "I integrating first D/L commits; T real training engine/static review; D targetfactory; L fixture/readback; R SSH and runtime recovery",
+  "current_focus": "R executes A1 CPU checks when SSH permits; I integrates L/R followups; T/D continue training targets",
   "gpu_submission_owner": "R",
   "max_concurrent_campaign_gpu_jobs": 1,
   "scientific_choice": "User optional preference pending; proceed with evidence-backed official Stage1 supervised fine-tuning candidate implementation/verification, separate from frozen V1. T must bind real targets and reviewed protocol before formal run.",
@@ -45,12 +45,12 @@
       "thread_id": "01a0bfa4-b891-78c0-8348-9e91b7e84e4e",
       "status": "PARTIAL_DELIVERED",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "I/T received callback; L continues SlurmCPU fixture/readback/replay",
+      "next_action": "11CPUfixture/eval/readback handed I/R/T; final boundary review awaitingrealCPU",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_L.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/ddc3/Cupid",
       "branch": "codex/stereo-cupid-l-observability-v1",
-      "delivered_commit": "b5264958493a5b1d712b88b73a64b5838e4a9654",
-      "delivered_tree": "d858d21ffafc35d87e4a2d81c01e40a18d1db82b"
+      "delivered_commit": "a8f275d9ae2b638f457881a8a274480fc0f1a8d8",
+      "delivered_tree": "4aab15627b99b8d8022959d032f27ca69c6fc2d9"
     },
     {
       "lane": "R",
@@ -60,12 +60,12 @@
       "thread_id": "01a0bfa4-b8ec-7bc3-ac05-ae1d58238a11",
       "status": "PARTIAL_DELIVERED",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "20localreleasefiles officialverified; continueSSH recovery and remoteexistingasset audit; I integrates runtime package",
+      "next_action": "SSH recovery then fresh A1 CPU source/data checks; include I/L11fixture successor; no testPASS yet",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_R.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/d23e/Cupid",
       "branch": "codex/stereo-cupid-r-runtime",
-      "delivered_commit": "e867ff20a5f1f710a7b746b12bbffc951d5bb03c",
-      "delivered_tree": "375473de7e197c35b80a82e358e477bd380a48b1"
+      "delivered_commit": "71967eba6a8c8719da39310ea38a4faaf6b499d7",
+      "delivered_tree": "dfdbd311a8fd7c507e39cb5a58e422d43f60c895"
     },
     {
       "lane": "I",
@@ -75,12 +75,12 @@
       "thread_id": "01a0bfa4-bcf6-7761-a7a1-948b703719ee",
       "status": "PARTIAL_DELIVERED",
       "last_dispatch": "START_ACK_AND_PEER_CONTRACTS",
-      "next_action": "Integrate exact D/L/R commits; source/frozen checker ready; T owns trainCLI, R executes. Review crop/const_ssuv contract.",
+      "next_action": "A1 D/L/R handed to R; integrate L a8f275d and R71967e; publish successor CPU package",
       "deliverable": "docs/stereo_cupid_v1/lanes/HANDOFF_I.md",
       "worktree": "/Users/ruikegu/.codex/worktrees/dc7f/Cupid",
       "branch": "codex/stereo-cupid-lane-i-integration",
-      "delivered_commit": "9d0293b7055825cc0293a5a3e5a5824624d163de",
-      "delivered_tree": "ccda4532fd586b3b949e89dcbc9017b1b6ab270b"
+      "delivered_commit": "4de419aa03e0307cc290c9a5d9c8f04e32018fc8",
+      "delivered_tree": "53f68678bfbc1a2deb75fd6c910ff32632b11176"
     }
   ]
 }

@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**首批已集成并转CPU检查：** I的4de419aa/tree53f68678已集成D/L/R并push exactread（worker回执），无冲突且冻结五路径无diff，仅静态非测试。已立即交R源接口检查与1pair数据检查；L的a8f275d新增11项CPUfixture/evalhook/readback、R的71967e资产审计与选择上传已交I继续集成。当前监控切到R最小CPU包及I后继集成，不等T训练器完工；SSH仍是实际运行外部阻碍，尚无新增测试/GPU结果。
+
 **五任务首轮自动交接：** D已交e05bb99原始pair接口、L已交b526495 logger/evaluator接口（worker报告push/exactread）；已立即派I精确集成、T接入。T报告真实训练engine/DDP/checkpoint代码已写但尚未提交/实跑，不能计S02完成。D继续targetfactory、L继续CPUfixture/readback、R继续SSH/运行准备。当前重点已从等待初始实现切到首批集成；详细负责人见CAMPAIGN_TASKS.json。
 
 **2026-09-21新增授权：五个独立任务已开始并行补齐训练缺口。** D数据、T训练器、L日志评估、R集群上传/唯一GPU运行、I集成晨报，真实thread/worktree/branch见CAMPAIGN_TASKS.json；工作顺序与自动修复交接见CONTINUOUS_EXECUTION.md。目标2026-09-21 08:00晨间可核验产物。用户已明确要求阶段完成自动推进、失败修复重试，旧“单卡后暂停等审核”仅历史状态，不再是本轮自动停止点。V1冻结推理基线保留，训练候选另立STEREO_CUPID_STAGE1_TRAIN_V1；没有继承已训练结果。用户目标选择仍可覆盖，暂按官方Stage1监督微调候选实现验证，真实GT/target/样本/steps配置必须落地，不能用toy或HSSD冒充。R独占本campaign GPU提交（先1卡smoke、再2卡DDP、正式优先1卡）；控制器不同时提交。
