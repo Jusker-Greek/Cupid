@@ -36,6 +36,8 @@ def main():
     parser.add_argument('--proxy', required=True)
     parser.add_argument('--remote-root', required=True)
     parser.add_argument('--wait-pid', type=int)
+    parser.add_argument('--download-only', action='store_true',
+                        help='Keep downloading during SSH outages; retain pending uploads')
     args = parser.parse_args()
     lock = (args.root / 'transfer.lock').open('w')
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -100,6 +102,8 @@ def main():
         receipt['files'].setdefault(name, {})['local'] = 'OFFICIAL_HASH_VERIFIED'
         save()
         print(f'LOCAL_VERIFIED {name} bytes={item["size"]}', flush=True)
+        if args.download_only:
+            continue
         if receipt['files'][name].get('remote') == 'SHA256_VERIFIED':
             continue
         digest = hashlib.sha256()
@@ -140,7 +144,8 @@ def main():
         receipt['files'][name]['remote'] = 'SHA256_VERIFIED'
         receipt['files'][name]['sha256'] = expected
         save()
-    receipt['status'] = 'SUBSET_UPLOADED_VERIFIED_NOT_FULL_PIPELINE'
+    receipt['status'] = ('LOCAL_SUBSET_VERIFIED_UPLOAD_PENDING' if args.download_only
+                         else 'SUBSET_UPLOADED_VERIFIED_NOT_FULL_PIPELINE')
     save()
     print(receipt['status'], flush=True)
 
