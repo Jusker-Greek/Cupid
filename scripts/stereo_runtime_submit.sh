@@ -4,7 +4,7 @@ set -euo pipefail
 : "${CUPID_PROJECT_DIR:?}"
 : "${CUPID_EXPECTED_COMMIT:?}"
 : "${CUPID_EXPECTED_TREE:?}"
-: "${CUPID_RUNTIME_MODE:?assemble or pilot}"
+: "${CUPID_RUNTIME_MODE:?contract, asset-audit, assemble or pilot}"
 : "${CUPID_RUNTIME_EVIDENCE:?New absolute evidence root}"
 [[ "$CUPID_RUNTIME_EVIDENCE" =~ ^/public/home/ricky/RESULTS/[A-Za-z0-9_-]+$ ]]
 [[ "$(id -un)" == ricky && -d /public/home/ricky ]]
@@ -35,6 +35,7 @@ cat "$CUPID_RUNTIME_EVIDENCE.submission/capacity.txt"
 args=(--parsable --nodes=1 --ntasks=1 --time=00:30:00 --export=ALL \
     --output="$CUPID_RUNTIME_EVIDENCE.submission/slurm_%j.out")
 case "$CUPID_RUNTIME_MODE" in
+    contract|asset-audit) args+=(--partition=cpu --cpus-per-task=2 --mem=4G --job-name=stereo_cupid_contract) ;;
     assemble) args+=(--partition=cpu --cpus-per-task=2 --mem=4G --job-name=stereo_cupid_assemble) ;;
     pilot) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:1 --job-name=stereo_cupid_pilot) ;;
     *) echo 'Unsupported mode' >&2; exit 2 ;;
