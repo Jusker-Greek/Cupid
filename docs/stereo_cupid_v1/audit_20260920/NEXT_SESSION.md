@@ -1,5 +1,9 @@
 # 执行状态与下一步
 
+17:32转发已建立：session98390，实际server14 loopback49691→本机既有7890；305609已越过旧失败offset，完整receipt仍DOWNLOADING。结束后关闭此转发。以RUN_STATUS首段和下载日志为准。
+
+17:31当前入口替代下方旧记录：CPU305609/依赖单卡305611，checkoutcbb4cbf/a17、模型根a9复用停止的a8，单卡输出STEREO_CUPID_PILOT_CBB4CBF_A5。旧305577 FAILED、305583取消、转发98813结束；新的转发按实际Slurm节点连接49691。此次只将网络并发4→1，检验争用假设；不能把推测当根因结论。以RUN_STATUS最新首段和fresh sacct为准，未完成前不称全部权重可用，不重复提交健康作业。
+
 17:21当前入口：305577 RUNNING server14；305583 PENDING afterok:305577，无GPU分配。完整4个权重已重新校验复用，SLAT flow已从旧断点406847488推进至524288000字节。继续跟踪a8根的receipt和脱敏日志，不重提健康作业。转发session98813、计算节点loopback49690，下载终态后关闭。单卡输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_A8E799E_A4`，checkout a8e799e/a16；详情以RUN_STATUS首段为准。
 
 最终CPU复验：304071在server14运行11秒，COMPLETED 0:0，11项全部通过。最高完成S02；当前S03 DEBUGGING。用户已允许官方权重下载，不能继续以缺授权阻塞。

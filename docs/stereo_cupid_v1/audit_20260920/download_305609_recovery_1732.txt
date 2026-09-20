@@ -1,0 +1,19 @@
+2026-09-20T17:32:26+08:00
+JobID|State|ExitCode|Elapsed|NodeList
+305609|RUNNING|0:0|00:01:25|server14
+305609.batch|RUNNING|0:0|00:01:25|server14
+305609.extern|RUNNING|0:0|00:01:25|server14
+305611|PENDING|0:0|00:00:00|None assigned
+VERIFIED_REUSED ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16.json 843
+VERIFIED_REUSED ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16.safetensors 171450952
+VERIFIED_REUSED ckpts/slat_dec_mesh_swin8_B_64l8m256c_fp16.json 372
+VERIFIED_REUSED ckpts/slat_dec_mesh_swin8_B_64l8m256c_fp16.safetensors 181903412
+VERIFIED_REUSED ckpts/slat_dec_rf_swin8_B_64l8r16_fp16.json 396
+VERIFIED_REUSED ckpts/slat_dec_rf_swin8_B_64l8r16_fp16.safetensors 171450488
+VERIFIED_REUSED ckpts/slat_enc_swin8_B_64l8_fp16.json 321
+VERIFIED_REUSED ckpts/slat_enc_swin8_B_64l8_fp16.safetensors 173242816
+VERIFIED_REUSED ckpts/slat_flow_img_dit_L_64l8p2_fp16.json 711
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=549453824/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=553648128/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=557842432/2401799952
+  "status": "DOWNLOADING",

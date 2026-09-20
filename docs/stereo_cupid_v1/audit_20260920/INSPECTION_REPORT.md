@@ -2,6 +2,8 @@
 
 日期：2026-09-20，Asia/Shanghai。实验 `STEREO_CUPID_V1_SHARED_SS`。
 
+17:31最新：305577因网络读取超时失败、305583依赖取消；4个完整权重和528482304字节SLAT flow分块保留。后继源码cbb4cbf/a17只将并发4→1以检验代理争用，CPU305609和依赖单卡305611已提交，模型根a9复用a8。完整权重仍未完成，详情以RUN_STATUS首段为准。失败证据download_305577_terminal.txt。
+
 17:21恢复实证：305577 RUNNING server14，4个完整权重重新校验后复用，SLAT flow持久化分块已到524288000字节，超过旧失败断点406847488。305583 PENDING afterok:305577，无GPU分配；完整receipt仍DOWNLOADING。新checkout a8e799e/a16、权重根a8和转发session98813详见RUN_STATUS。没有完整权重或模型推理通过的证据。
 
 **最终CPU复验：304071在server14运行11秒，COMPLETED 0:0，11项测试全部通过，S02完成。** 修复后已重跑全部测试，没有跳过。下面按证据保留首轮失败经过；后续不再处于“CPU复验中”。

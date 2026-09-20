@@ -1,0 +1,22 @@
+2026-09-20 17:28 CST fresh Slurm and sanitized log readback.
+JobID|State|ExitCode|Elapsed|NodeList
+305577|FAILED|1:0|00:07:39|server14
+305577.batch|FAILED|1:0|00:07:39|server14
+305577.extern|COMPLETED|0:0|00:07:40|server14
+305583|CANCELLED|0:0|00:00:00|None assigned
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=515899392/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=520093696/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=524288000/2401799952
+RANGE_PROGRESS file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors durable_bytes=528482304/2401799952
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=541065216 attempt=1 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=541065216 attempt=2 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=541065216 attempt=3 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=541065216 attempt=4 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=541065216 attempt=5 reason=ReadTimeout
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=532676608 attempt=1 reason=RANGE_DEADLINE
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=528482304 attempt=1 reason=RANGE_DEADLINE
+RANGE_RETRY file=ckpts/slat_flow_img_dit_L_64l8p2_fp16.safetensors start=536870912 attempt=1 reason=RANGE_DEADLINE
+  "status": "FAILED",
+  "client": "ranges",
+  "reuse_from": "/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a7"
+}

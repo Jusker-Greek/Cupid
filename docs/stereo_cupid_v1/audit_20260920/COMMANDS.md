@@ -111,9 +111,21 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 
 ## 17:21 慢速分块时限修复与复用验证
 
+后续17:32更正：该次305577最终FAILED，305583取消。新恢复详见本文件最后一节，不能继续把上述作业写为运行中。
+
 - `sacct -j 305505,305510 --format=JobID,State,ExitCode,Elapsed,NodeList -P`：305505 FAILED1:0、50m14s；305510取消、0秒无节点。脱敏尾部记录见download_305505_terminal.txt。第一失败条件为offset406847488的4MiB分块5次超过90秒，不是完整文件SHA不匹配。
 - 本地修改 `scripts/cupid_range_download.py`：总时限90→300秒，保留40秒socket读超时和5次重试及全部完整性检查。commit/push `a8e799ee815b061283cf38804a30ea0db13a9fa4`，tree `5ea1c8cf383be78abdc7f7dbaf86c0d32386fd60`。既有verified bundle helper从GitHub精确验证后同步至新checkout `/public/home/ricky/CODE/stereo_cupid_a8e799e_a16`；bundle81511字节、SHA256 `8f24832352f47cff892a1ccf8e0f2d833dabbae5fe89cf7e517e339f0ed97c2e`。
 - 远端仅提交GitHub同步后的launcher：`sbatch --parsable scripts/submit_cupid_weights.sh` →305577，CUPID_MODEL_PATH=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a8，CUPID_REUSE_WEIGHTS_FROM=/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a7，CUPID_DOWNLOAD_PROXY=http://127.0.0.1:49690，CPU/4核/8GB/2h。
 - squeue确认实际server14后，`ssh -N -T -J ricky@10.10.7.1 -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=/tmp/stereo_cupid_hostkeys.Fzi11a -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -R 127.0.0.1:49690:127.0.0.1:7890 ricky@server14` 建立exec session98813；既有公钥文件和既有本地代理，未修改SSH/代理配置。旧27758已结束。
 - `sbatch --parsable --dependency=afterok:305577 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh` →305583，新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_A8E799E_A4`，相同a16源码/1GPU/30min/完整Stage1+左Stage2。
 - fresh sacct/scontrol、筛选VERIFIED_REUSED和receipt status、tail自定义分块日志，保存download_305577_recovery_1721.txt：四完整权重698047668字节重新校验复用，分块复用406847488字节后已推进到524288000。receipt DOWNLOADING、GPU PENDING；无原始数据/签名URL/凭据记录。forward session98813空轮询仍存活。
+
+## 17:32 并发隔离恢复
+
+- fresh sacct确认305577 FAILED1:0、7m39s，305583 CANCELLED0秒无节点；尾部首错为offset541065216连续5次ReadTimeout，另外3路并发未完成。保存download_305577_terminal.txt。旧exec98813退出255/Broken pipe；不能将上游代理停滞误称已确证争用。
+- 本地仅将ThreadPoolExecutor max_workers=4改1，保留4MiB缓存格式/300秒总时限/40秒读超时/5重试/所有SHA检查。commit cbb4cbf75233fb7fa8602625a01c17ed7fc345f7，tree5bf38b04f947a423ecf2085f4dda55bdc339e04f；GitHub→verified bundle→新a17同步通过。bundle87551字节，SHA7a8355dbcb82f7096a6d0258e48de462d57fc7eb7d6f2cc14cde200f65485b4f。
+- `squeue -u ricky -h -o "%i %j %T %N"`筛选本实验无旧活动作业；`sbatch --parsable scripts/submit_cupid_weights.sh`→305609，新模型根a9，CUPID_REUSE_WEIGHTS_FROM=a8，代理loopback49691。保持CPU4核/8GB/2h。
+- `sbatch --parsable --dependency=afterok:305609 --kill-on-invalid-dep=yes scripts/submit_stereo_cupid_pilot.sh`→305611，新输出STEREO_CUPID_PILOT_CBB4CBF_A5，相同a17源码、1GPU/30min、完整Stage1+左Stage2/Panda/既有DINO/scene_unit标定。
+- `squeue -j 305609,305611 -h -o "%i %T %N %R"`实查CPU server14；随后使用与上一轮相同严格主机密钥选项建立 `ssh -N -T -J ricky@10.10.7.1 -R 127.0.0.1:49691:127.0.0.1:7890 ricky@server14`，exec session98390。旧配置未改，文件只写集群。
+- 17:32:26只读sacct+筛选VERIFIED_REUSED+tail+receipt status：4完整权重698047668字节重新校验复用，流分块从528482304增至557842432。只有新增加的29360128字节是此处观察的新网络传输，不能把复用缓存计入吞吐。该短时恢复未证明整个网络故障根因已经修复。
+- 估时依据：旧恢复成功增量约121634816字节/数分钟，约0.3–0.4MB/s有效速度；剩余约6GB只可粗估4–6小时，不包含失败、排队和恢复。新单路速度样本尚短，不能承诺ETA。使用xfactor-experiment-progress技能同步E00，最高S02/S03 DEBUGGING/NO_SCIENCE不变。
