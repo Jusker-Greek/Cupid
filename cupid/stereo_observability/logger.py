@@ -64,6 +64,7 @@ class StereoLogger:
             raise ValueError('step_must_be_nonnegative_integer')
         self.sequence += 1
         flat = dict(payload)
+        flat['observability/details_sha256'] = digest(details)
         flat.update({'identity/'+k: v for k, v in self.identity.items()})
         flat.update({'observability/event': event, 'observability/sequence': self.sequence,
                      'train/global_step': int(step)})
