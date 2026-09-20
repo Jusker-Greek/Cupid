@@ -53,7 +53,10 @@ def source_check(args, report):
     report.update(manifest=str(args.manifest.resolve()), manifest_sha256=digest(args.manifest))
     require(manifest["gpu_submission_owner"] == "R", "GPU submission owner must remain R")
     require(manifest["frozen_experiment_id"] != manifest["training_experiment_id"], "Mixed experiment identities")
-    require(not git("status", "--porcelain", "--untracked-files=no"), "Tracked checkout is dirty")
+    # Match the repository's verified-bundle helper's read-only check. Avoid
+    # git status on its fresh cluster mirror checkouts (reported legacy issue).
+    subprocess.run(["git", "diff", "--quiet", "HEAD", "--"], cwd=ROOT, check=True)
+    require(not git("ls-files", "--others", "--exclude-standard"), "Checkout has untracked files")
     base = manifest["base_commit"]
     require(git("rev-parse", f"{base}^{{tree}}") == manifest["base_tree"], "Base tree mismatch")
     changed = git("diff", "--name-only", base, "HEAD", "--", *manifest["frozen_paths"]).splitlines()

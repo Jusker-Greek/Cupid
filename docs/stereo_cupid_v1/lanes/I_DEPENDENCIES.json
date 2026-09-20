@@ -22,34 +22,36 @@
     "D": {
       "thread_id": "01a0bfa4-b887-7df2-a39e-2b1b776e377c",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": ["e05bb99a52daa5dfaf9faea60716084ba8d82b7f"],
-      "integrated_commits": ["ec7f1f1c10701e71807bf843fa76f634c010154a"],
-      "files": ["configs/stereo/data_gso_stage1_v1.json", "cupid/datasets/stereo_gso.py", "scripts/stereo_data_manifest.py", "docs/stereo_cupid_v1/lanes/D_SCHEMA.md"],
-      "state": "RAW_READER_INTEGRATED_TARGET_FACTORY_PENDING",
+      "source_commits": ["e05bb99a52daa5dfaf9faea60716084ba8d82b7f", "f8ffd521463ad9dadd7e052f275104bb7eadf9c1"],
+      "integrated_commits": ["ec7f1f1c10701e71807bf843fa76f634c010154a", "213100f909fc06d920162d571f32cd8cd205c95e"],
+      "files": ["configs/stereo/data_gso_stage1_v1.json", "cupid/datasets/stereo_gso.py", "scripts/stereo_data_manifest.py", "scripts/stereo_data_targets.py", "scripts/stereo_data_contract_tests.py", "docs/stereo_cupid_v1/lanes/D_SCHEMA.md"],
+      "state": "TARGET_FACTORY_INTEGRATED_COLLATE_WEIGHT_REPAIR_PENDING",
       "completion": "Paired sample and target contract, object-disjoint split, real manifest counts and provenance; unavailable targets remain unavailable."
     },
     "T": {
       "thread_id": "01a0bfa4-b891-78c0-8348-9e7d89235947",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": [], "integrated_commits": [], "files": [],
-      "state": "AWAITING_OWNER_HANDOFF",
+      "source_commits": ["950ed8716b2f64f2d9ac3f757467d5ed85b5f5c5"],
+      "integrated_commits": ["4333338382fc5f037c99b18c4683fc9caff29bb9"],
+      "files": ["configs/stereo/train_stage1_smoke_1gpu.json", "cupid/trainers/stereo_stage1.py", "cupid/trainers/stereo_stage1_logging.py", "cupid/trainers/stereo_stage1_objective.py", "scripts/train_stereo_stage1.py", "docs/stereo_cupid_v1/lanes/T_INTERFACE.md"],
+      "state": "ENGINE_INTEGRATED_EVAL_CONTRACT_REPAIR_PENDING",
       "completion": "Stage1 training entry with explicit loss and target semantics, initialization versus resume, optimizer step, checkpoint and heldout hook."
     },
     "L": {
       "thread_id": "01a0bfa4-b891-78c0-8348-9e91b7e84e4e",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": ["b5264958493a5b1d712b88b73a64b5838e4a9654"],
-      "integrated_commits": ["a854af0c28e690b498f22dad5f71724097e7f553"],
-      "files": ["cupid/stereo_observability/__init__.py", "cupid/stereo_observability/logger.py", "cupid/stereo_observability/metrics.py", "docs/stereo_cupid_v1/lanes/L_CALLBACK_CONTRACT.md"],
-      "state": "CALLBACK_INTEGRATED_TRAINER_BINDING_PENDING",
+      "source_commits": ["b5264958493a5b1d712b88b73a64b5838e4a9654", "a8f275d9ae2b638f457881a8a274480fc0f1a8d8"],
+      "integrated_commits": ["a854af0c28e690b498f22dad5f71724097e7f553", "a74df7c4b819155e89944b204d08bdbbf9f3efdf"],
+      "files": ["cupid/stereo_observability/__init__.py", "cupid/stereo_observability/logger.py", "cupid/stereo_observability/metrics.py", "cupid/stereo_observability/integration.py", "cupid/stereo_observability/readback.py", "scripts/stereo_evaluate.py", "scripts/stereo_evaluate_fixture.py", "docs/stereo_cupid_v1/lanes/L_CALLBACK_CONTRACT.md", "docs/stereo_cupid_v1/lanes/L_CHECK_COMMANDS.md"],
+      "state": "CALLBACK_EVAL_READBACK_INTEGRATED_EVAL_CONTRACT_REPAIR_PENDING",
       "completion": "Training and heldout losses, pose and scale statuses, denominators, checkpoint/eval events, local receipt and server readback."
     },
     "R": {
       "thread_id": "01a0bfa4-b8ec-7bc3-ac05-ae1d58238a11",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": ["e867ff20a5f1f710a7b746b12bbffc951d5bb03c"],
-      "integrated_commits": ["23b2ad0ed9bb109bae7a632d48481a9cf3cae9f7"],
-      "files": ["scripts/stereo_runtime_assets.py", "scripts/stereo_runtime_sync.sh", "scripts/stereo_runtime_job.sh", "scripts/stereo_runtime_submit.sh", "scripts/cupid_local_asset_transfer.py", "docs/stereo_cupid_v1/lanes/R_runtime/HANDOFF_R.md", "docs/stereo_cupid_v1/lanes/R_runtime/R_official_manifest.json"],
+      "source_commits": ["e867ff20a5f1f710a7b746b12bbffc951d5bb03c", "71967eba6a8c8719da39310ea38a4faaf6b499d7", "9248378cf45ed72cd1d4b817700ebc65c439a01a"],
+      "integrated_commits": ["23b2ad0ed9bb109bae7a632d48481a9cf3cae9f7", "b90482e448ceb721570aceca972b0214c0fce877", "6fa9dd8096ffe9977ceab6b72b1a3250184f6898"],
+      "files": ["scripts/stereo_runtime_assets.py", "scripts/stereo_runtime_asset_audit.py", "scripts/stereo_runtime_sync.sh", "scripts/stereo_runtime_job.sh", "scripts/stereo_runtime_submit.sh", "scripts/cupid_local_asset_transfer.py", "docs/stereo_cupid_v1/lanes/R_runtime/HANDOFF_R.md", "docs/stereo_cupid_v1/lanes/R_runtime/R_official_manifest.json"],
       "state": "ASSEMBLY_PILOT_INTEGRATED_SSH_EXECUTION_PENDING",
       "completion": "Fresh exact checkout and output root, duplicate audit, complete asset verification, bounded execution, terminal and immutable artifacts."
     }
