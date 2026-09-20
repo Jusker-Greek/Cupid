@@ -1,0 +1,8 @@
+OFFICIAL_RELEASE=1191de37cc33b60273a631d4e07fbbe7cee798c1 FILES=25 BYTES=7268259545
+VERIFIED .gitattributes 1519
+VERIFIED_REUSED README.md 105
+VERIFIED_REUSED ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16.json 843
+VERIFIED ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16.safetensors 171450952
+VERIFIED_REUSED ckpts/slat_dec_mesh_swin8_B_64l8m256c_fp16.json 372
+305505 RUNNING server14 server14
+305510 PENDING  (Dependency)

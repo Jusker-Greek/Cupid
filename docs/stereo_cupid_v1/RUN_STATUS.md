@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**16:23实际验证：305505的首个完整权重 `slat_dec_gs_swin8_B_64l8gs32_fp16.safetensors`（171450952字节）已通过官方SHA校验，继续下载下一文件。** 证明新Range实现完成了真实分块传输、拼接与全文件校验；其余权重仍未齐备，305510仍PENDING Dependency。脱敏记录：`audit_20260920/download_305505_verified_snapshot.txt`。
+
 **16:20恢复更新：CPU下载305505 RUNNING server14；单卡305510已提交，依赖afterok:305505。** 旧305474因SSH转发超时、Xet长时间无进展而取消（29m58s）；旧305481取消，0秒无节点，未执行模型。新代码 `94c4d0550e077977ec650f15c972b5b9ef8ce891` / tree `bc02ca8ebe94a796fd3bb39127b24008a5347a1f` 已通过GitHub→集群同步，checkout `/public/home/ricky/CODE/stereo_cupid_94c4d05_a15`。改用4MiB HTTP Range、Content-Range/字节数检查、每块落盘并记录摘要、完整文件官方SHA校验。新权重根 `/public/home/ricky/CHECKPOINT/Cupid_official_1191de37_a7`，只读复用已停止a6中校验通过的文件；原数据保留。临时转发exec session **27758**，server14 `127.0.0.1:49689` → 本机既有 `127.0.0.1:7890`；旧7388/55431连接已结束。新单卡输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_94C4D05_A3`。当前仅分块下载已实际验证，尚未完成全部权重校验或模型smoke。
 
 **16:00更正与数据/日志核查：用户明确限制的是“不得在登录节点下载大型资产”，不是全面禁止大型资产。允许在Slurm计算节点下载所需官方资产；不再设置额外下载确认。** 本次下载确实在server14的Slurm作业内。训练数据与W&B核查见 `audit_20260920/DATASETS_AND_LOGGING.md`：Stereo主训练候选为GSO_1K_200（实查903个顶层对象目录，非1025个已完成对象）；当前smoke仍用Panda125对小集。原CUPID训练默认HSSD，有W&B和TensorBoard训练loss记录；当前Stereo推理入口没有接入W&B，Stereo训练loss、val/test loss、pose error曲线尚未实现，不能标完成。
