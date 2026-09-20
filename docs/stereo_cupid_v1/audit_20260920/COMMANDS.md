@@ -198,3 +198,8 @@ scancel 306014 306009 后fresh sacct确认两者CANCELLED；5028退出255。没�
 
 上传阻塞仍为SSH：00:22再次Connection closed by10.10.7.1 port22。没有远端shell，无法核查先前上传是否留下job/incoming；不盲重提交、不安装、不改SSH/VPN/路由。用户校园网/VPN状态问题待答；下一轮先恢复只读SSH并审计上传job与目标，随后只上传已有校验文件，禁止重新下载完整权重。上传后在Slurm新根合并a12和local_upload_a1，补小JSON并全25文件官方SHA/pipeline引用校验，再新1GPU。当前没有任何Stereo模型运行/训练结果，最高S02，S03 DEBUGGING。
 
+
+## 新授权并行训练补缺
+**2026-09-21新增授权：五个独立任务已开始并行补齐训练缺口。** D数据、T训练器、L日志评估、R集群上传/唯一GPU运行、I集成晨报，真实thread/worktree/branch见CAMPAIGN_TASKS.json；工作顺序与自动修复交接见CONTINUOUS_EXECUTION.md。目标2026-09-21 08:00晨间可核验产物。用户已明确要求阶段完成自动推进、失败修复重试，旧“单卡后暂停等审核”仅历史状态，不再是本轮自动停止点。V1冻结推理基线保留，训练候选另立STEREO_CUPID_STAGE1_TRAIN_V1；没有继承已训练结果。用户目标选择仍可覆盖，暂按官方Stage1监督微调候选实现验证，真实GT/target/样本/steps配置必须落地，不能用toy或HSSD冒充。R独占本campaign GPU提交（先1卡smoke、再2卡DDP、正式优先1卡）；控制器不同时提交。
+
+创建5个Codex独立project worktree对话，均收到已启动回执；公共D/T/L接口提案转发，R已知I task ID。authority live ls-remote=d88b19e0414aaf482b21f5630b64df604dc2c57a，未修改SSH/VPN，不新增GPU job。
