@@ -84,6 +84,8 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 
 ## 官方权重下载授权后的脱敏命令记录（2026-09-20 15:52 CST）
 
+15:56追加：a14同步2fa36a1180c3f57480c6597c4bcf2df044a4059c通过，bundle SHA256 `090360dc8cbb59e730300cd53bf56fd132f11b0efb5dcc2400649b43f931ab9c`、66452字节。`sbatch --parsable --dependency=afterok:305474 --kill-on-invalid-dep=yes /public/home/ricky/CODE/stereo_cupid_2fa36a1_a14/scripts/submit_stereo_cupid_pilot.sh` 返回305481；readback PENDING Dependency，无节点。环境指向Panda/random_linear_0、a6官方权重、既有DINO、显式scene_unit相对标定，CUPID_FULL_MESH=1，fresh输出STEREO_CUPID_PILOT_2FA36A1_A2。将队列状态与模型执行严格分开。
+
 - 官方API `https://huggingface.co/api/models/hbb1/Cupid/revision/1191de37cc33b60273a631d4e07fbbe7cee798c1?blobs=true`：25文件，7268259545字节。只回收元数据，权重写集群。
 - `sbatch --parsable scripts/submit_cupid_weights.sh`：305442(依赖缺失)、305444(TLS)、305453(TLS/直连)、305462(临时代理连接)失败；305465长流发生ChunkedEncodingError，替代客户端启动后scancel取消；305474使用现有HF/Xet，RUNNING server14。每次使用独立输出根，不删旧证据。
 - `ssh -N -T -J ricky@10.10.7.1 -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=/tmp/stereo_cupid_hostkeys.Fzi11a -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -R 127.0.0.1:49688:127.0.0.1:7890 ricky@server14`：在Slurm确认节点后建立临时前台转发。主机密钥取自登录节点既有known_hosts；没有禁用TLS/SSH验证。

@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**15:56 CST最新：单卡作业305481已提交，PENDING(Dependency)，`afterok:305474`且失败依赖自动取消。** 1GPU/30min，完整Stage1+左Stage2 mesh；源码 `2fa36a1180c3f57480c6597c4bcf2df044a4059c` / tree `258e1deabfb6299d335b68887a4f7260377b0a3e`，已同步checkout `/public/home/ricky/CODE/stereo_cupid_2fa36a1_a14`；新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_2FA36A1_A2`。当前305474仍下载中，305481没有节点、没有模型执行。heartbeat已更新为跟踪这两个作业，不重复提交。之后的纯文档提交不改变这两个作业绑定的运行源码。
+
 ## 2026-09-20 15:52 CST 更新：官方权重下载中
 
 用户已明确授权下载官方权重，无需再次确认。最高完成仍为 S02，当前 S03/DEBUGGING；真实模型尚未执行。
