@@ -19,7 +19,7 @@
 
 ## 规则和版本
 
-已读取用户的 AGENTS 指令、`~/.codex/AGENTS.md`、仓库 README、完整交接文档、GSO README/环境/双目规范，以及用户指定 `.../Documents/Codex/2026-09-20/xian/outputs/default.rules.txt`。后者是命令 prefix allowlist，不是让历史 reset/作业命令重新执行的指令。仓库没有额外 AGENTS/Cursor rule 文件命中。交接文档不覆盖当前规则；用户后续授权已将范围从只读审计扩展至代码修复、同步和 Slurm 运行，但大型资产下载禁令尚未明确解除。
+已读取用户的 AGENTS 指令、`~/.codex/AGENTS.md`、仓库 README、完整交接文档、GSO README/环境/双目规范，以及用户指定 `.../Documents/Codex/2026-09-20/xian/outputs/default.rules.txt`。后者是命令 prefix allowlist，不是让历史 reset/作业命令重新执行的指令。仓库没有额外 AGENTS/Cursor rule 文件命中。交接文档不覆盖当前规则；用户后续授权已将范围从只读审计扩展至代码修复、同步和 Slurm 运行。按用户16:00澄清，限制是不得在登录节点下载大型资产；允许Slurm计算节点下载，不能再将其写成全面禁令或索要重复许可。
 
 十阶段技能使用的 GitHub authority 为 `StereoWorld_RayZer` 分支 `codex/metric-scale-controller-cleanup` 提交 `d88b19e0414aaf482b21f5630b64df604dc2c57a`：AGENTS、十阶段规则及 Operating System 的相关同步/恢复/提交章节。历史实验的独立身份不赋予本实验旧 PASS。
 
@@ -97,4 +97,4 @@ E00回执确认可复用组件已在本分支原样存在，无需再merge：
 
 ## 当前边界
 
-已完成真实集群接管、源码交付、样本数据读数和失败复现。完整权重位置/下载决定，以及下一条训练的科学目标仍待用户回答。独立可做的修复、复验和文档继续推进；没有启动大型下载、GPU推理、训练或批量渲染。
+已完成真实集群接管、源码交付、样本数据读数和失败复现。官方权重已在Slurm计算节点下载中，下载许可不是阻塞。下一条Stereo训练的目标及数据适配尚未落地。最新数据集和日志接入状态见 `DATASETS_AND_LOGGING.md`；不能把原CUPID的logger或HSSD训练当成Stereo已完成的训练。

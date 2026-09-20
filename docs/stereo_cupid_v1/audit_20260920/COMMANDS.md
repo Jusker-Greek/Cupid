@@ -93,3 +93,9 @@ CPU计算只发生在Slurm执行脚本内。本地仅编辑、Git、metadata读�
 - `bash scripts/sync_verified_git_bundle.sh ... --expected bc458f27e14cf6fc999506846d2fb386cbb95bec ...`：a13核验通过；bundle SHA256 `05083a258e39e159ef9cc9bc740055bb8f5a0d6b81d663b9ce0060af65fd70b9`，62213字节。完整参数语义与此前同步记录相同，使用新目标root。
 - 远端日志读取仅保留状态、文件名、字节数、错误类别；Xet诊断先去除URL和认证字段，不打印凭据或签名URL。未执行本地测试、未安装依赖、未修改远端源码。
 - 本任务heartbeat `stereo-cupid` 已创建，5分钟间隔，持续检查下载并推进单卡推理；无变化静默，完成授权范围后暂停。
+
+## 16:00 数据集与logger核查
+
+通过已有SSH读取DATASET顶层目录；对表中9个GSO根仅执行 `find <root> -mindepth 1 -maxdepth 1 -type d | wc -l`，对两组已定位对象/轨迹有限列举PNG/NPY/HDF5并读取trajectory_info.json。GSO_1K_200注册表1026行含表头，status=planned；损坏清单 `awk 'END {print NR}'` 为4，末行无换行。没有将目录数换算为完整pair数量。
+
+直接读取HSSD已知metadata开头2200字节、stat一个transforms.json和对应latent；ObjaverseXL仅stat两份metadata。未全量解析CSV、未在登录节点加载图像/NPY/权重。对四个本地/远端源码使用 `git rev-parse HEAD:<path>` 核验blob一致。详情与实际路径见DATASETS_AND_LOGGING.md。

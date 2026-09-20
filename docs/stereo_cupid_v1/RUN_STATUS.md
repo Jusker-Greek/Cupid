@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**16:00更正与数据/日志核查：用户明确限制的是“不得在登录节点下载大型资产”，不是全面禁止大型资产。允许在Slurm计算节点下载所需官方资产；不再设置额外下载确认。** 本次下载确实在server14的Slurm作业内。训练数据与W&B核查见 `audit_20260920/DATASETS_AND_LOGGING.md`：Stereo主训练候选为GSO_1K_200（实查903个顶层对象目录，非1025个已完成对象）；当前smoke仍用Panda125对小集。原CUPID训练默认HSSD，有W&B和TensorBoard训练loss记录；当前Stereo推理入口没有接入W&B，Stereo训练loss、val/test loss、pose error曲线尚未实现，不能标完成。
+
 **15:56 CST最新：单卡作业305481已提交，PENDING(Dependency)，`afterok:305474`且失败依赖自动取消。** 1GPU/30min，完整Stage1+左Stage2 mesh；源码 `2fa36a1180c3f57480c6597c4bcf2df044a4059c` / tree `258e1deabfb6299d335b68887a4f7260377b0a3e`，已同步checkout `/public/home/ricky/CODE/stereo_cupid_2fa36a1_a14`；新输出 `/public/home/ricky/RESULTS/STEREO_CUPID_PILOT_2FA36A1_A2`。当前305474仍下载中，305481没有节点、没有模型执行。heartbeat已更新为跟踪这两个作业，不重复提交。之后的纯文档提交不改变这两个作业绑定的运行源码。
 
 ## 2026-09-20 15:52 CST 更新：官方权重下载中
@@ -28,7 +30,7 @@
 - CPU304070：样本读取成功，8测试通过/2个rembg导入错误，FAILED1:0。
 - 修复延迟导入后CPU304071：server14，COMPLETED0:0，11项通过。
 - 原始OBJ、renderer、小集路径已找到；Panda小集1对象5轨迹125对，首对含RGBA/深度。数据与代码漏洞详见审计报告。
-- 单卡真实模型smoke尚未提交：完整hbb1/Cupid pipeline路径未知；已询问已有位置或约7.27GB下载授权（此前禁止大型下载）。
+- 历史记录：当时完整hbb1/Cupid pipeline路径未知，曾询问约7.27GB下载授权；将限制写成全面禁止大型下载不准确，已按用户澄清更正为禁止在登录节点下载。
 - Stereo训练目标待用户选择。现有V1是预训练推理，没有新optimizer/loss；不能将原HSSD训练或CPU测试当Stereo训练证据。
 - 原HSSD296164已PREEMPTED，日志到42000/1000000；不重提其它任务训练。
 
