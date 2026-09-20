@@ -60,3 +60,11 @@ GEOMETRY_INDEX每行：pair_id、receipt（相对路径）、receipt_sha256。�
 已核官方语义：SparseUVStructure先对64³中心project_cv，原始UV算全图ssuv，clamp UV后再仿射crop/clamp；bool const_ssuv=true保留全图ssuv。仅字符串'crop'重新算support。D保持该顺序，不能用crop K重投影替换。images先真实整数PIL crop，再RGBA LANCZOS resize518，最后RGB*alpha黑底。此语义已经控制器转达T确认。
 
 CPU回归入口`scripts/stereo_data_contract_tests.py`使用临时合成fixture，覆盖数字帧配对、重复别名、缺文件、反射保留、1e10背景、HDF5/PNG一致性、split稳定和路径限制。仅Slurm运行，测试fixture不是训练target或科学结果。
+
+## 官方occupancy链（已查源码，未运行）
+
+官方TRELLIS固定提交`442aa1e1afb9014e80681d3bf604e8d728a86ee7`的[voxelize.py](https://github.com/microsoft/TRELLIS/blob/442aa1e1afb9014e80681d3bf604e8d728a86ee7/dataset_toolkits/voxelize.py)使用canonical mesh三角面生成64³表面占用，而非depth点填充；[encode_ss_latent.py](https://github.com/microsoft/TRELLIS/blob/442aa1e1afb9014e80681d3bf604e8d728a86ee7/dataset_toolkits/encode_ss_latent.py)使用posterior mean。
+
+新增 `scripts/stereo_data_occupancy.py`只调用现有官方`_voxelize`，运行前校验源Git blob `390575ab9e26e73b467151dadc8252eae3c96424`；不重新发明voxelize算法。需要真实canonical mesh PLY和映射证据receipt，先校验hash/三角面/单位cube边界。输出occupancy.npy和SHA/provenance/失败receipt，供geometry receipt引用。只在新输出根建输入mesh symlink，不修改原始资产。CPU Slurm执行。
+
+本地现有参考路径`CUPID+Hi3DGen/TRELLIS/dataset_toolkits/voxelize.py`可读，但未对本地文件做运行/哈希，也未假定远端有同一文件。R需定位既有远端官方checkout，或按GitHub→新checkout同步固定源码；不得直接复制源码树。canonical mesh与历史相机链仍未闭合，该入口不凭空生成它们。

@@ -53,3 +53,7 @@ python scripts/stereo_data_geometry_inventory.py --manifest "$D_DATA_OUTPUT/inve
 
 - 当前不确定：GSO各版本canonical坐标与反射来源；数值归一化吻合只能支持假设，不能单独证明历史生成矩阵。
 - 可能盲点：同名对象split+像素hash能发现明确泄漏，不能排除重命名资产或不同渲染的同一资产；需要asset hash分组复核。
+
+## 后续独立实现：官方occupancy适配
+
+`stereo_data_occupancy.py`已提供CPU入口：传现有官方voxelizer、真实canonical mesh及其映射证据receipt，校验官方source blob后调用其_voxelize，产occupancy.npy及receipt。精确源码与接口见D_SCHEMA末段。不是从depth生成替代目标；真实canonical mapping仍需采集验证。
