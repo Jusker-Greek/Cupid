@@ -16,7 +16,7 @@
   "pretrained_init": {
     "path": "BIND_VERIFIED_MODEL_ROOT/ckpts/suv_flow_img_dit_L_16l8_fp16",
     "sha256": "e3d0b50ffbb70295b5f6528180d0671d0d71bcf55a19e8c51e0fd19229aab459",
-    "config_sha256": "BIND_OFFICIAL_CONFIG_SHA256",
+    "config_sha256": "a23549e84cf08cdf63e55c62ec1be33b613a1c4c974d9c476e0295907259ba75",
     "official_revision": "1191de37cc33b60273a631d4e07fbbe7cee798c1"
   },
   "dino": {
@@ -25,11 +25,29 @@
     "checkpoint": "/public/home/ricky/.cache/torch/hub/checkpoints/dinov2_vitl14_reg4_pretrain.pth",
     "sha256": "BIND_VERIFIED_DINO_SHA256"
   },
-  "data_factory": "BIND_D_TARGET_FACTORY",
-  "data": {"manifest": "BIND_VERIFIED_PAIR_MANIFEST", "target_index": "BIND_VERIFIED_TARGET_INDEX"},
-  "target_encoders": {},
+  "data_factory": "cupid.datasets.stereo_gso:build_stage1_datasets",
+  "data": {
+    "manifest": "BIND_VERIFIED_PAIR_MANIFEST",
+    "root": "/public/home/ricky/DATASET/GSO_1K_200",
+    "target_index": "BIND_VERIFIED_TARGET_INDEX",
+    "target_root": "BIND_VERIFIED_TARGET_ROOT",
+    "target_kind": "dense"
+  },
+  "target_encoders": {
+    "ss": {
+      "path": "BIND_VERIFIED_MODEL_ROOT/ckpts/ss_enc_conv3d_16l8_fp16",
+      "sha256": "107874eeaa0feb82f51b19db5da7db534fb7e7f19e5a122b9ff1bc2e258bfc6d",
+      "config_sha256": "12efe92a0d7dcd790f251acb94a6950957ea4398268e2838ef7319c3f20b071e"
+    },
+    "uv": {
+      "path": "BIND_VERIFIED_MODEL_ROOT/ckpts/uv_vae_conv3d_16l8_fp16_encoder",
+      "sha256": "a24d59f1e93451e19fb9a9118311452793cb7e5dec68c5fe69c7ec8ed926d41d",
+      "config_sha256": "397f7788cd1d28b19a151c7e0a9357356d987155be1464c8dd6d159a954d3b31"
+    }
+  },
   "objective": {"name": "supervised_suv_fm", "args": {"sigma_min": 0.00001, "t_mean": 1.0, "t_std": 1.0, "p_uncond": 0.1}},
   "logger_factory": "cupid.trainers.stereo_stage1_logging:stage1_logger_factory",
   "logging": {"tensorboard": true, "wandb_mode": "offline", "wandb_project": "stereo-cupid-stage1"},
-  "eval_factory": null
+  "eval_factory": "cupid.stereo_observability.integration:eval_factory",
+  "prediction_factory": null
 }

@@ -1,0 +1,11 @@
+{
+  "extends": "train_stage1_smoke_1gpu.json",
+  "configuration_state": "CANDIDATE_REQUIRES_ASSET_AND_TARGET_BINDING",
+  "run_class": "FIRST_COMPLETE_DATA_PASS_CANDIDATE",
+  "expected_world_size": 2,
+  "pairs_per_rank": 1,
+  "budget": {"epochs": 1},
+  "eval_every": 100,
+  "save_every": 100,
+  "logging": {"tensorboard": true, "wandb_mode": "online", "wandb_project": "stereo-cupid-stage1"}
+}

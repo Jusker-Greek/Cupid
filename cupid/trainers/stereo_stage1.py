@@ -58,6 +58,17 @@ def restore_rng(state):
     torch.cuda.set_rng_state_all(state["cuda"])
 
 
+def model_digest(model):
+    """Byte-exact replica/update evidence, computed only at checkpoint boundaries."""
+    hasher = hashlib.sha256()
+    for name, value in sorted(model.state_dict().items()):
+        value = value.detach().contiguous().cpu()
+        hasher.update(name.encode())
+        hasher.update(str((tuple(value.shape), value.dtype)).encode())
+        hasher.update(value.reshape(-1).view(torch.uint8).numpy().tobytes())
+    return hasher.hexdigest()
+
+
 class ExactPairDataset(Dataset):
     """Deterministic map-style samples; zero-weight padding never drops pairs."""
     def __init__(self, source, seed, epoch):
@@ -82,7 +93,7 @@ class ExactPairDataset(Dataset):
             torch.set_rng_state(th_state)
         if "_pair_weight" in item:
             raise ValueError("Reserved engine key _pair_weight")
-        item["_pair_weight"] = float(weight)
+        item["_pair_weight"] = torch.tensor(float(weight), dtype=torch.float32)
         return item
 
 
@@ -143,7 +154,7 @@ class StereoStage1Trainer:
             raise ValueError("Batch size, eval/save intervals must be positive")
         self.dtype = {"fp16": torch.float16, "bf16": torch.bfloat16, "fp32": torch.float32}[config["precision"]]
         self.step, self.epoch, self.batch_index = 0, 0, 0
-        self.logger, self.eval_hook = None, None
+        self.logger, self.eval_hook, self.prediction_hook = None, None, None
         self.rank0(lambda: self.output.mkdir(parents=True, exist_ok=False))
         seed_all(config["seed"] + self.rank)
         pack = resolve(config["data_factory"])(config["data"])
@@ -199,6 +210,7 @@ class StereoStage1Trainer:
         self.rank0(self._init_hooks)
         if resume:
             self.load_checkpoint(resume)
+        self.initial_model_sha256 = model_digest(self.bare_model)
         if self.step >= self.max_steps:
             raise ValueError("Resume already meets budget; refuse empty replacement run")
         self.emit("start", {**self.contract, "world_size": self.world,
@@ -206,6 +218,7 @@ class StereoStage1Trainer:
             "steps_per_epoch": self.steps_per_epoch, "budget_updates": self.max_steps,
             "initialization_mode": "resume_optimizer" if resume else "pretrained_init",
             "resume_path": str(resume) if resume else None,
+            "initial_model_sha256": self.initial_model_sha256,
             "git_commit": self.git("rev-parse", "HEAD"), "git_tree": self.git("rev-parse", "HEAD^{tree}"),
             "job_id": os.environ["SLURM_JOB_ID"], "contract_sha256": self.contract_hash})
 
@@ -214,10 +227,10 @@ class StereoStage1Trainer:
         return subprocess.check_output(["git", *args], text=True).strip()
 
     def _init_hooks(self):
-        for field, attr in (("logger_factory", "logger"), ("eval_factory", "eval_hook")):
+        for field, attr in (("logger_factory", "logger"), ("eval_factory", "eval_hook"),
+                            ("prediction_factory", "prediction_hook")):
             if self.config.get(field):
-                setattr(self, attr, resolve(self.config[field])(
-                    config=self.config, output_dir=str(self.output), rank=0))
+                setattr(self, attr, resolve(self.config[field])(self.config, str(self.output), 0))
 
     def rank0(self, operation):
         result = [None]
@@ -239,7 +252,12 @@ class StereoStage1Trainer:
                 os.fsync(handle.fileno())
             if self.logger:
                 self.logger(event, self.step, payload)
-        self.rank0(write)
+        state = rng_state()
+        try:
+            self.rank0(write)
+        finally:
+            # Logging must not perturb stochastic training or resume equivalence.
+            restore_rng(state)
 
     def autocast(self):
         return torch.autocast("cuda", dtype=self.dtype, enabled=self.dtype != torch.float32)
@@ -281,22 +299,33 @@ class StereoStage1Trainer:
                                      "evaluated_pairs": int(count), "epoch": self.epoch})
             def evaluate():
                 if self.eval_hook:
-                    result = self.eval_hook(model=self.bare_model, step=self.step,
-                        context={"device": self.device, "config": self.config,
-                                 "data_identity": self.data_identity, "validation_dataset": self.val_data})
+                    context = {"device": self.device, "config": self.config,
+                               "data_identity": self.data_identity, "validation_dataset": self.val_data}
+                    with torch.no_grad(), self.autocast():
+                        if self.prediction_hook:
+                            context["samples"] = self.prediction_hook(model=self.bare_model,
+                                                                     step=self.step, context=context)
+                        result = self.eval_hook(model=self.bare_model, step=self.step, context=context)
                     # Hook outputs go through the same local durable event stream.
                     with open(self.output / "evaluation.jsonl", "a") as handle:
                         handle.write(json.dumps({"step": self.step, "result": result}, allow_nan=False) + "\n")
                         handle.flush()
                         os.fsync(handle.fileno())
                     if self.logger:
-                        self.logger("evaluation", self.step, result)
+                        if context.get("samples") is not None:
+                            self.logger("evaluation", self.step, {"split": "validation", "samples": context["samples"]})
+                        else:
+                            self.logger("evaluation_status", self.step, result)
             self.rank0(evaluate)
         finally:
             self.bare_model.train(was_training)
             restore_rng(state)
 
     def checkpoint(self):
+        hashes = [None] * self.world
+        dist.all_gather_object(hashes, model_digest(self.bare_model))
+        if len(set(hashes)) != 1:
+            raise ValueError("DDP model replicas differ at checkpoint boundary")
         states = [None] * self.world
         dist.all_gather_object(states, rng_state())
         path = self.output / f"step_{self.step:08d}.pt"
@@ -307,6 +336,7 @@ class StereoStage1Trainer:
                 "scheduler": self.scheduler.state_dict(), "scaler": self.scaler.state_dict(),
                 "step": self.step, "sampler": {"epoch": self.epoch, "batch_index": self.batch_index},
                 "rng_by_rank": states, "world_size": self.world,
+                "model_sha256_by_rank": hashes,
                 "contract": self.contract, "contract_sha256": self.contract_hash,
                 "git_commit": self.git("rev-parse", "HEAD"), "git_tree": self.git("rev-parse", "HEAD^{tree}")}
             temporary = Path(str(path) + ".partial")
@@ -320,6 +350,8 @@ class StereoStage1Trainer:
         self.rank0(save)
         dist.broadcast_object_list(file_hash, src=0)
         self.emit("checkpoint", {"path": str(path), "sha256": file_hash[0],
+                                 "model_sha256_by_rank": hashes,
+                                 "model_changed_since_init_or_resume": hashes[0] != self.initial_model_sha256,
                                  "epoch": self.epoch, "batch_index": self.batch_index})
         return path
 
@@ -331,6 +363,8 @@ class StereoStage1Trainer:
         if state["contract_sha256"] != self.contract_hash or state["world_size"] != self.world:
             raise ValueError("Resume requires exact scientific/data/budget/topology contract")
         self.bare_model.load_state_dict(state["model"], strict=True)
+        if model_digest(self.bare_model) != state["model_sha256_by_rank"][self.rank]:
+            raise ValueError("Checkpoint model content hash mismatch")
         self.optimizer.load_state_dict(state["optimizer"])
         self.scheduler.load_state_dict(state["scheduler"])
         self.scaler.load_state_dict(state["scaler"])
@@ -339,6 +373,36 @@ class StereoStage1Trainer:
         if self.step != self.epoch * self.steps_per_epoch + self.batch_index:
             raise ValueError("Checkpoint step/sampler cursor mismatch")
         restore_rng(state["rng_by_rank"][self.rank])
+
+    def update_batch(self, batch):
+        state = rng_state()
+        for numeric_attempt in range(16):
+            # An AMP overflow is not an optimizer update. Retry identical targets,
+            # noise, time and CFG mask with a lower numerical scale, on every rank.
+            restore_rng(state)
+            self.optimizer.zero_grad(set_to_none=True)
+            with self.autocast():
+                terms = self.objective(self.model, batch, training=True)
+            weights = batch["_pair_weight"]
+            metrics, denominator = self.reduce_terms(terms, weights)
+            loss = (terms["loss_total"] * weights).sum() * self.world / denominator
+            self.scaler.scale(loss).backward()
+            self.scaler.unscale_(self.optimizer)
+            norm = torch.nn.utils.clip_grad_norm_(self.bare_model.parameters(), self.config["grad_clip"])
+            finite = torch.isfinite(norm).to(torch.int32)
+            dist.all_reduce(finite, op=dist.ReduceOp.MIN)
+            if finite.item():
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+                return metrics, denominator, norm
+            if not self.scaler.is_enabled():
+                raise FloatingPointError("Nonfinite unscaled gradient; no optimizer update performed")
+            old_scale = self.scaler.get_scale()
+            self.scaler.update(new_scale=old_scale / 2)
+            self.emit("amp_overflow", {"numeric_attempt": numeric_attempt + 1,
+                                      "old_scale": old_scale, "new_scale": old_scale / 2,
+                                      "optimizer_step_applied": False})
+        raise FloatingPointError("AMP scale recovery exhausted; no optimizer update performed")
 
     def run(self, stop_after_updates=None):
         self.model.train()
@@ -352,22 +416,9 @@ class StereoStage1Trainer:
                 self.epoch += 1
                 self.batch_index = 0
             for raw in self.loader(self.train_data, self.epoch, self.batch_index):
-                self.optimizer.zero_grad(set_to_none=True)
                 with self.autocast():
                     batch = self.adapter(raw, self.device)
-                    terms = self.objective(self.model, batch, training=True)
-                weights = batch["_pair_weight"]
-                metrics, denominator = self.reduce_terms(terms, weights)
-                loss = (terms["loss_total"] * weights).sum() * self.world / denominator
-                self.scaler.scale(loss).backward()
-                self.scaler.unscale_(self.optimizer)
-                norm = torch.nn.utils.clip_grad_norm_(self.bare_model.parameters(), self.config["grad_clip"])
-                finite = torch.isfinite(norm).to(torch.int32)
-                dist.all_reduce(finite, op=dist.ReduceOp.MIN)
-                if not finite.item():
-                    raise FloatingPointError("Nonfinite gradient: optimizer update was not performed")
-                self.scaler.step(self.optimizer)
-                self.scaler.update()
+                metrics, denominator, norm = self.update_batch(batch)
                 self.scheduler.step()
                 self.step += 1
                 self.batch_index += 1

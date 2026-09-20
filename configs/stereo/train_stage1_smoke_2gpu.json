@@ -1,0 +1,7 @@
+{
+  "extends": "train_stage1_smoke_1gpu.json",
+  "expected_world_size": 2,
+  "pairs_per_rank": 1,
+  "budget": {"updates": 20},
+  "run_class": "SMOKE_DEBUG_DDP"
+}
