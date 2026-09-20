@@ -4,7 +4,7 @@ set -euo pipefail
 : "${CUPID_PROJECT_DIR:?}"
 : "${CUPID_EXPECTED_COMMIT:?}"
 : "${CUPID_EXPECTED_TREE:?}"
-: "${CUPID_RUNTIME_MODE:?contract, asset-audit, assemble or pilot}"
+: "${CUPID_RUNTIME_MODE:?Runtime mode required}"
 : "${CUPID_RUNTIME_EVIDENCE:?New absolute evidence root}"
 [[ "$CUPID_RUNTIME_EVIDENCE" =~ ^/public/home/ricky/RESULTS/[A-Za-z0-9_-]+$ ]]
 [[ "$(id -un)" == ricky && -d /public/home/ricky ]]
@@ -39,6 +39,8 @@ case "$CUPID_RUNTIME_MODE" in
     asset-audit) args+=(--partition=cpu --cpus-per-task=2 --mem=4G --job-name=stereo_cupid_asset_audit) ;;
     assemble) args+=(--partition=cpu --cpus-per-task=2 --mem=4G --job-name=stereo_cupid_assemble) ;;
     pilot) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:1 --job-name=stereo_cupid_pilot) ;;
+    train-smoke) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:1 --job-name=stereo_cupid_train_smoke) ;;
+    train-ddp) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:2 --job-name=stereo_cupid_train_ddp) ;;
     *) echo 'Unsupported mode' >&2; exit 2 ;;
 esac
 job=$("$slurm/sbatch" "${args[@]}" scripts/stereo_runtime_job.sh)
