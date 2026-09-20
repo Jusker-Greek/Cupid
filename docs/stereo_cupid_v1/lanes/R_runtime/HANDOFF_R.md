@@ -105,6 +105,13 @@ Subsequent additions: `CUPID_RUNTIME_MODE=contract` executes I's integrated
 `CUPID_REQUIRE_T=1`) and shell syntax checks; it needs neither weights nor
 model/data runtime. `CUPID_RUNTIME_MODE=asset-audit` executes the read-only
 asset audit for `CUPID_ASSET_SOURCE_A/B`. Both use CPU/2 cores/4GB/30min.
+Controller's 00:39 follow-up narrows `contract` to 1CPU/1GB/5min and adds
+the D raw-pair audit with fixed config `configs/stereo/data_gso_stage1_v1.json`,
+`--verify-content --hash-assets --max-pairs 1`. If I has integrated L's
+fixture, set `CUPID_EVAL_FIXTURE=1` to run `scripts/stereo_evaluate_fixture.py`
+in that same allocation. The job's exit is not a raw-data PASS: inspect
+`raw_pair_audit/summary.json` counts/content errors, since D records invalid
+candidates without necessarily terminating the scanner with nonzero exit.
 These modes allow source/upload diagnosis before complete weights exist.
 T owns the actual training entry/config/env contract; I reviews and binds it,
 then R adds training launch modes. No other worker submits campaign GPU jobs.
