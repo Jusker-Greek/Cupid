@@ -79,5 +79,20 @@ I应cherry-pick两个T提交及本文件所在跟进提交，不应重复应用�
 当前没有运行job/checkpoint/loss/W&B server记录。阶段只能报告实现/静态审查，S03–S10未验证。
 当前阻塞不影响继续代码/接口检查，但没有真实targets就不能启动有效监督训练。
 
+## 后续日志/迭代器修复
+
+T追加修复先建立L durable callback，再初始化W&B；仅明确通信异常继续本地logging，
+记录异常类型与UNVERIFIED，不持久化异常文本。配置/依赖/编程错误继续失败。
+finish无论成功/通信失败/编程异常，writer.close均在finally执行。
+tracking_receipt包含entity/project/id/mode，init/finish状态不等于服务端PASS。
+缺pose输出对L METRICS全部逐项记录UNVERIFIED，含pose_scale与scale误差。
+prediction provider只调用一次，返回iterator在no_grad内单次list物化；None与空manifest明确缺失，
+L eval结果仅保存receipt，原raw list交logger。D最新25a51bc依赖已合并，identity只说
+target_index_validated与content_validation=ON_ACCESS；不能据工厂构造推断全部内容已验证。
+
+CPU fixture增至9项（仍未本地执行）：新增通信init失败保全日志、非通信错误不吞、
+finish总关闭writer、全部pose缺失项、generator两样本含一失败仍保留num_expected=2/coverage=.5。
+下一命令仍为Slurm内`python -m cupid.trainers.stereo_stage1_contract_tests`，结果交R/I核验。
+
 反思：最不确定的是canonical target物理含义与GPU内存/数值稳定性；最容易误解的是
 监督loss下降或共享SS自动证明双UV对应、泛化或米制尺度。三者都需要独立真实评估。

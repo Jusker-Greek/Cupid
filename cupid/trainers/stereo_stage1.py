@@ -31,6 +31,11 @@ def resolve(name):
     return getattr(importlib.import_module(module), attribute)
 
 
+def materialize_prediction_samples(samples):
+    """A provider may return None, a list, or a one-shot iterator."""
+    return None if samples is None else list(samples)
+
+
 def digest(path):
     hasher = hashlib.sha256()
     with open(path, "rb") as handle:
@@ -303,9 +308,16 @@ class StereoStage1Trainer:
                                "data_identity": self.data_identity, "validation_dataset": self.val_data}
                     with torch.no_grad(), self.autocast():
                         if self.prediction_hook:
-                            context["samples"] = self.prediction_hook(model=self.bare_model,
-                                                                     step=self.step, context=context)
+                            samples = materialize_prediction_samples(self.prediction_hook(
+                                model=self.bare_model, step=self.step, context=context))
+                            if samples:
+                                context["samples"] = samples
+                            elif samples is not None:
+                                context["prediction_availability"] = "empty_manifest"
                         result = self.eval_hook(model=self.bare_model, step=self.step, context=context)
+                        if context.get("prediction_availability") == "empty_manifest":
+                            result = {"status": "UNVERIFIED", "metrics_status": "UNVERIFIED",
+                                      "reason": "empty_prediction_manifest_for_nonempty_validation"}
                     # Hook outputs go through the same local durable event stream.
                     with open(self.output / "evaluation.jsonl", "a") as handle:
                         handle.write(json.dumps({"step": self.step, "result": result}, allow_nan=False) + "\n")
