@@ -191,6 +191,17 @@ class StereoStage1Trainer:
         flow.float()
         flow.dtype = self.dtype
         self.bare_model = SharedStereoFlow(flow)
+        trainable = [name for name, parameter in self.bare_model.named_parameters()
+                     if parameter.requires_grad]
+        frozen = [name for name, parameter in self.bare_model.named_parameters()
+                  if not parameter.requires_grad]
+        expected_groups = config.get("trainable_parameter_groups", ["suv_flow"])
+        if expected_groups != ["suv_flow"] or not trainable or frozen:
+            raise ValueError("Stage1 must train every SUV flow parameter and no frozen flow subset")
+        self.parameter_contract = {"trainable_group": "suv_flow", "trainable_count": len(trainable),
+                                   "frozen_flow_count": len(frozen), "dino": "frozen",
+                                   "target_encoders": "frozen", "decoders": "not_loaded",
+                                   "stage2": "not_loaded"}
         self.model = DistributedDataParallel(self.bare_model, device_ids=[self.device.index],
                                              broadcast_buffers=False, find_unused_parameters=False)
         decay, no_decay = [], []
@@ -224,6 +235,7 @@ class StereoStage1Trainer:
             "initialization_mode": "resume_optimizer" if resume else "pretrained_init",
             "resume_path": str(resume) if resume else None,
             "initial_model_sha256": self.initial_model_sha256,
+            "parameter_contract": self.parameter_contract,
             "git_commit": self.git("rev-parse", "HEAD"), "git_tree": self.git("rev-parse", "HEAD^{tree}"),
             "job_id": os.environ["SLURM_JOB_ID"], "contract_sha256": self.contract_hash})
 
