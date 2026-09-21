@@ -3,6 +3,7 @@
   "configuration_state": "CANDIDATE_REQUIRES_ASSET_AND_TARGET_BINDING",
   "run_class": "SMOKE_DEBUG",
   "scientific_status": "SUPERVISED_CANDIDATE_NOT_GEOMETRIC_SSL",
+  "trainable_parameter_groups": ["suv_flow"],
   "expected_world_size": 1,
   "pairs_per_rank": 1,
   "precision": "fp16",

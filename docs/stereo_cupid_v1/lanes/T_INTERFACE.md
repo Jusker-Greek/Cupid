@@ -18,6 +18,9 @@ UV target/noise 和条件各自独立。官方 `v=(1-sigma_min)*noise-x0`，
 默认冻结 DINO、SS/UV encoder；decoder/Stage2未加入optimizer。训练只加载所需flow和编码器，
 不修改官方资产，严格state_dict匹配；不从occupancy-only flow或旧HSSD checkpoint冒充初始化。
 AdamW全部flow参数，bias/一维norm无weight decay，lr=1e-5，固定LR、clip=1，FP32主参数+AMP。
+参数契约固定为唯一可训练组`["suv_flow"]`：flow全部参数`requires_grad=True`；DINO、SS/UV
+target encoder冻结；decoder和Stage2不加载。启动事件记录可训练参数计数与冻结边界，若配置或
+实际参数组不匹配则在首个optimizer step前失败。
 这是新微调候选，不声称精确复现官方训练（无EMA、无AdaptiveGradClipper）。
 
 ## 公共工厂
