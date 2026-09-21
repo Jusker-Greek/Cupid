@@ -49,6 +49,20 @@
 
 旧 `HSSD` 作业 `296164` 的 `PREEMPTED` 终态属于独立实验/复现身份，不得与当前 Stereo-CUPID 结果合并。`308657` 同样只报告为本轮调度失败和 partial 资产证据，不升级为科学结论。
 
+## 1GPU pilot / Stage1 训练入口边界
+
+R 可提交的唯一 1GPU pilot 属于 frozen `STEREO_CUPID_V1_SHARED_SS` 的 S03/S04 运行入口；它需要完整 25-file model root、fresh output/evidence root、精确 checkout SHA/tree、`result.json`/NPZ/mesh 和 I/L artifact receipts。即使运行完成，也只能先判工程 artifact consistency；`scientific_claim` 必须保持 `UNTESTED`。
+
+Stage1 `STEREO_CUPID_STAGE1_TRAIN_V1` 当前仍是训练候选入口，不能与 pilot 混写。`scripts/train_stereo_stage1.py` 在首步前强制要求 `configuration_state=BOUND_FOR_EXECUTION`，真实 `manifest/target_index/target_root`、DINO/模型 SHA、object-disjoint split、target hash、world size 和 budget 必须由 R/D 在计算节点 readback 后绑定。当前模板仍含 `BIND_*` 占位，因此不存在可直接执行的有效监督训练配置。
+
+提交前最小阻塞清单：
+
+1. R：fresh checkout 精确核对 commit/tree，25 文件模型 root 逐文件官方 SHA 与 pipeline 引用完整；
+2. D：canonical occupancy、renderer/camera proper-CV 链、crop/target provenance、split 和 target index/hash；
+3. T：将配置冻结为 `BOUND_FOR_EXECUTION`，记录 20-update budget、`["suv_flow"]` 唯一可训练组，并保留 10→20 optimizer resume 的新输出根；
+4. L/R：保存本地 durable events、evaluation、tracking receipt 与 W&B server readback；没有 raw prediction/GT 资格时 pose 字段继续 `UNVERIFIED`；
+5. I：核对 JobID、checkout、artifact identity 和首错，不能用队列状态、checkpoint 或 output path 代替终态证据。
+
 ## 下一步与回报字段
 
 R 恢复入口后，先用当前统一 commit/tree 建立 fresh checkout，读回活动作业、旧 incoming/final 和 `308657` 两份 partial 的真实路径与 SHA；然后执行 d01406b 后的唯一 CPU `data-contract` 包。返回报告必须包含：`JobID`、partition/node、checkout commit/tree、mode、evidence root、Slurm state/exit code、37 项实际分项状态、Panda summary、首个失败 predicate、原始日志路径和 artifact SHA。
