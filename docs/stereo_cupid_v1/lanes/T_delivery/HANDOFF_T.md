@@ -121,5 +121,14 @@ CPU fixture增至9项（仍未本地执行）：新增通信init失败保全日�
 finish总关闭writer、全部pose缺失项、generator两样本含一失败仍保留num_expected=2/coverage=.5。
 下一命令仍为Slurm内`python -m cupid.trainers.stereo_stage1_contract_tests`，结果交R/I核验。
 
+统一 exact 集成入口也可运行：
+
+```bash
+"$CUPID_PYTHON" scripts/stereo_integration_check.py \
+  --config configs/stereo/train_stage1_smoke_1gpu.json
+```
+
+该命令只做导入和候选配置契约检查，不读取权重/target，不代表 GPU 或科学结果。
+
 反思：最不确定的是canonical target物理含义与GPU内存/数值稳定性；最容易误解的是
 监督loss下降或共享SS自动证明双UV对应、泛化或米制尺度。三者都需要独立真实评估。
