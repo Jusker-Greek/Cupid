@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**最新：CPU Job 309002 已完成工程合同审计。** Unified `85d2f5fcf7842758fcc37c6f057e69f1970d2178/tree df2c4ddfd9f0bf95c03a22a326861ad06640802a`；`source_contract=PASS`，D9/L13/T9/I6 共37项通过。Panda：candidate/files_complete/content_verified=`125/125/121`，content_failed=`4`；`scientific_evidence=false`，`proper_rotation_pairs=0`。这推进工程状态到资产验证，不构成模型推理、训练或科学结果。
+
 **2026-09-21 00:22：本地六个剩余权重全部下载完成并通过官方SHA，共4168403480字节。** `local_transfer_receipt.json` 为LOCAL_SUBSET_VERIFIED_UPLOAD_PENDING；PID33142正常完成退出，transfer_a5_download.log含六个LOCAL_VERIFIED。集群a12另有五个已校验权重3099847620字节，两地合计11个权重7268251100字节。仍未形成集群25文件完整root，不能把分散权重齐备称集群模型可用。ClashX7890完成剩余5文件约3分钟，观察到本次路线明显快于旧CMY传输，但不推断唯一根因。
 
 上传阻塞仍为SSH：00:22再次Connection closed by10.10.7.1 port22。没有远端shell，无法核查先前上传是否留下job/incoming；不盲重提交、不安装、不改SSH/VPN/路由。用户校园网/VPN状态问题待答；下一轮先恢复只读SSH并审计上传job与目标，随后只上传已有校验文件，禁止重新下载完整权重。上传后在Slurm新根合并a12和local_upload_a1，补小JSON并全25文件官方SHA/pipeline引用校验，再新1GPU。当前没有任何Stereo模型运行/训练结果，最高S02，S03 DEBUGGING。

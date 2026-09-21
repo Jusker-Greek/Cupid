@@ -25,7 +25,7 @@ R后补source-evidence helper未纳入A4；不要从moving branch读取执行身
 ## 可直接用于晨报的当前表述
 
 已完成D/T/L/R独立源码整合与已报告接口缺陷的静态修复审阅。
-计划CPU检查为D9、L13、T9、I6，共37项；本稿尚未收到任何本次检查通过证据。
+CPU Job 309002 已真实通过 source contract；D9、L13、T9、I6 共37项通过。Panda candidate/files_complete/content_verified=`125/125/121`、content_failed=`4`；`scientific_evidence=false`、`proper_rotation_pairs=0`。这些是工程/资产证据，不是模型或科学结果。
 此前R报告SSH在banner前关闭；最新网络状态需使用R带时间的原始日志更新。
 模型完整root、真实canonical监督、GPU推理与训练终态均待证据，不从源码或准备工作推断完成。
 

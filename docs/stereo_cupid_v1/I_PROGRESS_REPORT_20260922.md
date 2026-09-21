@@ -19,6 +19,8 @@
 
 ## 已完成的工程证据
 
+| CPU Job 309002 | PASSED：source_contract PASS，D9/L13/T9/I6=37项通过 | Panda 125/125/121，content_failed=4；scientific_evidence=false，proper_rotation_pairs=0；仅推进资产验证 |
+
 | 证据 | 状态 | 边界 |
 |---|---|---|
 | A4 unified CPU contract | PASSED（控制器回读：37/37） | 仅工程契约；不是模型 smoke、训练有效或科学结果 |

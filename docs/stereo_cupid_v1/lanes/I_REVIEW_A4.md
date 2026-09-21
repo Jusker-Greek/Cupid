@@ -1,6 +1,6 @@
 # I A4：当前统一执行交接
 
-2026-09-21 18:20 CST。取代A3的“待T接口修复”状态；历史提交与失败分析均保留。
+2026-09-21 22:30 CST。取代A3的“待T接口修复”状态；历史提交与失败分析均保留。CPU Job 309002 已补充真实工程终态。
 
 已完成独立分支的 D/T/L/R 整合、逐次 `cherry-pick -x`、源码语义审阅、依赖映射和GitHub同步；D `cf8cc24`、R `f2a0517`、T `f421e48` 后续增量已纳入当前统一 tip。
 I发现的 `_pair_weight` 张量问题、T/L factory/返回协议问题，由T679修复；L发现的generator双消费与tracker初始化/退出问题，由Te45d232修复。
@@ -31,7 +31,7 @@ I与L分别静态确认：provider仅调用一次并在no_grad/autocast内物化
 5. `scripts/stereo_integration_contract_tests.py`：I 6项；
 6. `scripts/stereo_data_manifest.py --config configs/stereo/data_panda125_audit_v1.json --verify-content --hash-assets`：完整Panda root重新审计。
 
-合计37项**已准备、0项本轮实跑**。T新增Stage1唯一可训练组契约（`["suv_flow"]`）及启动边界记录；R新增有界renderer/library源码证据采集器，但尚未接入作业自动序列。输出为各组件日志和Panda summary，不是把总exit当全部内容PASS。
+合计37项**Job 309002 实际通过**。Panda audit 为 candidate/files_complete/content_verified=`125/125/121`、content_failed=`4`；`scientific_evidence=false`、`proper_rotation_pairs=0`。T新增Stage1唯一可训练组契约（`["suv_flow"]`）及启动边界记录；R新增有界renderer/library源码证据采集器，但尚未接入作业自动序列。该终态推进到资产验证，不是模型或科学结果。
 Panda历史125对必须重读；train/validation保持对象级划分，不用同一Panda对象伪造独立heldout。
 R恢复SSH后仅提交一个此CPU包；旧9ff/aa3等身份如果已实际提交，则保留并读终态，不抢跑重复作业。
 
@@ -53,7 +53,7 @@ FM validation loss不等于pose评测；prediction provider未绑定时所有pos
 |---|---|---|
 | 代码集成 | GitHub exact提交、无冲突映射、静态修复审阅 | 当前Slurm CPU PASS |
 | 资产 | 控制器/R报告本地六权重+14小文件校验、集群a12五权重 | 本包未获得完整cluster root验收/上传成功 |
-| 运行 | R报告SSH在banner前关闭；I没有新SSH或Job | 模型推理、loss曲线、checkpoint、heldout结果 |
+| 运行 | CPU 309002 工程合同审计通过 | 模型推理、loss曲线、checkpoint、heldout结果 |
 | 科学/Slides | 身份和no-alignment/单位边界保留 | accepted full result、正式科学表、S10 |
 
 上述资产/网络是控制器与R交接证据，I本轮没有重新运行网络/哈希，不能当I独立实测。
