@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**Pilot Job 309242 已完成工程终态。** server13 使用 commit `81ffe68d5c3b2de3cae61e5e6c2218e943beb78b`，输出 `/public/home/ricky/RESULTS/STEREO_CUPID_81FFE68_PILOT_A2/output`；11/11 tests PASS，Stage1 `25/25`，Stage2 `OK`，geometry `OK`（`num_input=11618`、`num_valid=954`）。产物包括 `mesh_canonical.ply` 与 `mesh_left_camera_scene_unit.ply`；长度单位为 `scene_unit`，不等于米。`scientific_claim=UNTESTED`，这是工程 pilot 终态，不计科学结果或 S05。
+
 **最新 pilot 终态：Job 309127 / server13。** exact checkout `85d2f5fcf7842758fcc37c6f057e69f1970d2178/tree df2c4ddfd9f0bf95c03a22a326861ad06640802a`；11/11 contract tests PASS，Stage1 25/25，geometry `OK`（`num_input=11618`、`num_valid=954`）。Stage2 `FAILED/ExitCode=2`：`LocalEntryNotFoundError`，`slat_flow` 未显式绑定本地 `slat_enc`，离线回退到 `microsoft/TRELLIS-image-large` 失败。输出 root：`/public/home/ricky/RESULTS/STEREO_CUPID_85D2F5_PILOT_A1/output`。`scientific_claim=UNTESTED`，该作业不计 S05，也不是科学结果；R 正在定位/修复本地模型绑定。
 
 **最新：CPU Job 309002 已完成工程合同审计。** Unified `85d2f5fcf7842758fcc37c6f057e69f1970d2178/tree df2c4ddfd9f0bf95c03a22a326861ad06640802a`；`source_contract=PASS`，D9/L13/T9/I6 共37项通过。Panda：candidate/files_complete/content_verified=`125/125/121`，content_failed=`4`；`scientific_evidence=false`，`proper_rotation_pairs=0`。这推进工程状态到资产验证，不构成模型推理、训练或科学结果。
