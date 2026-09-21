@@ -85,6 +85,24 @@ def source_check(args, report):
     pending = [lane for lane in args.require_lane if not manifest["lanes"][lane]["integrated_commits"]]
     report["requested_lanes_missing"] = pending
     require(not pending, "Owner handoff not integrated: " + ", ".join(pending))
+    # Keep T's CPU-only configuration and import surface in the unified source receipt.
+    config_path = ROOT / "configs/stereo/train_stage1_smoke_1gpu.json"
+    config = load_json(config_path)
+    required_keys = ("experiment_id", "expected_world_size", "budget", "pretrained_init",
+                     "data_factory", "objective", "logger_factory", "eval_factory",
+                     "trainable_parameter_groups")
+    require(not [key for key in required_keys if key not in config], "T config missing required keys")
+    require(config["experiment_id"] == manifest["training_experiment_id"], "T experiment identity mismatch")
+    require(config["trainable_parameter_groups"] == ["suv_flow"], "T trainable group mismatch")
+    required_files = (
+        "scripts/stereo_integration_check.py", "scripts/stereo_integration_contract_tests.py",
+        "scripts/stereo_evaluate_fixture.py", "scripts/stereo_data_contract_tests.py",
+        "scripts/stereo_data_manifest.py", "cupid/trainers/stereo_stage1_contract_tests.py",
+        "cupid/stereo_observability/logger.py")
+    for name in required_files:
+        require((ROOT / name).is_file(), "Unified runtime file missing: " + name)
+    report["stage1_cpu_contract"] = {"config": str(config_path), "trainable_groups": config["trainable_parameter_groups"],
+                                     "required_files": list(required_files)}
     report["scope"] = "SOURCE_CONTRACT_ONLY_NOT_RUNTIME"
 
 
