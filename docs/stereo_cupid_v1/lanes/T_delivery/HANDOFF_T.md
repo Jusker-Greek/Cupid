@@ -79,6 +79,33 @@ I应cherry-pick两个T提交及本文件所在跟进提交，不应重复应用�
 当前没有运行job/checkpoint/loss/W&B server记录。阶段只能报告实现/静态审查，S03–S10未验证。
 当前阻塞不影响继续代码/接口检查，但没有真实targets就不能启动有效监督训练。
 
+## R 精确绑定清单
+
+官方本地权重 JSON SHA256 已核验：SUV flow
+`a23549e84cf08cdf63e55c62ec1be33b613a1c4c974d9c476e0295907259ba75`，SS encoder
+`12efe92a0d7dcd790f251acb94a6950957ea4398268e2838ef7319c3f20b071e`，UV encoder
+`397f7788cd1d28b19a151c7e0a9357356d987155be1464c8dd6d159a954d3b31`。
+对应 safetensors 官方 SHA 已写入 smoke 模板；DINO checkpoint SHA、远端完整模型根、
+manifest、target index/root 必须由 R 在计算节点 readback 后替换 `BIND_*`，并将
+`configuration_state` 改为 `BOUND_FOR_EXECUTION`。模板的 `target_kind=dense` 只有在
+D geometry receipt 已逐 pair 验证 canonical occupancy 与 proper canonical-to-CV 相机时才可用；
+否则应停在 `UNVERIFIED`，不能切成 latent 或伪造 target。
+
+单卡 smoke（仅 R 在 Slurm compute）：
+
+```bash
+"$CUPID_PYTHON" -m torch.distributed.run --standalone --nnodes=1 --nproc-per-node=1 \
+  scripts/train_stereo_stage1.py --config "$BOUND_TRAIN_CONFIG_1GPU" \
+  --expected-commit f421e48ce4d0e487ec1a5519666374c788972f37 --output-dir "$FRESH_OUTPUT_1"
+```
+
+恢复对照：先用 `--stop-after-updates 10` 写 `step_00000010.pt`，再以新的 output root
+传入 `--resume-optimizer` 并移除 stop 限制完成 step 20；配置、target hashes、world size
+必须完全一致。双卡使用 `train_stage1_smoke_2gpu.json`、`--nproc-per-node=2`，每 rank
+一对、20 updates；不能把单卡 optimizer checkpoint 改 world size 恢复。所有输出身份、
+checkpoint SHA、model SHA、sampler/RNG 与 events JSONL 必须留存。上述命令和参数是接口契约，
+当前均为 `UNVERIFIED`，本 lane 未执行。
+
 ## 后续日志/迭代器修复
 
 T追加修复先建立L durable callback，再初始化W&B；仅明确通信异常继续本地logging，
