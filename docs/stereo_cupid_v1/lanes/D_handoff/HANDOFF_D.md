@@ -72,3 +72,16 @@ R请求已落实：Panda配置`configs/stereo/data_panda125_audit_v1.json`已新
 - `309272`：server43，COMPLETED `0:0`，fresh GSO bounded manifest 与 blocker receipt。20/20 content verified；canonical occupancy 0、canonical-to-CV 0、proper-CV 0、valid target 0，20/20 `UNVERIFIED`。manifest SHA256 `5006ef3319d94448531cd2024bafa3bce8321eedb5675ad33bd8cd2162e07949`；receipt `/public/home/ricky/RESULTS/STEREO_CUPID_D_TARGET_AUDIT_85D2F5_A3/target_audit_receipt.json` SHA256 `847da0543dd7108872bdb68202c6f1fb25db30df9469f93325caed9fe44ef7d2`。
 
 最短 blocker 已由 receipt 固定为：从有 provenance 的 canonical mesh 用 pinned official voxelizer 生成 occupancy；证明每侧 canonical-to-CV proper 外参与 K/depth provenance；绑定真实 crop box、renderer/source hashes。309242 的 `geometry_status=OK` / `scientific_claim=UNTESTED` 仅是预训练 pilot 输出，receipt 明确 `not_a_gt_target=true`，不能替代上述 target。
+
+## 2026-09-22 external geometry-entry audit
+
+新增只读 CPU 审计作业 `309339`（server45，COMPLETED `0:0`，00:00:57）；前置 `309335` 因 launcher 使用不存在的 `python` 命令以 `127:0` 失败，未执行审计，已保留为工程首错。修复为 `python3` 后使用 exact source commit `efed36b07e466e600591a6186d7a57e05db78ce8`、tree `6303a6c809b808e7b15c9ad262dd71202b93d9f8`。
+
+范围严格限定为 `/public/home/ricky/CODE/GSO_dataset`、`/public/home/ricky/DATASET/Gazebo`、`/public/home/ricky/DATASET/GSO_1K_200`，`max_depth=6`、`max_files=12000`。候选 `7777`；GSO_dataset visited `7085`/candidate `169`，Gazebo 与 GSO_1K_200 均在 file cap 截断，receipt 明确不能将边界内搜索当作全主机不存在证明。
+
+- receipt：`/public/home/ricky/RESULTS/STEREO_CUPID_D_EXTERNAL_AUDIT_EFED36_A2/EXTERNAL_BLOCKER_RECEIPT.json`，SHA256 `945dafa695ba4d89ab0ee4c6c34891693fc4222f5ee80c2d87eab4c0e1b4531a`。
+- evidence index：`/public/home/ricky/RESULTS/STEREO_CUPID_D_EXTERNAL_AUDIT_EFED36_A2/evidence_index.jsonl`，SHA256 `0e7915368a39991a42953662da5fed8842fa59dbd5eb0b938839c39e87144602`。
+- 真实 renderer：`/public/home/ricky/CODE/GSO_dataset/render_stereo_gazebo.py`，SHA256 `bb9c170dee05521002404452a6903a289ed02d4921182f44f92c375749cc745a`；trajectory launcher：`/public/home/ricky/CODE/GSO_dataset/scripts/test_random_linear_trajectory.sh`，SHA256 `da1d803ae2332a0b481d79c1eb271fa31570b6b05ffcafe1232264521a9a164f`。
+- Panda mesh：`/public/home/ricky/DATASET/Gazebo/Android_Figure_Panda/meshes/model.obj`，SHA256 `a528ad5461401b8ddf636be857c2fe305a03cf7d875ce25d75c59af26ef30485`；预期 `/public/home/ricky/DATASET/Gazebo/Android_Figure_Panda/random_linear_0/trajectory_info.json` 不存在。GSO_1K_200 的 trajectory metadata 示例 `/public/home/ricky/DATASET/GSO_1K_200/30_CONSTRUCTION_SET/random_linear_0/trajectory_info.json` SHA256 `a7b2b49b6495f7730192e41f2561fa1971f48ba5d56d4abe6a41409f60b7b58b`。
+
+审计还命中 `original_code_for_reference` 下历史 renderer，但没有闭合 canonical mesh→canonical-frame mapping、pinned official voxelizer/occupancy hash、逐 pair proper canonical→CV extrinsic 加 K/depth provenance，或真实 crop/source binding。receipt 状态为 `EXTERNAL_BLOCKED`、`target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`，因此没有生成可验证 pair target。
