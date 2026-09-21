@@ -14,7 +14,7 @@ set -euo pipefail
 cd "$CUPID_PROJECT_DIR"
 test "$(git rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
 test "$(git status --porcelain)" = ""
-python scripts/stereo_external_blocker_audit.py \
+python3 scripts/stereo_external_blocker_audit.py \
   --output "$CUPID_OUTPUT_DIR" \
   --root /public/home/ricky/CODE/GSO_dataset \
   --root /public/home/ricky/DATASET/Gazebo \
