@@ -22,9 +22,9 @@
     "D": {
       "thread_id": "01a0bfa4-b887-7df2-a39e-2b1b776e377c",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": ["e05bb99a52daa5dfaf9faea60716084ba8d82b7f", "f8ffd521463ad9dadd7e052f275104bb7eadf9c1", "27eb57ef8bd9b632496589d18610e2ebeadd02d4", "b27f2255d7273e9625d29d657dd51305e6079695", "25a51bc8a5474190662c50ca20a9c9ef634461cc"],
-      "integrated_commits": ["ec7f1f1c10701e71807bf843fa76f634c010154a", "213100f909fc06d920162d571f32cd8cd205c95e", "082c0ddad5a09d1074eaca728ce56eabab39e25e", "33973978ed208e57e1030f1d6d628701dfa5c4d5", "aeaf40813331e4bcf68998b018859a3f541d9aec"],
-      "files": ["configs/stereo/data_gso_stage1_v1.json", "configs/stereo/data_panda125_audit_v1.json", "cupid/datasets/stereo_gso.py", "scripts/stereo_data_manifest.py", "scripts/stereo_data_targets.py", "scripts/stereo_data_geometry_inventory.py", "scripts/stereo_data_occupancy.py", "scripts/stereo_data_contract_tests.py", "docs/stereo_cupid_v1/lanes/D_SCHEMA.md", "docs/stereo_cupid_v1/lanes/D_handoff/HANDOFF_D.md"],
+      "source_commits": ["e05bb99a52daa5dfaf9faea60716084ba8d82b7f", "f8ffd521463ad9dadd7e052f275104bb7eadf9c1", "27eb57ef8bd9b632496589d18610e2ebeadd02d4", "b27f2255d7273e9625d29d657dd51305e6079695", "25a51bc8a5474190662c50ca20a9c9ef634461cc", "cf8cc24a414db6f86b20219c5c51000b960ef781"],
+      "integrated_commits": ["ec7f1f1c10701e71807bf843fa76f634c010154a", "213100f909fc06d920162d571f32cd8cd205c95e", "082c0ddad5a09d1074eaca728ce56eabab39e25e", "33973978ed208e57e1030f1d6d628701dfa5c4d5", "aeaf40813331e4bcf68998b018859a3f541d9aec", "f534d72"],
+      "files": ["configs/stereo/data_gso_stage1_v1.json", "configs/stereo/data_panda125_audit_v1.json", "cupid/datasets/stereo_gso.py", "scripts/stereo_data_manifest.py", "scripts/stereo_data_targets.py", "scripts/stereo_data_geometry_inventory.py", "scripts/stereo_data_occupancy.py", "scripts/stereo_data_contract_tests.py", "docs/stereo_cupid_v1/lanes/D_SCHEMA.md", "docs/stereo_cupid_v1/lanes/D_GEOMETRY_EVIDENCE_CHECKLIST.md", "docs/stereo_cupid_v1/lanes/D_handoff/HANDOFF_D.md"],
       "state": "IMPLEMENTATION_INTEGRATED_REAL_CANONICAL_TARGETS_UNVERIFIED",
       "completion": "Paired sample and target contract, object-disjoint split, real manifest counts and provenance; unavailable targets remain unavailable."
     },
@@ -49,9 +49,9 @@
     "R": {
       "thread_id": "01a0bfa4-b8ec-7bc3-ac05-ae1d58238a11",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": ["e867ff20a5f1f710a7b746b12bbffc951d5bb03c", "71967eba6a8c8719da39310ea38a4faaf6b499d7", "9248378cf45ed72cd1d4b817700ebc65c439a01a", "6569a7a6167f85b5cbc867d6a9bc6542c7c0c89a", "3381a59990e9858ee5ab10b267dcc9df564af3c0", "ca91a8e40456b75a959f4f991ce44c7fee46950e", "dd6523ec291296434e953bc70dcc0c09506ad505"],
-      "integrated_commits": ["23b2ad0ed9bb109bae7a632d48481a9cf3cae9f7", "b90482e448ceb721570aceca972b0214c0fce877", "6fa9dd8096ffe9977ceab6b72b1a3250184f6898", "6cf7fdab41d9bafca9485aaa1ad55395a7a6dd6c", "06a634413fda0765f99f271786dd44a885f64339", "0ef66e03f5a55e06fa355806c426e9d03b9032a3", "16339be2ea0405d844787c8abff20fde71e534dd"],
-      "files": ["scripts/stereo_runtime_assets.py", "scripts/stereo_runtime_asset_audit.py", "scripts/stereo_runtime_sync.sh", "scripts/stereo_runtime_job.sh", "scripts/stereo_runtime_submit.sh", "scripts/cupid_local_asset_transfer.py", "docs/stereo_cupid_v1/lanes/R_runtime/HANDOFF_R.md", "docs/stereo_cupid_v1/lanes/R_runtime/R_official_manifest.json"],
+      "source_commits": ["e867ff20a5f1f710a7b746b12bbffc951d5bb03c", "71967eba6a8c8719da39310ea38a4faaf6b499d7", "9248378cf45ed72cd1d4b817700ebc65c439a01a", "6569a7a6167f85b5cbc867d6a9bc6542c7c0c89a", "3381a59990e9858ee5ab10b267dcc9df564af3c0", "ca91a8e40456b75a959f4f991ce44c7fee46950e", "dd6523ec291296434e953bc70dcc0c09506ad505", "f2a05175a31b8d83f61a872bf8930cec921f4c56"],
+      "integrated_commits": ["23b2ad0ed9bb109bae7a632d48481a9cf3cae9f7", "b90482e448ceb721570aceca972b0214c0fce877", "6fa9dd8096ffe9977ceab6b72b1a3250184f6898", "6cf7fdab41d9bafca9485aaa1ad55395a7a6dd6c", "06a634413fda0765f99f271786dd44a885f64339", "0ef66e03f5a55e06fa355806c426e9d03b9032a3", "16339be2ea0405d844787c8abff20fde71e534dd", "fec8483"],
+      "files": ["scripts/stereo_runtime_assets.py", "scripts/stereo_runtime_asset_audit.py", "scripts/stereo_runtime_source_evidence.py", "scripts/stereo_runtime_sync.sh", "scripts/stereo_runtime_job.sh", "scripts/stereo_runtime_submit.sh", "scripts/cupid_local_asset_transfer.py", "docs/stereo_cupid_v1/lanes/R_runtime/HANDOFF_R.md", "docs/stereo_cupid_v1/lanes/R_runtime/R_official_manifest.json"],
       "state": "ASSEMBLY_PILOT_INTEGRATED_SSH_EXECUTION_PENDING",
       "completion": "Fresh exact checkout and output root, duplicate audit, complete asset verification, bounded execution, terminal and immutable artifacts."
     }
