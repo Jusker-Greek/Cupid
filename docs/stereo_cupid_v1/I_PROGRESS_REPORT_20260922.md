@@ -1,7 +1,7 @@
 # Stereo-CUPID 明日进度报告（工程证据版）
 
 报告用途：明日汇报当前可核验进度。本文不提交作业、不定义科学结果；所有运行状态按 `PASSED`、`UNVERIFIED`、`NOT_RUN`、`FAILED` 分开记录。
-本次报告基线遵循控制器指定的 unified `edfcc2cfdd31df50bb64b035696c2bfde0ed5a6d/tree9b9736378be7d4dfeb3ec67a927fd9e8ba274f8d`；R 后续 `b1cbadb/tree62b62524` 与 T 本地 `188a8ba9` 因当前 GitHub 网络/exact-read 未完成，不能写成已纳入统一源码。
+本次报告基线遵循控制器指定的 unified `edfcc2cfdd31df50bb64b035696c2bfde0ed5a6d/tree9b9736378be7d4dfeb3ec67a927fd9e8ba274f8d`；R 后续 `b1cbadb/tree62b62524`、T 本地 `188a8ba9` 与 D 本地 `5a1f4c9/tree222f2189` 因当前 GitHub 网络/exact-read 未完成，不能写成已纳入统一源码。
 
 ## 统一身份
 
@@ -11,6 +11,7 @@
 | 统一 integration tree | `9b9736378be7d4dfeb3ec67a927fd9e8ba274f8d` | PASSED：控制器指定基线 |
 | R 后续 tip | `b1cbadb/tree62b62524` | UNVERIFIED：本轮 GitHub 读取超时，未纳入统一源码 |
 | T 后续协议 | `188a8ba9` | UNVERIFIED：local-only，尚未 GitHub exact-read，不能执行 |
+| D 后续静态审计 | `5a1f4c9/tree222f2189` | UNVERIFIED：local-only，push 因 GitHub 443 timeout 失败 |
 | frozen inference | `STEREO_CUPID_V1_SHARED_SS` | PASSED：身份已登记；无科学终态 |
 | training candidate | `STEREO_CUPID_STAGE1_TRAIN_V1` | PASSED：入口/参数契约已实现；无训练终态 |
 | 运行 owner | R | PASSED：唯一 Slurm/GPU 提交者 |
@@ -50,7 +51,7 @@
 
 R 恢复入口后，先用当前统一 commit/tree 建立 fresh checkout，读回活动作业、旧 incoming/final 和 `308657` 两份 partial 的真实路径与 SHA；然后执行 d01406b 后的唯一 CPU `data-contract` 包。返回报告必须包含：`JobID`、partition/node、checkout commit/tree、mode、evidence root、Slurm state/exit code、37 项实际分项状态、Panda summary、首个失败 predicate、原始日志路径和 artifact SHA。
 
-同步阻塞：I 本轮对 R/T 后续 exact-read 均遇到 GitHub 连接超时；在网络恢复并完成完整 SHA/tree 读回前，保留已验证 unified 基线，不把 local-only 代码放入远端执行包。
+同步阻塞：I 本轮对 D/R/T 后续 exact-read 均遇到 GitHub 连接超时；在网络恢复并完成完整 SHA/tree 读回前，保留已验证 unified 基线，不把 local-only 代码放入远端执行包。D 审计指出下一阶段仍缺五项真实采集字段；这属于证据缺口，不是代码失败。
 
 如果 CPU 包通过，只能将工程证据更新为 `PASSED`；仍需独立完成完整 model root、预训练 pilot、训练 smoke、DDP、W&B readback 和终态评估。任何缺失字段填写 `UNVERIFIED` 或 `NOT_RUN`，不得用总退出码、checkpoint、队列状态或输出目录代替真实证据。
 
