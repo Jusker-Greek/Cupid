@@ -30,6 +30,8 @@ CPU Job 309002 已真实通过 source contract；D9、L13、T9、I6 共37项通�
 Pilot Job 309127 使用 exact `85d2f5fc/tree df2c4ddf`：11/11 contract tests PASS，Stage1 25/25，geometry OK（11618→954）；Stage2 FAILED/ExitCode=2，首错为 `slat_flow` 未显式绑定本地 `slat_enc`，离线回退 `microsoft/TRELLIS-image-large` 触发 `LocalEntryNotFoundError`。输出 root 为 `/public/home/ricky/RESULTS/STEREO_CUPID_85D2F5_PILOT_A1/output`；`scientific_claim=UNTESTED`，不计 S05，R 正在修复。
 
 Pilot Job 309242 使用 commit `81ffe68d5c3b2de3cae61e5e6c2218e943beb78b`：11/11 tests PASS，Stage1 25/25，Stage2 OK，geometry OK（11618→954）。输出 root 为 `/public/home/ricky/RESULTS/STEREO_CUPID_81FFE68_PILOT_A2/output`，产物为 `mesh_canonical.ply` 和 `mesh_left_camera_scene_unit.ply`；`scene_unit` 不等于米，`scientific_claim=UNTESTED`，不计科学结果或 S05。
+
+D external audit Job 309339/server45 完成但判定 `EXTERNAL_BLOCKED`：receipt `EXTERNAL_BLOCKER_RECEIPT.json`（SHA `945dafa695ba4d89ab0ee4c6c34891693fc4222f5ee80c2d87eab4c0e1b4531a`），`target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`。renderer/trajectory 脚本和 Panda mesh 存在，但 canonical→frame mapping、official voxelizer/occupancy hash、proper-CV extrinsics/K/depth/crop/source binding 缺失；训练继续 BLOCKED。
 此前R报告SSH在banner前关闭；最新网络状态需使用R带时间的原始日志更新。
 模型完整root、真实canonical监督、GPU推理与训练终态均待证据，不从源码或准备工作推断完成。
 

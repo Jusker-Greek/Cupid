@@ -1,5 +1,7 @@
 # 当前运行状态
 
+**D 外部审计最新：Job 309339/server45 COMPLETED 0:0。** D exact commit `eeae0493ba6baa824d05256cb890cf2e38c18b09/tree7d597fee8f543906e7455b5708d6ffbc99c32cd3`；receipt `/public/home/ricky/RESULTS/STEREO_CUPID_D_EXTERNAL_AUDIT_EFED36_A2/EXTERNAL_BLOCKER_RECEIPT.json`，SHA `945dafa695ba4d89ab0ee4c6c34891693fc4222f5ee80c2d87eab4c0e1b4531a`。状态 `EXTERNAL_BLOCKED`、`target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`。真实 renderer/trajectory 脚本和 Panda mesh 存在，但 canonical→frame mapping、official voxelizer/occupancy hash、逐 pair proper-CV extrinsics/K/depth/crop/source binding 尚未验证；训练保持 BLOCKED。
+
 **Pilot Job 309242 已完成工程终态。** server13 使用 commit `81ffe68d5c3b2de3cae61e5e6c2218e943beb78b`，输出 `/public/home/ricky/RESULTS/STEREO_CUPID_81FFE68_PILOT_A2/output`；11/11 tests PASS，Stage1 `25/25`，Stage2 `OK`，geometry `OK`（`num_input=11618`、`num_valid=954`）。产物包括 `mesh_canonical.ply` 与 `mesh_left_camera_scene_unit.ply`；长度单位为 `scene_unit`，不等于米。`scientific_claim=UNTESTED`，这是工程 pilot 终态，不计科学结果或 S05。
 
 **最新 pilot 终态：Job 309127 / server13。** exact checkout `85d2f5fcf7842758fcc37c6f057e69f1970d2178/tree df2c4ddfd9f0bf95c03a22a326861ad06640802a`；11/11 contract tests PASS，Stage1 25/25，geometry `OK`（`num_input=11618`、`num_valid=954`）。Stage2 `FAILED/ExitCode=2`：`LocalEntryNotFoundError`，`slat_flow` 未显式绑定本地 `slat_enc`，离线回退到 `microsoft/TRELLIS-image-large` 失败。输出 root：`/public/home/ricky/RESULTS/STEREO_CUPID_85D2F5_PILOT_A1/output`。`scientific_claim=UNTESTED`，该作业不计 S05，也不是科学结果；R 正在定位/修复本地模型绑定。

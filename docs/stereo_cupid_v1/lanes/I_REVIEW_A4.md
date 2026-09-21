@@ -56,7 +56,7 @@ FM validation loss不等于pose评测；prediction provider未绑定时所有pos
 | 运行 | CPU 309002 工程审计通过；309242 Stage1 25/25、Stage2 OK、geometry 954/11618 | 科学结果、独立泛化评估、loss曲线、checkpoint、heldout结果 |
 | 科学/Slides | 身份和no-alignment/单位边界保留 | accepted full result、正式科学表、S10 |
 
-309127 的失败首错为本地离线模型绑定；309242 已在新身份下完成 Stage2 和 geometry 工程路径。309242 仍使用 `scene_unit`，且 `scientific_claim=UNTESTED`；不能升级为科学结论。
+309127 的失败首错为本地离线模型绑定；309242 已在新身份下完成 Stage2 和 geometry 工程路径。309242 仍使用 `scene_unit`，且 `scientific_claim=UNTESTED`；不能升级为科学结论。D Job 309339 的外部审计进一步确认训练 target 仍 `EXTERNAL_BLOCKED`：真实 renderer/trajectory/Panda mesh 存在，但 canonical→frame、official voxelizer/occupancy hash、proper-CV extrinsics/K/depth/crop/source binding 未闭合；不得把数据存在写成 GT target ready。
 R terminal到达后I负责审阅真实产物与失败，再交控制器推进；不因本交接文件完成而宣称整体研究完成。
 
 反思：最大剩余不确定性是合法canonical监督与真实GPU路径；最可能的误判是将工程loss/已写checkpoint升级为泛化或米制恢复结论。

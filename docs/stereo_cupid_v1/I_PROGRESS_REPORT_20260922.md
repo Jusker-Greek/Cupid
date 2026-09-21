@@ -20,6 +20,7 @@
 ## 已完成的工程证据
 
 | CPU Job 309002 | PASSED：source_contract PASS，D9/L13/T9/I6=37项通过 | Panda 125/125/121，content_failed=4；scientific_evidence=false，proper_rotation_pairs=0；仅推进资产验证 |
+| D external audit Job 309339 | PASSED：作业自身 COMPLETED 0:0 | Receipt `EXTERNAL_BLOCKED`，`target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`；renderer/trajectory/Panda mesh 存在，但 canonical→frame、voxelizer/occupancy、proper-CV/K/depth/crop/source binding 缺证，训练保持 BLOCKED |
 
 | 证据 | 状态 | 边界 |
 |---|---|---|
@@ -40,6 +41,7 @@
 | Slurm `308657` | FAILED：`PREEMPTED` | 失败属于调度终态；不能当作模型或科学失败，需保留两份 partial 字节产物及其路径/hash |
 | d01406b 修复后的 CPU 作业 | NOT_RUN / UNVERIFIED | 修复已 exact-read 纳入，但当前未收到新 JobID、终态或 evidence root |
 | 官方 25-file 完整 model root | UNVERIFIED | 本地/集群分散权重与 partial 不能合并宣称完整可用；须 fresh root、逐文件官方 SHA 和 pipeline 引用检查 |
+| D canonical training target | FAILED/UNVERIFIED：`309272 target_invalid` 后由 `309339 EXTERNAL_BLOCKED` 复核 | 真实数据和 renderer 存在不等于 GT target ready；缺失字段闭合前不得设 `BOUND_FOR_EXECUTION` |
 | 预训练 Stereo inference | NOT_RUN / UNVERIFIED | 无可接受的 `result.json`、NPZ、mesh 和独立 I/L 评估 receipt |
 | Stage1 单 GPU smoke | NOT_RUN / UNVERIFIED | 无 forward/backward、optimizer、checkpoint、heldout hook 终态 |
 | Stage1 2-GPU DDP | NOT_RUN | 无 JobID 或两 rank 运行证据 |
