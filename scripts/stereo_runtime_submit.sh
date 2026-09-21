@@ -48,7 +48,8 @@ case "$CUPID_RUNTIME_MODE" in
     train-ddp) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:2 --job-name=stereo_cupid_train_ddp) ;;
     *) echo 'Unsupported mode' >&2; exit 2 ;;
 esac
-job=$("$slurm/sbatch" "${args[@]}" /bin/bash scripts/stereo_runtime_job.sh)
+args+=(--wrap="/bin/bash scripts/stereo_runtime_job.sh")
+job=$("$slurm/sbatch" "${args[@]}")
 printf '%s\n' "$job" | tee "$CUPID_RUNTIME_EVIDENCE.submission/job_id.txt"
 "$slurm/scontrol" show job "${job%%;*}" > "$CUPID_RUNTIME_EVIDENCE.submission/job_readback.txt"
 cat "$CUPID_RUNTIME_EVIDENCE.submission/job_readback.txt"
