@@ -1,13 +1,15 @@
 # Stereo-CUPID 明日进度报告（工程证据版）
 
 报告用途：明日汇报当前可核验进度。本文不提交作业、不定义科学结果；所有运行状态按 `PASSED`、`UNVERIFIED`、`NOT_RUN`、`FAILED` 分开记录。
+本次报告基线遵循控制器指定的 unified `edfcc2cfdd31df50bb64b035696c2bfde0ed5a6d/tree9b9736378be7d4dfeb3ec67a927fd9e8ba274f8d`；R 后续 `b1cbadb/tree62b62524` 因当前 GitHub 网络超时尚未由 I exact-read，不能写成已纳入统一源码。
 
 ## 统一身份
 
 | 字段 | 值 | 状态 |
 |---|---|---|
-| 统一 integration commit | `2484a98328b22186134af158b04ba72d2c76ecfc` | PASSED：本地提交并推送前的工作树身份 |
-| 统一 integration tree | 待本次 push 后 GitHub exact-read | UNVERIFIED |
+| 统一 integration commit | `edfcc2cfdd31df50bb64b035696c2bfde0ed5a6d` | PASSED：控制器指定基线，GitHub exact-read 已有证据 |
+| 统一 integration tree | `9b9736378be7d4dfeb3ec67a927fd9e8ba274f8d` | PASSED：控制器指定基线 |
+| R 后续 tip | `b1cbadb/tree62b62524` | UNVERIFIED：本轮 GitHub 读取超时，未纳入统一源码 |
 | frozen inference | `STEREO_CUPID_V1_SHARED_SS` | PASSED：身份已登记；无科学终态 |
 | training candidate | `STEREO_CUPID_STAGE1_TRAIN_V1` | PASSED：入口/参数契约已实现；无训练终态 |
 | 运行 owner | R | PASSED：唯一 Slurm/GPU 提交者 |
@@ -21,7 +23,7 @@
 | Panda125 内容审计 | PASSED（控制器回读：125/125） | 仅 manifest/content/hash 审计；不证明 canonical 几何、GT 合法性或泛化 |
 | D 几何证据清单 | PASSED：已纳入统一源码 | 仍需真实 renderer/camera/坐标链证据；不得由清单推断 target 已闭合 |
 | T Stage1 参数契约 | PASSED：唯一可训练组 `["suv_flow"]`，其余边界显式记录 | 尚未有真实 optimizer/loss/checkpoint 运行证据 |
-| R CPU guard 修复 `d01406b` | PASSED：已集成 | 允许 `data-contract` 与 asset upload 并行审计；不等于作业已提交 |
+| R CPU guard 修复 `d01406b` | PASSED：已集成到此前 I tip | 允许 `data-contract` 与 asset upload 并行审计；不等于作业已提交；R b1cbadb 后续差异待 exact-read |
 | R source evidence helper | PASSED：源码已集成 | 尚未接入自动序列或生成远端 receipt |
 
 ## 失败与未运行
