@@ -1,8 +1,8 @@
 # I A4：当前统一执行交接
 
-2026-09-21 00:53 CST。取代A3的“待T接口修复”状态；历史提交与失败分析均保留。
+2026-09-21 18:20 CST。取代A3的“待T接口修复”状态；历史提交与失败分析均保留。
 
-已完成独立分支的 D/T/L/R 整合、逐次 `cherry-pick -x`、源码语义审阅、依赖映射和GitHub同步。
+已完成独立分支的 D/T/L/R 整合、逐次 `cherry-pick -x`、源码语义审阅、依赖映射和GitHub同步；D `cf8cc24`、R `f2a0517`、T `f421e48` 后续增量已纳入当前统一 tip。
 I发现的 `_pair_weight` 张量问题、T/L factory/返回协议问题，由T679修复；L发现的generator双消费与tracker初始化/退出问题，由Te45d232修复。
 I与L分别静态确认：provider仅调用一次并在no_grad/autocast内物化，None/空manifest保持UNVERIFIED；raw记录供两consumer，evaluated receipt独立保存；local logger先创建，transport错误保留类型与UNVERIFIED，非transport错误继续失败。
 这只关闭已列静态缺陷，不等于运行测试通过。
@@ -11,10 +11,10 @@ I与L分别静态确认：provider仅调用一次并在no_grad/autocast内物化
 
 | lane | 已纳入的最新源提交 | 下一责任 |
 |---|---|---|
-| D | 25a51bc8a5474190662c50ca20a9c9ef634461cc | 真实Panda/GSO内容、canonical/renderer/proper-CV证据及target生成 |
-| T | e45d232f564b5deaefa7fa95abf6e0153440fc62 | R返回的真实CPU/GPU首错、optimizer恢复证据 |
+| D | cf8cc24a414db6f86b20219c5c51000b960ef781 | 真实Panda/GSO内容、canonical/renderer/proper-CV证据及target生成 |
+| T | f421e48ce4d0e487ec1a5519666374c788972f37 | R返回的真实CPU/GPU首错、optimizer恢复证据 |
 | L | 44ccef770d6f3ab78b0b074ffa0bfb27600dba42 | 原始预测/GT资格、分母、W&B服务器读回 |
-| R | dd6523ec291296434e953bc70dcc0c09506ad505 | 唯一CPU/GPU调度、上传/完整root、新checkout与终态 |
+| R | f2a05175a31b8d83f61a872bf8930cec921f4c56 | 唯一CPU/GPU调度、上传/完整root、新checkout与终态 |
 
 完整源→集成提交映射在 `I_DEPENDENCIES.json`；本包执行SHA/tree在控制器的 exact-read handoff 消息中，不从moving branch名称推断。
 
@@ -31,7 +31,7 @@ I与L分别静态确认：provider仅调用一次并在no_grad/autocast内物化
 5. `scripts/stereo_integration_contract_tests.py`：I 6项；
 6. `scripts/stereo_data_manifest.py --config configs/stereo/data_panda125_audit_v1.json --verify-content --hash-assets`：完整Panda root重新审计。
 
-合计37项**已准备、0项本轮实跑**。输出为各组件日志和Panda summary，不是把总exit当全部内容PASS。
+合计37项**已准备、0项本轮实跑**。T新增Stage1唯一可训练组契约（`["suv_flow"]`）及启动边界记录；R新增有界renderer/library源码证据采集器，但尚未接入作业自动序列。输出为各组件日志和Panda summary，不是把总exit当全部内容PASS。
 Panda历史125对必须重读；train/validation保持对象级划分，不用同一Panda对象伪造独立heldout。
 R恢复SSH后仅提交一个此CPU包；旧9ff/aa3等身份如果已实际提交，则保留并读终态，不抢跑重复作业。
 
