@@ -31,8 +31,8 @@
     "T": {
       "thread_id": "01a0bfa4-b891-78c0-8348-9e7d89235947",
       "base_commit": "0c77ae9c6648b918c820f79dbe15f80235c17709",
-      "source_commits": ["950ed8716b2f64f2d9ac3f757467d5ed85b5f5c5", "6794575a90ec5b2b8b731730eacb74ca3ab89e0b", "0d69d72f92b782f71bcff5d8ab998f818a164875", "e45d232f564b5deaefa7fa95abf6e0153440fc62"],
-      "integrated_commits": ["4333338382fc5f037c99b18c4683fc9caff29bb9", "fbd58d358fd9e08556909bac2ecdc9cbcadfd339", "ecbeb980444883d96cc43228b72b343b57de562e", "07791b6b34e3b8cbdfc5953caffe4e4ea144c3ef"],
+      "source_commits": ["950ed8716b2f64f2d9ac3f757467d5ed85b5f5c5", "6794575a90ec5b2b8b731730eacb74ca3ab89e0b", "0d69d72f92b782f71bcff5d8ab998f818a164875", "e45d232f564b5deaefa7fa95abf6e0153440fc62", "188a8ba97eb55337ab030935970e5f703f7b3581"],
+      "integrated_commits": ["4333338382fc5f037c99b18c4683fc9caff29bb9", "fbd58d358fd9e08556909bac2ecdc9cbcadfd339", "ecbeb980444883d96cc43228b72b343b57de562e", "07791b6b34e3b8cbdfc5953caffe4e4ea144c3ef", "db40ab1"],
       "files": ["configs/stereo/train_stage1_smoke_1gpu.json", "configs/stereo/train_stage1_smoke_2gpu.json", "configs/stereo/train_stage1_first_epoch_candidate.json", "cupid/trainers/stereo_stage1.py", "cupid/trainers/stereo_stage1_logging.py", "cupid/trainers/stereo_stage1_objective.py", "cupid/trainers/stereo_stage1_contract_tests.py", "scripts/train_stereo_stage1.py", "docs/stereo_cupid_v1/lanes/T_INTERFACE.md", "docs/stereo_cupid_v1/lanes/T_delivery/HANDOFF_T.md"],
       "state": "REVIEWED_INTERFACE_REPAIRS_INTEGRATED_CPU_GPU_UNVERIFIED",
       "completion": "Stage1 training entry with explicit loss and target semantics, initialization versus resume, optimizer step, checkpoint and heldout hook."
