@@ -77,7 +77,13 @@ def from_pretrained(path: str, **kwargs):
 
     with open(config_file, 'r') as f:
         config = json.load(f)
-    model = __getattr__(config['name'])(**config['args'], **kwargs)
+    model_args = dict(config['args'])
+    # Bind the official local SLAT encoder when an assembly omits the hub path.
+    if config['name'] == 'ElasticVisualLatentConditioningSLatFlowModel' and 'pretrained_slat_enc' not in model_args:
+        encoder_prefix = os.path.join(os.path.dirname(path), 'slat_enc_swin8_B_64l8_fp16')
+        if os.path.exists(f'{encoder_prefix}.json') and os.path.exists(f'{encoder_prefix}.safetensors'):
+            model_args['pretrained_slat_enc'] = encoder_prefix
+    model = __getattr__(config['name'])(**model_args, **kwargs)
     model.load_state_dict(load_file(model_file))
 
     return model
