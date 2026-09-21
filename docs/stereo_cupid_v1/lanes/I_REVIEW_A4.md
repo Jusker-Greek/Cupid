@@ -1,6 +1,6 @@
 # I A4：当前统一执行交接
 
-2026-09-21 22:30 CST。取代A3的“待T接口修复”状态；历史提交与失败分析均保留。CPU Job 309002 已补充真实工程终态。
+2026-09-22 CST。取代A3的“待T接口修复”状态；历史提交与失败分析均保留。CPU Job 309002 与 pilot Job 309127 已补充真实工程终态。
 
 已完成独立分支的 D/T/L/R 整合、逐次 `cherry-pick -x`、源码语义审阅、依赖映射和GitHub同步；D `cf8cc24`、R `f2a0517`、T `f421e48` 后续增量已纳入当前统一 tip。
 I发现的 `_pair_weight` 张量问题、T/L factory/返回协议问题，由T679修复；L发现的generator双消费与tracker初始化/退出问题，由Te45d232修复。
@@ -53,10 +53,10 @@ FM validation loss不等于pose评测；prediction provider未绑定时所有pos
 |---|---|---|
 | 代码集成 | GitHub exact提交、无冲突映射、静态修复审阅 | 当前Slurm CPU PASS |
 | 资产 | 控制器/R报告本地六权重+14小文件校验、集群a12五权重 | 本包未获得完整cluster root验收/上传成功 |
-| 运行 | CPU 309002 工程合同审计通过 | 模型推理、loss曲线、checkpoint、heldout结果 |
+| 运行 | CPU 309002 工程审计通过；309127 Stage1 25/25、geometry 954/11618 | Stage2 FAILED/Exit2；模型完整推理、loss曲线、checkpoint、heldout结果 |
 | 科学/Slides | 身份和no-alignment/单位边界保留 | accepted full result、正式科学表、S10 |
 
-上述资产/网络是控制器与R交接证据，I本轮没有重新运行网络/哈希，不能当I独立实测。
+309127 的失败首错为本地离线模型绑定：`slat_flow` 未显式指向本地 `slat_enc`，导致回退 `microsoft/TRELLIS-image-large` 的 `LocalEntryNotFoundError`；R 正在定位/修复。该信息来自R终态交接，不能升级为科学结论。
 R terminal到达后I负责审阅真实产物与失败，再交控制器推进；不因本交接文件完成而宣称整体研究完成。
 
 反思：最大剩余不确定性是合法canonical监督与真实GPU路径；最可能的误判是将工程loss/已写checkpoint升级为泛化或米制恢复结论。

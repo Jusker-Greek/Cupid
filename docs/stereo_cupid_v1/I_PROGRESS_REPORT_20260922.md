@@ -32,6 +32,8 @@
 
 ## 失败与未运行
 
+| Pilot Job 309127 | FAILED：Stage2/ExitCode=2 | Stage1 25/25，geometry OK（11618→954）；`LocalEntryNotFoundError` 表明 `slat_flow` 未显式绑定本地 `slat_enc`，离线回退 `microsoft/TRELLIS-image-large` 失败；`scientific_claim=UNTESTED`，不计 S05 |
+
 | 事件/项目 | 状态 | 证据与解释 |
 |---|---|---|
 | Slurm `308657` | FAILED：`PREEMPTED` | 失败属于调度终态；不能当作模型或科学失败，需保留两份 partial 字节产物及其路径/hash |

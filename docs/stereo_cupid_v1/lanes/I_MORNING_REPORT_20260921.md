@@ -26,6 +26,8 @@ R后补source-evidence helper未纳入A4；不要从moving branch读取执行身
 
 已完成D/T/L/R独立源码整合与已报告接口缺陷的静态修复审阅。
 CPU Job 309002 已真实通过 source contract；D9、L13、T9、I6 共37项通过。Panda candidate/files_complete/content_verified=`125/125/121`、content_failed=`4`；`scientific_evidence=false`、`proper_rotation_pairs=0`。这些是工程/资产证据，不是模型或科学结果。
+
+Pilot Job 309127 使用 exact `85d2f5fc/tree df2c4ddf`：11/11 contract tests PASS，Stage1 25/25，geometry OK（11618→954）；Stage2 FAILED/ExitCode=2，首错为 `slat_flow` 未显式绑定本地 `slat_enc`，离线回退 `microsoft/TRELLIS-image-large` 触发 `LocalEntryNotFoundError`。输出 root 为 `/public/home/ricky/RESULTS/STEREO_CUPID_85D2F5_PILOT_A1/output`；`scientific_claim=UNTESTED`，不计 S05，R 正在修复。
 此前R报告SSH在banner前关闭；最新网络状态需使用R带时间的原始日志更新。
 模型完整root、真实canonical监督、GPU推理与训练终态均待证据，不从源码或准备工作推断完成。
 
