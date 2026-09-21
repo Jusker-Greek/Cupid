@@ -61,3 +61,14 @@ python scripts/stereo_data_geometry_inventory.py --manifest "$D_DATA_OUTPUT/inve
 R请求已落实：Panda配置`configs/stereo/data_panda125_audit_v1.json`已新增，直接传给stereo_data_manifest.py；不需要远端编辑config。当前CPU checks为9项，新增metadata变化拒绝；源hash契约含trajectory_metadata，避免旧target与已改相机元数据混用。factory identity只声明index核验，逐NPZ内容核验在on-access进行。
 
 继续责任已明确：`../D_GEOMETRY_EVIDENCE_CHECKLIST.md`列出G1–G6最小缺证、R回收第一包、D判定与下一步实现链。历史精确commit不是额外人为门槛；已有canonical mesh/真实camera/K足以直接证明变换链时即可闭合。反之不能只根据det修正或bbox吻合制造GT。R返回证据后D继续真实目标生成，不把此问题留作无人负责的文档阻塞。
+
+## 2026-09-22 Slurm target-manifest audit
+
+统一 exact source：commit `85d2f5fcf7842758fcc37c6f057e69f1970d2178`，tree `df2c4ddfd9f0bf95c03a22a326861ad06640802a`。
+
+- `309270`：首个 launcher 失败，ExitCode `0:53`；`--output` 父目录未预创建，未执行数据代码。保留为工程首错，不重用。
+- `309271`：server14，COMPLETED `0:0`，9项 contract tests 全部通过。Panda manifest 为125/125 candidate、125/125 files complete、125/125 content verified、`proper_rotation_pairs=0`；唯一对象 `Android_Figure_Panda` 只进入 train，validation/test 为空。manifest SHA256 `68168c1020c47d9828f4764278a8ab6b3e565b58781d7ada496e3b3307b0e9cb`，summary SHA256 `45f3212e5852df7f98034c931ec6c8710db9ab0313bf0f71b7c6a49ce4195025`。
+- `309271` GSO bounded：20 candidate/20 complete/19 content verified/1 content failed（并行文件系统 HDF5 lock）；`HDF5_USE_FILE_LOCKING=FALSE` 复核在 `309272` 后变为20/20。registry 1025 rows 明确记录为 `not_a_pair_count=true`。
+- `309272`：server43，COMPLETED `0:0`，fresh GSO bounded manifest 与 blocker receipt。20/20 content verified；canonical occupancy 0、canonical-to-CV 0、proper-CV 0、valid target 0，20/20 `UNVERIFIED`。manifest SHA256 `5006ef3319d94448531cd2024bafa3bce8321eedb5675ad33bd8cd2162e07949`；receipt `/public/home/ricky/RESULTS/STEREO_CUPID_D_TARGET_AUDIT_85D2F5_A3/target_audit_receipt.json` SHA256 `847da0543dd7108872bdb68202c6f1fb25db30df9469f93325caed9fe44ef7d2`。
+
+最短 blocker 已由 receipt 固定为：从有 provenance 的 canonical mesh 用 pinned official voxelizer 生成 occupancy；证明每侧 canonical-to-CV proper 外参与 K/depth provenance；绑定真实 crop box、renderer/source hashes。309242 的 `geometry_status=OK` / `scientific_claim=UNTESTED` 仅是预训练 pilot 输出，receipt 明确 `not_a_gt_target=true`，不能替代上述 target。
