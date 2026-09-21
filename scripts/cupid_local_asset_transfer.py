@@ -35,6 +35,8 @@ def main():
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--proxy', required=True)
     parser.add_argument('--remote-root', required=True)
+    parser.add_argument('--slurm-time-limit', default='04:00:00',
+                        help='Slurm CPU receive limit for each streamed file')
     parser.add_argument('--wait-pid', type=int)
     parser.add_argument('--download-only', action='store_true',
                         help='Keep downloading during SSH outages; retain pending uploads')
@@ -147,7 +149,8 @@ def main():
             'echo REMOTE_SHA256_VERIFIED ' + shlex.quote(name),
         ])
         command = ('/opt/gridview/slurm/bin/srun -p cpu -N 1 -n 1 -c 1 --mem=1G '
-                   '-t 01:00:00 --job-name=cupid_local_upload /bin/bash -c ' + shlex.quote(body))
+                   '-t ' + shlex.quote(args.slurm_time_limit) +
+                   ' --job-name=cupid_local_upload /bin/bash -c ' + shlex.quote(body))
         print(f'UPLOAD_START {name}', flush=True)
         with target.open('rb') as source:
             result = subprocess.run(['ssh', '-T', '-o', 'BatchMode=yes', '-o',
