@@ -22,7 +22,11 @@ slurm=/opt/gridview/slurm/bin
 "$slurm/squeue" -u ricky -h -o '%i|%j|%T|%R' > "$CUPID_RUNTIME_EVIDENCE.submission/queue.txt"
 cat "$CUPID_RUNTIME_EVIDENCE.submission/queue.txt"
 # Match inference, future training and old transfer/weight jobs from this campaign.
-if awk -F'|' '$2 ~ /^(stereo_cupid|cupid_local_upload|cupid_weights)/ {found=1} END {exit !found}' \
+campaign_pattern='^(stereo_cupid|cupid_weights)'
+if [[ "$CUPID_RUNTIME_MODE" != data-contract && "$CUPID_RUNTIME_MODE" != contract && "$CUPID_RUNTIME_MODE" != asset-audit ]]; then
+    campaign_pattern='^(stereo_cupid|cupid_local_upload|cupid_weights)'
+fi
+if awk -F'|' -v pattern="$campaign_pattern" '$2 ~ pattern {found=1} END {exit !found}' \
         "$CUPID_RUNTIME_EVIDENCE.submission/queue.txt"; then
     echo 'ACTIVE_CAMPAIGN_JOB_EXISTS: preserve audit, do not submit' >&2
     exit 1
