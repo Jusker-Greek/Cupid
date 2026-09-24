@@ -155,6 +155,25 @@ def main() -> None:
         path = Path(raw)
         required_status.append({"path": raw, "exists": path.is_file(), "indexed": raw in known,
                                 "sha256": sha256_file(path) if path.is_file() else None})
+    mesh_path = Path("/public/home/ricky/DATASET/Gazebo/Android_Figure_Panda/meshes/model.obj")
+    renderer_path = Path("/public/home/ricky/CODE/GSO_dataset/render_stereo_gazebo.py")
+    mapping_receipt = {
+        "schema": "STEREO_CANONICAL_FRAME_MAPPING_V1",
+        "status": "UNVERIFIED_EXTERNAL_EVIDENCE",
+        "object_id": "Android_Figure_Panda",
+        "source_asset_sha256": sha256_file(mesh_path) if mesh_path.is_file() else None,
+        "canonical_frame": None,
+        "axis_map": None,
+        "scale_offset": None,
+        "importer_revision": sha256_file(renderer_path) if renderer_path.is_file() else None,
+        "verification_command": "Verify source mesh/importer revision, then record axis_map and scale_offset against a pinned canonical-frame receipt.",
+        "scientific_evidence": False,
+        "verified": False,
+        "reason": "Known renderer normalizes the loaded scene but does not provide an accepted asset-to-canonical mapping receipt.",
+    }
+    mapping_path = output / "canonical_frame_mapping_receipt.json"
+    mapping_path.write_text(json.dumps(mapping_receipt, indent=2) + "\n")
+    mapping_sha256 = sha256_file(mapping_path)
     predicates = [predicate_result(name, records) for name in (
         "canonical_to_frame_mapping", "official_voxelizer_and_occupancy",
         "proper_cv_extrinsics_k_depth", "crop_and_renderer_source_binding",
@@ -170,6 +189,7 @@ def main() -> None:
         "evidence_index_sha256": sha256_file(index_path),
         "predicate_order": [p["predicate"] for p in predicates],
         "predicate_results": predicates,
+        "canonical_frame_mapping_receipt": {"path": str(mapping_path), "sha256": mapping_sha256, "verified": False},
         "first_failure_predicate": first_failure["predicate"],
         "first_failure_reason": first_failure["failure_reason"],
         "minimum_supplement_command": first_failure["minimum_supplement_command"],
