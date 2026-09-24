@@ -90,6 +90,39 @@ def discover(root: Path, max_depth: int) -> tuple[list[dict], dict]:
     return records, {"exists": True, "visited": visited, "errors": errors, "truncated": False}
 
 
+def text_blob(record: dict) -> str:
+    return json.dumps(record.get("text", {}), sort_keys=True).lower()
+
+
+def path_or_text(record: dict) -> str:
+    return (record["path"] + " " + text_blob(record)).lower()
+
+
+def predicate_result(name: str, records: list[dict]) -> dict:
+    if name == "canonical_to_frame_mapping":
+        candidates = [r for r in records if "canonical" in path_or_text(r) and any(k in path_or_text(r) for k in ("mapping", "normalize", "coordinate", "import"))]
+        command = "Provide a signed per-asset canonical_frame_mapping receipt: source_asset_sha256, canonical_frame, axis map, scale/offset, importer revision, and verification command."
+    elif name == "official_voxelizer_and_occupancy":
+        candidates = [r for r in records if any(k in path_or_text(r) for k in ("voxelizer", "trellis", "occupancy", "occup"))]
+        command = "Run the pinned official voxelizer on the provenance-bound canonical mesh, save occupancy.npy, and emit voxelizer source/revision plus occupancy SHA256 in a receipt."
+    elif name == "proper_cv_extrinsics_k_depth":
+        candidates = [r for r in records if any(k in path_or_text(r) for k in ("w2c", "extrinsic", "opencv", "intrinsic")) and any(k in path_or_text(r) for k in ("depth", "camera", "trajectory"))]
+        command = "For one manifest pair, emit both side proper CV w2c matrices (det(R)>0), K, depth provenance, image dimensions, and source metadata SHA256; verify the receipt on CPU."
+    elif name == "crop_and_renderer_source_binding":
+        candidates = [r for r in records if "crop" in path_or_text(r) or ("render" in path_or_text(r) and "source" in path_or_text(r))]
+        command = "Bind integer crop_xyxy and preprocessing revision to the exact renderer/source hashes and pair image assets, then emit a hash-checked provenance receipt."
+    else:
+        raise ValueError(name)
+    return {
+        "predicate": name,
+        "verified": False,
+        "candidate_count": len(candidates),
+        "candidate_paths": [{"path": r["path"], "sha256": r["sha256"]} for r in candidates[:12]],
+        "minimum_supplement_command": command,
+        "failure_reason": "Candidates are unverified references; no accepted receipt with the required identity/hash fields was found.",
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True)
@@ -122,6 +155,11 @@ def main() -> None:
         path = Path(raw)
         required_status.append({"path": raw, "exists": path.is_file(), "indexed": raw in known,
                                 "sha256": sha256_file(path) if path.is_file() else None})
+    predicates = [predicate_result(name, records) for name in (
+        "canonical_to_frame_mapping", "official_voxelizer_and_occupancy",
+        "proper_cv_extrinsics_k_depth", "crop_and_renderer_source_binding",
+    )]
+    first_failure = predicates[0]
     receipt = {
         "schema": "STEREO_EXTERNAL_BLOCKER_AUDIT_V1", "status": "EXTERNAL_BLOCKED",
         "job_id": os.environ["SLURM_JOB_ID"], "host": socket.gethostname(),
@@ -130,6 +168,11 @@ def main() -> None:
         "scope": {"roots": args.root, "max_depth": args.max_depth, "max_files": MAX_FILES},
         "roots": roots, "required_paths": required_status, "candidate_count": len(records),
         "evidence_index_sha256": sha256_file(index_path),
+        "predicate_order": [p["predicate"] for p in predicates],
+        "predicate_results": predicates,
+        "first_failure_predicate": first_failure["predicate"],
+        "first_failure_reason": first_failure["failure_reason"],
+        "minimum_supplement_command": first_failure["minimum_supplement_command"],
         "blockers": [
             "No verified canonical mesh to canonical-frame mapping was found by this bounded search.",
             "No pinned official voxelizer receipt and canonical occupancy hash were found.",
