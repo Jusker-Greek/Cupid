@@ -85,3 +85,9 @@ R请求已落实：Panda配置`configs/stereo/data_panda125_audit_v1.json`已新
 - Panda mesh：`/public/home/ricky/DATASET/Gazebo/Android_Figure_Panda/meshes/model.obj`，SHA256 `a528ad5461401b8ddf636be857c2fe305a03cf7d875ce25d75c59af26ef30485`；预期 `/public/home/ricky/DATASET/Gazebo/Android_Figure_Panda/random_linear_0/trajectory_info.json` 不存在。GSO_1K_200 的 trajectory metadata 示例 `/public/home/ricky/DATASET/GSO_1K_200/30_CONSTRUCTION_SET/random_linear_0/trajectory_info.json` SHA256 `a7b2b49b6495f7730192e41f2561fa1971f48ba5d56d4abe6a41409f60b7b58b`。
 
 审计还命中 `original_code_for_reference` 下历史 renderer，但没有闭合 canonical mesh→canonical-frame mapping、pinned official voxelizer/occupancy hash、逐 pair proper canonical→CV extrinsic 加 K/depth provenance，或真实 crop/source binding。receipt 状态为 `EXTERNAL_BLOCKED`、`target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`，因此没有生成可验证 pair target。
+
+## 2026-09-24 predicate-first target blocker audit
+
+`316376`（server01，COMPLETED `0:0`，00:01:23）使用 exact source commit `ae4fc67151e34e58b3712704681bb2ba12947671`、tree `f9a3d76551727c15d2be631970d65b0e50b28db4`，按固定顺序评估四个 target predicates。receipt：`/public/home/ricky/RESULTS/STEREO_CUPID_D_PREDICATE_AUDIT_AE4FC67_A1/EXTERNAL_BLOCKER_RECEIPT.json`，SHA256 `efae17c151a2dcb8d3ff536f5bbdf8f37fde368ae83ec196d04c05c03718eb9b`；index SHA256 仍为 `0e7915368a39991a42953662da5fed8842fa59dbd5eb0b938839c39e87144602`。
+
+首个失败 predicate 是 `canonical_to_frame_mapping`：候选仅为 unverified references，没有包含 `source_asset_sha256`、`canonical_frame`、axis map、scale/offset、importer revision 和 verification command 的 accepted receipt。最小补证命令是为每个 asset 提供 signed canonical-frame mapping receipt 并执行 CPU verification。其后 `official_voxelizer_and_occupancy`、`proper_cv_extrinsics_k_depth`、`crop_and_renderer_source_binding` 也均为 `verified=false`；receipt 仍明确 `target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`。
