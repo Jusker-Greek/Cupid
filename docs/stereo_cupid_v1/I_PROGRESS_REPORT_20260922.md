@@ -21,6 +21,7 @@
 
 | CPU Job 309002 | PASSED：source_contract PASS，D9/L13/T9/I6=37项通过 | Panda 125/125/121，content_failed=4；scientific_evidence=false，proper_rotation_pairs=0；仅推进资产验证 |
 | D external audit Job 309339 | PASSED：作业自身 COMPLETED 0:0 | Receipt `EXTERNAL_BLOCKED`，`target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`；renderer/trajectory/Panda mesh 存在，但 canonical→frame、voxelizer/occupancy、proper-CV/K/depth/crop/source binding 缺证，训练保持 BLOCKED |
+| D predicate audit Job 316376 | PASSED：bounded audit 作业 COMPLETED 0:0 | 首错 `canonical_to_frame_mapping`；receipt 仍 `target_ready=false`、`scientific_evidence=false`、`not_a_gt_target=true`。最小修复是 signed per-asset mapping receipt；不得进入 occupancy/target |
 
 | 证据 | 状态 | 边界 |
 |---|---|---|
