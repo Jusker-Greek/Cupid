@@ -13,7 +13,8 @@ set -euo pipefail
 : "${CUPID_OUTPUT_DIR:?Set fresh output directory}"
 cd "$CUPID_PROJECT_DIR"
 test "$(git rev-parse HEAD)" = "$CUPID_EXPECTED_COMMIT"
-test "$(git status --porcelain)" = ""
+git diff --quiet --ignore-submodules=all HEAD --
+test -z "$(git ls-files --others --exclude-standard)"
 runtime=/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="$CUPID_PROJECT_DIR:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
