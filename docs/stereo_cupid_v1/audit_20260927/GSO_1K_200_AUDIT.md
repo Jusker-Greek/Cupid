@@ -53,6 +53,16 @@ to multiple splits. The list is labeled `CANDIDATE_ONLY` and
 `training_target_ready=false`; it is not the unlocated historical 1K subset
 and contains no accepted canonical occupancy or CV geometry target.
 
+An independent D-lane Slurm CPU cross-audit, job `323120` on `server34`,
+`COMPLETED 0:0`, re-read the exact frozen list and confirmed 1,000/1,000
+content-valid pairs with disjoint object splits. Its
+[summary](STEREO_GSO_1K_D_CROSS_AUDIT_D7CA62E_A2/summary.json) has SHA256
+`f3a1857c6c38a9f6953a93de1dac8e621cc8411d6af00d4f3111a775ce21f396`.
+It independently found 0/1,000 proper saved rotation pairs, 998/1,000
+shared-mesh-byte-equal pairs, and `target_ready=false`: historical renderer,
+canonical occupancy, and canonical-to-CV mapping remain unverified. This
+cross-audit strengthens the input/content claim, not the GT claim.
+
 The sample content audit decoded 126 frames. Four other HDF5 reads initially
 failed with `errno 37: No locks available`, an NFS locking failure. A separate
 Slurm CPU job `322940` on `server01`, `COMPLETED 0:0`, used

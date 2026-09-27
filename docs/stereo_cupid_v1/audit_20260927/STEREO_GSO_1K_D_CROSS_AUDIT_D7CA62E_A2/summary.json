@@ -1,0 +1,30 @@
+{
+  "schema": "STEREO_GSO_1K_D_CROSS_AUDIT_V1",
+  "status": "COMPLETED_WITH_TARGET_BLOCKER",
+  "job_id": "323120",
+  "host": "server34",
+  "started_at": "2026-09-27T10:37:28.064574+00:00",
+  "ended_at": "2026-09-27T10:42:02.896835+00:00",
+  "commit": "d7ca62e0e403ad745650903cd0b1806f5809f4b6",
+  "tree": "b402f572be0ede31411bf8ba707634938fe40d36",
+  "source_receipt_sha256": "6e00f17e7bd80eed4edce89dd3885422eee2e046237bbcf27306eda1aeb7bcd9",
+  "source_manifest_sha256": "1a6ff1ce42ce230c60b3c07789620c322b2beec5cc09dd24aac4e61d51ac725a",
+  "d_manifest_sha256": "0c6c6b9213554c39811323cca15733c19da1d9e848a3f0dd76ea079030e4b625",
+  "counts": {
+    "candidate_pairs": 1000,
+    "content_verified": 1000,
+    "proper_rotation_pairs": 0,
+    "shared_mesh_byte_equal": 998
+  },
+  "split_object_counts": {
+    "train": 733,
+    "validation": 81,
+    "test": 88
+  },
+  "object_split_disjoint": true,
+  "historical_renderer_verified": false,
+  "canonical_occupancy_verified": false,
+  "canonical_to_cv_verified": false,
+  "target_ready": false,
+  "scientific_evidence": false
+}
