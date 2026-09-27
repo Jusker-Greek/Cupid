@@ -1,0 +1,327 @@
+[
+  {
+    "object_id": "30_CONSTRUCTION_SET",
+    "path": "/public/home/ricky/DATASET/Gazebo/30_CONSTRUCTION_SET/meshes/model.obj",
+    "sha256": "272a23a31b17534a75949d23e2dfaa67b6edb47506d783ecc8ecfb0c4f61c00b"
+  },
+  {
+    "object_id": "ASICS_GELLinksmaster_WhiteSilverCarolina_Blue",
+    "path": "/public/home/ricky/DATASET/Gazebo/ASICS_GELLinksmaster_WhiteSilverCarolina_Blue/meshes/model.obj",
+    "sha256": "804e6dcc2be9a923aa238153bc2bae9756e97609a753de9fc9472bac05a22d77"
+  },
+  {
+    "object_id": "Asus_Sabertooth_Z97_MARK_1_Motherboard_ATX_LGA1150_Socket",
+    "path": "/public/home/ricky/DATASET/Gazebo/Asus_Sabertooth_Z97_MARK_1_Motherboard_ATX_LGA1150_Socket/meshes/model.obj",
+    "sha256": "2d3448fe999b5d3561b02c9ab29e95aba6259df6a293700332322d7bd3320ca5"
+  },
+  {
+    "object_id": "BIRD_RATTLE",
+    "path": "/public/home/ricky/DATASET/Gazebo/BIRD_RATTLE/meshes/model.obj",
+    "sha256": "2967f1b1c3a42bd0228a55a0e087ac73d181a59f325bce357d8c2a125f117b2d"
+  },
+  {
+    "object_id": "BlackBlack_Nintendo_3DSXL",
+    "path": "/public/home/ricky/DATASET/Gazebo/BlackBlack_Nintendo_3DSXL/meshes/model.obj",
+    "sha256": "aeebddef204a0937186b094bd9a25c13f9d6dc35da457c2469a8024593fdcc6d"
+  },
+  {
+    "object_id": "Brother_Printing_Cartridge_PC501",
+    "path": "/public/home/ricky/DATASET/Gazebo/Brother_Printing_Cartridge_PC501/meshes/model.obj",
+    "sha256": "ae81c7e54e748d3b358a5fa537a71051e36c94c34f3983179fdefa74acbe76ce"
+  },
+  {
+    "object_id": "Canon_225226_Ink_Cartridges_BlackColor_Cyan_Magenta_Yellow_6_count",
+    "path": "/public/home/ricky/DATASET/Gazebo/Canon_225226_Ink_Cartridges_BlackColor_Cyan_Magenta_Yellow_6_count/meshes/model.obj",
+    "sha256": "7a9656c77de958641900f2e63c20cd4da6cbce0a576bdc883b691933d6dc6fa8"
+  },
+  {
+    "object_id": "Chelsea_lo_fl_rdheel_zAQrnhlEfw8",
+    "path": "/public/home/ricky/DATASET/Gazebo/Chelsea_lo_fl_rdheel_zAQrnhlEfw8/meshes/model.obj",
+    "sha256": "2511b6586b90c1fb8a13cb86afc51bf37b5ffc8d63b06700ff7b0c2246c8b50d"
+  },
+  {
+    "object_id": "Cole_Hardware_Dishtowel_Blue",
+    "path": "/public/home/ricky/DATASET/Gazebo/Cole_Hardware_Dishtowel_Blue/meshes/model.obj",
+    "sha256": "ac72c54f9069e1444420982cd89b610cee2916bd951cffdf730acb02c3a59c3c"
+  },
+  {
+    "object_id": "Cole_Hardware_Saucer_Electric",
+    "path": "/public/home/ricky/DATASET/Gazebo/Cole_Hardware_Saucer_Electric/meshes/model.obj",
+    "sha256": "b094c6549d5eb6ba22b46bf55cc5aff751c04ade4e222b6121b7f542f852bcd9"
+  },
+  {
+    "object_id": "Crayola_Crayons_Washable_24_crayons",
+    "path": "/public/home/ricky/DATASET/Gazebo/Crayola_Crayons_Washable_24_crayons/meshes/model.obj",
+    "sha256": "4b958fb1e61417c348472405f5814bea6b1b30ef51b3a208dd9fcb2fba77a600"
+  },
+  {
+    "object_id": "DANCING_ALLIGATOR_zoWBjc0jbTs",
+    "path": "/public/home/ricky/DATASET/Gazebo/DANCING_ALLIGATOR_zoWBjc0jbTs/meshes/model.obj",
+    "sha256": "9b536837f2c0a9d67ce290fe39a2f5165b8bdfbae1539ae262f100cb67c899d0"
+  },
+  {
+    "object_id": "Dell_Ink_Cartridge",
+    "path": "/public/home/ricky/DATASET/Gazebo/Dell_Ink_Cartridge/meshes/model.obj",
+    "sha256": "1995d20e4153fe067e6cee51f445d864ba27b1693f1f0ba3b4328c33e3978867"
+  },
+  {
+    "object_id": "Down_To_Earth_Ceramic_Orchid_Pot_Asst_Blue",
+    "path": "/public/home/ricky/DATASET/Gazebo/Down_To_Earth_Ceramic_Orchid_Pot_Asst_Blue/meshes/model.obj",
+    "sha256": "022fc466499cb218fc684f8065be60aba34612edec205fbddf5f44d9cb148bb8"
+  },
+  {
+    "object_id": "Ecoforms_Plant_Container_QP6CORAL",
+    "path": "/public/home/ricky/DATASET/Gazebo/Ecoforms_Plant_Container_QP6CORAL/meshes/model.obj",
+    "sha256": "9213ab19836de8fd9d67ce45464078396e95514d01813d55ce2cf308d7278dcf"
+  },
+  {
+    "object_id": "Ecoforms_Plant_Plate_S11Turquoise",
+    "path": "/public/home/ricky/DATASET/Gazebo/Ecoforms_Plant_Plate_S11Turquoise/meshes/model.obj",
+    "sha256": "997202e76f7bea576bdcf3cec03cb65d2ed6cf91305ad273c127a4ef36f6ad4b"
+  },
+  {
+    "object_id": "Ecoforms_Quadra_Saucer_SQ1_Avocado",
+    "path": "/public/home/ricky/DATASET/Gazebo/Ecoforms_Quadra_Saucer_SQ1_Avocado/meshes/model.obj",
+    "sha256": "07599049191b69bd127bb1fdb5b8e75d97ad2992cd5604f8fbdcc13ed61d2505"
+  },
+  {
+    "object_id": "F10_TRX_FG_ssscuo9tGxb",
+    "path": "/public/home/ricky/DATASET/Gazebo/F10_TRX_FG_ssscuo9tGxb/meshes/model.obj",
+    "sha256": "67942cd86533bcc9ef63a1ac055d8b9e2037ddc8ebf50b5a75df5a03aae51186"
+  },
+  {
+    "object_id": "FemDophilus",
+    "path": "/public/home/ricky/DATASET/Gazebo/FemDophilus/meshes/model.obj",
+    "sha256": "97a003a3d9cd06837cc37a6209291d7b14fbf0348b7668dec29247ff1ed0631b"
+  },
+  {
+    "object_id": "Full_Circle_Happy_Scraps_Out_Collector_Gray",
+    "path": "/public/home/ricky/DATASET/Gazebo/Full_Circle_Happy_Scraps_Out_Collector_Gray/meshes/model.obj",
+    "sha256": "b839cdf97627e84409818094732bc5788a631afd055d53cc89ef5bbc7ffc8a49"
+  },
+  {
+    "object_id": "Gigabyte_GA970AUD3P_10_Motherboard_ATX_Socket_AM3",
+    "path": "/public/home/ricky/DATASET/Gazebo/Gigabyte_GA970AUD3P_10_Motherboard_ATX_Socket_AM3/meshes/model.obj",
+    "sha256": "be77d7a1c75a8e7d3729a0dbec54d52183edbd130add5523d4dfc2d2ecf757aa"
+  },
+  {
+    "object_id": "Great_Jones_Wingtip_wxH3dbtlvBC",
+    "path": "/public/home/ricky/DATASET/Gazebo/Great_Jones_Wingtip_wxH3dbtlvBC/meshes/model.obj",
+    "sha256": "cb7c6286843c3bc3806ffd05c95c1d650198f05249495c0341c44af377d3f107"
+  },
+  {
+    "object_id": "Hasbro_Monopoly_Hotels_Game",
+    "path": "/public/home/ricky/DATASET/Gazebo/Hasbro_Monopoly_Hotels_Game/meshes/model.obj",
+    "sha256": "5916a7a845c002f861e36ea4fd3ac063abe5fb0a1a29216ed1097c7e8d603c56"
+  },
+  {
+    "object_id": "INTERNATIONAL_PAPER_Willamette_4_Brown_Bag_500Count",
+    "path": "/public/home/ricky/DATASET/Gazebo/INTERNATIONAL_PAPER_Willamette_4_Brown_Bag_500Count/meshes/model.obj",
+    "sha256": "0adcba6f94a87891fb613f4f1f70c582b2ed7040fac06d5de288ae9f97071e4f"
+  },
+  {
+    "object_id": "JarroSil_Activated_Silicon_5exdZHIeLAp",
+    "path": "/public/home/ricky/DATASET/Gazebo/JarroSil_Activated_Silicon_5exdZHIeLAp/meshes/model.obj",
+    "sha256": "b87e0d688bfc72aba0f08bcfd84e6c277205b3842e02d39d1345182d2ac7dbb6"
+  },
+  {
+    "object_id": "Kanex_MultiSync_Wireless_Keyboard",
+    "path": "/public/home/ricky/DATASET/Gazebo/Kanex_MultiSync_Wireless_Keyboard/meshes/model.obj",
+    "sha256": "e4ded2f0d70c1109833b95593c17e4d170d8582951578a189973a1dedf3eaf6f"
+  },
+  {
+    "object_id": "LEGO_Creationary_Game_ZJa163wlWp2",
+    "path": "/public/home/ricky/DATASET/Gazebo/LEGO_Creationary_Game_ZJa163wlWp2/meshes/model.obj",
+    "sha256": "e91bc815a9c2e0483181f58270a77cd8a2ea041c4bd5128387623455444145f7"
+  },
+  {
+    "object_id": "Little_Big_Planet_3_Plush_Edition",
+    "path": "/public/home/ricky/DATASET/Gazebo/Little_Big_Planet_3_Plush_Edition/meshes/model.obj",
+    "sha256": "0013f9a40d7a98c89cb1621afe7f5dd8224c71e82a6b45afc866119de296cc9b"
+  },
+  {
+    "object_id": "MIRACLE_POUNDING",
+    "path": "/public/home/ricky/DATASET/Gazebo/MIRACLE_POUNDING/meshes/model.obj",
+    "sha256": "88a0826243649f8182a1890bd24ef98cab84c70afbb54ae0d057a84b6b53ef34"
+  },
+  {
+    "object_id": "Marvel_Avengers_Titan_Hero_Series_Doctor_Doom",
+    "path": "/public/home/ricky/DATASET/Gazebo/Marvel_Avengers_Titan_Hero_Series_Doctor_Doom/meshes/model.obj",
+    "sha256": "efeda9da12791f33d25d2710cb8b32f03493c09f608de03256d2986178c0866f"
+  },
+  {
+    "object_id": "Mens_Bahama_in_Khaki_Oyster_xU2jeqYwhQJ",
+    "path": "/public/home/ricky/DATASET/Gazebo/Mens_Bahama_in_Khaki_Oyster_xU2jeqYwhQJ/meshes/model.obj",
+    "sha256": "a0cf20687c57bd0ad633e3fe7f2e5c52725e698f0d268b0fcd714bf77943663f"
+  },
+  {
+    "object_id": "Mens_Mako_Canoe_Moc_2Eye_Boat_Shoe_in_OysterTaupe_otyRrfvPMiA",
+    "path": "/public/home/ricky/DATASET/Gazebo/Mens_Mako_Canoe_Moc_2Eye_Boat_Shoe_in_OysterTaupe_otyRrfvPMiA/meshes/model.obj",
+    "sha256": "392321d98b0117350b394fe1edac6fc3fc64d239f5e3b1cc761aeb9f5e6a8e2d"
+  },
+  {
+    "object_id": "My_First_Rolling_Lion",
+    "path": "/public/home/ricky/DATASET/Gazebo/My_First_Rolling_Lion/meshes/model.obj",
+    "sha256": "fd4e7602603c5e654d5139e21bac09763c49f59123bba4b77074068ccb6f98b7"
+  },
+  {
+    "object_id": "Nestle_Candy_19_oz_Butterfinger_Singles_116567",
+    "path": "/public/home/ricky/DATASET/Gazebo/Nestle_Candy_19_oz_Butterfinger_Singles_116567/meshes/model.obj",
+    "sha256": "517dc4a298a7686cc40641027fdd010e1b9b6014342535783d9a319b9f257686"
+  },
+  {
+    "object_id": "Nickelodeon_Teenage_Mutant_Ninja_Turtles_Raphael",
+    "path": "/public/home/ricky/DATASET/Gazebo/Nickelodeon_Teenage_Mutant_Ninja_Turtles_Raphael/meshes/model.obj",
+    "sha256": "eadbedbfbf6e688b9cfe19dad2157a7a60e7a271fe5ac42ab37419abb10e9f68"
+  },
+  {
+    "object_id": "Object",
+    "path": "/public/home/ricky/DATASET/Gazebo/Object/meshes/model.obj",
+    "sha256": "96c2a9eb8ed41696b9afbb7e90d2f524fc796ccad4be2404479b90678ffbbf24"
+  },
+  {
+    "object_id": "Office_Depot_HP_2_Remanufactured_Ink_Cartridges_Color_Cyan_Magenta_Yellow_3_count",
+    "path": "/public/home/ricky/DATASET/Gazebo/Office_Depot_HP_2_Remanufactured_Ink_Cartridges_Color_Cyan_Magenta_Yellow_3_count/meshes/model.obj",
+    "sha256": "8be2e0fba990ddcc19283646904556d745a15b032db09421e7e0130e7707e36e"
+  },
+  {
+    "object_id": "Olive_Kids_Birdie_Pack_n_Snack",
+    "path": "/public/home/ricky/DATASET/Gazebo/Olive_Kids_Birdie_Pack_n_Snack/meshes/model.obj",
+    "sha256": "74a5bfc15bc4a3990c107a818686a34202f622acf7605cca04a5b90505421c21"
+  },
+  {
+    "object_id": "Olive_Kids_Trains_Planes_Trucks_Bogo_Backpack",
+    "path": "/public/home/ricky/DATASET/Gazebo/Olive_Kids_Trains_Planes_Trucks_Bogo_Backpack/meshes/model.obj",
+    "sha256": "c6124834764ae08c881578c14212b8efa9f03d8edc61cf20fba50636f74cf488"
+  },
+  {
+    "object_id": "PHEEHAN_RUN",
+    "path": "/public/home/ricky/DATASET/Gazebo/PHEEHAN_RUN/meshes/model.obj",
+    "sha256": "a2ef8ef6ab74781d30d491dc1a9c9d2a57443680b7e0e1d4d950f1d015503083"
+  },
+  {
+    "object_id": "Perricoen_MD_No_Concealer_Concealer",
+    "path": "/public/home/ricky/DATASET/Gazebo/Perricoen_MD_No_Concealer_Concealer/meshes/model.obj",
+    "sha256": "c32414143e12585fe3bef02d481a3b66c444e6a17fd951e975f7dae6e2a277f7"
+  },
+  {
+    "object_id": "Perricone_MD_Omega_3_Supplements",
+    "path": "/public/home/ricky/DATASET/Gazebo/Perricone_MD_Omega_3_Supplements/meshes/model.obj",
+    "sha256": "139b0575bb88301781bbc377e29a3a5402a57137ea4feacf16622eff1c7a4573"
+  },
+  {
+    "object_id": "Phillips_Milk_of_Magnesia_Saline_Laxative_Liquid_Original",
+    "path": "/public/home/ricky/DATASET/Gazebo/Phillips_Milk_of_Magnesia_Saline_Laxative_Liquid_Original/meshes/model.obj",
+    "sha256": "724f1310c1a515cc61be92201862a5c9cdd3d95de376255d92c4e5cb003309c4"
+  },
+  {
+    "object_id": "Predito_LZ_TRX_FG_W",
+    "path": "/public/home/ricky/DATASET/Gazebo/Predito_LZ_TRX_FG_W/meshes/model.obj",
+    "sha256": "94344e0db0f3696ef043556fc3fab3396aebaff10a44f5fb4591ffd1f4bf3d1d"
+  },
+  {
+    "object_id": "RESCUE_CREW",
+    "path": "/public/home/ricky/DATASET/Gazebo/RESCUE_CREW/meshes/model.obj",
+    "sha256": "a34fa8fafcc9f46fdd44c7ced1f27ca8fe5d1b6f7087cc371f4b6eca3bb9b850"
+  },
+  {
+    "object_id": "Reebok_BREAKPOINT_MID",
+    "path": "/public/home/ricky/DATASET/Gazebo/Reebok_BREAKPOINT_MID/meshes/model.obj",
+    "sha256": "bb6a53b09975299cbc996107f57d2a7b504ef52f007e4f0d5b1ad659f3f2ed5d"
+  },
+  {
+    "object_id": "Reebok_GL_6000",
+    "path": "/public/home/ricky/DATASET/Gazebo/Reebok_GL_6000/meshes/model.obj",
+    "sha256": "6b6f9127232497a7cecca048727ccf106eebe13d526e002b658df1a70e29687e"
+  },
+  {
+    "object_id": "Reebok_SL_FLIP_UPDATE",
+    "path": "/public/home/ricky/DATASET/Gazebo/Reebok_SL_FLIP_UPDATE/meshes/model.obj",
+    "sha256": "b0d7ec25f31f5264b7aaa618462c83139355644e45efde47bb6bdfcca8f0fd09"
+  },
+  {
+    "object_id": "Remington_1_12_inch_Hair_Straightener",
+    "path": "/public/home/ricky/DATASET/Gazebo/Remington_1_12_inch_Hair_Straightener/meshes/model.obj",
+    "sha256": "c5ec2e8f8a8467269dda6dcdc1965d2068d5fb48b6bbb00b9a8a5a0bc110573e"
+  },
+  {
+    "object_id": "Room_Essentials_Salad_Plate_Turquoise",
+    "path": "/public/home/ricky/DATASET/Gazebo/Room_Essentials_Salad_Plate_Turquoise/meshes/model.obj",
+    "sha256": "3b6f85abfd33ffbf09d41fda97046272ad92dbd416aedbd4691b326c969423be"
+  },
+  {
+    "object_id": "SLACK_CRUISER",
+    "path": "/public/home/ricky/DATASET/Gazebo/SLACK_CRUISER/meshes/model.obj",
+    "sha256": "e4964a2dc511c7a507fde35ec99f316b214d7271cc8160db66714f81623cfe74"
+  },
+  {
+    "object_id": "Santa_Cruz_Mens_G7kQXK7cIky",
+    "path": "/public/home/ricky/DATASET/Gazebo/Santa_Cruz_Mens_G7kQXK7cIky/meshes/model.obj",
+    "sha256": "6c60c4d61a06e277b495f2dd6347daa7bdd6e75983d02497b358365dc4912bdd"
+  },
+  {
+    "object_id": "Seagate_1TB_Backup_Plus_portable_drive_Blue",
+    "path": "/public/home/ricky/DATASET/Gazebo/Seagate_1TB_Backup_Plus_portable_drive_Blue/meshes/model.obj",
+    "sha256": "bcda9e8e1905f30dcbbc33ab7d86f83a2191725f608964e92ad1a5af7b4ce224"
+  },
+  {
+    "object_id": "Sootheze_Cold_Therapy_Elephant",
+    "path": "/public/home/ricky/DATASET/Gazebo/Sootheze_Cold_Therapy_Elephant/meshes/model.obj",
+    "sha256": "25697d79004ff40cf34352b902dbf20866003a268cc7345197a62722dd2bb4b5"
+  },
+  {
+    "object_id": "TABLEWARE_SET",
+    "path": "/public/home/ricky/DATASET/Gazebo/TABLEWARE_SET/meshes/model.obj",
+    "sha256": "a6726cac3771011522f5a4336319d3b5d7192fd108024713fd3a10f050c0f5ed"
+  },
+  {
+    "object_id": "Teenage_Mutant_Ninja_Turtles_Rahzar_Action_Figure",
+    "path": "/public/home/ricky/DATASET/Gazebo/Teenage_Mutant_Ninja_Turtles_Rahzar_Action_Figure/meshes/model.obj",
+    "sha256": "ae359a061228edfd338e3e330d82abe9b8fa0a5dc2ac3420d6d8acd84b847de5"
+  },
+  {
+    "object_id": "Threshold_Bistro_Ceramic_Dinner_Plate_Ruby_Ring",
+    "path": "/public/home/ricky/DATASET/Gazebo/Threshold_Bistro_Ceramic_Dinner_Plate_Ruby_Ring/meshes/model.obj",
+    "sha256": "5ec42f48b0b6805d3803860b932cb8013e069fda208117c17d7f09aaeb6790d4"
+  },
+  {
+    "object_id": "Timberland_Mens_Earthkeepers_Stormbuck_Chukka",
+    "path": "/public/home/ricky/DATASET/Gazebo/Timberland_Mens_Earthkeepers_Stormbuck_Chukka/meshes/model.obj",
+    "sha256": "00b53ed697418ab14b181eeaea665d9f2e14af8fc1eb8d11a757d437d149de72"
+  },
+  {
+    "object_id": "Transformers_Age_of_Extinction_Mega_1Step_Bumblebee_Figure",
+    "path": "/public/home/ricky/DATASET/Gazebo/Transformers_Age_of_Extinction_Mega_1Step_Bumblebee_Figure/meshes/model.obj",
+    "sha256": "4e13093eaf09d3669258ac07e4fc2239d0b80a4388d57d0d488374815264281a"
+  },
+  {
+    "object_id": "UGG_Cambridge_Womens_Black_7",
+    "path": "/public/home/ricky/DATASET/Gazebo/UGG_Cambridge_Womens_Black_7/meshes/model.obj",
+    "sha256": "ade46cbd2294eba83f627dda7bbcbb78d94306ad48a301a35110532c9562ff99"
+  },
+  {
+    "object_id": "Victor_Reversible_Bookend",
+    "path": "/public/home/ricky/DATASET/Gazebo/Victor_Reversible_Bookend/meshes/model.obj",
+    "sha256": "7b7e740402532a5782185c1007a1faa37aaf9928a8ae871f039f48aa5ef60813"
+  },
+  {
+    "object_id": "White_Rose_Tieks_Leather_Ballet_Flats_with_Floral_Rosettes",
+    "path": "/public/home/ricky/DATASET/Gazebo/White_Rose_Tieks_Leather_Ballet_Flats_with_Floral_Rosettes/meshes/model.obj",
+    "sha256": "22fece750148169864c1f5bbba0fc8223f3eaabd6772c86eb1cdcd86cd5e6780"
+  },
+  {
+    "object_id": "Womens_Betty_Chukka_Boot_in_Navy_aEE8OqvMII4",
+    "path": "/public/home/ricky/DATASET/Gazebo/Womens_Betty_Chukka_Boot_in_Navy_aEE8OqvMII4/meshes/model.obj",
+    "sha256": "033d406128d36c8372ff3450aa176fea5d76007304e641d842b504511213a74b"
+  },
+  {
+    "object_id": "Womens_Multi_13",
+    "path": "/public/home/ricky/DATASET/Gazebo/Womens_Multi_13/meshes/model.obj",
+    "sha256": "6f7da505c26606e51b320c528534e1ad4e1a0120b9fb7040cddf4432a07fdfd8"
+  },
+  {
+    "object_id": "YumYum_D3_Liquid",
+    "path": "/public/home/ricky/DATASET/Gazebo/YumYum_D3_Liquid/meshes/model.obj",
+    "sha256": "ecd1cf6df24d5cacd4eca3e2dc1fa51aa316491305bfb0a3375d01d5d771fcc6"
+  }
+]

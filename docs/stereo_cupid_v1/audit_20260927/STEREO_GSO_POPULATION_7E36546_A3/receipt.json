@@ -1,0 +1,43 @@
+{
+  "schema": "STEREO_GSO_POPULATION_AUDIT_V1",
+  "started_at": "2026-09-27T07:57:21.114432+00:00",
+  "job_id": "322841",
+  "host": "server01",
+  "commit": "7e36546985d3743dcb3cff6a8678a2fc40e0aa91",
+  "tree": "30f8b2d1d681695b0e5a5bd9b941015f2342ec78",
+  "root": "/public/home/ricky/DATASET/GSO_1K_200",
+  "mesh_root": "/public/home/ricky/DATASET/Gazebo",
+  "scope": "full filename/metadata inventory plus deterministic cross-object content sample",
+  "scientific_evidence": false,
+  "target_ready": false,
+  "selection": {
+    "sample_objects_requested": 64,
+    "rule": "sorted objects at regular index interval; first complete frame of first and last trajectory"
+  },
+  "status": "COMPLETED",
+  "ended_at": "2026-09-27T08:31:40.054231+00:00",
+  "counts": {
+    "objects_with_mesh": 903,
+    "objects_with_trajectories": 903,
+    "trajectories": 173480,
+    "metadata_readable": 173433,
+    "frame_candidates": 1734379,
+    "five_asset_pairs": 1734346,
+    "incomplete_frame_candidates": 33,
+    "left_png": 1734347,
+    "right_png": 1734347,
+    "left_npy": 1734346,
+    "right_npy": 1734346,
+    "depth_hdf5": 1734379,
+    "sample_content_pass": 126,
+    "objects_scanned": 903,
+    "metadata_invalid": 47,
+    "metadata_frame_count_mismatch": 47,
+    "empty_trajectories": 41,
+    "sample_content_fail": 4
+  },
+  "sampled_pairs": 130,
+  "sampled_content_pass": 126,
+  "sampled_content_fail": 4,
+  "object_index_sha256": "36ee511c39e48fea907ac43363bcfff421a19709adc5ae1779b025e70d5bc9ea"
+}

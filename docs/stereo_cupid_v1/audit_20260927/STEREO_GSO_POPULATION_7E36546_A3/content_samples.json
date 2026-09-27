@@ -1,0 +1,5822 @@
+[
+  {
+    "object_id": "30_CONSTRUCTION_SET",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "92cf5c0cd968ed87ee3963bfefaa8742b121064207c6d355ddb79376eeffc45e",
+      "matrix_sha256": "6c191d59540502f1391d0b6ad7f57e9615ffcccf231b22391474e9179f2b07e2",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000598346863,
+      "foreground_pixels": 57511
+    },
+    "right": {
+      "image_sha256": "6edae4d213462e15b575aa9570874aab6a8f23da793a9ee6ce9f2a5448b7784b",
+      "matrix_sha256": "f04329bcb6e034a295a21050a6234ace73386ae6ce7a719bb0e5eb6c7a13fef1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000598346863,
+      "foreground_pixels": 58678
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      57486,
+      58656
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f69cf1838d3ac3db53c388ef37ade5339089e73f4f6e4672bc52595cb59ae3b9"
+  },
+  {
+    "object_id": "30_CONSTRUCTION_SET",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "8638c62620c50bf241d74278c8685f00881e8702d8a142a460a31a82bdb01f7a",
+      "matrix_sha256": "ca60c02158f3c725646b1d5611602b7dd42399319cdbe75922baf1ed967fd0e8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000004345545557,
+      "foreground_pixels": 51720
+    },
+    "right": {
+      "image_sha256": "374ebe4bc8e611f17c77587db2ccaa701cee27fa75d4fbe4f0dd6d9d91299b3b",
+      "matrix_sha256": "14983fbb5cf50c5d9208de34f47c15b90cb9fa47b422d912db0597a70d665324",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000004345545557,
+      "foreground_pixels": 61880
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      51704,
+      61862
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "2d56c60d066e01862272dbf9de4ef90f8334039753d6f80001a61edd35f0b4ae"
+  },
+  {
+    "object_id": "ASICS_GELLinksmaster_WhiteSilverCarolina_Blue",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "b2001952110f98618110e9b7bdd8119434d88dd64881dc9d2d1f108b4080ceb8",
+      "matrix_sha256": "1a71991df21b36ee0a4401c024ecfb3849f8ca22b60c06fb32472988b5800745",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998107710997,
+      "foreground_pixels": 67365
+    },
+    "right": {
+      "image_sha256": "9e2d5a83b5cd283d9e08291a753469387d78977703b0f4f972a51f4e379d1e75",
+      "matrix_sha256": "db1ffdbb8b88727399cfdd8eef3d91e55defdad6986f16ce1571894a698ea198",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998107710997,
+      "foreground_pixels": 65913
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      67352,
+      65902
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "8d50efeb1b2a277f490644409b407a74d033a774867c3bb1f483acf0bbf4b946"
+  },
+  {
+    "object_id": "ASICS_GELLinksmaster_WhiteSilverCarolina_Blue",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "f92b8ff541a4699ff6caf2f30a0c5b9cdc9e4127ffb09f283a413a8e35cd65c0",
+      "matrix_sha256": "5c411a8291a66d0f9db00ac41352a1bb39cc31d1443d26ae68f61fba5c939a60",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995395649588,
+      "foreground_pixels": 52163
+    },
+    "right": {
+      "image_sha256": "89dd882ccc5128a240861be82efab69ccb2334ac63e5e54a42daac14af5467c9",
+      "matrix_sha256": "01b73e1e4a938f2b802033df2845f271f44ee830d7a5742581705971fa997f4c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995395649588,
+      "foreground_pixels": 52222
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52147,
+      52207
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "636372d94035132a112c02c10f21a847f98cb6e8e91617bf15181546c8e56d9f"
+  },
+  {
+    "object_id": "Asus_Sabertooth_Z97_MARK_1_Motherboard_ATX_LGA1150_Socket",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "b420f9f56ec98d4bfc56c37c6190e3b279487081402e77e7337994ebaf2c8e79",
+      "matrix_sha256": "094899b58ddcb4b9397b0707959e1111f2e341d6a2d1f048d7ac4f05e2e9ab19",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003529191406,
+      "foreground_pixels": 122702
+    },
+    "right": {
+      "image_sha256": "697aa3238d5f079e2d514a9fa3fea1838d55fe4ffe6b0bdc8ff8c758f154583a",
+      "matrix_sha256": "9f6cd7b835c4c34a3c058cc41b0ac8468032e3f7b24513b2b717d5fa5bf00d2d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003529191406,
+      "foreground_pixels": 135039
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      122690,
+      135031
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "e1b171df6b39a155b340dd748b3ed81757def5df01d406f870fed4455e416cf4"
+  },
+  {
+    "object_id": "Asus_Sabertooth_Z97_MARK_1_Motherboard_ATX_LGA1150_Socket",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "ab9890e02e55460bbc757513d5490ae3945ab91a123baeb984ff9fd05abd1010",
+      "matrix_sha256": "98f7771f252685e9af7164618b9823eb7b785d44746f4f41f4e4d106828abac9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998636525976,
+      "foreground_pixels": 128994
+    },
+    "right": {
+      "image_sha256": "ffe5749506c209da79635541a6fb997a068e29f13f96191fe35c3bfdecd9dba8",
+      "matrix_sha256": "1e882c5d32a8b058575bf6a55902c80efbc274e65c28d20be2f7ab66a89c2d3d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998636525976,
+      "foreground_pixels": 128731
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      128978,
+      128720
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "95a6e18f11205f1175bb85bfc915d94b219dca96fa3df2de67e2c5a5634b3662"
+  },
+  {
+    "object_id": "BIRD_RATTLE",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "134e2e1b5ba10560d9af87da013ba34d0f37f7fcc707f4e309d702a902b2c0ee",
+      "matrix_sha256": "fb8cdca91cf91abf9ddb9774d8fde88134b3ddd2fc5447943609e6eae883ece1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999806263159,
+      "foreground_pixels": 71635
+    },
+    "right": {
+      "image_sha256": "5767429e2fb2cca8baedb66d2df38eb5182bd52d966182cb05d3293837e348a4",
+      "matrix_sha256": "33a4ae70773d271019dc4833ce2f24a16b7e019e3ec297b9d820be17c05842ae",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999806263159,
+      "foreground_pixels": 66651
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      71617,
+      66635
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "0b6fc361b4ae92f3bc4f29c9a8993ecebe3ce9c399ed163230ab1e03eb31c503"
+  },
+  {
+    "object_id": "BIRD_RATTLE",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "0cb6bdb323678dd454adb796e32fe37ef77c4ebadad4e976add86218e403e3ff",
+      "matrix_sha256": "acf6d18f74efb7ada0c4af89721888938d29a5b95325a6d74a17cdf2d86f3701",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996395286643,
+      "foreground_pixels": 83177
+    },
+    "right": {
+      "image_sha256": "2488f92db5c4f838cf2c0d2c6468edd4a041f31f959e3c0f8149922bd3b53003",
+      "matrix_sha256": "98e992d41da2d726d7dea312e9ae7e046c66a847387ebfcadd913927470ba42d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996395286643,
+      "foreground_pixels": 76629
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      83163,
+      76612
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "7c6511941d486d55ac15bb3dbbf0614ffb077223d62a03a9aaccbdd6a4039346"
+  },
+  {
+    "object_id": "BlackBlack_Nintendo_3DSXL",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "3d32ffda5c6d3e4cf67c2e0f136596721d3b28afaa051ecb82cce65eba35429e",
+      "matrix_sha256": "a75b95ecfd631fa6e9c0723a54fc8b1727b3ae3c4f4877b1b8a3fb6f30d9f317",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000316721521,
+      "foreground_pixels": 59776
+    },
+    "right": {
+      "image_sha256": "c815ae0e640c8b43fd194f1d05357290013e1eb09a56eda564625869d4ad2b96",
+      "matrix_sha256": "0884ba9102efa8a52f7c5b1083279439538a872c1c66bafefd473fbadc2c7a06",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000316721521,
+      "foreground_pixels": 60733
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      59760,
+      60720
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "e325bbff26e7d836b5a7e860bd86844dbdd7f39118daf37590f462ad5913a248"
+  },
+  {
+    "object_id": "BlackBlack_Nintendo_3DSXL",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "3cb01d3a3f8ee9e763c988340636c2a294bb50311c7b11fb9f1a9b511d7d0257",
+      "matrix_sha256": "34861b1d17f7f57fcc2372927dd23731646d3c4bf540cfb67fde7546743a2e2a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999934278478,
+      "foreground_pixels": 59003
+    },
+    "right": {
+      "image_sha256": "a6cf9b003fc3290a9e44350f2278925c4a19c5867532347da5104cb1f980d525",
+      "matrix_sha256": "673acad9957c1d7298032dcf9630f32a2e7d61073fb5a2e7f79764ad5f746d36",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999934278478,
+      "foreground_pixels": 49066
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      58992,
+      49052
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f1e5a5cddb5cb4d9efbd65e49f41db879f00aecec74dd6f79b3a143f3e294d91"
+  },
+  {
+    "object_id": "Brother_Printing_Cartridge_PC501",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "58bad52eebe6c5c6934e78fbfff9fe8ee41d47116b737169959b18838a03ea80",
+      "matrix_sha256": "b643b8a4335c8eea0f60212e9a3788f2d452de31e79aa91672be201a8f5e2743",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997862659056,
+      "foreground_pixels": 76323
+    },
+    "right": {
+      "image_sha256": "de6ec0e5678c6aefa3d0a77698a987f924bc447eda785f3bca6b9776e92e487c",
+      "matrix_sha256": "c781193418b3b005069526db4ad8f02f0671ee63638e3ccd8148f4722cd57aa9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997862659056,
+      "foreground_pixels": 74264
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      76308,
+      74253
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f573466373d26f77c09b34378b612cee7deb8803fb36ba3467924d131f5ccf95"
+  },
+  {
+    "object_id": "Brother_Printing_Cartridge_PC501",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "b7abae0538e784f6f49bfe89df82b8ca57b02a1ca0b8cb26f1d417a3c4797bd6",
+      "matrix_sha256": "eac1fb9106c922f892d7fc6d9b502c53b7075a183efd7b04255d85c28ae45ce7",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995458049876,
+      "foreground_pixels": 69843
+    },
+    "right": {
+      "image_sha256": "babbfc07e986aa44d126c7dc04a440a69452d323afbae40e7c5577da7da2cf17",
+      "matrix_sha256": "c65a390fa9b0347b5854d91b7b8ff9691ed1f0be959c18c9d37ae104ae104b62",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995458049876,
+      "foreground_pixels": 69866
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      69836,
+      69854
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b9287fcc6ab63970f7105be41a0ef162782560176a3d85e0ec36342084f2b66a"
+  },
+  {
+    "object_id": "Canon_225226_Ink_Cartridges_BlackColor_Cyan_Magenta_Yellow_6_count",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "3781564f29a14edc3eec1b493977f6050fa5dca5712b6cc3feb39480a04ec222",
+      "matrix_sha256": "baff8e8f0d27faa3172db95d84395a120e615cc7a4a4f136091ef3354955a1f1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002971106423,
+      "foreground_pixels": 82850
+    },
+    "right": {
+      "image_sha256": "596bf616a1b2d36ab75fcf20c1fff3530edf8de2aef0df14892211fc0da39524",
+      "matrix_sha256": "60d3ff4296472eaa039c53a5290bfb1b49c7a8fcd71aa205113ca5aeefa1c642",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002971106423,
+      "foreground_pixels": 99085
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      82839,
+      99069
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f066e2213f6a89c0a3e520cce7bf9e23e53e063439f8927adf04e3a8b212c045"
+  },
+  {
+    "object_id": "Canon_225226_Ink_Cartridges_BlackColor_Cyan_Magenta_Yellow_6_count",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "5cb7ed1d0a36059156ad5e27a6c968e790c5cb0e56c6f4fe3c0ce6aa45ed99fb",
+      "matrix_sha256": "8cac025728a213e4b5337cdf65b00dc9c79c459c7ca4fafdd68993759fa30f39",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000306604377,
+      "foreground_pixels": 112855
+    },
+    "right": {
+      "image_sha256": "cb47d51fa0bfa0785ffff0a9df5043e5f90fa8147fa10bd8d003d3fe88506b61",
+      "matrix_sha256": "a773356d23c92bfceff9d8648cfda961a34768d6b4987bb07cbd34206959b1ae",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000306604377,
+      "foreground_pixels": 126340
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      112847,
+      126334
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "96e239e9cca3d69cae638275000932bc08da4848650b3690605fa46636759b96"
+  },
+  {
+    "object_id": "Chelsea_lo_fl_rdheel_zAQrnhlEfw8",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "8a75d612c6ebab1d4d38190558b897a6c9e0c4bb70637c47d03845ef22b7a1c0",
+      "matrix_sha256": "81744fbd187238cc2b81cb01338048c3b1eb6dc05c099b7aafa56882f91f34a8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995482405765,
+      "foreground_pixels": 51633
+    },
+    "right": {
+      "image_sha256": "e6aeabca9b36b3edfe0a19e6fa31dcd53b14c5d6bf7fbafd4eeefe1abbfe7d82",
+      "matrix_sha256": "c714044af7e6b638d4b01280e8a184b4d5e38ce459bde69bff579b2df4d8fa27",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995482405765,
+      "foreground_pixels": 52399
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      51626,
+      52379
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "5cf16d75cb6305e6df27a73a73e52115d998ec89655a192b588ea701c29cabd2"
+  },
+  {
+    "object_id": "Chelsea_lo_fl_rdheel_zAQrnhlEfw8",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "5d493b0af4e2776288544f7b473eeb929127767159e5985ebb34f037f93d26d9",
+      "matrix_sha256": "28a7a4bc98fa663d676af4a75caabc0326e735699b0d9ebc6e6caea16c4ebccc",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992907856998,
+      "foreground_pixels": 29398
+    },
+    "right": {
+      "image_sha256": "81dce7ff884379846cd62a7a93129c84693547cbb77ac04bef77ff7e870c2e37",
+      "matrix_sha256": "c00793b9562c7a79a44dcda1f055811a1d77de82d607e1a416685da4fe3784c8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992907856998,
+      "foreground_pixels": 30837
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      29388,
+      30830
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "dd446928a5d07517a24dee0aafc01eaca6a16c42a6161196bdd7434d1abafa40"
+  },
+  {
+    "object_id": "Cole_Hardware_Dishtowel_Blue",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "cb517bfdcf7cfb9bb3a97191dd7b599bbd63fa1e3848f0dcc77875ca756a9037",
+      "matrix_sha256": "412d62e6faf9f0781202f0a7c1911bcdaeced27c0046c4eeb5b3f547a283061e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997572935585,
+      "foreground_pixels": 47918
+    },
+    "right": {
+      "image_sha256": "cc63b884c06b7679d807bbc2639b7961095d8b4cbc91dad95aff6512d033db4e",
+      "matrix_sha256": "be6830bee40b2647633b755690b2263e31edbd6b68eec62ff1016fe111a24e6f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997572935585,
+      "foreground_pixels": 58256
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      47901,
+      58245
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "4fa41881909dd7f3874d9cad68e02c10a6f0c194c67f2bb2065ae3d35a512530"
+  },
+  {
+    "object_id": "Cole_Hardware_Dishtowel_Blue",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "ee3fb19ecdd317970c16acd7b4918541443ef67b6156108810e250d8d8b2b081",
+      "matrix_sha256": "401cb1424457377754d5fa6e8c686635086a12e48e80eb9a0b0a4bef90a2ddf9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997780647585,
+      "foreground_pixels": 43136
+    },
+    "right": {
+      "image_sha256": "585e515905d4815e7402c263394123cec5bda1930a84cda82405b56af102c4cb",
+      "matrix_sha256": "5f03aadb6248d8651c9c3419511865f55bc80448948dec95ad5bfd63dfe6ad15",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997780647585,
+      "foreground_pixels": 29573
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      43128,
+      29564
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "8240e38db31eed423d9b50b19bd8daef67d5084a7c9762cf608b9f016d8bdb82"
+  },
+  {
+    "object_id": "Cole_Hardware_Saucer_Electric",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "2546c1ec99d86789abd0ef12ad858c8fc159d1a722646e964efb1821e0f91c28",
+      "matrix_sha256": "8e5abb24a44286c51a24ca85c6ae835f84b5678ad0d5694021b30a22fb62a9f8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999893823535,
+      "foreground_pixels": 73516
+    },
+    "right": {
+      "image_sha256": "19cca813776a54157e35116fd527fb8f6034dceae60c5ffa14cdaed06c8f6585",
+      "matrix_sha256": "272d4eee511aa0a42053f80ae5ec9b34885fc8cbbf8f4a4b7172c4594ef2c9ba",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999893823535,
+      "foreground_pixels": 68070
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      73506,
+      68061
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "be9ce13126f2124d0919910e7e2d02de11853ab585d02827003fd651e88279f1"
+  },
+  {
+    "object_id": "Cole_Hardware_Saucer_Electric",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "bd167b9dba940d763095ba40f3441615ffe87b5f1300a0e36b459caec26ba307",
+      "matrix_sha256": "6331d8c7957a9366bfb006feb0d29803ba063c5bf5640c801726f26e54fdc5f1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999991332963302,
+      "foreground_pixels": 112468
+    },
+    "right": {
+      "image_sha256": "4b82d5971e2d925be24192726866d0a5acd69796731000b18e7762a18154b2b6",
+      "matrix_sha256": "dcb04e3ef320b81df056e19c2aee013dab8c5eecae2c29ec3f63bdc461c56df4",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999991332963302,
+      "foreground_pixels": 102997
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      112457,
+      102997
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "7e5a6c51458314ee107e46ee49df171eef600dc3fefd2b2bf454d979a511c5cd"
+  },
+  {
+    "object_id": "Crayola_Crayons_Washable_24_crayons",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "0d4f771a1be9cd8d1d5386397b90da17a41d0fd3dcc77942e505e5be72fd303c",
+      "matrix_sha256": "fe8f679458daff7718259c80f07104e6d0ef1ef8a4cb33bee020bfae0ff3e7b8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995430877254,
+      "foreground_pixels": 82279
+    },
+    "right": {
+      "image_sha256": "8ccc70646aa6462bd6c848e8325a5a1227cbac511126e705bfdd94dc0b400c16",
+      "matrix_sha256": "20c57e9ff059e4052e0e8c091d2670cb77d870433a752d346734e278525b746f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995430877254,
+      "foreground_pixels": 66201
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      82274,
+      66193
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "8eb43e8e16ab22eb05e6bb58530e81f650a101737a2c1914d01d00f7d5eeff48"
+  },
+  {
+    "object_id": "Crayola_Crayons_Washable_24_crayons",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "18cecec40932a104d6a0802ee6f95ce012fa839f7cce92e3af9f708891401cdf",
+      "matrix_sha256": "59aaccbc46c4bbded04d58af386993fcc06777752e1d90736a1ee70bee8588a9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996952900296,
+      "foreground_pixels": 51219
+    },
+    "right": {
+      "image_sha256": "31b087be9c2b6c355acc6c8fc01d4305dd1bb1b9d5b687e1fde15c0829d84e75",
+      "matrix_sha256": "937bef22eed28b73d7a52670d10214d467b096afcb4411f157790bd193abac15",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996952900296,
+      "foreground_pixels": 43816
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      51209,
+      43805
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "574ff9f5c66d5d7357f2ad7c5b05140e82cba3857fa6d28cb1c06c9a328a1ea2"
+  },
+  {
+    "object_id": "DANCING_ALLIGATOR_zoWBjc0jbTs",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "de6ae5430654fe1e60015ed7ae1a6be21c337901b426a4be49540822e46751c0",
+      "matrix_sha256": "cfa15115be0ade9f9d48864f5d80b6ce91d9e69bd3997b20821bbf64d6e92c79",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003513057412,
+      "foreground_pixels": 29419
+    },
+    "right": {
+      "image_sha256": "56c4678777212d1c9075cc64c35ebd2646bb3c503dbc4d970e772ee479d2e308",
+      "matrix_sha256": "45448f1d3fd1d8371ec0e61e136587abbef62d056799c7acb3efae2d27056bf0",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003513057412,
+      "foreground_pixels": 29560
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      29405,
+      29550
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b5e69352b1473db4123ec4456596ecc6e7382a33323ea122dfbf41befbdc06bf"
+  },
+  {
+    "object_id": "DANCING_ALLIGATOR_zoWBjc0jbTs",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "0bf8750d60a22aa84af9d06bdbf67230d1fed600a46ab4e44df1d4744d57ad44",
+      "matrix_sha256": "7b3b4913067ed1c41d59c446cfc9060a8ba3ba20339ed882605356d1971b9be1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003032695766,
+      "foreground_pixels": 30550
+    },
+    "right": {
+      "image_sha256": "96287f6d96ad524a490f3fc24f401989c70814053bfed7b1dc519216a6b0f3c9",
+      "matrix_sha256": "3536a32bf9e74387c11a68c1699a7e35e635d372660e2a6f30a54fdbd71c7fd0",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003032695766,
+      "foreground_pixels": 31542
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      30538,
+      31534
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "047d0742761050026e75857342cafba4596eae84c40aab43418d3c27a8495823"
+  },
+  {
+    "object_id": "Dell_Ink_Cartridge",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "2b90d8599755fdba3acf767d8937749b7b778b44a647c32779b3ad8165e698f9",
+      "matrix_sha256": "2b6989231465dd245c70c211f2f3d556e61fe7bd0df1a738321d9bc6e3e5f8c0",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999994607895558,
+      "foreground_pixels": 106577
+    },
+    "right": {
+      "image_sha256": "0609b345e607c3a4f4dd5914a9da08b6b6f63d78a6ee2f701ef4ae2ae33f030a",
+      "matrix_sha256": "be4cf683da58109221521892ae2afc4bb5af16147c3a284f5067cf7480d2d4c1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999994607895558,
+      "foreground_pixels": 102328
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      106564,
+      102315
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "6282be07a6b87e5ee1a543f5a69f7c009854912b94f020ed00bbe5e42969162f"
+  },
+  {
+    "object_id": "Dell_Ink_Cartridge",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "2c82940d1f642058550706217c35f1a3f57be2a7a1aa9ba1035f1d2de653ebca",
+      "matrix_sha256": "d0002ebeec0dccc02a91131cef323c09634516db0f1d9801c91f1feedde81b52",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000104463324,
+      "foreground_pixels": 106840
+    },
+    "right": {
+      "image_sha256": "2eefbfff2f4211cab5571431ae04c5c9397e918397b135e3d2d87f7d4e859cb9",
+      "matrix_sha256": "6cc225afc738f0b000d0f369b885ae0b817210c6b37f9984626ced3cf886261f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000104463324,
+      "foreground_pixels": 117710
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      106832,
+      117704
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "5c41b2740f41fc7906d68bc339710a72164a727db3559f82357bd3cc69915ec9"
+  },
+  {
+    "object_id": "Down_To_Earth_Ceramic_Orchid_Pot_Asst_Blue",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e83c5f2288d4d7b1f0807d05dd0a74fc1d0e45ff090e9d3b72671403199f8295",
+      "matrix_sha256": "69631e3b33225585b7b00d8784f9ac331b9293c3a5884d31c88d7133663dc358",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997543612981,
+      "foreground_pixels": 162942
+    },
+    "right": {
+      "image_sha256": "62550103310e010dc2bd812cfd9ba88cbb42886a86385b3ad8bc791082efec91",
+      "matrix_sha256": "e2170768397e2bf3674c782f9cd74d467c92f311fc032a88b9569088c1a2dff6",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997543612981,
+      "foreground_pixels": 181544
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      162926,
+      181537
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "4daac66bcda500e34ae6a9d6a82e5bb7a3ce3e41bad234a4a2c1575a17c43852"
+  },
+  {
+    "object_id": "Down_To_Earth_Ceramic_Orchid_Pot_Asst_Blue",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "8e19c0d315a048113fd7a9271771a76e520357f436797e3257985598ef4a23e4",
+      "matrix_sha256": "0ad412b7605dfd385452a41195cd107a4ac05c5c4aa701ab6c29f158adede107",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998196500833,
+      "foreground_pixels": 162542
+    },
+    "right": {
+      "image_sha256": "e24b76c21bdbf65707e2880a3b9a7df0c13d1e9299df4b35736ca18bbe35f56e",
+      "matrix_sha256": "42e9ded3fae0e414ae54a3886384cc57a7ceae04864093440cbca9c2e1549a27",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998196500833,
+      "foreground_pixels": 179482
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      162530,
+      179480
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "37e177c9f08feab88323fa6b6a3d954a9d5e6591c1ab3b8cb5202f5dd102866e"
+  },
+  {
+    "object_id": "Ecoforms_Plant_Container_QP6CORAL",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e72f852ab70e0f635c8174781bfa1d64edbd55ceb7ef4d78e1c27f917245435e",
+      "matrix_sha256": "94616a2297d46907a937d94cd5b9cad9f51d1f175a2b9a5d39d17286ce20b18f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003018710217,
+      "foreground_pixels": 164018
+    },
+    "right": {
+      "image_sha256": "c25ddcac61b6103bbb81b2debaa1fc8a7c70ce7729beb77ab294c6084f1c0af6",
+      "matrix_sha256": "b422ddb290325c0ed4cf8f96e597124a3a96c5b1b3a83f65333a8715fe82ef44",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003018710217,
+      "foreground_pixels": 182068
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      164012,
+      182060
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "317112448b1a1a7fa35b246591db68ee3be5a35e15b8bccc12376ea7430541a5"
+  },
+  {
+    "object_id": "Ecoforms_Plant_Container_QP6CORAL",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "79cd681a9079e2d7b95fcb5e70bee5e44faac22f06c7c0443a35bd26633ac9a3",
+      "matrix_sha256": "e693c84fd760b0a0054d972d553f006e22306b4913bd027ed10ff81c293a8e8c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000087217324,
+      "foreground_pixels": 186195
+    },
+    "right": {
+      "image_sha256": "24715f8e00f0ef9ce4fe99fcbbb9b6b8c50434580caa4a387beee6ca8bccb1b6",
+      "matrix_sha256": "c63c1e4c0d9ee8d1a0325d87d535451a6a1b2ceb4b7ac5c3cc88195d385dec4e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000087217324,
+      "foreground_pixels": 223560
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      186193,
+      223549
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "1bb7303b1cd85d1c685a1d9b305e9faff264f2d9b1eaf44a3fa82d48c635efbb"
+  },
+  {
+    "object_id": "Ecoforms_Plant_Plate_S11Turquoise",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "f1723301d611adf9975f8c70528fe10f43c903bbbf97706e98724375d37779f0",
+      "matrix_sha256": "d2143ed56a7e089c68833ddda24c57c1d2160fb2039dd000dbd810ce8c6002e5",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999146029089,
+      "foreground_pixels": 109083
+    },
+    "right": {
+      "image_sha256": "4af0b79fb05802c6b33c19db50f80fac1e2ddca34c053571ef96a675262b45af",
+      "matrix_sha256": "b6e2b40a2c11b2711d71af9c7c91abfb3e1d38add1cf2d8f19d663c3fff624d7",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999146029089,
+      "foreground_pixels": 121322
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      109079,
+      121314
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "2df6e65454b17bb66d6647975de4b05b96361d34b869a52916fa857951da826a"
+  },
+  {
+    "object_id": "Ecoforms_Plant_Plate_S11Turquoise",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "171a96e04f498511691c3676e897d51e31d8174e26c403b83a0a8e17ed00b529",
+      "matrix_sha256": "72d599dcbd652ec1ae0d5f540fb29326fa74d86eae7818945c541ac76657cc11",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997881858239,
+      "foreground_pixels": 64861
+    },
+    "right": {
+      "image_sha256": "b18d73b0878d1622ac1f10e66a1cb2a7c17dac1321bbb3c16eb2eaa48f61ce21",
+      "matrix_sha256": "f19776a67eac684e9aa0d5ad42cc73e4e3149b1c7232f7e801f368026e0fbc96",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997881858239,
+      "foreground_pixels": 54766
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      64851,
+      54754
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b6e2b8fa6356a89220cf8d0825d95c60da723f4bb06de24633b95e9f1a6b84b2"
+  },
+  {
+    "object_id": "Ecoforms_Quadra_Saucer_SQ1_Avocado",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "518d73fc694b4d2ba15be5c12caf37e00276b6630dda2a7ba434ebe318e4810f",
+      "matrix_sha256": "92a7e5f37d0346cbb215720b21466f0b8537e32f6388944e83651d7377d54865",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996946605724,
+      "foreground_pixels": 97892
+    },
+    "right": {
+      "image_sha256": "72063ef89702471afc60cc8a1ca8a56bff8819ce41d3b9d46ff1afd4f365d4b6",
+      "matrix_sha256": "d358e4c80a349e4a820a269d3076b9e034e6744b9522310e6b0b810976604aac",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996946605724,
+      "foreground_pixels": 89223
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      97881,
+      89212
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "7fec5a4060dafe8ef28fefefd5a4371404fd6ff326248e2a115eb6c1548b8a03"
+  },
+  {
+    "object_id": "Ecoforms_Quadra_Saucer_SQ1_Avocado",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "0907e6638abd407d0500220ebf46c3069275bacca9d3cafdcc784f60a578f08b",
+      "matrix_sha256": "48354bcf2cd55b7022db8b3616602d20fa3ddc5ea669c0f668bf871a0be0e714",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992974619081,
+      "foreground_pixels": 102016
+    },
+    "right": {
+      "image_sha256": "5e3d25b465cf8b2f6c37d0fd35302ede2185c9a4e54049f5816f1f1d1799e478",
+      "matrix_sha256": "359326dbc5126da4250a89f3c57afaf9900f70113f4703fde1f1f789fbb884af",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992974619081,
+      "foreground_pixels": 117351
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      102005,
+      117340
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "21b729f29b38e4ea3406fe39c0da07f54b1600dc7102386f3bcdd6d7ef9462ea"
+  },
+  {
+    "object_id": "F10_TRX_FG_ssscuo9tGxb",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e64b9becbac7f15a666565c7872bce981304a7db0b1b555b07f8ca5a5155ad35",
+      "matrix_sha256": "09f1910c8d322326892d5e9d711588f08e247e09fad75c45afc72f798519c6cf",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999994701982726,
+      "foreground_pixels": 38813
+    },
+    "right": {
+      "image_sha256": "2f009ed79b8f88c4724f01748cb1eea97523beac3e9fc4747d58d8ff0dea977c",
+      "matrix_sha256": "3bf91706b1280035fb80ca21bcd0ab67194c42d14cf78624c9f90ae9874e82cf",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999994701982726,
+      "foreground_pixels": 35817
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      38807,
+      35806
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "3cef1b8fe1514a278731fbbdf663afdca3a9dd9b61eecfa9b2461b8dc3e13e10"
+  },
+  {
+    "object_id": "F10_TRX_FG_ssscuo9tGxb",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "0966bd05aedf2cffb24d727f38a6e9d47356e61782c6b4c2d6b45d419bff1a62",
+      "matrix_sha256": "32899c312855dc4dccc99702f11924d01bac142b25c1acb63fa50375fc06a3e1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996077456822,
+      "foreground_pixels": 46583
+    },
+    "right": {
+      "image_sha256": "89f57651d35a49ba37e03b9a79d72dccd3b2fad70cfb98446ac5c1e3edb55b86",
+      "matrix_sha256": "495a9edc50f4b9dd6ba9e720446ce4b305bc5bf56c130d044c95cefbcb0d3573",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996077456822,
+      "foreground_pixels": 46302
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      46569,
+      46290
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "01d9d8b22e4d96997170e0a39c84efbec5653d52b1e54a90d0043190c7b307fc"
+  },
+  {
+    "object_id": "FemDophilus",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "a455b75d7caa2f4f27ad1d48d77061d30a5b4379c79fa4ef4b24b6b9fce677f4",
+      "matrix_sha256": "09581aa59ddc44d7109bb83735be68d2a41ab3493adb64dd118b13f64ec65874",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999737443074,
+      "foreground_pixels": 95905
+    },
+    "right": {
+      "image_sha256": "3dbc2750d766ed9aa9419c93cc18c8139a212152f80b5edca54a505713127b10",
+      "matrix_sha256": "7ccd13e202372ef762a3a4adfc4d81661d666a884b33eab1fab9959102899b09",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999737443074,
+      "foreground_pixels": 103722
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      95895,
+      103713
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "016a279c0fc1b92868f2c4a2b1d27a53452549ffeb54a152cba1ba2073073053"
+  },
+  {
+    "object_id": "FemDophilus",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "3ab686bdc339145ed88ac45ae49fdbce9824a1922d4fe6ee507918f0a61c97e4",
+      "matrix_sha256": "eeaf6c581e2249f944cf8ee371dadc7a5046be007d3345391454e19b358a2457",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001682658448,
+      "foreground_pixels": 92390
+    },
+    "right": {
+      "image_sha256": "9c40d3bdd7f8ff86d772170a5f9b53d5a51a0a8e70bb483951ffcac6a3aeb91c",
+      "matrix_sha256": "1b50ffa9293b85648974c05329368a8648e9951628cb85b04c1b2ad18e904982",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001682658448,
+      "foreground_pixels": 83242
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      92386,
+      83234
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b758c6a1ec445988864baf85c989fd1d9b6172597a7740302ee39e7bc7769a57"
+  },
+  {
+    "object_id": "Full_Circle_Happy_Scraps_Out_Collector_Gray",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "error": "[Errno 37] Unable to synchronously open file (unable to lock file, errno = 37, error message = 'No locks available')"
+  },
+  {
+    "object_id": "Full_Circle_Happy_Scraps_Out_Collector_Gray",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "632ac3177251b7acb6d9a98e84b72d86a473860014a6a084a432e5d11697342e",
+      "matrix_sha256": "295102f043b93b2f2b071d8fb3d67aafe109de23fe942432671cf6c876183ad6",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998979588571,
+      "foreground_pixels": 144662
+    },
+    "right": {
+      "image_sha256": "cdce8aca8658dd54aaac382f352d99696bd61c7a378abb475ce68d328ec8af70",
+      "matrix_sha256": "d733fe35327c2d994b759a68e5766c52f4af3d0af24a6f945114f38bf6e22431",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998979588571,
+      "foreground_pixels": 125781
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      144647,
+      125768
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "5d95601b7736151758f9833398641cdc4da285a3df8809f4f9550ae07ff06f35"
+  },
+  {
+    "object_id": "Gigabyte_GA970AUD3P_10_Motherboard_ATX_Socket_AM3",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "fbdb1ad67e870f5acd11e57b08850a226562086378b580bee3c36c803dabc80b",
+      "matrix_sha256": "44ccd0f562496940ac70e03456b8cb3c444e3a7191710fd65f5c8e20f278a57a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997802453569,
+      "foreground_pixels": 132726
+    },
+    "right": {
+      "image_sha256": "4a7f9ba5cf7c9a5721316eccc462fda02f65556f8d3d0b6b8b2cad2545dcd68a",
+      "matrix_sha256": "9ec372fc9600bc2c5aace65c5ed46952df93ea645b104d6b6c9764d803cb3fe0",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997802453569,
+      "foreground_pixels": 139153
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      132718,
+      139145
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "39161eca51ab34cd6ae3f60951acc1d73537809b6a5b2e6d24037190c143c9ef"
+  },
+  {
+    "object_id": "Gigabyte_GA970AUD3P_10_Motherboard_ATX_Socket_AM3",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "d1644a5946f809a653fc050ca03e9d17bbd0a2db514a2bc5ef95a4ce2756eb4e",
+      "matrix_sha256": "2d42247c2c4668bc32b0bf65f004ae621d12e8076c829a586634f716e4bc8c8a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997801376131,
+      "foreground_pixels": 93661
+    },
+    "right": {
+      "image_sha256": "94acb9d3ed0d44e7b5f0d59889c25b46cb090d4eee3a9ab9bc56c95b1df6d6d1",
+      "matrix_sha256": "0e081e7e19f43db8e1ef9be8b2289fce1dbfe3a4a4921c943c73296ce4341784",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997801376131,
+      "foreground_pixels": 82913
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      93659,
+      82908
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "1e969423cbfde649645e34ca042d20bccc035af07cfa07fc17c33c8489e25b2b"
+  },
+  {
+    "object_id": "Great_Jones_Wingtip_wxH3dbtlvBC",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "de03aad5e47950799cf0d9c3428a2d431b6fcb4b3b941af4f42596da12351c9e",
+      "matrix_sha256": "a9b86641f7d6241755417b3e091379af5e3ffd0a72ef60f4f09aa00ab680c035",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999990898354937,
+      "foreground_pixels": 54409
+    },
+    "right": {
+      "image_sha256": "5c61fd4303b02babbb6d4a910f8cebe7292d875f89b2204ad24f84b4ba2d6acc",
+      "matrix_sha256": "2666fc119998762cfe24a6828a7746eebd186258f87bc669ac22c0c86348a9ab",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999990898354937,
+      "foreground_pixels": 52149
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      54399,
+      52126
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "a908a52d21a7b9fd4e20f2e18ece83a991340c3577c6651089de03a19cd9b3f8"
+  },
+  {
+    "object_id": "Great_Jones_Wingtip_wxH3dbtlvBC",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "6c0f8efcf2cd3c5d3f56aae9539900fe912faaf1be1431180c06b9893bb69a33",
+      "matrix_sha256": "2c5da4d48aa160575692f226742f8e12f52b9fe285c8bcf53598d6a5b9d6172f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999993604356141,
+      "foreground_pixels": 52013
+    },
+    "right": {
+      "image_sha256": "4f730d4f78049c924d00e1d1adc8076fb48cfa2c242c51e9a2c51c00bd351e58",
+      "matrix_sha256": "36ce21dc149c0832e1690038a033a685651432ec837055c7d40b566a87d9878f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999993604356141,
+      "foreground_pixels": 54664
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52007,
+      54656
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "dfca6c8a9bbfe2b5490746ee98baf8bab7b0b2e2b077d6498ce68311b8c8dd87"
+  },
+  {
+    "object_id": "Hasbro_Monopoly_Hotels_Game",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "da2cd3c36e7944d39e0b6fed5d4392d21abcdfa3fafaa44d8093b1038b945d46",
+      "matrix_sha256": "1f109f0885f458f446aaae8b8a5c32e0c00a2b56f5105b7ee29dea2124cd3a42",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000689934752,
+      "foreground_pixels": 100594
+    },
+    "right": {
+      "image_sha256": "0b1e02b189ae5d090e237bd9491784f8fe26f52539e7113457bd19072737e140",
+      "matrix_sha256": "a0ba4d4d6004f2339a582311843bab1e082b6a5accb1f0da82092ecf79be912f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000689934752,
+      "foreground_pixels": 92288
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      100582,
+      92280
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "af3729c0ef1ca6f83a6c7b307f1beb94dd053dd76c3aec65f435affe72867e2d"
+  },
+  {
+    "object_id": "Hasbro_Monopoly_Hotels_Game",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "d610d53d2d2ea2bb82a1cb2766b7208ec2fd167dd52dfa7e5349cc2dbafb954e",
+      "matrix_sha256": "e7c102b98c2dcfb731f7eee4b1d3dfb2d7915f72cdb2b7fedff6ed8c029e9a28",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996831572012,
+      "foreground_pixels": 92608
+    },
+    "right": {
+      "image_sha256": "1e160fc439d183c8923e540b6cf51860bf6427d76de7d8507c05b447f1dc901f",
+      "matrix_sha256": "7894396d39e19ef930906ff5b9f940ab2a86eb6914a7aa6ff80fe86cc1dd5218",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996831572012,
+      "foreground_pixels": 79715
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      92604,
+      79704
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "6a8d922186040ebc4f3d7be8e41c2cef672c94680b95bbf5311a6d7c3736d5e1"
+  },
+  {
+    "object_id": "INTERNATIONAL_PAPER_Willamette_4_Brown_Bag_500Count",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "033954c5e3405eaab379ce163a215e6d1c9c8739bd5926f97f0f0477f9e9f3b5",
+      "matrix_sha256": "bffb6452aa2715b387413d7d5cbb46b90f49cada0430834ca51e0a442aed6bfa",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999402086402,
+      "foreground_pixels": 172174
+    },
+    "right": {
+      "image_sha256": "7abc7fbc44866311c11f424236a516bb76760f84fb4d92bd5f740414dbf60a8e",
+      "matrix_sha256": "be3b3ce2afc0a56dfddc107f2a1843b463b4ce2f2be48ce1a5fcc9e3fdf42b2e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999402086402,
+      "foreground_pixels": 152865
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      172167,
+      152859
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "34ce881e03d9f91d1b6361ed02c2ed3c0236c766fcab11f374b7425db45ebbb3"
+  },
+  {
+    "object_id": "INTERNATIONAL_PAPER_Willamette_4_Brown_Bag_500Count",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "364cc7816479491bc2252f80df0a27a5e8fc6c877d55785227c57728e12ef0f0",
+      "matrix_sha256": "a84c21a634f0a02aed934bcb1eb1eb042fc4cdb37d3b205c825847b2a8c5f260",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000648091124,
+      "foreground_pixels": 158033
+    },
+    "right": {
+      "image_sha256": "148454306b807fb2b2cb1de2cf319a11e0500501d9e144c4194965884cac3a81",
+      "matrix_sha256": "757f82e350db93657bb5d8b896dfde9271f6b943d5db2a5e61a86a98aa5f6c96",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000648091124,
+      "foreground_pixels": 176850
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      158029,
+      176842
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "5dfefc7383d8c4d545c20dfb7da561c48dbd67ecbdbf9584f2873301ae78aad9"
+  },
+  {
+    "object_id": "JarroSil_Activated_Silicon_5exdZHIeLAp",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "010440997c459c8b367de707866d2da2a996c4c719cab0376458a2e386c3982b",
+      "matrix_sha256": "13582ede77b2feafa35bb85bbc32e33a055f86df0548f2cdf374eb38613fba81",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002798014138,
+      "foreground_pixels": 112315
+    },
+    "right": {
+      "image_sha256": "55cb7b985427a036bbaed43e454c4311bfb7e6a6ced35f0bfdbce8a09c944147",
+      "matrix_sha256": "fe538509e987c726664e54600465c6476a43f3d8fe9b093bb3101c8b8ee0da39",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002798014138,
+      "foreground_pixels": 98394
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      112304,
+      98391
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "7f3eb771bf5e803496b0223d9dc1634abbacede7aeda8eb2941b9d6290700f52"
+  },
+  {
+    "object_id": "JarroSil_Activated_Silicon_5exdZHIeLAp",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "fe0f2535f089b0864ebc67a0ff368e63c7839e8b29ac15b74f505fcb17d0b816",
+      "matrix_sha256": "aeacfbf54876dbe38fe4207d86bb201073fe1c3e57235b0542836339576c7878",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998282583212,
+      "foreground_pixels": 123761
+    },
+    "right": {
+      "image_sha256": "23db1a662a5ab75ffe31ec715a0df238f120dc93b63751b3b5fa27d71d52075f",
+      "matrix_sha256": "baa507bb1ba4254f28be466bedbdb073a07a53025cc12c93b4b6594962ccc5ca",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998282583212,
+      "foreground_pixels": 102158
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      123753,
+      102150
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "ab57cb9105be587cddaa14ee6a708984f77c917f6d2e005cdecdd4acfa13cbc9"
+  },
+  {
+    "object_id": "Kanex_MultiSync_Wireless_Keyboard",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "cffa7a7f273add04736be4829a263e59b43178b7c38ce517c4b5e5be44f7b6be",
+      "matrix_sha256": "87cd0d86406965c956a454ff787f31e2a77aa6744439d64e7a4805c068166b91",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999994827531671,
+      "foreground_pixels": 30203
+    },
+    "right": {
+      "image_sha256": "77803a04919a89373cade82098f0431878f18482eeff512f4b33868ba8ddf30a",
+      "matrix_sha256": "092580f10f1a74045a35940987de382fc11ee0ab9a64e082b363bede86cdedb3",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999994827531671,
+      "foreground_pixels": 26554
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      30194,
+      26545
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "ba316285c39a8ef0b626cd56a419d78548305884fa16da95d2b92d95386b266d"
+  },
+  {
+    "object_id": "Kanex_MultiSync_Wireless_Keyboard",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "2baf1c0489d53725efe13fbde3f81017fffcc893966d9367b03d502a2239b4cb",
+      "matrix_sha256": "e58b5beecf640c47324b99e6331da517225ab75f4271b093081400cd889c7da5",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000821940052,
+      "foreground_pixels": 35192
+    },
+    "right": {
+      "image_sha256": "21e200e177931c6b4218e21d233be20b7730e6c8288b98f6d837a4cf6ee5d1fe",
+      "matrix_sha256": "c09ca5049254fa024ffac382e953e4c91c8d65e956bedd09229b4272d8ff2ced",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000821940052,
+      "foreground_pixels": 36559
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      35187,
+      36549
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "5fe4c5240f14f4aa4818d796de125d45329f2d18c551009e1367d74d14c76091"
+  },
+  {
+    "object_id": "LEGO_Creationary_Game_ZJa163wlWp2",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "b2782b785503cfb7233c572acd1f3fa0e021225616ff324f2d14814fb85ea344",
+      "matrix_sha256": "ef55eca23be511803103ba2898c241846bb4f1a050a57c434b6e719e67d308f5",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998260078596,
+      "foreground_pixels": 79215
+    },
+    "right": {
+      "image_sha256": "f0bca0f79da65128534b17abbf8044eb34d7eb87fb48683c8a34d7e494874169",
+      "matrix_sha256": "3fc402d4c9d008e9adc2c4abde67ad8e26552f834bfbd3fc8166359b5940da6d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998260078596,
+      "foreground_pixels": 67419
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      79216,
+      67412
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "947bc6f566cebe9e5e5d48cf70f6877eb76ef46c1eeb99ab323a3c91ac497c18"
+  },
+  {
+    "object_id": "LEGO_Creationary_Game_ZJa163wlWp2",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "17605347c5319834b73bf6e8d243793a788f4d2799c9f718c8034999ab72a319",
+      "matrix_sha256": "448917dbd9344d9c52aa77a16f512bc0d173174c385fc5ac8879826da21c1644",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995584490716,
+      "foreground_pixels": 119436
+    },
+    "right": {
+      "image_sha256": "a251fc96c20234b0af2bd9834fba1c34f86ddc6d2967c5ab6e66b9d4b254faa7",
+      "matrix_sha256": "5831c28836ad20345156478ccbad7f145fb42e94e45ba9c9bddd2a96fbbbdf5a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995584490716,
+      "foreground_pixels": 124095
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      119430,
+      124083
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "86a72662a9177bb7c19b896a8f405c87f45b3b21d0b00c71f5aa78a44835f8b5"
+  },
+  {
+    "object_id": "Little_Big_Planet_3_Plush_Edition",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "dd17f266c728e852952dd5e18fcb21177a78d21ba8f7c03b6f8db3658d407685",
+      "matrix_sha256": "c27fba6b92dccd1dc4a6134233603378048860700108341f079567d57d916a49",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000004065307708,
+      "foreground_pixels": 155644
+    },
+    "right": {
+      "image_sha256": "ed4c6a4b785d2f4bc7a8863a8f9af401d98e34f4fb45f142deae9c8b46ceedb6",
+      "matrix_sha256": "60118e1239a92a391b7c2d47242f83b171bfcd54094245bcc04a58a31a3ac343",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000004065307708,
+      "foreground_pixels": 134716
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      155635,
+      134714
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "d0ca7569bc3d5abba0d62b60efd058f76610f74718e6dfbe47d452e8eec063a7"
+  },
+  {
+    "object_id": "Little_Big_Planet_3_Plush_Edition",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "b5d8463b4b2fcf7810af732481056ca909969aaf6a3e987e0ac8295a68f79ac6",
+      "matrix_sha256": "4e04a49fe0b8386a0b61293343583b8ce093c6f7f7079aaf5d952eb3290e82f1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002039425189,
+      "foreground_pixels": 152006
+    },
+    "right": {
+      "image_sha256": "7ec694e0abf8d9ac6ea02398e556cf3e836ead657cb94ea54ada500c324fdfbf",
+      "matrix_sha256": "f0ff38c4907129595b40533e480a00e704c5d8f99f794c5b22203c3ec3ac040f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002039425189,
+      "foreground_pixels": 161869
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      151997,
+      161859
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "2e0f020c379fcc49528583b887ce368187d57ca147ac9f182d373e2717ac0b80"
+  },
+  {
+    "object_id": "MIRACLE_POUNDING",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "17c90a75d4462c6c59e7d5a2e867ae68953232a6d812982bb40bfb92b8dc1ac0",
+      "matrix_sha256": "3d09a73e9801ab76dc17896190f18e9dcec9c01bd6792de2255d1e0bc9368c5c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999564141524,
+      "foreground_pixels": 52271
+    },
+    "right": {
+      "image_sha256": "b5d23ca1e2bf626412f5abc127116f4f3c15863e985d810a435cc172024ebe35",
+      "matrix_sha256": "e1fd55f6d92376a58a9e3d021b1a62d0fbd4c6689a4f3190d70d2d2bec3e99dc",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999564141524,
+      "foreground_pixels": 49428
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52259,
+      49406
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "3f0e0bb6a0d0bc93965fb493f2f1d36a7ce16a439e208f5d2760908bdc7971c3"
+  },
+  {
+    "object_id": "MIRACLE_POUNDING",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "bccbb94c9ea7f227db445c043522ea39eda07d6dd95d8af17c6723c88602418e",
+      "matrix_sha256": "a26da31ae566583d7e125cc87d941ceb67ffde847871c683313b3413dc0b2647",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000006189151582,
+      "foreground_pixels": 61646
+    },
+    "right": {
+      "image_sha256": "f65cd77a5025ad3ee62fc14643ee924af003a9a8ef66faa49946fedea8b1ce6b",
+      "matrix_sha256": "558dfca86e99c876ecd6658ff3b400dcf7f82325c50e07097e3bf125331a6ee9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000006189151582,
+      "foreground_pixels": 68922
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      61628,
+      68907
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f258a1099346c2b165ef895cce6caa6ac5bb8c2a3b7137978c3d6128cd414775"
+  },
+  {
+    "object_id": "Marvel_Avengers_Titan_Hero_Series_Doctor_Doom",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "0c177fee32a5b3427614199c63ea97195744c291c17fc3ae34f9ac7611e6a9d4",
+      "matrix_sha256": "5eef78c01b8832cb5344591be7a4e1bae40f12021da5cbe6ef94be2ac283ef32",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999241555093,
+      "foreground_pixels": 30245
+    },
+    "right": {
+      "image_sha256": "5f81d3d47787c7a7653e39fa8088752c66131b834e3490dc1bedea52aefaf1ee",
+      "matrix_sha256": "b844952f97a22abd0b0d8f826bf0117e1785e4022774d8c9732c567789959f5f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999241555093,
+      "foreground_pixels": 25751
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      30232,
+      25743
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "760748f8baf94a07aa70a8815f0b80eaeb10a955e6689c017b9fc4f372851622"
+  },
+  {
+    "object_id": "Marvel_Avengers_Titan_Hero_Series_Doctor_Doom",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "3f226086681b42c3f22d0ddfc99b636a01865f595aded5b5e89fc88c1374df94",
+      "matrix_sha256": "fb3123b21d3a8204f88441b5f00481ced619850d249980ba079e1575616295e0",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000349126815,
+      "foreground_pixels": 52228
+    },
+    "right": {
+      "image_sha256": "c7c50356eef94221902ae6cd784315d45372536386558db7532567dab91945fe",
+      "matrix_sha256": "3b3b695d7fd96c288bde5183569ac69a08a5cca1e04f1d7c35c4a5ae27c1c8bb",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000349126815,
+      "foreground_pixels": 49132
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52211,
+      49115
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "caf7ae6c55c951a0ba5f97b8bb107edb949a60173799eff11f5244afe6e0cf6c"
+  },
+  {
+    "object_id": "Mens_Bahama_in_Khaki_Oyster_xU2jeqYwhQJ",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "fd9fcd0068b1acf3dfeb9bb2470075a5a64ed1bd3c8d2623acca1d5cd043a5f6",
+      "matrix_sha256": "e281f509538ce693cf762d26f5e8b4ff21bfcc13c7e5b6175b25c585b67ff38e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999648760126,
+      "foreground_pixels": 38548
+    },
+    "right": {
+      "image_sha256": "dc1aeaa934ca188866edb3240c4c48b0f195bc981d11ca342c2cf0f68948fb1a",
+      "matrix_sha256": "f81a5fc3d3850de596843818a6f76c262761e4ace794969cdd81b55810414edb",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999648760126,
+      "foreground_pixels": 29424
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      38536,
+      29420
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "c8a1d61bf9491c7878339afe7ad0e9f5e4171a459b394a0e9b4946e8cd7480d6"
+  },
+  {
+    "object_id": "Mens_Bahama_in_Khaki_Oyster_xU2jeqYwhQJ",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "9c56f00b8360887a41c6f02cf26d2ff87456461cbca1c3705eda1dbb9aa980a9",
+      "matrix_sha256": "10b71fb3450600c2938a10134de939c3d8ed150fb6b0fbcc84ce903a8010008b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997074021411,
+      "foreground_pixels": 44361
+    },
+    "right": {
+      "image_sha256": "9974ae5094b00df15922b935e70221c4523df30043f972f45a21f8a40f5e7a5f",
+      "matrix_sha256": "b9cfe95e826825377f412cec1ce6a5305b971d618096fe790a1d8e53d84a6dde",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997074021411,
+      "foreground_pixels": 43235
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      44357,
+      43231
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "67c1bef28a009bdd942a7aa5ebbd6d81342d18f7bf79b50e1c31811ed84e3fd3"
+  },
+  {
+    "object_id": "Mens_Mako_Canoe_Moc_2Eye_Boat_Shoe_in_OysterTaupe_otyRrfvPMiA",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "d1fefb130b145ea87ad289f8ad98c1e039162562e71d51834517224a06426dbc",
+      "matrix_sha256": "601178a8184022460fc6f4667b22e7cd9b10715d96df7f1007cb161f9ac9354b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996597079627,
+      "foreground_pixels": 57993
+    },
+    "right": {
+      "image_sha256": "146fb85470573cf221dd7d93c8cbec3d25960f32298251c4c54ca806b0be9884",
+      "matrix_sha256": "7cfe6a6d3d829b61c92eaeeb7e3ddc993cd2291c4b9befdb4054d5ab1c6f8d6f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996597079627,
+      "foreground_pixels": 57602
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      57986,
+      57590
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "4ab9180b1b4cfa09e70e765bce09c673d97eec3fab29cd313b5216837bf7952c"
+  },
+  {
+    "object_id": "Mens_Mako_Canoe_Moc_2Eye_Boat_Shoe_in_OysterTaupe_otyRrfvPMiA",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "14b9af738a6e0081f0a9bdc9d19f5df435a992d07f393b73435415604cf791d1",
+      "matrix_sha256": "8c3556aa9dfa4436da529529ef5a45100af375c6a9b3361f4e778fbdad24d360",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003806059024,
+      "foreground_pixels": 52835
+    },
+    "right": {
+      "image_sha256": "140c896b38b6743224c2d8064bac35a3de7ecff4286026cd6c431a3c48bfd2f4",
+      "matrix_sha256": "f7cf5d8cea3bb154eee99295eb12fa261d65ddf27a1299fcfb71dee10741bf7f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003806059024,
+      "foreground_pixels": 53496
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52831,
+      53489
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "9b727f02b2bd3123218f0eea4d919741f951076bc28d4abbd91ca089f72035f8"
+  },
+  {
+    "object_id": "My_First_Rolling_Lion",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "9c5890befe24c4357d9b21c84bc6f94a13c66f859a526e40679da7f87b55a7e9",
+      "matrix_sha256": "ee487201285ac40a34c5991da2f353562dc00c5638d4b2ca02563cb2ee0715a8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996379286057,
+      "foreground_pixels": 51381
+    },
+    "right": {
+      "image_sha256": "a5518d882dc6ee17b852c60bfa5577ff5009d0271a713882e8d8483777e2d98d",
+      "matrix_sha256": "48427d3c50eba63226e3bbcd6b5a83f13aa5ff2a12f7e859d691f943e3b3f253",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996379286057,
+      "foreground_pixels": 55928
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      51369,
+      55918
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "7225cfc14e028f94304e14475d9f2525eae8cc04b20571ed3eebf371ebe1049c"
+  },
+  {
+    "object_id": "My_First_Rolling_Lion",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "171321558c23ea9cb3423370b0534f8d30751c05b45dfa2409cb9c33df489fd5",
+      "matrix_sha256": "308067cd96c6207a116131d8038e08585550b0074d58e7344fbc2e0767977381",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992793953462,
+      "foreground_pixels": 127235
+    },
+    "right": {
+      "image_sha256": "50b1647935df0f7f1928188795fc7e4b69664782e207a72a893f68963bea0e28",
+      "matrix_sha256": "33481771dcec62f2bc412451166f3e961531597e21668c83b6ccd4a19eef0bec",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992793953462,
+      "foreground_pixels": 125744
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      127215,
+      125719
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "1b16a39b0e0395dc822f5891ea52399ed792599309e1932060edc83aa2933668"
+  },
+  {
+    "object_id": "Nestle_Candy_19_oz_Butterfinger_Singles_116567",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "c91eb48b424ceea801bf36c67a490f45ac0e4e5a594045a768844d22e9cd2768",
+      "matrix_sha256": "a533cec170f19d48aca57fad661389febfc18209d88d31a0dd2a3fb9121bf959",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000422341249,
+      "foreground_pixels": 22440
+    },
+    "right": {
+      "image_sha256": "9570a564c0b055b3925d98736149d80bbdc0e06c8b3532a46e7a0c7ea94b398a",
+      "matrix_sha256": "a0deab015fbd6168646160f8f76e8ff79d90302740673fc0ab3f9bef1685af0f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000422341249,
+      "foreground_pixels": 18173
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      22435,
+      18167
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "ac2c9819e1c89a95411c657baed71530d43af46e9b7916ce1054012a37a2847f"
+  },
+  {
+    "object_id": "Nestle_Candy_19_oz_Butterfinger_Singles_116567",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "66c7ca8aaeda266f809585bed8ffb546e80108b1906ca1c95016dcddad0aa1cd",
+      "matrix_sha256": "c31db323c59b19597e8bf6da9bc7eb1136e74735184d55f8fba0804c1e1ab648",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997557463021,
+      "foreground_pixels": 23976
+    },
+    "right": {
+      "image_sha256": "8a397f974111689259f10c04b50048095cfe314ac9bde588f43d7f6955b70433",
+      "matrix_sha256": "7b0aa880fc9d19d63bc4cfc479cb32d552a6bfc7a7d24cb06040331fd6253af7",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997557463021,
+      "foreground_pixels": 20649
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      23964,
+      20641
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "c232c72c674b9e26288fd59b46d78cb84c071ed7b53fa7d5baaf8a4ac1c55570"
+  },
+  {
+    "object_id": "Nickelodeon_Teenage_Mutant_Ninja_Turtles_Raphael",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "c704065af8b80fddef887d57085501298b3a9e7f4b24a91cb4560026737dea30",
+      "matrix_sha256": "04a441a6abebe9954f271763169783b00933d2878428f2295ffe51ded329186b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998427749596,
+      "foreground_pixels": 48280
+    },
+    "right": {
+      "image_sha256": "481532b4a5b4bcb8c07f43059195ae946b5613340092b76454d9a3c79255c4ad",
+      "matrix_sha256": "8673dbabf3ee116f4f0e1016d7b02556ae0de9bb822de564e7e95991b42f647e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998427749596,
+      "foreground_pixels": 52968
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      48261,
+      52959
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "4e91cf6ead405737b676923de7443fef16b2783b057f906126b2eb6d3fb09710"
+  },
+  {
+    "object_id": "Nickelodeon_Teenage_Mutant_Ninja_Turtles_Raphael",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "db5a6f3f6d028b6915b635811f8e9c918d62e3bcd0df4eaea2f48b9a0f02d1d1",
+      "matrix_sha256": "5a4320c8211241a0aab03ac6e9da73684d279b762e79f020378aa63ce15c7dcc",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000186277254,
+      "foreground_pixels": 52320
+    },
+    "right": {
+      "image_sha256": "8c1491c16e002037247d746a65e74e8c38ce8ce11a7e623f57d95277bb0a9b44",
+      "matrix_sha256": "6024988a75e118d4875297d013f31ba627e77c1935cd8dc5d1dea385f2fd7ab0",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000186277254,
+      "foreground_pixels": 55890
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52294,
+      55856
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "ec02104bf35c13f26e223073fd8d89ac577bad84eaeb286639bcd1f04dd087d2"
+  },
+  {
+    "object_id": "Object",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "cc6feffc5bcefab09d7a1ea98fe60a585e2ecc07d0209b9bc7d1a5eb7d2f398c",
+      "matrix_sha256": "9bad1644cc4b7c84f095d01d3caeaf3e6d154dd8d9d8e67ef30bac5d9ef86431",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992528078603,
+      "foreground_pixels": 87956
+    },
+    "right": {
+      "image_sha256": "0d2da234c8824acaca8064f24587628a2fa2eed661dd8df3b0a3733a9fbb1a99",
+      "matrix_sha256": "228b2ec5ccd0973b04e6751278e856b0cf85cffe3b9d9e7507c779310c38072d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992528078603,
+      "foreground_pixels": 93102
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      87943,
+      93086
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "c077122cb97c3b0c5e091674bda25b3f9001a05b18b759afccf4ddf49c3a6af5"
+  },
+  {
+    "object_id": "Object",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "aebf00db42f9a033da3fbdf03582748537630816eb30ce8ed9b870a745433165",
+      "matrix_sha256": "9e40f684ad6e05aa71d222791dd3f793a4a92737057c4a2750f7d16e748bdb07",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000271796583,
+      "foreground_pixels": 113937
+    },
+    "right": {
+      "image_sha256": "f8f8ec6db8a642fddb9eac27c3f10706387db33dde3f1fb5e22f46c40588babf",
+      "matrix_sha256": "3de5f05c6cd35d3445e3f7d1b09fcd370859b3e5bd09707e5c740ec717b242ab",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000271796583,
+      "foreground_pixels": 101517
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      113917,
+      101500
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "aeb98622b64e2363048cdc1ed404fb8dc1991e4aa28094b4b22cac7f1296fca3"
+  },
+  {
+    "object_id": "Office_Depot_HP_2_Remanufactured_Ink_Cartridges_Color_Cyan_Magenta_Yellow_3_count",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "6efe0f3c72307a617a9a0e57b8206735b4ff0c4b7e1e7b283e63e7633f54e16b",
+      "matrix_sha256": "1f271c06b6056b4ee065cd3b92d292bd495c6b2db97dcb1024d0d5c12c7a6dc4",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999406732168,
+      "foreground_pixels": 86489
+    },
+    "right": {
+      "image_sha256": "e086bb6804776ad07ba069782cff319a0ade5888e5e2437fafbc08b922d3587c",
+      "matrix_sha256": "28a8ef976c39c5e9e00dab2d7d793ba968efba19e2c54282ded16c4f8a41780a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999406732168,
+      "foreground_pixels": 77747
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      86471,
+      77732
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "df31e85b56f369eb56db7383ae6125245ff8ffcd70b00ea358eaf1f3353c315f"
+  },
+  {
+    "object_id": "Office_Depot_HP_2_Remanufactured_Ink_Cartridges_Color_Cyan_Magenta_Yellow_3_count",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "1a5b45ae6d8fbe0f7e4fd1318820423df3df715b9819d60aa264e67618768103",
+      "matrix_sha256": "576caa76f6358df2ef0939514b9556b0e21db99e75f0ed5a5643a066604417ea",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002019070298,
+      "foreground_pixels": 110991
+    },
+    "right": {
+      "image_sha256": "22748e14a86aa3c3ddf44f08b4791d021a21668634ffe2ac412799f5e0b3aa5e",
+      "matrix_sha256": "74e93d2a66ca4a4b0efe9bcc0522d4a04f15486fc08f7544831dc9456913e234",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002019070298,
+      "foreground_pixels": 109755
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      110987,
+      109742
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "603d76d1c7756fd2e21c7f8db52981da854d22c4dba7ec75089c18f271e0b65e"
+  },
+  {
+    "object_id": "Olive_Kids_Birdie_Pack_n_Snack",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "6a440336fa58e5e6280f5680f0b94d944618c96a891c81234c143297640cd04c",
+      "matrix_sha256": "f031a010b20f2c45f6dc1d3f1e1c61279371af8bcc565ae19ac3844e02d1bd50",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999234265977,
+      "foreground_pixels": 135710
+    },
+    "right": {
+      "image_sha256": "bd839d750b044c2f2dc3fb1c42051c3f58d272d656ffd68108dccbfd3d8aac37",
+      "matrix_sha256": "d675b4f685a6166167b647f94f2bbc5dd9ef607a0e8c1a0c45395f71a1cc9165",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999234265977,
+      "foreground_pixels": 144436
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      135704,
+      144429
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "457d3aa2863e23f71e230915a2d7b67c23b38f5c572c3a63d05964a2e1330943"
+  },
+  {
+    "object_id": "Olive_Kids_Birdie_Pack_n_Snack",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "9c2f083240fe880d07982a5d207aae04387d8c26b18aec403cae34fa7e69a1d4",
+      "matrix_sha256": "6466e1316b29eaaeefcff38ac35723ac76d4137f85160329ca6a68b129fe33e1",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996706761161,
+      "foreground_pixels": 136308
+    },
+    "right": {
+      "image_sha256": "3f57d6b91b6262cf3af2a1784ee0a3c8b4e89e9b331777266bdb431fd4bb0b72",
+      "matrix_sha256": "734984e938c7901190d2e786be3284792ef14bb03d033de65ee747b4f9b0ad16",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996706761161,
+      "foreground_pixels": 147921
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      136300,
+      147916
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "a4a3b1ded46cbf347894803a5d72bd78a5a08f9626314ba6c20c9825829bc08f"
+  },
+  {
+    "object_id": "Olive_Kids_Trains_Planes_Trucks_Bogo_Backpack",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "862cbe75e580f8d68c52e3a7584bfe3f3f20d325040b1b30f9668265362aae88",
+      "matrix_sha256": "1f90c7ec12f6cc4994e3f93114fcfece4e2fc0847f57958d173a313a2b48588b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999953331596,
+      "foreground_pixels": 106974
+    },
+    "right": {
+      "image_sha256": "195b708a82a654f53625ac71c4a98f07c035c1c89e1efd346f270d799c9513e7",
+      "matrix_sha256": "ccf7e3a56efbfdbb495be180add22892056025383bebd03304d9b61dab2c4566",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999953331596,
+      "foreground_pixels": 90974
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      106961,
+      90957
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "ebf7ee2b1778532a8708a60cfb2a8d5d6afd438bb746d1df983c69f145478cbc"
+  },
+  {
+    "object_id": "Olive_Kids_Trains_Planes_Trucks_Bogo_Backpack",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "10bbbf9f1572e6e1a746d6efe865d9ff72d98636b870b0a82f5a1870ebd31beb",
+      "matrix_sha256": "d99f977f74bb3c85fb78f9165cce873a0c604be93de3d92e11db498096347f75",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000058994805,
+      "foreground_pixels": 130889
+    },
+    "right": {
+      "image_sha256": "4142dd87ec4d4b58a71a3db67c86f38f2765e2b25172c6a964d5943bd9692149",
+      "matrix_sha256": "741dfdc52b88ce9d2e5253c5d7abceb94b7f77030c8d8fe1a9723af1f2ed494e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000058994805,
+      "foreground_pixels": 143525
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      130886,
+      143522
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f07e7672999f66581af95d85e80dafc51f0c3f81d1bc6efec6918b17129d2521"
+  },
+  {
+    "object_id": "PHEEHAN_RUN",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "error": "[Errno 37] Unable to synchronously open file (unable to lock file, errno = 37, error message = 'No locks available')"
+  },
+  {
+    "object_id": "PHEEHAN_RUN",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "435f8f9e60cffe4ad62fc0b953d37d0183db3ec5b47eb085ba96b4c83732675d",
+      "matrix_sha256": "843c9bc2b40c1514258c8da9dae4d954735585976c43fcd02f53562a03958591",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999993265125843,
+      "foreground_pixels": 55956
+    },
+    "right": {
+      "image_sha256": "12b21bf640a99417d5b8878866c35a810fd49b756626b41109546e84b0c1883a",
+      "matrix_sha256": "a8a10c86458651b1d3cc0ff34c935bda1b5d53224c3e3e20a8e5cddcfbb2eb1f",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999993265125843,
+      "foreground_pixels": 56081
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      55947,
+      56070
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "ddc3a86da1eef2d4a0f2eb3e86c6f8f068b703ad4490b182bbb60df32695f56e"
+  },
+  {
+    "object_id": "Perricoen_MD_No_Concealer_Concealer",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "c24a2ab0d7bbf7514b3397a80fe9f0785759be015c756e64f9a00e8d50f564db",
+      "matrix_sha256": "e1b30750d2c06f549e4a640c6b59c85ba082595147418d8a33a66f4252e2280a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000005783081478,
+      "foreground_pixels": 68921
+    },
+    "right": {
+      "image_sha256": "c3d55e59d869fc997e4c27fb10facce09b399f72441df0b71ef8723cb7bbe41f",
+      "matrix_sha256": "98a146c24f5ce6551499676977bc81ea01f3744b0afb0230698975730fef4a54",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000005783081478,
+      "foreground_pixels": 79889
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      68918,
+      79882
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "07fc792769bace672c8f0adab1a0b9271c7a1cc3ed9578fd1c8b42a6b0be7c92"
+  },
+  {
+    "object_id": "Perricoen_MD_No_Concealer_Concealer",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "f05fd435ed7d92c127082548242ebf5c43cb81cde96e65d1b5b6a16217a73951",
+      "matrix_sha256": "e0f971d329398162f313b04382fa4e3ac77ea0923108d16f37fdfb437fe274aa",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001984888442,
+      "foreground_pixels": 99879
+    },
+    "right": {
+      "image_sha256": "81336481c95181a57dc07ec2333858ded9d427ac04cb3652b302794288e790d5",
+      "matrix_sha256": "e730f4808d746bad258b7c188b9e5ec0aa98e397d1da6ad8ea4a350da184ad01",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001984888442,
+      "foreground_pixels": 91781
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      99874,
+      91776
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "af052510e256cfe48ec13a50e02515d8d58cce01abba222512eeab30b884975e"
+  },
+  {
+    "object_id": "Perricone_MD_Omega_3_Supplements",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "70db5ba902802f7ccc83d18637a2598de0cc1e747f4e5a80ad6aff59b3fe5b6e",
+      "matrix_sha256": "c8163863a8665e066293b23496a82c9e976b725d28fb6c50e52125c3200f47a7",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998669439206,
+      "foreground_pixels": 143533
+    },
+    "right": {
+      "image_sha256": "62cde094fd4084bc9e39f3606633c95e8c0b9bf0427b181b08695979784aaf0f",
+      "matrix_sha256": "bc13a763fcc81364f1b4b41d9eec05fdee54d6ab9e0ed2bd0d34b0fd0b3ca26c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998669439206,
+      "foreground_pixels": 139008
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      143527,
+      139006
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "9d45604ac12af0e10ac0d5f670573e77ae04e3603fa37fe4976459f35bc762ea"
+  },
+  {
+    "object_id": "Perricone_MD_Omega_3_Supplements",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "387b6d7bdf2a7d69d90f64ea3b91403c8a04c1c1fa1a7b30a431e62843b23813",
+      "matrix_sha256": "bc1f802975ef44278437155b72c37b1a87ccfea6bbfc8bf1ee4b57495225b1e4",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999630028517,
+      "foreground_pixels": 125778
+    },
+    "right": {
+      "image_sha256": "5a2132a05f17eb2a42f89ed902f2e7a0503c81de543f3b3c6db7669437d408bf",
+      "matrix_sha256": "1ee125b597241fb4ac6c3a49c306b8be15a597fa3d970477987d5d0b41bf17f4",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999630028517,
+      "foreground_pixels": 112282
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      125765,
+      112275
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "50c53760153f5e9d32459bb9631333f37fa555b0302962b639a1a39ffeee6375"
+  },
+  {
+    "object_id": "Phillips_Milk_of_Magnesia_Saline_Laxative_Liquid_Original",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "1fd4c9907d558d05d950eecc65f1cf02bf47ddc7f0d634eaa3fb4a5b4ad82754",
+      "matrix_sha256": "afba5e489199f734894032abca5e3895f987c7f8f94c03b8b5a7fc767beb24b6",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999073763222,
+      "foreground_pixels": 38508
+    },
+    "right": {
+      "image_sha256": "a438430119bb057216c2943bc7ba5a8cda68ce67445ef2aed5a83c2299f726a8",
+      "matrix_sha256": "df8e1a54d2ccacadec062eeef0c6585fe00a8886c3fc0c9e3597c81659ce1f02",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999073763222,
+      "foreground_pixels": 39381
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      38501,
+      39376
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "22ee5f8344b9c01e72d40108d51e9fe6a16eab0938198e19c86a5a6b0862a434"
+  },
+  {
+    "object_id": "Phillips_Milk_of_Magnesia_Saline_Laxative_Liquid_Original",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "376407cae2ce9ce1e99775eb7cca41e0d3cad5a8ff1ea152fbaf5abef66b1e16",
+      "matrix_sha256": "190c059aad7985d70f432f3b44e3c09f89fdb38430e2da36ac62dbde24c078b4",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.99999999206615,
+      "foreground_pixels": 47799
+    },
+    "right": {
+      "image_sha256": "5f3cdbb3f3015f034c707b843d9a73ff09c04ac10c140f6f1ea88d4f79c822f1",
+      "matrix_sha256": "c2cf3ff6707fc97554b1be80cbc4bbde4a987aca50ba1e9e407bc51210e809f8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.99999999206615,
+      "foreground_pixels": 55257
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      47791,
+      55254
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "6ef103bec058837dcf64485c129effd0e48d9e379ca98ce6fe8a815b2469874b"
+  },
+  {
+    "object_id": "Predito_LZ_TRX_FG_W",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "d99f2e46dde2a3c4277dd752b134fc24be18156a441a190adde78054fc50918e",
+      "matrix_sha256": "14f8e54880c7fcd47d9e4c7ae95fec51761ee6c86fdb4bc936b0384eafc9806b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999291062884,
+      "foreground_pixels": 44393
+    },
+    "right": {
+      "image_sha256": "964d1c857e6e0beff064fa26c396dfe77c50f933e06bc643e21d6a042d29d984",
+      "matrix_sha256": "b9c602da52b6d9afd35cf2f6cf0d320235a1c9592122519a6b18a13e02d3bf59",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999291062884,
+      "foreground_pixels": 42003
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      44388,
+      41995
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "3c9ecaa0b0e09fe37b0b64e32818e9445d9ab5418b7c70aec262c150c0b6e410"
+  },
+  {
+    "object_id": "Predito_LZ_TRX_FG_W",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "0cef2a3e1b32bb7248a1446c4fb4565cdcd4513fb927c4cd950db06ce34be6f4",
+      "matrix_sha256": "54deb536aec2bac102c97266c81810cd38d6ce27f1f2c76b15d6a4c027b1be2b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999944107355,
+      "foreground_pixels": 60189
+    },
+    "right": {
+      "image_sha256": "a3ecb73d66c442f66da325fede09838af31fef819b4159c320533b24d74941f0",
+      "matrix_sha256": "e6b3dc0fc34edb4bcc1af70c9e2a846b364dce0bf477ab420326dd7a46bf662d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999944107355,
+      "foreground_pixels": 59205
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      60175,
+      59194
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "603310ebbd3d744309e17b4c2c2b05060fcc5bd085a0fa972f6f057097f15f56"
+  },
+  {
+    "object_id": "RESCUE_CREW",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e7c8b0fe0279d5deb67d8d5566143be77ab5e96c2850ea4cef44d136488c3183",
+      "matrix_sha256": "7f3f463a5f505a7b17a94cfb9bd86090c4b8fd446612bc422500e1333eb09d04",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997079094382,
+      "foreground_pixels": 88249
+    },
+    "right": {
+      "image_sha256": "7247fc3b0baaf995a4cb2de2649ca982bdb75b26e0a63ecfa3091651b11e988d",
+      "matrix_sha256": "c22eb9b2353bf641b06265b61f619f99eafc581f7ad16e78396082b4eb95d9b3",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997079094382,
+      "foreground_pixels": 82850
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      88229,
+      82821
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "3c144cb31875593c7564aade9e5e231c516b1055715efe9fb9f17e17b1b07b4e"
+  },
+  {
+    "object_id": "RESCUE_CREW",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e88311d036b66d4bb10c4783ec7a5c3d1e0e7b92dc87df5b4dd7dbf66b74cbaf",
+      "matrix_sha256": "c282d01a3ddc637e218f9119e1be750ec8ae48b5f151d416fe1f59f7f28f11d7",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999389454814,
+      "foreground_pixels": 55164
+    },
+    "right": {
+      "image_sha256": "889cf58fdedfd8f2c688780673abfd521f4cf0921711a24fc2385d75990125f3",
+      "matrix_sha256": "bef867ca201593e4c78cedad41311be53547982ebb916c9d6479b0c3bd9bdad0",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999389454814,
+      "foreground_pixels": 41991
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      55149,
+      41967
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f08ded20bfe2dd1e4c11a205f9918e19ba8a19c2b6d80412d1c36f8cf01a7e64"
+  },
+  {
+    "object_id": "Reebok_BREAKPOINT_MID",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "d12186980cf49e7b1948f24e31383e4229d3abbcf272f65de7b0663d75a011d5",
+      "matrix_sha256": "a5abf6d37268212c8528f1492d8e50de7144fd198ee2796dd5986209b6dab1d7",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000111834278,
+      "foreground_pixels": 76534
+    },
+    "right": {
+      "image_sha256": "187ba90451672f37ed70c3dc8e645064beb94596329d2b2bbee150b2667cd063",
+      "matrix_sha256": "f928919dba0653e8fb7be85d06b5eb5b889c299696d1baa4cb917e7578adef52",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000111834278,
+      "foreground_pixels": 74267
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      76526,
+      74259
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b2bb81721d2714cc41204f07a9b7bfb70cce23b2321ee627dd6f2a7faafe8071"
+  },
+  {
+    "object_id": "Reebok_BREAKPOINT_MID",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "1c9f63fd70a357bbf08ac130c45d2799e73ca748a41f18f3931d1c2d99989fea",
+      "matrix_sha256": "341ad5b9ebd92b6da2fd21a07f8e09ecc94b7c5de1f388c0de66d5be7183c890",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001292843572,
+      "foreground_pixels": 50345
+    },
+    "right": {
+      "image_sha256": "9d82f67e46f9fc1d686cbd62b3b5db96a0d661689cfdd0c23a497a19a7044fe3",
+      "matrix_sha256": "a36654fe9b95f1228070aa9b2cb8ccdab4a5eb507987a9eac240658cac3535fb",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001292843572,
+      "foreground_pixels": 48512
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      50339,
+      48502
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "80257496fc68cc1df1bdfd371cf3e69383459fd79dc5cfa11ac056c9870a2e8c"
+  },
+  {
+    "object_id": "Reebok_GL_6000",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "6a187351f084a9ae1d1a548565f39eda3bce77d64e368bd44b95edd3fc5b9cca",
+      "matrix_sha256": "283e1fe19eb725a9cabbb91ab226dfeb84aea934a0be1b9a160851ad1fe00a6e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999819439562,
+      "foreground_pixels": 55983
+    },
+    "right": {
+      "image_sha256": "86c0947a6217b9486e3812dc8c59468a56ab050052d045f7778806a9bb89784b",
+      "matrix_sha256": "96470954c6306728eae6cb9ffc80d76455de306cd2e564be6f7cf534ac5cc4ae",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999819439562,
+      "foreground_pixels": 57732
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      55967,
+      57723
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "936b0b02d7866a53bf975e4ccc4985e68c5b62fc540061229aee318fe387f58a"
+  },
+  {
+    "object_id": "Reebok_GL_6000",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "a41d714ef9bcae173fd214a9eb91aa41cfd05213ef1d798c7f443b5c017c3922",
+      "matrix_sha256": "fc75286cbecb5d325071a9f655b765a4003f42915dbc93dd6b6246314c93436b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000207313198,
+      "foreground_pixels": 52818
+    },
+    "right": {
+      "image_sha256": "76faaabd8e696c85a019a6eb3cb8b92396eeb579a5b36e86e932e42522818c9a",
+      "matrix_sha256": "1514ebcdbe3541a57d8e7afc493429d0d8af5805881c698f8c1474e8c7a23b41",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000207313198,
+      "foreground_pixels": 55691
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52809,
+      55684
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "62b0489dcf513d726bbc9b50e563ca4b37b6be10cabf67d508e2acc6839a0baf"
+  },
+  {
+    "object_id": "Reebok_SL_FLIP_UPDATE",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "1d2b625d21f5a72f3b5dc480aa72c20c7b4c0ea58d32f30fb8ee0a644e25259d",
+      "matrix_sha256": "eb259df8369c78844bc8e0b17748be034f6e3391753e6c59b9f69314d27cea9e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002385319369,
+      "foreground_pixels": 40438
+    },
+    "right": {
+      "image_sha256": "56d5b3b12b32033a65cfaaccafce280680b465b9c36da91045263c12ec4c2163",
+      "matrix_sha256": "681fd1a155eb854914f8b9194ee2147aceccb04d10deb474d9fed8b9a59669b4",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000002385319369,
+      "foreground_pixels": 39750
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      40439,
+      39738
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "802d2e87d182a984d0be9d561b0e9cfb28895fe816877a02e9b39345f46c0c12"
+  },
+  {
+    "object_id": "Reebok_SL_FLIP_UPDATE",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e1f285c809bf36c44df525ebbde07f267c395bb2a5af0ccc07eb6ceed28decaa",
+      "matrix_sha256": "74857aa74b1ce8f0a1b166c5dc0bf385f3adc67dbbe80636dcde89413c5e919c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000112887111,
+      "foreground_pixels": 54944
+    },
+    "right": {
+      "image_sha256": "ba458c6e3bfd9200eb0f5fa58599d8e87b554df2210e18d1f4292137e597a15c",
+      "matrix_sha256": "7d885f7b1d610345ef8e3af4032b89fdc8d190b953b8aea94678cac907f48771",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000112887111,
+      "foreground_pixels": 57707
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      54936,
+      57696
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "0227cd43503e9c65832c8b641b853075d2d46de9191e438b9908b13501c3ff36"
+  },
+  {
+    "object_id": "Remington_1_12_inch_Hair_Straightener",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "cb62afbc93567efb911bc492719254d2ce5b2aaedb7df42dcc653d923355552c",
+      "matrix_sha256": "c3f27cf800a0ea8dce37d02c1b4868034679dd789facfa520e0dea7eb091b64c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998927317888,
+      "foreground_pixels": 17198
+    },
+    "right": {
+      "image_sha256": "3373da71f9efba4e451995aaa5060f2fceb4dca420c30049d8926809196569c0",
+      "matrix_sha256": "ee96c10252848ca8fda6bc3d0dd611864e210ccc96591fe47eaf9d2271471b0b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998927317888,
+      "foreground_pixels": 16878
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      17188,
+      16866
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "832770034e2f1199bd79e6f02b2ae38e4c1a13f635c57cd30e97b586639e2e60"
+  },
+  {
+    "object_id": "Remington_1_12_inch_Hair_Straightener",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "c498fb61cd3189f775ee753afdba22385087e2023be40a93c51a0fc437ef513c",
+      "matrix_sha256": "fbb478051a91d5e708d31727d43e236d1ac9ff4c042318b3016218bd7899b46a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999205354838,
+      "foreground_pixels": 15412
+    },
+    "right": {
+      "image_sha256": "5c844cdc14f6f0863ceda8c0215b267a82bc3f5edd736171c89bbf72dc9aa5a4",
+      "matrix_sha256": "cbb319aedeb448d729d2cd643482468710d6197709cf9f6ab96315a961e2482c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999205354838,
+      "foreground_pixels": 15730
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      15402,
+      15714
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "88d67e47124b9f2611e3a3cd4c1c156a49c4e4c6a02610e189324a34e253cfa2"
+  },
+  {
+    "object_id": "Room_Essentials_Salad_Plate_Turquoise",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "d5418a09fd1a6ee2c491a71a714c76675450f99069e1a6ce802b6054973dd9c9",
+      "matrix_sha256": "b1451a8c46941e5a808ba21deb7964c839912c3179c0d5ec646b1239cb2fad6a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992601344513,
+      "foreground_pixels": 100845
+    },
+    "right": {
+      "image_sha256": "e619abbaa14252d28b85a5c93bba5cc0fe985af3f2d2d3f024970ec34451055d",
+      "matrix_sha256": "237e2f28c5b800a8174d49fe039c5b869f4abb12efde5f91358cff46e384b7e8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999992601344513,
+      "foreground_pixels": 112701
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      100835,
+      112697
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "954b6b9ea1a4d4bb7bf38997909ea4e67cb1feb928776fbeecb97cb114774440"
+  },
+  {
+    "object_id": "Room_Essentials_Salad_Plate_Turquoise",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "acb73e9f9459e5bb01e76124a3b87409ce04a22325fd30160bd95954c8daf1cc",
+      "matrix_sha256": "fde35005fefb2246b058d4a2c5a0c5ae4ba8867b7e3074de1cc31dbca6f39406",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995092422991,
+      "foreground_pixels": 120956
+    },
+    "right": {
+      "image_sha256": "0491f0bba03515178c90557648ef53476093d28bcc11f79c6eec208fbdc21e7c",
+      "matrix_sha256": "1a70e5e2fecddfbfac2419d5b00b60e68bdc1ba8d2dc027e6582d0f0540419dd",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995092422991,
+      "foreground_pixels": 110236
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      120948,
+      110224
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f2c1301b76cfccd0f8ed186897b3b48dc5005097e80d5e3c28c41d498cfe4ea4"
+  },
+  {
+    "object_id": "SLACK_CRUISER",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "error": "[Errno 37] Unable to synchronously open file (unable to lock file, errno = 37, error message = 'No locks available')"
+  },
+  {
+    "object_id": "SLACK_CRUISER",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "b2a1bcb6db008a15b9e33e23edfa10b7f689eacb301cd7c8a66abf8958becfec",
+      "matrix_sha256": "d2ab8e8c83105babdb84ca0779305ae4a36382967dab69a0ba4d675a01fd9d06",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999991051741711,
+      "foreground_pixels": 60077
+    },
+    "right": {
+      "image_sha256": "77dcaabce9f335c564a9fbddfc5ea4fab9a72830b336b1141f20c1507da51e40",
+      "matrix_sha256": "b15159493887d58541c91b167a13f308f3e1f8cbe73d8b40083fa581dc64e1be",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999991051741711,
+      "foreground_pixels": 61192
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      60070,
+      61182
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "6ace71afa9846266d65fd904a88be41a3265240532777b76cb8fa64acf30f9ad"
+  },
+  {
+    "object_id": "Santa_Cruz_Mens_G7kQXK7cIky",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "3ad8b50c5c4e5abb7cd9a1ba349d8097316bf4b7a9330095cebc53248da455a9",
+      "matrix_sha256": "a4b0fe0e33ef149451931e11539b7db8e97887bc34c91427b9812143369b42e8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995336462174,
+      "foreground_pixels": 52642
+    },
+    "right": {
+      "image_sha256": "ac2ecaa7be93cbc1919a9b1e84910beac38b7e401ea366fe75a4c67f4202dc44",
+      "matrix_sha256": "bfb4ab58c175b740dfd3fe5907e0a0ae65ae3e359eb1b99421655cb1f40fe940",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999995336462174,
+      "foreground_pixels": 54214
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52634,
+      54200
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b7f82a2d187dca5f429845e7dcfbae1ac1d293a30a77224d0a1d56a6c57a1ce6"
+  },
+  {
+    "object_id": "Santa_Cruz_Mens_G7kQXK7cIky",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "00d58943e78b4277fca4e2c2ff2ec79adfadaa67c7a1ad3350b403617ec9828b",
+      "matrix_sha256": "2e82994a9bc19abd1c4bec81c3b1b648f96572075ced4b53da18e2175356c8c6",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999148325454,
+      "foreground_pixels": 64763
+    },
+    "right": {
+      "image_sha256": "4d66995a8b8ab13ee6a45e11777a839f03f169914f25e294668e15daedde3154",
+      "matrix_sha256": "90793f1fe74b3f864dc10ee0bd90fb4318f97c244f962eafde5f00618d7ad624",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999148325454,
+      "foreground_pixels": 59146
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      64746,
+      59132
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "2f8a5d89a88e3c1c8d05524185792823414d879967c4c4486eae8b2a4e24d80c"
+  },
+  {
+    "object_id": "Seagate_1TB_Backup_Plus_portable_drive_Blue",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "a9b7aaa43dd3db0672ecfe51788c030a8a1478d92321eda1c652b98d16c6e490",
+      "matrix_sha256": "d71f5015754686e81985a0221d56f1396d3fe2c0cde924c755fd3d9978b9562b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000563387035,
+      "foreground_pixels": 88947
+    },
+    "right": {
+      "image_sha256": "3a77e98d52c9cdb387f680e16f7cf147944a4438c0abd5c9ba29bd2387703635",
+      "matrix_sha256": "a8f05a85da5c03f9a7069ec4133324b21ca85f51b552bba6745c2d89e70f14c9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000563387035,
+      "foreground_pixels": 96117
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      88942,
+      96098
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "3032fa34a71b37fdc9eb27a7a25456c73bbf751ce496f05bdbdf6c5c36cbb92f"
+  },
+  {
+    "object_id": "Seagate_1TB_Backup_Plus_portable_drive_Blue",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "336c51b96032e3246fd9d543e41b65e8e0695bbf1e771e5473d79a9622f27c1b",
+      "matrix_sha256": "a636bb41e3d128efdfbfea2fad63044c8797e4acf0e8f526858d032a72dd2eef",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001804050256,
+      "foreground_pixels": 99789
+    },
+    "right": {
+      "image_sha256": "742722707685afd989410cbd01fbbecea58e7989953c1a90fda5b4af5c0657a2",
+      "matrix_sha256": "7d363aea6c07a5125f19cbd6fdfb041187e6d9c0b40210712d0ae748beb0ff5a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001804050256,
+      "foreground_pixels": 108226
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      99772,
+      108207
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "593cdebbb254676f268777314a3436b974d139df50ec9cccbcc4894b00206eb0"
+  },
+  {
+    "object_id": "Sootheze_Cold_Therapy_Elephant",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "f3400cc73eae13182da4a7a14194683a031dc4547f7614bea9a1030ca0391284",
+      "matrix_sha256": "99b7589d4dad3a3e8b291e96e9be7a07c54ea047e80ea0bd320e21fb11f5d58b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003724012572,
+      "foreground_pixels": 111378
+    },
+    "right": {
+      "image_sha256": "cce049311d7d45c437015dc05ddc38fb5d18725445c51b2f98ce27b3a0a7c72d",
+      "matrix_sha256": "7aa8e4ce498952867067e7b8dcf4aeea213f4511310008ee1b6a9d18bc61626a",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003724012572,
+      "foreground_pixels": 93897
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      111361,
+      93866
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "6881f6701641e47d130c0fb4509ca92f50784a46cafb6669ee51b392cdcf7ac5"
+  },
+  {
+    "object_id": "Sootheze_Cold_Therapy_Elephant",
+    "trajectory": "random_linear_9",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e7ab94e7b6a78d342f5d1a116be89e3bba5988eafc9488b0a092f907b11851d9",
+      "matrix_sha256": "1ca5f8a9a69ce786d37804c0baa612d06c00c2ff3530dc32154a2211828d8e6e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997758171991,
+      "foreground_pixels": 106218
+    },
+    "right": {
+      "image_sha256": "435004114a587f37a65b74f5ee3d5cd8081aae572b0b421c7ab6e50f738d97b4",
+      "matrix_sha256": "d611934aa13e09f5216d53b63d9d8b9b59bfeb4cf12d9c77e6039a0dd36a2a8d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997758171991,
+      "foreground_pixels": 104654
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      106190,
+      104630
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "8a5b6115a852c5a04482d2e344ccebc665f16cf97e25951e78d704ffdd97aa95"
+  },
+  {
+    "object_id": "TABLEWARE_SET",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "486d0d344d6cf5441e236c85eb0d7f951ae8c7020dbd8a886acadf3b18d96b4d",
+      "matrix_sha256": "daeb796ca4171065d2820ae1d332065c7c3cb642aa7532749d06af1bbcd21365",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998155959369,
+      "foreground_pixels": 29157
+    },
+    "right": {
+      "image_sha256": "7563fc405874eb98afe36ad75f368cd0d51f1d69c2dd6072c22fb364432b7c2c",
+      "matrix_sha256": "55cc3c7af0ea2e2e3c4a87077baae83d11454ea9976bc6ce307e1eb2affdd525",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998155959369,
+      "foreground_pixels": 35139
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      29140,
+      35120
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "af6fda8608efa739a0cee701544016f9b920e3cc08d42257d90d2821a1ccd66b"
+  },
+  {
+    "object_id": "TABLEWARE_SET",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "8b063ee965d6619205bb74a7aaae01180784d5c74ea4c587b38b56611718a2de",
+      "matrix_sha256": "ca0e323f0b645fd1dec10de6a283db4f2d548bceb7694fbf69a940f1b98ec804",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998084262954,
+      "foreground_pixels": 49410
+    },
+    "right": {
+      "image_sha256": "f5ade5fd90332233812fc4c8f2852a35c9bcf8b387c7e5f4f80bfd4b0bdc062e",
+      "matrix_sha256": "e7381e670bcf74ccfbffeee67dde539801b7788b9689cd0e913e0a3e8bdbaf13",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998084262954,
+      "foreground_pixels": 42796
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      49381,
+      42777
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "12a63eccbf6df72c5e440f55cebf5723a4d8d19b7aedfd8924e9a2f9cbf5f0f0"
+  },
+  {
+    "object_id": "Teenage_Mutant_Ninja_Turtles_Rahzar_Action_Figure",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "error": "[Errno 37] Unable to synchronously open file (unable to lock file, errno = 37, error message = 'No locks available')"
+  },
+  {
+    "object_id": "Teenage_Mutant_Ninja_Turtles_Rahzar_Action_Figure",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "ba52dea07294f84c219623f94c92d63aec4b47641ef43f4b0b6517c2f496f015",
+      "matrix_sha256": "612fa8dbf496ad5327fba63cf255f4cfe76c69a0b5a1756775dddcbf5a9050be",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001334546462,
+      "foreground_pixels": 47994
+    },
+    "right": {
+      "image_sha256": "773f2088e4be639f0d28d0cdeb22927412fd0b1f0a88452bcacbb628d701e6bb",
+      "matrix_sha256": "f23dbd7832ed9a12057b13a994cae6ed553a2b658c21f27e5e03067d5976c62c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001334546462,
+      "foreground_pixels": 49601
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      47940,
+      49533
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b297c7d48934eda8aff01941fc5dbd7525ad1fff02d2583ed1e6274d17ee29c8"
+  },
+  {
+    "object_id": "Threshold_Bistro_Ceramic_Dinner_Plate_Ruby_Ring",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "f0bcad87cff2268caf641bf57034e3d5dccc5d08bb802636c3590f6284a79185",
+      "matrix_sha256": "c82d1c8964e2a3c016805a63388fb53f2ef66e89415594bf001d4fde6eb2dbe4",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000004087299594,
+      "foreground_pixels": 80305
+    },
+    "right": {
+      "image_sha256": "c4794e2dbc54168b6cc35f897d6b3d6d9fd77b2b6da2b226b37b662b0c0f28b8",
+      "matrix_sha256": "668f7241257ed6f43062d89d44e8bec391d09cde2a1c93c19c21290c7ce520a7",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000004087299594,
+      "foreground_pixels": 89693
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      80301,
+      89684
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "66813225409999700f9816bab797bd61ffe029e80a5fe227bccc79f43c8ba5c7"
+  },
+  {
+    "object_id": "Threshold_Bistro_Ceramic_Dinner_Plate_Ruby_Ring",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "91dd5cda4debdf831f600da264271b644dfed05d330c47b7de3c4534155089f6",
+      "matrix_sha256": "60a15c79d7de3308e38696fdbd5cee4e6cbe506db46e4a7dd330ebc6bc595264",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999975970373,
+      "foreground_pixels": 52462
+    },
+    "right": {
+      "image_sha256": "99809896f48cb54f4684f4cad217678030abf04ce69574e4557e5b6dec791103",
+      "matrix_sha256": "406f4fde90a3aca93d3857b4c11896ba81b8a7c488e0278ff8584837e44cdca9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999975970373,
+      "foreground_pixels": 41038
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      52453,
+      41031
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b29241b1f04bea665949f63c748a978701eaa9a0b45463bb437c036fb1fc4055"
+  },
+  {
+    "object_id": "Timberland_Mens_Earthkeepers_Stormbuck_Chukka",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e993c58500d56653606f2908c1c001745a66c69d14f2e0e7fdd38f01cba9bde0",
+      "matrix_sha256": "1aaf5ede2542c638ea652a5a0faa876c3b27a03c4f691bf4fc906a33c7f02aec",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998112333023,
+      "foreground_pixels": 36203
+    },
+    "right": {
+      "image_sha256": "bf0ecb489f5ba07e45e38c64298292eb9a2416215d84aa376c61ed70e2f35465",
+      "matrix_sha256": "0c06a73f62059811f855598057ada51dee8c4fc3683bce6541ddc1231a5750ef",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998112333023,
+      "foreground_pixels": 25929
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      36195,
+      25924
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "d349511a3271bdf0f59de870276fbf9ff0f5a57f71e9e9db627c0098980aae96"
+  },
+  {
+    "object_id": "Timberland_Mens_Earthkeepers_Stormbuck_Chukka",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "34a5dcac550077cdee3bf65e10388c92e4d9a9f1c83a608a7654834b45e8c2f0",
+      "matrix_sha256": "764374178baf85d665d7dddca4a4913df1a8b0e96bcbbf615013ae2d095df5df",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000466754364,
+      "foreground_pixels": 51202
+    },
+    "right": {
+      "image_sha256": "665067e159ef4b61e4b9651da51f53a1e5c99904e89c5104e7ccf53b05433000",
+      "matrix_sha256": "78e778841d72395d7140cef4c6c471d35ba31cf184fd6e64779c84582410d3eb",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000000466754364,
+      "foreground_pixels": 51052
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      51195,
+      51033
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "e9b0e3dce495fd68cc488dd85138b3ae556dd23332be70509a11f0122a21cdb2"
+  },
+  {
+    "object_id": "Transformers_Age_of_Extinction_Mega_1Step_Bumblebee_Figure",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "54d4710958dead120613a8c1317ca4bbfa81c78b4d990143a953a1459408e312",
+      "matrix_sha256": "c113df84c8f647ef0ff2d145e028dc8553af2ed54f3ce116bdaec08d54dfb328",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999989318734872,
+      "foreground_pixels": 66744
+    },
+    "right": {
+      "image_sha256": "2769223fea4bbab971ebcd1a9183b42047fe934acf156857c92e90a93a71096f",
+      "matrix_sha256": "70f1b696fa2b287f7e471a76a2158b129ed2c8f86f5a6eb03c82c5b3659d9166",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999989318734872,
+      "foreground_pixels": 61984
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      66726,
+      61975
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "afd82dfcfb115354127a9c6470964eadcf0acdd964d1f8714c8bcb06f2f2b4f9"
+  },
+  {
+    "object_id": "Transformers_Age_of_Extinction_Mega_1Step_Bumblebee_Figure",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "de6b25ed9e558eaee08200fcd79efff0ea48fdd70c01de28b6e965a189815b82",
+      "matrix_sha256": "a18a846c397a1fd71439a196b0806c4469d7ed0d21cb64d2d932a554f6b44f0e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000056516894,
+      "foreground_pixels": 61305
+    },
+    "right": {
+      "image_sha256": "a6d8c34b9ab568a1f5afd06a58ac9f96bf7498247d6c8541be197017f728fdfe",
+      "matrix_sha256": "96b952ed957dcc62802ee47f54d99a287e3913025c6a0d12b3407dfa2b766e9b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.000000056516894,
+      "foreground_pixels": 52661
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      61282,
+      52641
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "4e949320ec13a76cf073952a510f63e603f1997cc5d36fa337dd1818cf39bcfb"
+  },
+  {
+    "object_id": "UGG_Cambridge_Womens_Black_7",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "6975473ffe64e6e7e7dfd6cacf4c5d4948f9179e7cbc48a659b691dfe3e2ebf0",
+      "matrix_sha256": "985de7ac86656a4ccb762c6caa35ecba08229b17708c310e859564a70675e7e9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996862678411,
+      "foreground_pixels": 86834
+    },
+    "right": {
+      "image_sha256": "ad4de61f99151411eab55fff0bb974d34c8f5e41d0f02d12ae68b6cd9319351d",
+      "matrix_sha256": "23e6c4bb054641de3739c097ceb7cc2e7cc99555298a11862ab8902dc0bc64b3",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996862678411,
+      "foreground_pixels": 74265
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      86821,
+      74251
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "201c3f71eba08587eb988e73ed2da32aec5f837efda965f38d03e8736366d904"
+  },
+  {
+    "object_id": "UGG_Cambridge_Womens_Black_7",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "88ae5ecfd6f8f5457d7de142c974684a60388bde739f6fda5bd0cbb15e358cf4",
+      "matrix_sha256": "01d4eb2abc80a322c89a58639244a2127bf2d7eb7db12c1fb2d099b8fd2a1337",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001386812118,
+      "foreground_pixels": 80369
+    },
+    "right": {
+      "image_sha256": "5a4462fe42626ebe43d0d2039841b796536d632272b1bf11777978c2061b563e",
+      "matrix_sha256": "a03e9d9c43d07c836a4c234704c0c073c97ef03ff883be57b9dacc7e856996ad",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001386812118,
+      "foreground_pixels": 90740
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      80357,
+      90734
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "59615ab93323aff60f2f6e8d043e1c1f5c5afc01f8b9f0a0a7ad081b96da9b08"
+  },
+  {
+    "object_id": "Victor_Reversible_Bookend",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "b885bd9a72a71f1d9cc7fd7fa46b8f77a492dac4e643878216fcd05f065b844f",
+      "matrix_sha256": "289df039811b2750114cc3ffe32766a665061ddc3ba489ec00e527876e83ac08",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999013365976,
+      "foreground_pixels": 150559
+    },
+    "right": {
+      "image_sha256": "f5401d506a80b2cfa7183eecfc5856590428214a983d456b60067ccd001a4fde",
+      "matrix_sha256": "0e2b57702f0a6169e5206ac5d801a1f23aa062901a4ffd29baeb1b9d996ee18e",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999013365976,
+      "foreground_pixels": 139983
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      150548,
+      139967
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "1c265a9f6069c8623f6c8b78ff80f8268e02730652010ce3431978483c0fd2a8"
+  },
+  {
+    "object_id": "Victor_Reversible_Bookend",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "2e4ff6b88ac67c915715b11010f8404896aa60476ca1cb8c9ad3e09e12a46183",
+      "matrix_sha256": "54f37161b79e773f23df33bad585edfbc9a68cbe76f5d01db61803ce01f888be",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003827338713,
+      "foreground_pixels": 140607
+    },
+    "right": {
+      "image_sha256": "517e30cbef5ed4b96f50e908eb6cf0e64395faba2318c70a3ae120796800b81e",
+      "matrix_sha256": "2592e25624dd0f53493f4741bd6b45ad478790dbe1a647f13450fd567984027b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000003827338713,
+      "foreground_pixels": 131541
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      140596,
+      131529
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "514d79dcc8cc13d69070b5a6bda72b5decb3325a4fe5b808bd94190ae0ccaf47"
+  },
+  {
+    "object_id": "White_Rose_Tieks_Leather_Ballet_Flats_with_Floral_Rosettes",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "3899732b64c3447516b064c7e29e065d645dabd0fe4c7e063f4c08b7d0076c9e",
+      "matrix_sha256": "818a4c09167460a2092969b4a32e348592168e79ead506cc483d29f0eb46d8dd",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999983336772,
+      "foreground_pixels": 54010
+    },
+    "right": {
+      "image_sha256": "510e50230b416678bc94c5352ceefa92ce4d16ecb2e70989c5d106dd15f95131",
+      "matrix_sha256": "fca23f9a2d03646124174af84e2cfb9275f26bd2f0103c2eadf356c0e06ebda3",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.999999983336772,
+      "foreground_pixels": 53465
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      54003,
+      53452
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "2684a66b4e324a4dfd40e146e695d94a49cc6bcf4e78d26d01d3a122fc316e3b"
+  },
+  {
+    "object_id": "White_Rose_Tieks_Leather_Ballet_Flats_with_Floral_Rosettes",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "7fa994a5f87d8e496c834d86d4556e383d67101dfd1c74c216c9428bd59f4a6c",
+      "matrix_sha256": "420c10fe536ee4f69db6b39423793e5c9b030441b818acf6d653a974459f11f9",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001510174858,
+      "foreground_pixels": 43324
+    },
+    "right": {
+      "image_sha256": "4093cca40a4755eae8fbf3620f5e01f40a7b837c6dc7e3351704b75bf17970b4",
+      "matrix_sha256": "7892870298affd2e3e0867519ee9b042a08859c7c7427381c5de93c8ec1379cf",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001510174858,
+      "foreground_pixels": 43434
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      43318,
+      43431
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "2d3cded340ba84f92287abc5c9ee72360702047637070b630626d19af94bee20"
+  },
+  {
+    "object_id": "Womens_Betty_Chukka_Boot_in_Navy_aEE8OqvMII4",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "9b89ab6020469f66fc4662f10889ceabc0bed42c1ff8acb32e386b1b9ce81f14",
+      "matrix_sha256": "c1ce34aa1bfb512092bf04a14623b52c88471eab43871a89ac58acae1c9942dc",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998573927779,
+      "foreground_pixels": 59530
+    },
+    "right": {
+      "image_sha256": "47a83a16a06d8d1ccaa5fea9ba67c998e20b3b1328cb7b7cf85dfce0938bdce0",
+      "matrix_sha256": "cf981accb2e580b5ce216baa435ec0a85f66c9115443ff2a2c68f4310ca47497",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999998573927779,
+      "foreground_pixels": 51699
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      59527,
+      51694
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b17408651056a8d96bf706ff39a1c967968be7f711a8fff0746830e95fb1a2de"
+  },
+  {
+    "object_id": "Womens_Betty_Chukka_Boot_in_Navy_aEE8OqvMII4",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "7f0c72d7a16619f5a608fd7229de4c47a5abcfb783ee3419349ef35a08da59f6",
+      "matrix_sha256": "4b10e5557d8fe97dea9a52a5d755ed82e9954a935a8a449ac9480b3f87c0e491",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999644797306,
+      "foreground_pixels": 66504
+    },
+    "right": {
+      "image_sha256": "03851b66aad6ddd12fe1ed855d71ff68de93511b6ed8652ae201ed567fa16999",
+      "matrix_sha256": "60e712b73037d899ebd5a8c1a5731d46b5cc829fdb2bda515cc57927036d1997",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999644797306,
+      "foreground_pixels": 65215
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      66490,
+      65208
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "8bc9f25a8ea46b857f3fba7e3c76087ab8bf5d1290a65eb01c81bab18b5afd41"
+  },
+  {
+    "object_id": "Womens_Multi_13",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "c412771786676a5c7d9380a5a56667f9b6582204a802c7148fb45aa5613f7019",
+      "matrix_sha256": "85da60298bc78ff9bf57c7b7af9bc496a2e3188590ee762699ff17eaa6967850",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996550802359,
+      "foreground_pixels": 79451
+    },
+    "right": {
+      "image_sha256": "74f2ab3a3cff73c69947658dcb152ba6b001dd372bc9c08294ab453f336f844a",
+      "matrix_sha256": "c98ce1f965364a2caa0ace5f9b82e4c9b4b22633b3b0809c821ed583817f0524",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996550802359,
+      "foreground_pixels": 91605
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      79439,
+      91590
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f267b1e1b243e7b4e6fd99399a5c9a9c08938f99c121a16f5d9acde78df62791"
+  },
+  {
+    "object_id": "Womens_Multi_13",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "dce2e703244c20c1390b780d40c297092297b1834cdc6b4b5d7681131e121f8c",
+      "matrix_sha256": "731615db7f2e2a115bbda477492390ba621437bd499c661e23f0262e13acf539",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996837385745,
+      "foreground_pixels": 85718
+    },
+    "right": {
+      "image_sha256": "de696079be5d360ac57ee913b00be4f782acc58a8c6cf3c1087cc537cee57ef2",
+      "matrix_sha256": "5d950c7dab56e12e5f718eb291621e72ce9c421eb41000d681ffb0dd1e81ffbe",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996837385745,
+      "foreground_pixels": 98796
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      85714,
+      98790
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "dcb7e7099365336e93124507650cf1581e7b975b8798ca2e9a7d3bf96344d4a7"
+  },
+  {
+    "object_id": "YumYum_D3_Liquid",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "8c94c2a8f3bbd8336d4e1828216f28ef411fe8ffacb74858dd9bc6443db7061a",
+      "matrix_sha256": "4ebeff0bec1dbd1a1713fa86679953cf72bcd5db37459262c35acc28f3d07815",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999778991878,
+      "foreground_pixels": 73714
+    },
+    "right": {
+      "image_sha256": "5b1f716a11549bb453663fd40b33cc0a6451949b30b2754e0b2c9d5e9e84dad6",
+      "matrix_sha256": "ddd3fe5905d285c21e0db19cce39b1796bc6346a1bf3587201d761ef1a882619",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999778991878,
+      "foreground_pixels": 76889
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      73709,
+      76874
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "f592792f2f0a4625edbfa95f7c4446e5f5c6ba2fe95ad9f6390308dc35ff92e7"
+  },
+  {
+    "object_id": "YumYum_D3_Liquid",
+    "trajectory": "random_linear_99",
+    "frame": "0",
+    "left": {
+      "image_sha256": "e3eb7ad7a3bfec5805d2409558a6e9b7742987215d4bef8dff28acf35efa763e",
+      "matrix_sha256": "645dc9d1344acd3eaf2c8c7594a6649c42652c8f0c508dd9229e9c29f3bb4656",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999895587142,
+      "foreground_pixels": 64845
+    },
+    "right": {
+      "image_sha256": "776a6194a2e72f48f1bd6ea984718e47a6449f084af41b38aef6676a26486bbd",
+      "matrix_sha256": "d54f183379e8a3b18253cffa158934bb31e89254c1b156075ed3ef51a2aef39c",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999999895587142,
+      "foreground_pixels": 75956
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      64838,
+      75950
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "7d443a95b3d324f9d99468637f42ed3e989c68affc6aaca9dd6ef62492e6b01a"
+  }
+]

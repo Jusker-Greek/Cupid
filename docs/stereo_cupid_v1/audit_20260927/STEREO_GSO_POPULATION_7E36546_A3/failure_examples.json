@@ -1,0 +1,220 @@
+[
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/3D_Dollhouse_Happy_Brother/random_linear_10/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/3D_Dollhouse_Happy_Brother/random_linear_10/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/3D_Dollhouse_Happy_Brother/random_linear_10",
+    "error": "missing asset stems",
+    "missing_frames": 9
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/3D_Dollhouse_Swing/random_linear_11/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/3D_Dollhouse_Swing/random_linear_11/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/5_HTP/random_linear_149/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/5_HTP/random_linear_149/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/ACE_Coffee_Mug_Kristen_16_oz_cup/random_linear_6/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/ACE_Coffee_Mug_Kristen_16_oz_cup/random_linear_6/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/ASICS_GELLinksmaster_WhiteSilverCarolina_Blue/random_linear_199/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/ASICS_GELLinksmaster_WhiteSilverCarolina_Blue/random_linear_199/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Adrenaline_GTS_13_Color_WhtObsdianBlckOlmpcSlvr_Size_70/random_linear_199/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Adrenaline_GTS_13_Color_WhtObsdianBlckOlmpcSlvr_Size_70/random_linear_199/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Android_Figure_Panda/random_linear_12/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Android_Figure_Panda/random_linear_12/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/BAGEL_WITH_CHEESE/random_linear_5/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/BAGEL_WITH_CHEESE/random_linear_5/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028/random_linear_12/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028/random_linear_12/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Big_O_Sponges_Assorted_Cellulose_12_pack/random_linear_12/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Big_O_Sponges_Assorted_Cellulose_12_pack/random_linear_12/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/CAR_CARRIER_TRAIN/random_linear_38/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/CAR_CARRIER_TRAIN/random_linear_38/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/CASTLE_BLOCKS/random_linear_12/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/CASTLE_BLOCKS/random_linear_12/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/FRUIT_VEGGIE_DOMINO_GRADIENT/random_linear_125/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/FRUIT_VEGGIE_DOMINO_GRADIENT/random_linear_125/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Kotobuki_Saucer_Dragon_Fly/random_linear_21/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Kotobuki_Saucer_Dragon_Fly/random_linear_21/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Markings_Letter_Holder/random_linear_20/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Markings_Letter_Holder/random_linear_20/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Mastic_Gum/random_linear_40/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Mastic_Gum/random_linear_40/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Melissa_Doug_Felt_Food_Pizza_Set/random_linear_40/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Melissa_Doug_Felt_Food_Pizza_Set/random_linear_40/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Office_Depot_Canon_PG21XL_Remanufactured_Ink_Cartridge_Black/random_linear_122/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Office_Depot_Canon_PG21XL_Remanufactured_Ink_Cartridge_Black/random_linear_122/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Office_Depot_Canon_PG21XL_Remanufactured_Ink_Cartridge_Black/random_linear_122",
+    "error": "missing asset stems",
+    "missing_frames": 5
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Office_Depot_Dell_Series_11_Remanufactured_Ink_Cartridge_TriColor/random_linear_199/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Office_Depot_Dell_Series_11_Remanufactured_Ink_Cartridge_TriColor/random_linear_199/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Chia_Serum/random_linear_17/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Chia_Serum/random_linear_17/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Firming_Neck_Therapy_Treatment/random_linear_17/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Firming_Neck_Therapy_Treatment/random_linear_17/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Neuropeptide_Firming_Moisturizer/random_linear_16/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Neuropeptide_Firming_Moisturizer/random_linear_16/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_No_Mascara_Mascara/random_linear_17/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_No_Mascara_Mascara/random_linear_17/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Skin_Clear_Supplements/random_linear_17/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Skin_Clear_Supplements/random_linear_17/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_The_Metabolic_Formula_Supplements/random_linear_17/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_The_Metabolic_Formula_Supplements/random_linear_17/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Vitamin_C_Ester_Serum/random_linear_94/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Perricone_MD_Vitamin_C_Ester_Serum/random_linear_94/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/ProSport_Harness_to_Booster_Seat/random_linear_95/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/ProSport_Harness_to_Booster_Seat/random_linear_95/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/REEF_ZENFUN/random_linear_96/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/REEF_ZENFUN/random_linear_96/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Razer_Blackwidow_Tournament_Edition_Keyboard/random_linear_93/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Razer_Blackwidow_Tournament_Edition_Keyboard/random_linear_93/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Shurtape_Tape_Purple_CP28/random_linear_10/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Shurtape_Tape_Purple_CP28/random_linear_10/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Shurtape_Tape_Purple_CP28/random_linear_10",
+    "error": "missing asset stems",
+    "missing_frames": 4
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Snack_Catcher_Snack_Dispenser/random_linear_41/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Snack_Catcher_Snack_Dispenser/random_linear_41/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Sootheze_Cold_Therapy_Elephant/random_linear_42/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Sootheze_Cold_Therapy_Elephant/random_linear_42/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Sootheze_Cold_Therapy_Elephant/random_linear_42",
+    "error": "missing asset stems",
+    "missing_frames": 1
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Sperry_TopSider_tNB9t6YBUf3/random_linear_43/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Sperry_TopSider_tNB9t6YBUf3/random_linear_43/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Squirt_Strain_Fruit_Basket/random_linear_41/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Squirt_Strain_Fruit_Basket/random_linear_41/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Squirt_Strain_Fruit_Basket/random_linear_41",
+    "error": "missing asset stems",
+    "missing_frames": 6
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/TABLEWARE_SET_5ww1UFLuCJG/random_linear_44/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/TABLEWARE_SET_5ww1UFLuCJG/random_linear_44/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/TWIST_SHAPE/random_linear_109/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/TWIST_SHAPE/random_linear_109/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Tag_Dishtowel_18_x_26/random_linear_127/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Tag_Dishtowel_18_x_26/random_linear_127/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Threshold_Hand_Towel_Blue_Medallion_16_x_27/random_linear_3/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Threshold_Hand_Towel_Blue_Medallion_16_x_27/random_linear_3/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Threshold_Porcelain_Spoon_Rest_White/random_linear_3/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Threshold_Porcelain_Spoon_Rest_White/random_linear_3/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Threshold_Tray_Rectangle_Porcelain/random_linear_0/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Threshold_Tray_Rectangle_Porcelain/random_linear_0/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Timberland_Mens_Earthkeepers_Casco_Bay_Canvas_Oxford/random_linear_9/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Timberland_Mens_Earthkeepers_Casco_Bay_Canvas_Oxford/random_linear_9/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Timberland_Mens_Earthkeepers_Casco_Bay_Canvas_Oxford/random_linear_9",
+    "error": "missing asset stems",
+    "missing_frames": 8
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Womens_Audrey_Slip_On_Boat_Shoe_in_Graphite_Nubuck_xWVkCJ5vxZe/random_linear_9/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Womens_Audrey_Slip_On_Boat_Shoe_in_Graphite_Nubuck_xWVkCJ5vxZe/random_linear_9/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Womens_Bluefish_2Eye_Boat_Shoe_in_Brown_Deerskin_i1TgjjO0AKY/random_linear_9/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Womens_Bluefish_2Eye_Boat_Shoe_in_Brown_Deerskin_i1TgjjO0AKY/random_linear_9/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Womens_Bluefish_2Eye_Boat_Shoe_in_Linen_Oat_niKJKeWsmxY/random_linear_10/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Womens_Bluefish_2Eye_Boat_Shoe_in_Linen_Oat_niKJKeWsmxY/random_linear_10/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Womens_Canvas_Bahama_in_White_UfZPHGQpvz0/random_linear_10/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Womens_Canvas_Bahama_in_White_UfZPHGQpvz0/random_linear_10/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Womens_Hikerfish_Boot_in_Black_Leopard_ridcCWsv8rW/random_linear_7/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Womens_Hikerfish_Boot_in_Black_Leopard_ridcCWsv8rW/random_linear_7/trajectory_info.json'"
+  },
+  {
+    "path": "/public/home/ricky/DATASET/GSO_1K_200/Womens_Sequin_Bahama_in_White_Sequin_yGVsSA4tOwJ/random_linear_5/trajectory_info.json",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Womens_Sequin_Bahama_in_White_Sequin_yGVsSA4tOwJ/random_linear_5/trajectory_info.json'"
+  }
+]
