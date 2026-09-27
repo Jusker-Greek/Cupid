@@ -72,7 +72,13 @@ prior bounded target audit also found 20/20 GSO pairs content-readable but
 0/20 valid targets. The external blocker audit lacks accepted asset-to-canonical
 axis/scale mapping, pinned official occupancy/voxelizer provenance, and
 per-pair proper canonical-to-CV extrinsics plus K/depth/crop/source binding.
-No GT occupancy or scientific claim follows from these file counts.
+The latest independent external blocker job `316398` completed successfully,
+but its `EXTERNAL_BLOCKER_RECEIPT.json` (SHA256
+`96e107167dc1b107dab2b421cb2b17b0e4496f66e4536700822013ce7b4e3939`)
+still reports `EXTERNAL_BLOCKED`, `target_ready=false`. Its asset mapping
+receipt hashes the source mesh and renderer, while `canonical_frame`, axis map,
+and scale/offset remain null. No GT occupancy or scientific claim follows from
+these file counts or the new 1K candidate list.
 
 For comparison, the existing original CUPID reproduction launcher defaults
 to `/data/group_gao/trellis/HSSD` (`scripts/submit_cupid_gl_full.sh`, line 22),
