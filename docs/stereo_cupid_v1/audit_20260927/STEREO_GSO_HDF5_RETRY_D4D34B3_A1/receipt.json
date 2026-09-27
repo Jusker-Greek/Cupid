@@ -1,0 +1,16 @@
+{
+  "schema": "STEREO_GSO_HDF5_LOCK_RETRY_V1",
+  "job_id": "322940",
+  "host": "server01",
+  "commit": "d4d34b3e1dbf2375268819066877416cd4f39af9",
+  "tree": "6c3c969fc77622397cafb9e233a8f3588253a066",
+  "timestamp": "2026-09-27T09:06:24.469360+00:00",
+  "source_job_id": "322841",
+  "source_receipt_sha256": "0f65bb7a1865a8cf87e45b59fc48ea55cd4e262884b4ee5272501f003878a248",
+  "source_content_samples_sha256": "4640a1e9d1b5740dbf0051557e9714ea77b3b02d188db89958da5c1a3a3ab3c0",
+  "retry_count": 4,
+  "pass": 4,
+  "fail": 0,
+  "target_ready": false,
+  "scientific_evidence": false
+}

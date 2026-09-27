@@ -1,0 +1,186 @@
+[
+  {
+    "object_id": "Full_Circle_Happy_Scraps_Out_Collector_Gray",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "91de20dd688a73395f2ea6def59e2b8b6f2ddbce3568d06e14b83471802c08c2",
+      "matrix_sha256": "a6e1df0bfddb985f34f090ab9d56816088e6c2ea6c6a8e0ee06a68b35e5401c6",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996548852839,
+      "foreground_pixels": 103230
+    },
+    "right": {
+      "image_sha256": "0f8ad5476f97fa36d0d68dcdd8d757417c703bb33aadb96f1270f11b8e41aea5",
+      "matrix_sha256": "b240eec812fe511a34255c2153a02b62a3e20d0bf4a278db67dd63e4e882a2ad",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996548852839,
+      "foreground_pixels": 114877
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      103217,
+      114862
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "b3e466e24c18dd498be9672d127693397d47b0ae9095c09a49ccf657a34c5f17"
+  },
+  {
+    "object_id": "PHEEHAN_RUN",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "6872244cd58f71d1be53e598a4e20962cbded865a457d96e8cc948a8d6af98bc",
+      "matrix_sha256": "6c84f1fb0141531d80ac39f87fc1a44f2ac9d98f9a3c95dc221dd2cd83663b9b",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996864197318,
+      "foreground_pixels": 62531
+    },
+    "right": {
+      "image_sha256": "bb4f40cbfbd184562b440f313df05cd1497ae58b749d2a7d2bf2a0f47247c1ef",
+      "matrix_sha256": "28e89bea58a1270b565e93401d41438f89dde8ac3f080959dac8b2ec772f8519",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999996864197318,
+      "foreground_pixels": 63574
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      62523,
+      63565
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "1b861174066da1ca09b3715404d6afbfc12a7258b90d2d1e278555b004ca6e4c"
+  },
+  {
+    "object_id": "SLACK_CRUISER",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "041f1ab63bb039cf8110138602b81590293c9c48af8910794aed3fea687c2ecb",
+      "matrix_sha256": "5e5d22c6d57a623140727690b791c732f5e9ed73534b71ae7843c6f4cf4a848d",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997758379021,
+      "foreground_pixels": 54031
+    },
+    "right": {
+      "image_sha256": "8b203c09be378031cd3f0e2dfacaec8fb434419d6abc3aee82dec94a589dd976",
+      "matrix_sha256": "f4bbb142795956dfe482f4e552f073005b399c354ff4bf9cb3938361f15e7424",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -0.9999997758379021,
+      "foreground_pixels": 52215
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      54019,
+      52204
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "d56504bd5744b83021e87237bdf251031a87d0e987d9f48b4143f04a7da0c602"
+  },
+  {
+    "object_id": "Teenage_Mutant_Ninja_Turtles_Rahzar_Action_Figure",
+    "trajectory": "random_linear_0",
+    "frame": "0",
+    "left": {
+      "image_sha256": "c0d8776dd7ae9b061f83f84bb50d9a59eaeb9462ac465e784060f280059406f2",
+      "matrix_sha256": "1e06f6935e33cb58bf8e0d8c3aef16212806d6ccac5fa8ade89c161003903ae8",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001238735643,
+      "foreground_pixels": 38800
+    },
+    "right": {
+      "image_sha256": "bcec40c7ee6de460a80ce31eb9a11f92e24319ae662c1ecb983fc2904621a799",
+      "matrix_sha256": "2edf02d8b069748049d53c4b8d35382afc9d1f32441b93d1d8159bad27576f36",
+      "image_shape": [
+        512,
+        512,
+        4
+      ],
+      "matrix_shape": [
+        3,
+        4
+      ],
+      "rotation_determinant": -1.0000001238735643,
+      "foreground_pixels": 34465
+    },
+    "depth_shape": [
+      2,
+      512,
+      512
+    ],
+    "depth_finite_positive_pixels": [
+      38766,
+      34443
+    ],
+    "hdf5_colors_match_png": true,
+    "depth_sha256": "31669dc112af2b74ddd6ae765c9d4a1e74c21dfaca4ccdb8a9e6df833ed6c472"
+  }
+]
