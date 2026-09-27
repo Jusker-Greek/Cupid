@@ -1,0 +1,33 @@
+{
+  "schema": "STEREO_GSO_1K_CANDIDATE_RECEIPT_V1",
+  "status": "CANDIDATE_ONLY",
+  "job_id": "323055",
+  "host": "server01",
+  "commit": "5d0f74096a8a1d359175b69bb1aac5255cfb3001",
+  "tree": "e5c54c4d24da2f2c60c300d86562c2e00b7c691d",
+  "timestamp": "2026-09-27T10:00:05.700141+00:00",
+  "root": "/public/home/ricky/DATASET/GSO_1K_200",
+  "population_receipt_sha256": "0f65bb7a1865a8cf87e45b59fc48ea55cd4e262884b4ee5272501f003878a248",
+  "object_index_sha256": "36ee511c39e48fea907ac43363bcfff421a19709adc5ae1779b025e70d5bc9ea",
+  "mesh_comparisons_sha256": "102fe564ab4105c92eb63c461ba38a6c61f39e01337429a1ba669c1047e1a12e",
+  "selection": "one content-readable pair per object, then SHA256(object_id)-ordered second distinct trajectory until requested count",
+  "requested_pairs": 1000,
+  "selected_pairs": 1000,
+  "selected_objects": 902,
+  "second_trajectory_pairs": 98,
+  "split_pairs": {
+    "train": 809,
+    "validation": 93,
+    "test": 98
+  },
+  "split_objects": {
+    "train": 733,
+    "validation": 81,
+    "test": 88
+  },
+  "all_shared_mesh_equal": false,
+  "all_saved_rotations_proper": false,
+  "pairs_sha256": "1a6ff1ce42ce230c60b3c07789620c322b2beec5cc09dd24aac4e61d51ac725a",
+  "scientific_evidence": false,
+  "training_target_ready": false
+}

@@ -30,6 +30,29 @@ object count. This directory currently has 903 object identities, and the
 1,734,346 frame pairs cannot be treated as 1,734,346 independent 3D objects.
 Training/evaluation splits must be by object ID.
 
+The task-allocation README under
+`/public/home/ricky/CODE/GSO_dataset/task_allocations/GSO_1K_200` describes
+a plan for 1,000 objects and 200 trajectories per object (200,000 planned
+trajectories). It is not an existing frozen 1,000-pair manifest. A bounded
+search of the known GSO allocation and result roots did not locate a separate
+manifest proving the claimed earlier 1,000 rendered pairs; this does not
+prove absence elsewhere.
+
+To provide a reviewable candidate, Slurm CPU job `323055` on `server01`,
+`COMPLETED 0:0`, selected one content-readable pair per object and then a
+second, distinct-trajectory pair from 98 objects chosen by stable
+`SHA256(object_id)` order. The new [1K candidate receipt](STEREO_GSO_1K_CANDIDATE_5D0F740_A1/receipt.json)
+has SHA256 `6e00f17e7bd80eed4edce89dd3885422eee2e046237bbcf27306eda1aeb7bcd9`;
+its [immutable pair list](STEREO_GSO_1K_CANDIDATE_5D0F740_A1/pairs.jsonl)
+has SHA256 `1a6ff1ce42ce230c60b3c07789620c322b2beec5cc09dd24aac4e61d51ac725a`.
+It contains exactly 1,000 readback-checked pairs across 902 distinct objects:
+809 train pairs/733 train objects, 93 validation pairs/81 validation objects,
+and 98 test pairs/88 test objects. The split uses the existing
+`STEREO_CUPID_STAGE1_TRAIN_V1` object-ID hash policy; no object is assigned
+to multiple splits. The list is labeled `CANDIDATE_ONLY` and
+`training_target_ready=false`; it is not the unlocated historical 1K subset
+and contains no accepted canonical occupancy or CV geometry target.
+
 The sample content audit decoded 126 frames. Four other HDF5 reads initially
 failed with `errno 37: No locks available`, an NFS locking failure. A separate
 Slurm CPU job `322940` on `server01`, `COMPLETED 0:0`, used
@@ -74,6 +97,7 @@ is still needed for an identity comparison.
 
 Source code: `scripts/stereo_gso_population_audit.py`,
 `scripts/stereo_gso_retry_lock_failures.py`,
-`scripts/stereo_gso_mesh_copy_audit.py`, and
+`scripts/stereo_gso_mesh_copy_audit.py`,
+`scripts/stereo_gso_freeze_1k_candidate.py`, and
 `cupid/datasets/stereo_gso.py`. Original inventory artifacts are preserved
-in the three linked receipt directories above.
+in the linked receipt directories above.

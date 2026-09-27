@@ -1,0 +1,7 @@
+[
+  {
+    "object_id": "Threshold_Tray_Rectangle_Porcelain",
+    "trajectory": "random_linear_0",
+    "error": "[Errno 2] No such file or directory: '/public/home/ricky/DATASET/GSO_1K_200/Threshold_Tray_Rectangle_Porcelain/random_linear_0/trajectory_info.json'"
+  }
+]
