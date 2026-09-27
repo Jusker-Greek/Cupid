@@ -1,0 +1,21 @@
+{
+  "schema": "STEREO_GSO_MESH_COPY_AUDIT_V1",
+  "job_id": "322965",
+  "host": "server01",
+  "commit": "cbbb5e5b4d2847af1369202d1049a1aed277ae84",
+  "tree": "7cb2dfea1976ce75741a49b234a3984cf5ed015c",
+  "timestamp": "2026-09-27T09:33:01.673253+00:00",
+  "object_index_sha256": "36ee511c39e48fea907ac43363bcfff421a19709adc5ae1779b025e70d5bc9ea",
+  "left_root": "/public/home/ricky/DATASET/Gazebo",
+  "right_root": "/data/group_gao/trellis/GSO_mesh/gso_models",
+  "counts": {
+    "left_present": 903,
+    "right_present": 901,
+    "byte_equal": 901,
+    "objects": 903
+  },
+  "comparisons_sha256": "102fe564ab4105c92eb63c461ba38a6c61f39e01337429a1ba669c1047e1a12e",
+  "canonical_mapping_verified": false,
+  "scientific_evidence": false,
+  "target_ready": false
+}

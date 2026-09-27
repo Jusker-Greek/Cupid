@@ -54,15 +54,26 @@ No GT occupancy or scientific claim follows from these file counts.
 For comparison, the existing original CUPID reproduction launcher defaults
 to `/data/group_gao/trellis/HSSD` (`scripts/submit_cupid_gl_full.sh`, line 22),
 and the historically checked original HSSD run was job `296164`. The published
-CUPID supplement lists ABO, HSSD, 3D-FUTURE and a subset of Objaverse-XL as
+[CUPID supplement](https://openaccess.thecvf.com/content/CVPR2026/supplemental/Huang_CUPID_Generative_3D_CVPR_2026_supplemental.pdf)
+lists ABO, HSSD, 3D-FUTURE and a subset of Objaverse-XL as
 its training assets, rather than this GSO stereo directory. The local
 `GSO_1K_200` directory is a rendered stereo derivative keyed to Gazebo GSO
-mesh names. Its object IDs and mesh presence establish the GSO family but do
-not prove byte identity or canonical-frame equivalence to any separate
-historical GSO copy. If “Qubit” names a different experiment, its exact
-dataset manifest/checkpoint is still needed for an identity comparison.
+mesh names. To compare the 3D assets against the separate shared
+`/data/group_gao/trellis/GSO_mesh/gso_models` copy, Slurm CPU job `322965`
+hashed all 903 inventoried Gazebo `model.obj` files and their shared-copy
+counterparts. Its [receipt](STEREO_GSO_MESH_COPY_CBBB5E5_A1/receipt.json)
+has SHA256 `e00f28c89068ff4faf1cd774e25fc34dd95948fdeec1dd7f45dd77f10968d549`.
+For 901 objects, both OBJ files exist and are byte-for-byte identical. The
+shared copy lacks the two `Pokémon_Omega_Ruby_Alpha_Sapphire_Dual_Pack_Nintendo_3DS`
+and `Pokémon_Yellow_Special_Pikachu_Edition_Nintendo_Game_Boy_Color` OBJ files.
+Thus the mesh copies substantially overlap but are not identical complete
+directories. Identical OBJ bytes do not by themselves verify the
+asset-to-canonical mapping or match a particular historical training manifest.
+If “Qubit” names a different experiment, its exact dataset manifest/checkpoint
+is still needed for an identity comparison.
 
 Source code: `scripts/stereo_gso_population_audit.py`,
-`scripts/stereo_gso_retry_lock_failures.py`, and
+`scripts/stereo_gso_retry_lock_failures.py`,
+`scripts/stereo_gso_mesh_copy_audit.py`, and
 `cupid/datasets/stereo_gso.py`. Original inventory artifacts are preserved
-in the two linked receipt directories above.
+in the three linked receipt directories above.
