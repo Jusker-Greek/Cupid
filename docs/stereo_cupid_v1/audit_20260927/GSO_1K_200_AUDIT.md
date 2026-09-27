@@ -76,6 +76,15 @@ a full-content verification of all candidate pairs.
 
 All 130 sampled saved left and right camera matrices have a rotation-block
 determinant near **-1**. They cannot be used directly as proper CV extrinsics.
+The currently accessible `/public/home/ricky/CODE/GSO_dataset/render_stereo_gazebo.py`
+(SHA256 `bb9c170dee05521002404452a6903a289ed02d4921182f44f92c375749cc745a`)
+explicitly negates the second rotation column in its `random_linear`
+trajectory construction (approximately lines 391-402), offsets left/right
+cameras along the center pose's X axis (approximately lines 2440-2453), and
+saves the inverse poses as 3x4 NPY matrices (approximately lines 2497-2505).
+That current source is consistent with the negative determinants; it is not
+proof that this exact revision generated every historical frame, nor a
+verified renderer-to-proper-CV conversion.
 `cupid/datasets/stereo_gso.py` derives K from FOV only as a hypothesis and
 keeps `calibration_verified=False` and `training_target_ready=False`. The
 prior bounded target audit also found 20/20 GSO pairs content-readable but
