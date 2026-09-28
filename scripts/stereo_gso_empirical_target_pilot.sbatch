@@ -18,10 +18,24 @@ test "$(sha256sum "$objects" | cut -d ' ' -f1)" = ccce06f5bed069c1f676e6ad6b7e38
 runtime=/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12
 export LD_LIBRARY_PATH="/public/home/ricky/lib:$runtime/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export PYTHONPATH="/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a4:$REPO_ROOT:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
+mode="${TARGET_MODE:-pilot}"
+if [[ "$mode" == pilot ]]; then
+  target_output="${OUTPUT_ROOT:?}/pilot"
+  shard_args=()
+elif [[ "$mode" == eligible-shard ]]; then
+  test "${SLURM_ARRAY_TASK_ID:-}" -ge 0
+  test "${SHARD_COUNT:-}" -ge 1
+  printf -v shard_dir 'shard_%02d' "$SLURM_ARRAY_TASK_ID"
+  target_output="${OUTPUT_ROOT:?}/$shard_dir"
+  shard_args=(--mode eligible-shard --shard-index "$SLURM_ARRAY_TASK_ID" --shard-count "$SHARD_COUNT")
+else
+  echo "Unsupported TARGET_MODE: $mode" >&2
+  exit 2
+fi
 "$runtime/bin/python3" -u scripts/stereo_gso_empirical_target_pilot.py \
   --manifest "$manifest" --root /public/home/ricky/DATASET/GSO_1K_200 \
   --asset-root /public/home/ricky/DATASET/Gazebo \
   --geometry-inventory "$inventory" --warp-receipt "$warp" \
   --projection-receipt "$projection" --projection-objects "$objects" \
   --voxelizer /public/home/ricky/CODE/TRELLIS/dataset_toolkits/voxelize.py \
-  --output "${OUTPUT_ROOT:?}/pilot"
+  --output "$target_output" "${shard_args[@]}"

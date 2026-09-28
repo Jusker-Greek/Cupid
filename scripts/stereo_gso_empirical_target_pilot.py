@@ -7,6 +7,7 @@ historical renderer revision or the original CUPID/TRELLIS canonical frame.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -56,6 +57,9 @@ def main():
     parser.add_argument('--projection-objects', required=True)
     parser.add_argument('--voxelizer', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--mode', choices=('pilot', 'eligible-shard'), default='pilot')
+    parser.add_argument('--shard-index', type=int, default=0)
+    parser.add_argument('--shard-count', type=int, default=1)
     args = parser.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):
         parser.error('Slurm compute allocation required')
@@ -71,23 +75,65 @@ def main():
         raise ValueError('expected exact frozen diagnostic jobs')
     if warp['manifest_sha256'] != source_hashes['manifest'] or projection['manifest_sha256'] != source_hashes['manifest']:
         raise ValueError('diagnostic manifest identity differs')
+    if args.shard_count < 1 or not 0 <= args.shard_index < args.shard_count:
+        raise ValueError('invalid shard index/count')
+    if args.mode == 'pilot' and (args.shard_index, args.shard_count) != (0, 1):
+        raise ValueError('pilot must be unsharded')
     inventory = {item['object_id']: item for item in map(json.loads, Path(args.geometry_inventory).open())}
-    projected = {item['object_id']: item for item in json.loads(Path(args.projection_objects).read_text())}
-    records = {}
+    projection_rows = json.loads(Path(args.projection_objects).read_text())
+    projected = {item['object_id']: item for item in projection_rows}
+    if len(projected) != projection['objects'] or len({item['pair_id'] for item in projection_rows}) != len(projected):
+        raise ValueError('holdout object/pair identities are not unique')
+    all_records = {}
     with Path(args.manifest).open() as handle:
         for line in handle:
             record = json.loads(line)
-            if record['object_id'] in OBJECTS and record['object_id'] not in records:
-                records[record['object_id']] = record
-    if set(records) != set(OBJECTS) or records[OBJECTS[0]]['split'] != 'train' or records[OBJECTS[1]]['split'] != 'validation':
-        raise ValueError('pilot identities or object splits changed')
-    (output / 'pilot_manifest.jsonl').write_text(''.join(json.dumps(records[name]) + '\n' for name in OBJECTS))
+            if record['pair_id'] in all_records:
+                raise ValueError('duplicate manifest pair identity')
+            all_records[record['pair_id']] = record
+    if args.mode == 'pilot':
+        records = {name: next((row for row in all_records.values() if row['object_id'] == name), None)
+                   for name in OBJECTS}
+        if any(value is None for value in records.values()) or records[OBJECTS[0]]['split'] != 'train' or records[OBJECTS[1]]['split'] != 'validation':
+            raise ValueError('pilot identities or object splits changed')
+        names = list(OBJECTS)
+        manifest_name, receipt_name = 'pilot_manifest.jsonl', 'pilot_receipt.json'
+        selection = {'policy': 'two fixed train/validation objects', 'eligible_pairs': 2}
+    else:
+        # The selected hypothesis was frozen on job 326752, then measured on
+        # 902 held-out object pairs by job 326774.  Exclude low-agreement
+        # cases explicitly; never label the other 98 manifest pairs verified.
+        eligible = []
+        for item in projection_rows:
+            row = all_records.get(item['pair_id'])
+            if row is None or row['object_id'] != item['object_id']:
+                raise ValueError('holdout pair/source manifest identity mismatch')
+            scores = item['scores'][HYPOTHESIS]
+            if all(isinstance(side['bbox_mean_abs_error_px'], (int, float)) and
+                   np.isfinite(side['bbox_mean_abs_error_px']) and
+                   side['front_fraction'] >= .99 and side['projected_in_image'] >= 100 and
+                   side['mask_hit_fraction'] >= .90 and side['bbox_mean_abs_error_px'] <= 5.0
+                   for side in (scores['left'], scores['right'])):
+                eligible.append(row)
+        eligible.sort(key=lambda row: row['pair_id'])
+        selection = {'policy': 'fixed_326774_both_views_front>=0.99_in_image>=100_mask_hit>=0.90_bbox_error<=5px',
+                     'holdout_pairs': len(projection_rows), 'unscored_manifest_pairs': len(all_records)-len(projection_rows),
+                     'eligible_pairs': len(eligible), 'rejected_holdout_pairs': len(projection_rows)-len(eligible),
+                     'full_eligible_manifest_sha256': hashlib.sha256(
+                         ''.join(json.dumps(row) + '\n' for row in eligible).encode()).hexdigest()}
+        selected = eligible[args.shard_index::args.shard_count]
+        records = {row['object_id']: row for row in selected}
+        if len(records) != len(selected) or not selected:
+            raise ValueError('empty or duplicate-object eligible shard')
+        names = [row['object_id'] for row in selected]
+        manifest_name, receipt_name = 'shard_manifest.jsonl', 'shard_receipt.json'
+    (output / manifest_name).write_text(''.join(json.dumps(records[name]) + '\n' for name in names))
     geometry = output / 'geometry'
     geometry.mkdir()
     occupancy_root = output / 'occupancy'
     occupancy_root.mkdir()
     entries = []
-    for name in OBJECTS:
+    for name in names:
         record = records[name]
         pack = load_pair(record, args.root, hash_assets=True)
         if pack['asset_sha256'] != record['asset_sha256']:
@@ -193,26 +239,29 @@ def main():
     index = output / 'geometry_index.jsonl'
     index.write_text(''.join(json.dumps(entry) + '\n' for entry in entries))
     subprocess.run([sys.executable, str(repo / 'scripts/stereo_data_targets.py'),
-                    '--manifest', str(output / 'pilot_manifest.jsonl'), '--root', args.root,
+                    '--manifest', str(output / manifest_name), '--root', args.root,
                     '--geometry-index', str(index), '--geometry-root', str(output),
                     '--output', str(output / 'targets')], check=True)
     target_summary = json.loads((output / 'targets/summary.json').read_text())
-    if target_summary['counts'] != {'prepared': 2, 'failed': 0} or target_summary['missing_geometry_pairs']:
-        raise ValueError('pilot target generation incomplete')
-    receipt = {'schema': 'STEREO_GSO_EMPIRICAL_TARGET_PILOT_V1', 'status': 'TWO_PAIR_TARGETS_PREPARED',
+    if target_summary['counts'] != {'prepared': len(names), 'failed': 0} or target_summary['missing_geometry_pairs']:
+        raise ValueError('selected target generation incomplete')
+    receipt = {'schema': 'STEREO_GSO_EMPIRICAL_TARGET_PILOT_V1' if args.mode == 'pilot' else 'STEREO_GSO_EMPIRICAL_TARGET_SHARD_V1',
+               'status': 'TWO_PAIR_TARGETS_PREPARED' if args.mode == 'pilot' else 'SHARD_TARGETS_PREPARED',
                'job_id': os.environ['SLURM_JOB_ID'], 'host': socket.gethostname(),
                'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
                'tree': subprocess.check_output(['git', 'rev-parse', 'HEAD^{tree}'], text=True).strip(),
-               'source_sha256': source_hashes, 'source_pairs': [records[name]['pair_id'] for name in OBJECTS],
-               'pilot_manifest_sha256': sha256_file(output / 'pilot_manifest.jsonl'),
+               'source_sha256': source_hashes, 'source_pairs': [records[name]['pair_id'] for name in names],
+               'selection': selection, 'shard_index': args.shard_index, 'shard_count': args.shard_count,
+               'pilot_manifest_sha256' if args.mode == 'pilot' else 'shard_manifest_sha256': sha256_file(output / manifest_name),
                'geometry_index_sha256': sha256_file(index),
                'target_index_sha256': sha256_file(output / 'targets/targets.jsonl'),
                'target_summary_sha256': sha256_file(output / 'targets/summary.json'),
                'canonical_frame': FRAME, 'historical_renderer_exact_revision_verified': False,
                'original_cupid_canonical_equivalence_verified': False,
-               'scope': 'two-pair engineering smoke target; not 1K training readiness',
+               'scope': 'two-pair engineering smoke target; not 1K training readiness' if args.mode == 'pilot'
+                        else 'empirically selected 1K subset shard; original canonical equivalence unverified',
                'scientific_evidence': False}
-    write_json(output / 'pilot_receipt.json', receipt)
+    write_json(output / receipt_name, receipt)
     print(json.dumps(receipt, indent=2), flush=True)
 
 
