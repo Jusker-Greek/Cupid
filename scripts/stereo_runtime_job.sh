@@ -20,6 +20,7 @@ if [[ -d /tmp/ricky_lib ]]; then export LD_LIBRARY_PATH="/tmp/ricky_lib:$LD_LIBR
 export TORCH_HOME="${TORCH_HOME:-/public/home/ricky/.cache/torch}"
 export ATTN_BACKEND="${ATTN_BACKEND:-xformers}"
 export SPCONV_ALGO=native HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+export HDF5_USE_FILE_LOCKING=FALSE
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 cd "$CUPID_PROJECT_DIR"
 [[ "$(git rev-parse HEAD)" == "$CUPID_EXPECTED_COMMIT" ]]
