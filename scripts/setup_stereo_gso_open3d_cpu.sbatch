@@ -6,7 +6,7 @@ test -z "$(git status --porcelain)"
 unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy
 export PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=1
 runtime=/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12
-overlay=/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a2
+overlay=/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a3
 test ! -e "$overlay"
 mkdir -p "${OUTPUT_ROOT:?}/wheels" "$overlay"
 "$runtime/bin/python3" -m pip download --only-binary=:all: --no-deps \
@@ -16,6 +16,7 @@ test -f "$wheel"
 sha256sum "$wheel" | tee "$OUTPUT_ROOT/wheel.sha256"
 "$runtime/bin/python3" -m pip install --no-deps --no-index --find-links "$OUTPUT_ROOT/wheels" \
   --target "$overlay" 'open3d-cpu==0.19.0'
+"$runtime/bin/python3" -m pip install --target "$overlay" 'dash==3.2.0'
 export LD_LIBRARY_PATH="/public/home/ricky/lib:$runtime/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 export PYTHONPATH="$overlay:$REPO_ROOT:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 "$runtime/bin/python3" - <<'PY'
