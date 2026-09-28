@@ -58,9 +58,9 @@
     "not_gso_single_view_finetune": true
   },
   "data": {
-    "manifest": "/public/home/ricky/RESULTS/STEREO_GSO_1K_INCREMENT_562B9D5_A1/selection/pairs.jsonl",
+    "manifest": "/public/home/ricky/RESULTS/STEREO_GSO_REPLACED_1K_TARGET_MERGE_24134DC_A1/merged/merged_manifest.jsonl",
     "root": "/public/home/ricky/DATASET/GSO_1K_200",
-    "target_index": "/public/home/ricky/RESULTS/STEREO_GSO_REPLACED_1K_TARGET_MERGE_24134DC_A1/merged/targets.jsonl",
+    "target_index": "/public/home/ricky/RESULTS/STEREO_GSO_REPLACED_1K_TARGET_MERGE_24134DC_A1/merged/merged_targets.jsonl",
     "target_root": "/public/home/ricky/RESULTS/STEREO_GSO_REPLACED_1K_TARGET_MERGE_24134DC_A1/merged",
     "target_kind": "dense"
   },
