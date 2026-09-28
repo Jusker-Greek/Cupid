@@ -18,14 +18,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', required=True)
     parser.add_argument('--data-root', required=True)
+    parser.add_argument('--expected-pairs', type=int, default=816)
     args = parser.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):
         parser.error('Slurm compute allocation required')
     root = Path(args.root).resolve()
     merge_path = root / 'merge_receipt.json'
     merge = json.loads(merge_path.read_text())
-    if merge['status'] != 'DENSE_TARGET_CONTENT_VALIDATED' or merge['pairs'] != 816:
-        raise ValueError('expected exact 816-pair content-validated merge')
+    if merge['status'] != 'DENSE_TARGET_CONTENT_VALIDATED' or merge['pairs'] != args.expected_pairs:
+        raise ValueError('expected exact content-validated merge pair count')
     manifest, index = root / 'merged_manifest.jsonl', root / 'merged_targets.jsonl'
     if sha256_file(manifest) != merge['merged_manifest_sha256'] or sha256_file(index) != merge['merged_targets_sha256']:
         raise ValueError('merged manifest/target index hash mismatch')
