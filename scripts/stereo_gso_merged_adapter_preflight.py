@@ -19,6 +19,7 @@ def main():
     parser.add_argument('--root', required=True)
     parser.add_argument('--data-root', required=True)
     parser.add_argument('--expected-pairs', type=int, default=816)
+    parser.add_argument('--receipt-output', default=None)
     args = parser.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):
         parser.error('Slurm compute allocation required')
@@ -57,7 +58,8 @@ def main():
                'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
                'merge_receipt_sha256': sha256_file(merge_path), 'factory_identity': pack['identity'],
                'split_counts': counts, 'samples': samples, 'scientific_evidence': False}
-    with (root / 'adapter_preflight_receipt.json').open('x') as handle:
+    receipt_path = Path(args.receipt_output) if args.receipt_output else root / 'adapter_preflight_receipt.json'
+    with receipt_path.open('x') as handle:
         handle.write(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps(receipt, indent=2), flush=True)
 

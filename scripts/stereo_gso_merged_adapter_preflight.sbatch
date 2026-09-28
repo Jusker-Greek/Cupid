@@ -10,4 +10,5 @@ export LD_LIBRARY_PATH="/public/home/ricky/lib:$runtime/lib:/usr/lib/x86_64-linu
 export PYTHONPATH="/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a4:$REPO_ROOT:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 "$runtime/bin/python3" -u scripts/stereo_gso_merged_adapter_preflight.py \
   --root "${OUTPUT_ROOT:?}" --data-root /public/home/ricky/DATASET/GSO_1K_200 \
-  --expected-pairs "${EXPECTED_PAIRS:-816}"
+  --expected-pairs "${EXPECTED_PAIRS:-816}" \
+  --receipt-output "${RECEIPT_OUTPUT:-$OUTPUT_ROOT/adapter_preflight_receipt.json}"
