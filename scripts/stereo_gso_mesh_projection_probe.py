@@ -75,6 +75,8 @@ def main():
     parser.add_argument('--asset-root', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--max-objects', type=int, default=12)
+    parser.add_argument('--fixed-hypothesis', action='store_true',
+                        help='Evaluate only imported OBJ, (+,-,-) camera axes, and -0.5 baseline X shift')
     args = parser.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):
         parser.error('Slurm compute allocation required')
@@ -102,19 +104,21 @@ def main():
             if scale <= 0 or offset.shape != (3,) or not np.isfinite(scale) or not np.isfinite(offset).all():
                 raise ValueError('invalid normalization: ' + row['pair_id'])
             imported = raw[:, [0, 2, 1]] * np.asarray([1, -1, 1])
-            variants = {'gazebo_obj_raw': raw * scale + offset,
-                        'blender_obj_import_hypothesis': imported * scale + offset}
+            variants = {'blender_obj_import_hypothesis': imported * scale + offset}
+            if not args.fixed_hypothesis:
+                variants['gazebo_obj_raw'] = raw * scale + offset
             pack = load_pair(row, args.root)
             scores = {}
             baseline = float(row['metadata']['baseline'])
             if not np.isfinite(baseline) or baseline <= 0:
                 raise ValueError('invalid stereo baseline: ' + row['pair_id'])
             for mapping, points in variants.items():
-                for sx in (-1, 1):
-                    for sy in (-1, 1):
-                        for sz in (-1, 1):
+                for sx in ((1,) if args.fixed_hypothesis else (-1, 1)):
+                    for sy in ((-1,) if args.fixed_hypothesis else (-1, 1)):
+                        for sz in ((-1,) if args.fixed_hypothesis else (-1, 1)):
                             axis = np.asarray((sx, sy, sz), dtype=np.float64)
-                            for shift_factor in (-1., -.5, 0., .5, 1.):
+                            shifts = (-.5,) if args.fixed_hypothesis else (-1., -.5, 0., .5, 1.)
+                            for shift_factor in shifts:
                                 key = (mapping + '/' + ''.join('+' if value > 0 else '-' for value in axis)
                                        + f'/saved_x_shift_{shift_factor:+g}B')
                                 scores[key] = {side: project_score(points, pack['views'][side], axis,
@@ -145,7 +149,9 @@ def main():
                'tree': subprocess.check_output(['git', 'rev-parse', 'HEAD^{tree}'], text=True).strip(),
                'manifest_sha256': sha256_file(args.manifest), 'objects': len(results),
                'bbox_policy': 'clip projected mesh bbox to image rectangle before scoring',
-               'saved_camera_x_shift_baseline_factors': [-1., -.5, 0., .5, 1.],
+               'saved_camera_x_shift_baseline_factors': [-.5] if args.fixed_hypothesis else [-1., -.5, 0., .5, 1.],
+               'fixed_hypothesis': args.fixed_hypothesis,
+               'hypothesis_selected_from_job': '326752' if args.fixed_hypothesis else None,
                'ranked_candidates': aggregate, 'historical_renderer_verified': False,
                'canonical_to_cv_verified': False, 'target_ready': False, 'scientific_evidence': False}
     (output / 'objects.json').write_text(json.dumps(results, indent=2) + '\n')
