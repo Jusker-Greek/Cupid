@@ -38,12 +38,20 @@ def main():
     counts = {split: len(dataset) for split, dataset in datasets.items()}
     if counts != merge['split_counts'] or sum(counts.values()) != merge['pairs']:
         raise ValueError('factory split counts differ from merge')
+    objects = {split: {row['object_id'] for row in dataset.raw.records}
+               for split, dataset in datasets.items()}
+    if any(objects[left] & objects[right] for left, right in
+           (('train', 'validation'), ('train', 'test'), ('validation', 'test'))):
+        raise ValueError('object identity crosses split')
+    pair_ids = [row['pair_id'] for dataset in datasets.values() for row in dataset.raw.records]
+    if len(set(pair_ids)) != len(pair_ids):
+        raise ValueError('duplicate pair across merged splits')
     samples = {}
     for split, dataset in datasets.items():
         if not dataset:
             raise ValueError('empty split: ' + split)
         samples[split] = []
-        for position in sorted({0, len(dataset)-1}):
+        for position in sorted({0, len(dataset)//2, len(dataset)-1}):
             item = dataset[position]
             shapes = {key: tuple(item[key].shape) for key in ('images', 'ss', 'ssuv', 'uv_volume')}
             if shapes != {'images': (2, 3, 518, 518), 'ss': (1, 64, 64, 64),
@@ -56,7 +64,8 @@ def main():
                'job_id': os.environ['SLURM_JOB_ID'], 'host': socket.gethostname(),
                'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
                'merge_receipt_sha256': sha256_file(merge_path), 'factory_identity': pack['identity'],
-               'split_counts': counts, 'samples': samples, 'scientific_evidence': False}
+               'split_counts': counts, 'object_split_disjoint': True,
+               'pair_ids_unique': True, 'samples': samples, 'scientific_evidence': False}
     with (root / 'adapter_preflight_receipt.json').open('x') as handle:
         handle.write(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps(receipt, indent=2), flush=True)
