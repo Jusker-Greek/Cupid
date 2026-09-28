@@ -45,6 +45,10 @@ case "$CUPID_RUNTIME_MODE" in
     assemble) args+=(--partition=cpu --cpus-per-task=2 --mem=4G --job-name=stereo_cupid_assemble) ;;
     pilot) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:1 --job-name=stereo_cupid_pilot) ;;
     train-smoke) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:1 --job-name=stereo_cupid_train_smoke) ;;
+    train-full-engineering)
+        : "${CUPID_FULL_TRAIN_TIME:?T-owned bounded Slurm time required, e.g. 08:00:00}"
+        [[ "$CUPID_FULL_TRAIN_TIME" =~ ^[0-9]{2}:[0-9]{2}:[0-9]{2}$ ]]
+        args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:1 --time="$CUPID_FULL_TRAIN_TIME" --job-name=stereo_cupid_train_full_engineering) ;;
     train-ddp) args+=(--partition=gpu,gpux --cpus-per-task=8 --mem=64G --gres=gpu:2 --job-name=stereo_cupid_train_ddp) ;;
     *) echo 'Unsupported mode' >&2; exit 2 ;;
 esac
