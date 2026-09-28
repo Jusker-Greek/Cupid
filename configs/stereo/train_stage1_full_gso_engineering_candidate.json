@@ -38,7 +38,7 @@
     "merge_receipt_sha256": "d71b7715ec537cb9da5b4545e65b0369f8e96cef330ab2896e19721649689a78",
     "merged_manifest_sha256": "8519c74945d12ebe72e41f55ae60aeeab4411f1f8d32259391efc4f5419cce8d",
     "target_index_sha256": "9c0186b2ac9d632a85ebee6b0dcd03d330ca3ed4f79a83ce3da51c44c00db279",
-    "adapter_preflight_status": "UNVERIFIED",
+    "adapter_preflight_status": "PASS",
     "adapter_preflight_job": "326973",
     "adapter_preflight_receipt": "/public/home/ricky/RESULTS/STEREO_GSO_REPLACED_1K_TARGET_MERGE_24134DC_A1/merged/adapter_preflight_receipt.json",
     "adapter_preflight_receipt_sha256": "c63e81dd61c6b05a8f87d943d1cc6f702ab4929e10ecfa2b78beb922f4c596d6",
