@@ -10,7 +10,7 @@
   "eval_every": 809,
   "save_every": 809,
   "runtime_estimate": {
-    "status": "UNVERIFIED",
+    "status": "VERIFIED_ENGINEERING_ESTIMATE",
     "required_receipt": "326878",
     "formula": "809 * measured_seconds_per_update + startup_validation_save_margin",
     "smoke_elapsed": "00:02:50",
@@ -78,8 +78,8 @@
     "adapter_preflight_receipt_sha256": "c63e81dd61c6b05a8f87d943d1cc6f702ab4929e10ecfa2b78beb922f4c596d6",
     "adapter_preflight_observed_status": "PASS",
     "adapter_preflight_required": true,
-    "adapter_preflight_receipt_path": "/public/home/ricky/RESULTS/STEREO_CUPID_2PAIR_SMOKE_CONFIG_E271_A1/preflight_receipt.json",
-    "adapter_preflight_receipt_sha256": "f4074bf4c8a959e32b0e994149611a89a5e7df25217c4424035efadb02b393db",
+    "asset_preflight_receipt_path": "/public/home/ricky/RESULTS/STEREO_CUPID_2PAIR_SMOKE_CONFIG_E271_A1/preflight_receipt.json",
+    "asset_preflight_receipt_sha256": "f4074bf4c8a959e32b0e994149611a89a5e7df25217c4424035efadb02b393db",
     "bound_transition": "AUTHORIZED_BY_326875_RECEIPT_AND_326878_SMOKE"
   },
   "binding_blockers": [],
