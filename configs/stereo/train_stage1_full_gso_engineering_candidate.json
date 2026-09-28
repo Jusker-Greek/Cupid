@@ -1,0 +1,48 @@
+{
+  "extends": "train_stage1_smoke_1gpu.json",
+  "experiment_id": "STEREO_CUPID_STAGE1_TRAIN_V1",
+  "configuration_state": "CANDIDATE_REQUIRES_FULL_DATA_AND_ADAPTER_PREFLIGHT",
+  "run_class": "FULL_DATA_ENGINEERING_ONLY",
+  "scientific_status": "UNTESTED_NO_SCIENTIFIC_CLAIM",
+  "expected_world_size": 1,
+  "pairs_per_rank": 1,
+  "budget": {"epochs": 1},
+  "eval_every": 809,
+  "save_every": 809,
+  "full_data_contract": {
+    "selection_root": "/public/home/ricky/RESULTS/STEREO_GSO_1K_INCREMENT_562B9D5_A1/selection",
+    "combined_manifest_sha256": "8519c74945d12ebe72e41f55ae60aeeab4411f1f8d32259391efc4f5419cce8d",
+    "expected_pairs": 1000,
+    "expected_objects": 902,
+    "expected_train_pairs": 809,
+    "expected_validation_pairs": 93,
+    "expected_test_pairs": 98,
+    "pair_identity": "object_trajectory_frame",
+    "scientific_unit": "scene_unit",
+    "metric_meters_verified": false,
+    "not_from_scratch": true,
+    "not_gso_single_view_finetune": true
+  },
+  "data": {
+    "manifest": "/public/home/ricky/RESULTS/STEREO_GSO_1K_INCREMENT_562B9D5_A1/selection/pairs.jsonl",
+    "root": "/public/home/ricky/DATASET/GSO_1K_200",
+    "target_index": "/public/home/ricky/RESULTS/STEREO_GSO_REPLACED_1K_TARGET_MERGE_24134DC_A1/merged/targets.jsonl",
+    "target_root": "/public/home/ricky/RESULTS/STEREO_GSO_REPLACED_1K_TARGET_MERGE_24134DC_A1/merged",
+    "target_kind": "dense"
+  },
+  "preflight_contract": {
+    "content_validation_job": "326965",
+    "content_validation_required": "1000/1000",
+    "target_array_job": "326958",
+    "adapter_preflight_status": "UNVERIFIED",
+    "adapter_preflight_required": true,
+    "bound_transition": "FORBIDDEN_UNTIL_CONTENT_AND_ADAPTER_PASS"
+  },
+  "engineering_claim_boundary": {
+    "claim": "UNTESTED",
+    "length_unit": "scene_unit",
+    "no_metric_meter_claim": true,
+    "no_generalization_claim": true,
+    "no_scientific_evaluation": true
+  }
+}
