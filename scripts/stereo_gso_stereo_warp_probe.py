@@ -18,6 +18,10 @@ from cupid.datasets.stereo_gso import load_pair, sha256_file
 
 
 def homogeneous(w2c):
+    if w2c.shape == (4, 4):
+        return w2c
+    if w2c.shape != (3, 4):
+        raise ValueError('expected 3x4 or 4x4 camera matrix')
     matrix = np.eye(4, dtype=np.float64)
     matrix[:3] = w2c
     return matrix
