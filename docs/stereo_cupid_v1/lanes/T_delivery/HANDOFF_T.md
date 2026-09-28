@@ -89,9 +89,11 @@ boundary and pretrained-only claim are explicit. This file is intentionally
 not executable: the launcher still requires `BOUND_FOR_EXECUTION`.
 
 The only permitted transition is after content validation job 326965 reads
-1000/1000 validated pairs and a separate full adapter preflight verifies target
+1000/1000 validated pairs and adapter preflight job 326973 verifies target
 shapes, source hashes, geometry receipts, official encoder hashes and split
-identity. The 309242 pilot is engineering evidence only and cannot satisfy the
+identity. The receipt SHA is
+`c63e81dd61c6b05a8f87d943d1cc6f702ab4929e10ecfa2b78beb922f4c596d6`.
+The 309242 pilot is engineering evidence only and cannot satisfy the
 training target gate. Any full-data loss, W&B, or evaluation result remains
 UNVERIFIED until a fresh registered run produces it.
 
