@@ -92,7 +92,7 @@ case "$CUPID_RUNTIME_MODE" in
         : "${CUPID_CAMERA_JSON:?Explicit frozen scene_unit camera required}"
         bash scripts/submit_stereo_cupid_pilot.sh
         ;;
-    train-smoke|train-ddp)
+    train-smoke|train-full-engineering|train-ddp)
         : "${CUPID_TRAIN_CONFIG:?T-owned BOUND_FOR_EXECUTION config required}"
         : "${CUPID_TRAIN_CONFIG_SHA256:?Exact frozen configuration hash required}"
         : "${CUPID_OUTPUT_DIR:?Fresh output required even for optimizer resume}"
