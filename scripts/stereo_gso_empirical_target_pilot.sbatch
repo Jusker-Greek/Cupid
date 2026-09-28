@@ -17,7 +17,7 @@ test "$(sha256sum "$projection" | cut -d ' ' -f1)" = 66e9aea37892f5bb937b5070e43
 test "$(sha256sum "$objects" | cut -d ' ' -f1)" = ccce06f5bed069c1f676e6ad6b7e385675cc91fbe8c84a5dfe8b8017d3da8220
 runtime=/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12
 export LD_LIBRARY_PATH="/public/home/ricky/lib:$runtime/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
-export PYTHONPATH="/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a3:$REPO_ROOT:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
+export PYTHONPATH="/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a4:$REPO_ROOT:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 "$runtime/bin/python3" -u scripts/stereo_gso_empirical_target_pilot.py \
   --manifest "$manifest" --root /public/home/ricky/DATASET/GSO_1K_200 \
   --asset-root /public/home/ricky/DATASET/Gazebo \
