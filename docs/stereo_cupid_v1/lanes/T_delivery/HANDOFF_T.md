@@ -83,15 +83,23 @@ I应cherry-pick两个T提交及本文件所在跟进提交，不应重复应用�
 
 `configs/stereo/train_stage1_full_gso_engineering_candidate.json` records the
 bounded 1-epoch engineering budget for 809 train / 93 validation / 98 test
-pairs from the 1000-pair selection. It remains `CANDIDATE_REQUIRES_FULL_DATA_AND_ADAPTER_PREFLIGHT`.
+pairs from the 1000-pair selection. The bound configuration is now
+`BOUND_FOR_EXECUTION` after the 326875 asset receipt and 326973 target adapter
+receipt were read back exactly; this remains engineering-only and carries no
+scientific claim.
 The manifest SHA, selection root, target merge root, expected counts, scene-unit
 boundary and pretrained-only claim are explicit. This file is intentionally
 not executable: the launcher still requires `BOUND_FOR_EXECUTION`.
 
-The only permitted transition is after content validation job 326965 reads
-1000/1000 validated pairs and a separate full adapter preflight verifies target
-shapes, source hashes, geometry receipts, official encoder hashes and split
-identity. The 309242 pilot is engineering evidence only and cannot satisfy the
+Content validation job 326965 reads 1000/1000 validated pairs and adapter
+preflight job 326973 verifies target shapes, source hashes, geometry receipts,
+official encoder hashes and split identity. The adapter receipt SHA is
+`c63e81dd61c6b05a8f87d943d1cc6f702ab4929e10ecfa2b78beb922f4c596d6`.
+The 326875 smoke asset receipt SHA is
+`f4074bf4c8a959e32b0e994149611a89a5e7df25217c4424035efadb02b393db`.
+The conservative full-run wall-time budget is `03:00:00`, derived from the
+326878 `00:02:50 / 20 updates` receipt with validation/save margin.
+The 309242 pilot is engineering evidence only and cannot satisfy the
 training target gate. Any full-data loss, W&B, or evaluation result remains
 UNVERIFIED until a fresh registered run produces it.
 
@@ -101,9 +109,10 @@ UNVERIFIED until a fresh registered run produces it.
 `a23549e84cf08cdf63e55c62ec1be33b613a1c4c974d9c476e0295907259ba75`，SS encoder
 `12efe92a0d7dcd790f251acb94a6950957ea4398268e2838ef7319c3f20b071e`，UV encoder
 `397f7788cd1d28b19a151c7e0a9357356d987155be1464c8dd6d159a954d3b31`。
-对应 safetensors 官方 SHA 已写入 smoke 模板；DINO checkpoint SHA、远端完整模型根、
-manifest、target index/root 必须由 R 在计算节点 readback 后替换 `BIND_*`，并将
-`configuration_state` 改为 `BOUND_FOR_EXECUTION`。模板的 `target_kind=dense` 只有在
+对应 safetensors 官方 SHA 已写入 smoke 模板；326875 asset receipt 已记录 DINO
+checkpoint SHA 和官方 encoder hashes，full config 已绑定远端模型根、manifest、
+target index/root，并将 `configuration_state` 设为 `BOUND_FOR_EXECUTION`。模板的
+`target_kind=dense` 只有在
 D geometry receipt 已逐 pair 验证 canonical occupancy 与 proper canonical-to-CV 相机时才可用；
 否则应停在 `UNVERIFIED`，不能切成 latent 或伪造 target。
 
