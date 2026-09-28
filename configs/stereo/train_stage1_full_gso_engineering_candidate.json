@@ -9,6 +9,12 @@
   "budget": {"epochs": 1},
   "eval_every": 809,
   "save_every": 809,
+  "runtime_estimate": {
+    "status": "UNVERIFIED",
+    "required_receipt": "326878",
+    "formula": "809 * measured_seconds_per_update + startup_validation_save_margin",
+    "cupid_full_train_time": null
+  },
   "full_data_contract": {
     "selection_root": "/public/home/ricky/RESULTS/STEREO_GSO_1K_INCREMENT_562B9D5_A1/selection",
     "combined_manifest_sha256": "8519c74945d12ebe72e41f55ae60aeeab4411f1f8d32259391efc4f5419cce8d",
@@ -46,6 +52,11 @@
     "adapter_preflight_required": true,
     "bound_transition": "FORBIDDEN_UNTIL_ASSET_ROOT_AND_DINO_SHA_READBACK"
   },
+  "binding_blockers": [
+    "OFFICIAL_PRETRAINED_MODEL_ROOT_EXACT_READBACK",
+    "DINO_CHECKPOINT_SHA256_EXACT_READBACK",
+    "326878_THROUGHPUT_RECEIPT_READBACK"
+  ],
   "engineering_claim_boundary": {
     "claim": "UNTESTED",
     "length_unit": "scene_unit",
