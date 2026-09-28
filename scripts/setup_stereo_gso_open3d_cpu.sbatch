@@ -3,11 +3,10 @@ set -euo pipefail
 cd "${REPO_ROOT:?}"
 test "$(git rev-parse HEAD)" = "${EXPECTED_COMMIT:?}"
 test -z "$(git status --porcelain)"
-export http_proxy=http://hkuhpc.com:7999 https_proxy=http://hkuhpc.com:7999
-export HTTP_PROXY="$http_proxy" HTTPS_PROXY="$https_proxy"
+unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy
 export PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=1
 runtime=/public/home/ricky/ENVIRONMENT/XFactor/portable_cpython_3_12_6_3003da95_a3/python3.12
-overlay=/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a1
+overlay=/public/home/ricky/ENVIRONMENT/stereo_gso_open3d_cpu_0190_py312_a2
 test ! -e "$overlay"
 mkdir -p "${OUTPUT_ROOT:?}/wheels" "$overlay"
 "$runtime/bin/python3" -m pip download --only-binary=:all: --no-deps \
