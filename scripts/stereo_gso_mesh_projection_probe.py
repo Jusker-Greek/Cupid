@@ -77,6 +77,8 @@ def main():
     parser.add_argument('--max-objects', type=int, default=12)
     parser.add_argument('--fixed-hypothesis', action='store_true',
                         help='Evaluate only imported OBJ, (+,-,-) camera axes, and -0.5 baseline X shift')
+    parser.add_argument('--all-pairs', action='store_true',
+                        help='Score every content-verified pair, including repeated objects')
     args = parser.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):
         parser.error('Slurm compute allocation required')
@@ -91,7 +93,7 @@ def main():
     with Path(args.manifest).open() as rows:
         for line in rows:
             row = json.loads(line)
-            if not row['validity']['content_verified'] or row['object_id'] in seen:
+            if not row['validity']['content_verified'] or (row['object_id'] in seen and not args.all_pairs):
                 continue
             if len(results) >= args.max_objects:
                 break
@@ -134,20 +136,46 @@ def main():
             results.append({'pair_id': row['pair_id'], 'object_id': row['object_id'],
                             'mesh_sha256': sha256_file(mesh), 'source_asset_sha256': row['asset_sha256'],
                             'scores': scores})
-            print(f'OBJECT {len(results)} {row["object_id"]}', flush=True)
+            print(f'PAIR {len(results)} {row["pair_id"]}', flush=True)
     if len(results) != args.max_objects:
-        raise ValueError(f'Only {len(results)} distinct content-verified objects found')
+        raise ValueError(f'Only {len(results)} content-verified {"pairs" if args.all_pairs else "objects"} found')
     aggregate = [{'key': key, 'views': value['views'],
                   'mean_bbox_abs_error_px': value['bbox_error_sum'] / value['views'],
                   'mean_mask_hit_fraction': value['mask_hit_sum'] / value['views'],
                   'mean_front_fraction': value['front_fraction_sum'] / value['views']}
                  for key, value in totals.items()]
     aggregate.sort(key=lambda value: value['mean_bbox_abs_error_px'])
+    fixed_key = 'blender_obj_import_hypothesis/+--/saved_x_shift_-0.5B'
+    gate = None
+    if args.fixed_hypothesis:
+        reasons = defaultdict(int)
+        eligible = 0
+        for result in results:
+            failures = set()
+            for side in ('left', 'right'):
+                score = result['scores'][fixed_key][side]
+                if score['front_fraction'] < .99:
+                    failures.add('front_fraction')
+                if score['projected_in_image'] < 100:
+                    failures.add('projected_in_image')
+                if score['mask_hit_fraction'] < .90:
+                    failures.add('mask_hit_fraction')
+                if score['bbox_mean_abs_error_px'] is None or score['bbox_mean_abs_error_px'] > 5.:
+                    failures.add('bbox_mean_abs_error_px')
+            if failures:
+                for reason in failures:
+                    reasons[reason] += 1
+            else:
+                eligible += 1
+        gate = {'policy': 'both_views_front>=0.99_in_image>=100_mask_hit>=0.90_bbox_error<=5px',
+                'eligible_pairs': eligible, 'rejected_pairs': len(results)-eligible,
+                'rejection_reason_counts_overlapping': dict(sorted(reasons.items()))}
     receipt = {'schema': 'STEREO_GSO_MESH_PROJECTION_PROBE_V1', 'status': 'DIAGNOSTIC_ONLY',
                'job_id': os.environ['SLURM_JOB_ID'], 'host': socket.gethostname(),
                'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
                'tree': subprocess.check_output(['git', 'rev-parse', 'HEAD^{tree}'], text=True).strip(),
-               'manifest_sha256': sha256_file(args.manifest), 'objects': len(results),
+               'manifest_sha256': sha256_file(args.manifest), 'objects': len(seen),
+               'pairs': len(results), 'all_pairs': args.all_pairs, 'fixed_gate': gate,
                'bbox_policy': 'clip projected mesh bbox to image rectangle before scoring',
                'saved_camera_x_shift_baseline_factors': [-.5] if args.fixed_hypothesis else [-1., -.5, 0., .5, 1.],
                'fixed_hypothesis': args.fixed_hypothesis,
