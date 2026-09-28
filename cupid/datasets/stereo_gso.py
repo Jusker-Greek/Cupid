@@ -38,7 +38,8 @@ def confined_path(root, relative):
     return path
 
 
-def discover_pairs(root, dataset_id, seed='STEREO_CUPID_STAGE1_TRAIN_V1', fractions=(.8, .1, .1)):
+def discover_pairs(root, dataset_id, seed='STEREO_CUPID_STAGE1_TRAIN_V1', fractions=(.8, .1, .1),
+                   allowed_objects=None):
     """Yield observed candidates, including missing assets, without inventing frames.
 
     Metadata parse failures are recorded. Numeric filename stems pair PNG/NPY
@@ -47,8 +48,10 @@ def discover_pairs(root, dataset_id, seed='STEREO_CUPID_STAGE1_TRAIN_V1', fracti
     root = Path(root).resolve()
     if not root.is_dir():
         raise FileNotFoundError(root)
+    if allowed_objects is not None:
+        allowed_objects = set(allowed_objects)
     for obj in sorted(root.iterdir()):
-        if not obj.is_dir() or obj.is_symlink():
+        if not obj.is_dir() or obj.is_symlink() or (allowed_objects is not None and obj.name not in allowed_objects):
             continue
         for trajectory in sorted(obj.iterdir()):
             if not trajectory.is_dir() or trajectory.is_symlink():
