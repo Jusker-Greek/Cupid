@@ -79,6 +79,22 @@ I应cherry-pick两个T提交及本文件所在跟进提交，不应重复应用�
 当前没有运行job/checkpoint/loss/W&B server记录。阶段只能报告实现/静态审查，S03–S10未验证。
 当前阻塞不影响继续代码/接口检查，但没有真实targets就不能启动有效监督训练。
 
+## GSO 1K bounded engineering candidate
+
+`configs/stereo/train_stage1_full_gso_engineering_candidate.json` records the
+bounded 1-epoch engineering budget for 809 train / 93 validation / 98 test
+pairs from the 1000-pair selection. It remains `CANDIDATE_REQUIRES_FULL_DATA_AND_ADAPTER_PREFLIGHT`.
+The manifest SHA, selection root, target merge root, expected counts, scene-unit
+boundary and pretrained-only claim are explicit. This file is intentionally
+not executable: the launcher still requires `BOUND_FOR_EXECUTION`.
+
+The only permitted transition is after content validation job 326965 reads
+1000/1000 validated pairs and a separate full adapter preflight verifies target
+shapes, source hashes, geometry receipts, official encoder hashes and split
+identity. The 309242 pilot is engineering evidence only and cannot satisfy the
+training target gate. Any full-data loss, W&B, or evaluation result remains
+UNVERIFIED until a fresh registered run produces it.
+
 ## R 精确绑定清单
 
 官方本地权重 JSON SHA256 已核验：SUV flow
