@@ -32,13 +32,15 @@ def obj_vertices(path):
     return array
 
 
-def project_score(points, view, axis):
+def project_score(points, view, axis, x_shift_saved):
     height, width = view['mask'].shape
     bounds_y, bounds_x = np.nonzero(view['mask'])
     observed = np.asarray([bounds_x.min(), bounds_y.min(), bounds_x.max() + 1,
                            bounds_y.max() + 1], dtype=np.float64)
     homogeneous = np.concatenate((points, np.ones((len(points), 1))), axis=1)
-    camera = (view['w2c_saved'] @ homogeneous.T)[:3] * axis[:, None]
+    camera = (view['w2c_saved'] @ homogeneous.T)[:3]
+    camera[0] += x_shift_saved
+    camera *= axis[:, None]
     front = camera[2] > 1e-6
     if not front.any():
         return {'front_fraction': 0., 'projected_in_image': 0, 'mask_hit_fraction': 0.,
@@ -52,7 +54,11 @@ def project_score(points, view, axis):
     u, v = u[finite], v[finite]
     if not len(u):
         raise ValueError('no finite projected vertices')
-    predicted = np.asarray([u.min(), v.min(), u.max(), v.max()])
+    predicted_unclipped = np.asarray([u.min(), v.min(), u.max(), v.max()])
+    predicted = np.asarray([np.clip(predicted_unclipped[0], 0, width),
+                            np.clip(predicted_unclipped[1], 0, height),
+                            np.clip(predicted_unclipped[2], 0, width),
+                            np.clip(predicted_unclipped[3], 0, height)])
     inside = (u >= 0) & (u < width) & (v >= 0) & (v < height)
     pixel_u = np.clip(np.rint(u[inside]).astype(np.int64), 0, width - 1)
     pixel_v = np.clip(np.rint(v[inside]).astype(np.int64), 0, height - 1)
@@ -100,21 +106,27 @@ def main():
                         'blender_obj_import_hypothesis': imported * scale + offset}
             pack = load_pair(row, args.root)
             scores = {}
+            baseline = float(row['metadata']['baseline'])
+            if not np.isfinite(baseline) or baseline <= 0:
+                raise ValueError('invalid stereo baseline: ' + row['pair_id'])
             for mapping, points in variants.items():
                 for sx in (-1, 1):
                     for sy in (-1, 1):
                         for sz in (-1, 1):
                             axis = np.asarray((sx, sy, sz), dtype=np.float64)
-                            key = mapping + '/' + ''.join('+' if value > 0 else '-' for value in axis)
-                            scores[key] = {side: project_score(points, pack['views'][side], axis)
-                                           for side in ('left', 'right')}
-                            for side_result in scores[key].values():
-                                total = totals[key]
-                                total['views'] += 1
-                                total['bbox_error_sum'] += (side_result['bbox_mean_abs_error_px']
-                                                            if side_result['bbox_mean_abs_error_px'] is not None else 1e6)
-                                total['mask_hit_sum'] += side_result['mask_hit_fraction']
-                                total['front_fraction_sum'] += side_result['front_fraction']
+                            for shift_factor in (-1., -.5, 0., .5, 1.):
+                                key = (mapping + '/' + ''.join('+' if value > 0 else '-' for value in axis)
+                                       + f'/saved_x_shift_{shift_factor:+g}B')
+                                scores[key] = {side: project_score(points, pack['views'][side], axis,
+                                                                   baseline * shift_factor)
+                                               for side in ('left', 'right')}
+                                for side_result in scores[key].values():
+                                    total = totals[key]
+                                    total['views'] += 1
+                                    total['bbox_error_sum'] += (side_result['bbox_mean_abs_error_px']
+                                                                if side_result['bbox_mean_abs_error_px'] is not None else 1e6)
+                                    total['mask_hit_sum'] += side_result['mask_hit_fraction']
+                                    total['front_fraction_sum'] += side_result['front_fraction']
             results.append({'pair_id': row['pair_id'], 'object_id': row['object_id'],
                             'mesh_sha256': sha256_file(mesh), 'source_asset_sha256': row['asset_sha256'],
                             'scores': scores})
@@ -132,6 +144,8 @@ def main():
                'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
                'tree': subprocess.check_output(['git', 'rev-parse', 'HEAD^{tree}'], text=True).strip(),
                'manifest_sha256': sha256_file(args.manifest), 'objects': len(results),
+               'bbox_policy': 'clip projected mesh bbox to image rectangle before scoring',
+               'saved_camera_x_shift_baseline_factors': [-1., -.5, 0., .5, 1.],
                'ranked_candidates': aggregate, 'historical_renderer_verified': False,
                'canonical_to_cv_verified': False, 'target_ready': False, 'scientific_evidence': False}
     (output / 'objects.json').write_text(json.dumps(results, indent=2) + '\n')
