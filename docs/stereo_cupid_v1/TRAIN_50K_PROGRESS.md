@@ -39,6 +39,8 @@ These are poor geometry results under the empirical GSO target convention, not a
 
 Job **327206** submitted for one H200 GPU and 24 hours, from step819 to a total of 50000. Code commit `36ac81850509ff62e1fbcf018188ee3f9d5dfe6b`, tree `7ea2d0a95bd281a89d935583f27afe32c310c7f8` (same runtime as the completed check, with the W&B generation x-axis renamed to the existing `train/global_step`).
 
+Live readback at 00:04:15 elapsed: RUNNING on server13, exact resume confirmed, step909 reached (90 new optimizer updates), approximately 0.967 seconds per update before periodic evaluation overhead. A TensorBoard event file and W&B offline run `s6wo1v8z` are present. This is stable initial progress, not completion of 50k.
+
 Checkout: `/public/home/ricky/CODE/stereo_cupid_50k_36ac818_a1`.
 Output: `/public/home/ricky/RESULTS/STEREO_CUPID_50K_36AC818_FULL_A1/output`.
 Submission receipt: `/public/home/ricky/RESULTS/STEREO_CUPID_50K_36AC818_FULL_A1.submission`.
