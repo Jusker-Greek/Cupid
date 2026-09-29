@@ -13,6 +13,21 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from train_stereo_stage1 import load_config
 
 
+def geometry_json(value):
+    """JSON diagnostics retain rejected points as null and all rejection masks."""
+    import math
+    import numpy as np
+    if isinstance(value, (np.ndarray, np.generic)):
+        return geometry_json(value.tolist())
+    if isinstance(value, dict):
+        return {key: geometry_json(item) for key, item in value.items()}
+    if isinstance(value, (tuple, list)):
+        return [geometry_json(item) for item in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    return value
+
+
 def write(path, obj):
     path.write_text(json.dumps(obj, indent=2, allow_nan=False) + '\n')
 
@@ -180,7 +195,7 @@ def main():
                             uv_noise='shared' if migration and mode != 'real_right_independent' else 'independent',
                             noise_source='official_cpu' if migration else 'device')
                         write(directory/'sampling.json', prediction['sampling'])
-                        write(directory/'geometry.json', prediction['geometry'])
+                        write(directory/'geometry.json', geometry_json(prediction['geometry']))
                         if prediction.get('stage2_status') != 'OK':
                             raise ValueError(str(prediction.get('stage2_error', prediction.get('stage2_status'))))
                         mesh = prediction['canonical_outputs']['mesh'][0]
