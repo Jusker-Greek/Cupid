@@ -120,7 +120,7 @@ class Stage1LoggingAdapter:
                 self.writer.flush()
             if self.run is not None:
                 try:
-                    self.run.log({**metrics, 'global_step': step})
+                    self.run.log({**metrics, 'train/global_step': step})
                 except self.transport_errors as error:
                     self._tracker_failure('checkpoint_evaluation', error)
         elif event == "evaluation_status":
