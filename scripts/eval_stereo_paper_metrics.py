@@ -229,9 +229,9 @@ def main():
             if stats['completed'] != len(selected):
                 report['migration_stop'] = dict(mode=mode, reason='INCOMPLETE_EVALUATION')
                 break
-            current = stats['image']['psnr']['mean']
-            baseline = report['summary']['official_mono_crop']['image']['psnr']['mean']
-            previous = report['summary'][completed_modes[-2]]['image']['psnr']['mean'] if len(completed_modes)>1 else current
+            current = stats['image']['psnr_db']['mean']
+            baseline = report['summary']['official_mono_crop']['image']['psnr_db']['mean']
+            previous = report['summary'][completed_modes[-2]]['image']['psnr_db']['mean'] if len(completed_modes)>1 else current
             report.setdefault('migration_decisions', []).append(dict(mode=mode, psnr=current,
                 delta_baseline=current-baseline, delta_previous=current-previous))
             if min(current-baseline, current-previous) < -args.max_psnr_drop:
