@@ -22,7 +22,7 @@ def resolved_stereo_params(sampler, params=None):
 @torch.no_grad()
 def sample_shared_structure(
     sampler, model, noise, cond, ss_channels, *, steps=50,
-    rescale_t=1.0, verbose=False, **kwargs,
+    rescale_t=1.0, verbose=False, right_weight=0.5, **kwargs,
 ):
     """Return [2,C,D,H,W]; only the SS slice is shared at every step.
 
@@ -43,6 +43,8 @@ def sample_shared_structure(
         raise ValueError("Need nonempty structure and UV channel slices")
     if int(steps) != steps or steps < 1 or not np.isfinite(rescale_t) or rescale_t <= 0:
         raise ValueError("steps must be positive integer; rescale_t must be positive")
+    if not np.isfinite(right_weight) or not 0 <= right_weight <= 1:
+        raise ValueError("right_weight must be finite and in [0,1]")
     state = noise.clone()
     state[1, :ss_channels] = state[0, :ss_channels]
     times = np.linspace(1.0, 0.0, int(steps) + 1)
@@ -52,7 +54,8 @@ def sample_shared_structure(
             model, state, float(times[index]), float(times[index + 1]),
             cond=cond, **kwargs,
         )
-        shared = candidate[:, :ss_channels].mean(dim=0, keepdim=True)
+        shared = (candidate[:, :ss_channels].mean(dim=0, keepdim=True) if right_weight == 0.5 else
+                  candidate[:1, :ss_channels] * (1 - right_weight) + candidate[1:2, :ss_channels] * right_weight)
         state = torch.cat((shared.expand(2, *shared.shape[1:]), candidate[:, ss_channels:]), dim=1)
         if verbose:
             print(f"STEREO_STAGE1_STEP={index + 1}/{steps}", flush=True)

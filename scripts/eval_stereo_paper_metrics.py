@@ -56,7 +56,7 @@ def main():
     p.add_argument('--checkpoint-sha256', default='8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c')
     p.add_argument('--output', required=True)
     p.add_argument('--limit', type=int, default=3)
-    p.add_argument('--suite', choices=('paper', 'migration'), default='paper')
+    p.add_argument('--suite', choices=('paper', 'migration', 'migration_weight'), default='paper')
     p.add_argument('--max-psnr-drop', type=float, default=.5)
     p.add_argument('--asset-root', default='/public/home/ricky/DATASET/Gazebo')
     args = p.parse_args()
@@ -162,7 +162,7 @@ def main():
     write(out/'evaluation.json', report)
 
     panels = {}
-    migration = args.suite == 'migration'
+    migration = args.suite != 'paper'
     report['migration_protocol'] = dict(enabled=migration, max_psnr_drop=args.max_psnr_drop,
         dataset_role='REUSED_TEST_SAMPLES_FOR_DEVELOPMENT_NOT_FINAL_CONFIRMATION',
         order=['official_mono_crop', 'copy_left_shared', 'real_right_shared', 'real_right_independent'],
@@ -170,6 +170,9 @@ def main():
     modes = ('official_mono_crop', 'official_mono_full', 'official_stereo', 'finetuned_stereo')
     if migration:
         modes = ('official_mono_crop', 'copy_left_shared', 'real_right_shared', 'real_right_independent')
+    if args.suite == 'migration_weight':
+        modes = ('official_mono_crop', 'copy_left_shared', 'real_right_w010', 'real_right_w025', 'real_right_shared')
+    report['migration_protocol']['order'] = list(modes)
     completed_modes = []
     for mode in modes:
         if mode == 'finetuned_stereo':
@@ -193,7 +196,8 @@ def main():
                         prediction = pipe.run_stereo(*stereo_images, crop=migration, seed=42, stage2=True,
                             calibration=None if mode == 'copy_left_shared' else calibration,
                             uv_noise='shared' if migration and mode != 'real_right_independent' else 'independent',
-                            noise_source='official_cpu' if migration else 'device')
+                            noise_source='official_cpu' if migration else 'device',
+                            ss_right_weight={'real_right_w010': .1, 'real_right_w025': .25}.get(mode, .5))
                         write(directory/'sampling.json', prediction['sampling'])
                         write(directory/'geometry.json', geometry_json(prediction['geometry']))
                         if prediction.get('stage2_status') != 'OK':

@@ -82,7 +82,7 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
     def run_stereo(
         self, left, right, *, mask_left=None, mask_right=None, seed=42,
         crop=True, stage2=False, calibration=None, sampler_params=None,
-        slat_sampler_params=None, uv_noise="independent", noise_source="device",
+        slat_sampler_params=None, uv_noise="independent", noise_source="device", ss_right_weight=0.5,
         max_reprojection_px=2.0, min_ray_angle_deg=0.1,
     ):
         """Always return raw Stage1 support and both UV fields.
@@ -120,7 +120,7 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
         params = {**self.sparse_structure_sampler_params, **(sampler_params or {})}
         params.setdefault("verbose", True)
         params = resolved_stereo_params(self.sparse_structure_sampler, params)
-        latent = sample_shared_structure(self.sparse_structure_sampler, flow, noise, ss_channels=ss_channels, **cond, **params)
+        latent = sample_shared_structure(self.sparse_structure_sampler, flow, noise, ss_channels=ss_channels, right_weight=ss_right_weight, **cond, **params)
         result = self._decode_stereo(latent, ss_channels, uv_channels)
         for side, trace in (("left", trace_left), ("right", trace_right)):
             pixels, affine = crop_uv_to_pixels(result[f'uv_{side}'].cpu().numpy(),
@@ -131,7 +131,7 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
         result['sampling'] = {"seed": seed, "uv_noise": uv_noise, "noise_source": noise_source, "parameters": params,
                               "ss_channels": ss_channels, "uv_channels": uv_channels,
                               "sampler": type(self.sparse_structure_sampler).__name__,
-                              "structure_sharing": "equal_mean_after_each_guided_euler_update",
+                              "structure_sharing": "weighted_mean_after_each_guided_euler_update", "ss_right_weight": ss_right_weight,
                               "support_source": "shared_structure_decoder_with_minimum_support_expansion",
                               "stage2_requested": stage2}
         if calibration is None:
