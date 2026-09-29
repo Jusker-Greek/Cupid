@@ -94,6 +94,10 @@ case "$CUPID_RUNTIME_MODE" in
         bash scripts/submit_stereo_cupid_pilot.sh
         ;;
     train-smoke|train-full-engineering|train-ddp)
+        if [[ "${CUPID_VALIDATE_RESUME:-0}" == 1 ]]; then
+            "$CUPID_PYTHON" scripts/test_stereo_resume.py
+            "$CUPID_PYTHON" -m cupid.trainers.stereo_stage1_contract_tests
+        fi
         : "${CUPID_TRAIN_CONFIG:?T-owned BOUND_FOR_EXECUTION config required}"
         : "${CUPID_TRAIN_CONFIG_SHA256:?Exact frozen configuration hash required}"
         : "${CUPID_OUTPUT_DIR:?Fresh output required even for optimizer resume}"

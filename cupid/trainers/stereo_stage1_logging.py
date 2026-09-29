@@ -112,6 +112,17 @@ class Stage1LoggingAdapter:
             self.callback("checkpoint", step, dict(path=payload["path"], status="WRITTEN", sha256=payload["sha256"]))
         elif event == "evaluation":
             self.callback("evaluation", step, payload)
+        elif event == 'checkpoint_evaluation':
+            metrics = {payload['split'] + '/generation/' + k: v for k, v in payload['metrics'].items()}
+            if self.writer is not None:
+                for key, value in metrics.items():
+                    self.writer.add_scalar(key, value, step)
+                self.writer.flush()
+            if self.run is not None:
+                try:
+                    self.run.log({**metrics, 'global_step': step})
+                except self.transport_errors as error:
+                    self._tracker_failure('checkpoint_evaluation', error)
         elif event == "evaluation_status":
             self._missing_pose(step, payload.get("reason", "raw_prediction_manifest_unavailable"))
         elif event == "amp_overflow":
@@ -121,7 +132,7 @@ class Stage1LoggingAdapter:
         elif event == "start":
             self.callback("status", step, dict(metric="test/loss_total", status="UNVERIFIED",
                                                reason="held_out_test_not_executed_by_training_loop"))
-            if not self.config.get("eval_factory") or not self.config.get("prediction_factory"):
+            if not self.config.get('checkpoint_evaluation') and (not self.config.get("eval_factory") or not self.config.get("prediction_factory")):
                 self._missing_pose(step, "pose_sampling_evaluator_not_bound")
         elif event in ("complete", "bounded_stop"):
             self.close()

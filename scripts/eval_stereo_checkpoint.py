@@ -2,6 +2,8 @@
 """Checkpoint -> existing stereo inference -> existing pose evaluator, Slurm only."""
 import argparse
 import gc
+import hashlib
+import math
 import json
 import os
 from pathlib import Path
@@ -24,6 +26,7 @@ def main():
     p.add_argument('--output', required=True)
     p.add_argument('--split', choices=['test', 'validation'], default='test')
     p.add_argument('--limit', type=int, default=3)
+    p.add_argument('--selection-seed', type=int, help='Fixed hash-ranked sample selection, independent of training RNG')
     args = p.parse_args()
     if not os.environ.get('SLURM_JOB_ID') or args.limit < 1:
         p.error('Slurm compute and positive sample limit required')
@@ -55,7 +58,11 @@ def main():
     if sha256_file(args.checkpoint) != args.checkpoint_sha256:
         raise ValueError('Checkpoint SHA mismatch')
     rows = [json.loads(line) for line in Path(data['manifest']).read_text().splitlines()]
-    selected = sorted((r for r in rows if r['split'] == args.split), key=lambda r: r['pair_id'])[:args.limit]
+    key = (lambda r: r['pair_id']) if args.selection_seed is None else (
+        lambda r: hashlib.sha256(f"{args.selection_seed}:{r['pair_id']}".encode()).hexdigest())
+    selected = sorted((r for r in rows if r['split'] == args.split), key=key)[:args.limit]
+    if not selected:
+        raise ValueError('Selected evaluation split is empty')
     targets = {r['pair_id']: r for r in map(json.loads, Path(data['target_index']).read_text().splitlines())}
     write_json(out/'selected_samples.json', selected)
     root = Path(config['pretrained_init']['path']).parent.parent
@@ -80,7 +87,7 @@ def main():
     report = dict(checkpoint=args.checkpoint, checkpoint_sha256=args.checkpoint_sha256,
                   initialization='OFFICIAL_WEIGHTS_STEREO_SAMPLER' if args.official_baseline else 'STEREO_FINETUNED',
                   checkpoint_step=step, commit=subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
-                  job_id=os.environ['SLURM_JOB_ID'], split=args.split, expected=len(selected),
+                  job_id=os.environ['SLURM_JOB_ID'], split=args.split, expected=len(selected), selection_seed=args.selection_seed,
                   scope='BOUNDED_HELD_OUT_EMPIRICAL_GSO_CANONICAL', length_unit='scene_unit',
                   sampler='existing_pipeline_default_25_steps', samples=[])
     records = []
@@ -161,6 +168,8 @@ def main():
             del prediction
             torch.cuda.empty_cache()
         except Exception as error:
+            extra['status'] = 'FAILED'
+            item['prediction_status'] = 'FAILED'
             extra['error'] = str(error)
             item['failure_reason'] = str(error)
             (directory/'traceback.txt').write_text(traceback.format_exc())
@@ -174,6 +183,20 @@ def main():
         write_json(out/'evaluation.json',report)
         print(json.dumps(extra), flush=True)
     report['status'] = 'COMPLETED' if all(s['status']=='PREDICTED' and s['stage2_status']=='OK' for s in report['samples']) else 'PARTIAL_OR_FAILED'
+    summary = {'expected_pairs': len(selected),
+               'prediction_success_fraction': sum(s['status']=='PREDICTED' for s in report['samples'])/len(selected),
+               'mesh_success_fraction': sum(s.get('stage2_status')=='OK' for s in report['samples'])/len(selected)}
+    for name in ('occupancy_iou', 'left_projection_mean_px', 'right_projection_mean_px',
+                 'triangulation_valid', 'similarity_fit_rmse'):
+        values = [s[name] for s in report['samples'] if s.get(name) is not None and math.isfinite(s[name])]
+        summary[name + '_coverage'] = len(values)/len(selected)
+        if values:
+            summary[name] = sum(values)/len(values)
+    for name, metric in report['pose_summary']['metrics'].items():
+        summary[name + '_coverage'] = metric['coverage']
+        if metric['mean'] is not None:
+            summary[name] = metric['mean']
+    report['scalar_summary'] = summary
     write_json(out/'evaluation.json',report)
     return 0 if report['status']=='COMPLETED' else 2
 

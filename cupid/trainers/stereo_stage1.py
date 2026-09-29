@@ -10,6 +10,7 @@ import math
 import os
 import random
 import subprocess
+import sys
 import time
 from datetime import timedelta
 from pathlib import Path
@@ -161,6 +162,9 @@ class StereoStage1Trainer:
         self.step, self.epoch, self.batch_index = 0, 0, 0
         self.logger, self.eval_hook, self.prediction_hook = None, None, None
         self.rank0(lambda: self.output.mkdir(parents=True, exist_ok=False))
+        self.rank0(lambda: (self.output / 'resolved_config.json').write_text(json.dumps(config, indent=2)))
+        if config.get('checkpoint_evaluation') and self.world != 1:
+            raise ValueError('Inline checkpoint evaluation currently requires one training rank')
         seed_all(config["seed"] + self.rank)
         pack = resolve(config["data_factory"])(config["data"])
         self.train_data, self.val_data = pack["train"], pack["validation"]
@@ -377,15 +381,46 @@ class StereoStage1Trainer:
                                  "model_sha256_by_rank": hashes,
                                  "model_changed_since_init_or_resume": hashes[0] != self.initial_model_sha256,
                                  "epoch": self.epoch, "batch_index": self.batch_index})
+        if self.config.get('checkpoint_evaluation'):
+            self.evaluate_checkpoint(path, file_hash[0])
         return path
+
+    def evaluate_checkpoint(self, path, sha256):
+        spec = self.config['checkpoint_evaluation']
+        evaluations = [('validation', spec['validation_pairs'])]
+        if self.step == self.max_steps:
+            evaluations.append(('test', spec['test_pairs']))
+        for split, limit in evaluations:
+            result = {}
+            def evaluate():
+                directory = self.output / f'eval_step_{self.step:08d}_{split}'
+                command = [sys.executable, '-u', 'scripts/eval_stereo_checkpoint.py',
+                    '--config', str(self.output / 'resolved_config.json'),
+                    '--checkpoint', str(path), '--checkpoint-sha256', sha256,
+                    '--output', str(directory), '--split', split, '--limit', str(limit),
+                    '--selection-seed', str(spec['selection_seed'])]
+                with (self.output / f'eval_step_{self.step:08d}_{split}.log').open('x') as log:
+                    completed = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT,
+                                               timeout=spec['timeout_seconds'], check=False)
+                report_path = directory / 'evaluation.json'
+                if not report_path.exists():
+                    raise RuntimeError(f'Checkpoint evaluator exited {completed.returncode}; see {directory}.log')
+                report = json.loads(report_path.read_text())
+                if completed.returncode not in (0, 2) or len(report['samples']) != report['expected'] or 'status' not in report:
+                    raise RuntimeError(f'Incomplete checkpoint evaluation: {directory}')
+                # A completed evaluation includes unsuccessful predictions in its denominator.
+                result.update(split=split, report=str(report_path), status=report['status'],
+                              metrics=report['scalar_summary'])
+            self.rank0(evaluate)
+            self.emit('checkpoint_evaluation', result)
 
     def load_checkpoint(self, path):
         # Trusted checkpoint produced by this engine; includes Python/NumPy RNG state.
         state = torch.load(path, map_location="cpu", weights_only=False)
         if state.get("format") != FORMAT or state.get("experiment_id") != EXPERIMENT_ID:
             raise ValueError("Not a Stereo Stage1 optimizer checkpoint; pretrained_init is separate")
-        if state["contract_sha256"] != self.contract_hash or state["world_size"] != self.world:
-            raise ValueError("Resume requires exact scientific/data/budget/topology contract")
+        from .stereo_resume import check_resume_contract
+        resume_kind = check_resume_contract(state, self.contract, self.world, digest(path))
         self.bare_model.load_state_dict(state["model"], strict=True)
         if model_digest(self.bare_model) != state["model_sha256_by_rank"][self.rank]:
             raise ValueError("Checkpoint model content hash mismatch")
@@ -397,6 +432,8 @@ class StereoStage1Trainer:
         if self.step != self.epoch * self.steps_per_epoch + self.batch_index:
             raise ValueError("Checkpoint step/sampler cursor mismatch")
         restore_rng(state["rng_by_rank"][self.rank])
+        self.emit('resume', {'path': str(path), 'resume_kind': resume_kind,
+                            'source_contract_sha256': state['contract_sha256']})
 
     def update_batch(self, batch):
         state = rng_state()
@@ -459,7 +496,9 @@ class StereoStage1Trainer:
                 if self.step >= stop_step:
                     break
         self.emit("complete" if self.step == self.max_steps else "bounded_stop",
-                  {"completed_updates": self.step, "evidence_eligibility": "ENGINEERING_ONLY_PENDING_EVALUATION"})
+                  {"completed_updates": self.step, "evidence_eligibility":
+                   "SEE_CHECKPOINT_EVALUATION_REPORTS" if self.config.get('checkpoint_evaluation') else
+                   "ENGINEERING_ONLY_PENDING_EVALUATION"})
 
 
 def run_training(config, output_dir, resume=None, stop_after_updates=None):
