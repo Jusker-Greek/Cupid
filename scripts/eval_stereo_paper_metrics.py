@@ -56,7 +56,7 @@ def main():
     p.add_argument('--checkpoint-sha256', default='8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c')
     p.add_argument('--output', required=True)
     p.add_argument('--limit', type=int, default=3)
-    p.add_argument('--suite', choices=('paper', 'migration', 'migration_weight'), default='paper')
+    p.add_argument('--suite', choices=('paper', 'migration', 'migration_weight', 'migration_next'), default='paper')
     p.add_argument('--max-psnr-drop', type=float, default=.5)
     p.add_argument('--asset-root', default='/public/home/ricky/DATASET/Gazebo')
     args = p.parse_args()
@@ -166,12 +166,14 @@ def main():
     report['migration_protocol'] = dict(enabled=migration, max_psnr_drop=args.max_psnr_drop,
         dataset_role='REUSED_TEST_SAMPLES_FOR_DEVELOPMENT_NOT_FINAL_CONFIRMATION',
         order=['official_mono_crop', 'copy_left_shared', 'real_right_shared', 'real_right_independent'],
-        fixed='official weights, crop enabled, seed42, official CPU left and Stage2 RNG, left DLT, unchanged metrics')
+        fixed='official weights, crop enabled, seed42, official CPU left and Stage2 RNG, left DLT except explicit sim3 stage, unchanged metrics')
     modes = ('official_mono_crop', 'official_mono_full', 'official_stereo', 'finetuned_stereo')
     if migration:
         modes = ('official_mono_crop', 'copy_left_shared', 'real_right_shared', 'real_right_independent')
     if args.suite == 'migration_weight':
         modes = ('official_mono_crop', 'copy_left_shared', 'real_right_w010', 'real_right_w025', 'real_right_shared')
+    if args.suite == 'migration_next':
+        modes = ('official_mono_crop', 'real_right_w010', 'real_right_w010_independent', 'real_right_w010_sim3')
     report['migration_protocol']['order'] = list(modes)
     completed_modes = []
     for mode in modes:
@@ -195,9 +197,9 @@ def main():
                         stereo_images = [images[0], images[0]] if mode == 'copy_left_shared' else images
                         prediction = pipe.run_stereo(*stereo_images, crop=migration, seed=42, stage2=True,
                             calibration=None if mode == 'copy_left_shared' else calibration,
-                            uv_noise='shared' if migration and mode != 'real_right_independent' else 'independent',
+                            uv_noise='shared' if migration and mode not in ('real_right_independent', 'real_right_w010_independent', 'real_right_w010_sim3') else 'independent',
                             noise_source='official_cpu' if migration else 'device',
-                            ss_right_weight={'real_right_w010': .1, 'real_right_w025': .25}.get(mode, .5))
+                            ss_right_weight=.1 if mode.startswith('real_right_w010') else (.25 if mode == 'real_right_w025' else .5))
                         write(directory/'sampling.json', prediction['sampling'])
                         write(directory/'geometry.json', geometry_json(prediction['geometry']))
                         if prediction.get('stage2_status') != 'OK':
@@ -205,13 +207,16 @@ def main():
                         mesh = prediction['canonical_outputs']['mesh'][0]
                         render_poses = [(mode if migration else mode + '_left_dlt', prediction['pose_left'])]
                         fit = prediction['geometry'].get('similarity')
-                        if fit is None and not migration:
+                        use_sim3 = not migration or mode == 'real_right_w010_sim3'
+                        if fit is None and use_sim3:
                             raise ValueError('Stereo similarity missing: ' + prediction['geometry']['status'])
-                        if not migration:
+                        if use_sim3:
                             sim = torch.eye(4, device='cuda')
                             sim[:3,:3] = torch.tensor(fit['rotation'], device='cuda') * float(fit['scale'])
                             sim[:3,3] = torch.tensor(fit['translation'], device='cuda')
                             render_poses.append((mode + '_stereo_sim3', dict(extrinsic=sim, intrinsic=torch.tensor(k, device='cuda', dtype=torch.float32))))
+                            if migration:
+                                render_poses = [(mode, render_poses[-1][1])]
                     if mesh.vertex_attrs is None or mesh.vertex_attrs.shape[1] < 3:
                         raise ValueError('Original mesh decoder did not provide RGB attributes')
                     np.savez_compressed(directory/'mesh.npz', vertices=mesh.vertices.cpu().numpy(), faces=mesh.faces.cpu().numpy(),
