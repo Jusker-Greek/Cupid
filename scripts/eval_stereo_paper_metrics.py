@@ -56,7 +56,7 @@ def main():
     p.add_argument('--checkpoint-sha256', default='8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c')
     p.add_argument('--output', required=True)
     p.add_argument('--limit', type=int, default=3)
-    p.add_argument('--suite', choices=('paper', 'migration', 'migration_weight', 'migration_next'), default='paper')
+    p.add_argument('--suite', choices=('paper', 'migration', 'migration_weight', 'migration_next', 'migration_pose'), default='paper')
     p.add_argument('--max-psnr-drop', type=float, default=.5)
     p.add_argument('--asset-root', default='/public/home/ricky/DATASET/Gazebo')
     args = p.parse_args()
@@ -174,6 +174,8 @@ def main():
         modes = ('official_mono_crop', 'copy_left_shared', 'real_right_w010', 'real_right_w025', 'real_right_shared')
     if args.suite == 'migration_next':
         modes = ('official_mono_crop', 'real_right_w010', 'real_right_w010_independent', 'real_right_w010_sim3')
+    if args.suite == 'migration_pose':
+        modes = ('official_mono_crop', 'real_right_w010', 'real_right_w010_shared_sim3')
     report['migration_protocol']['order'] = list(modes)
     completed_modes = []
     for mode in modes:
@@ -207,7 +209,7 @@ def main():
                         mesh = prediction['canonical_outputs']['mesh'][0]
                         render_poses = [(mode if migration else mode + '_left_dlt', prediction['pose_left'])]
                         fit = prediction['geometry'].get('similarity')
-                        use_sim3 = not migration or mode == 'real_right_w010_sim3'
+                        use_sim3 = not migration or mode.endswith('_sim3')
                         if fit is None and use_sim3:
                             raise ValueError('Stereo similarity missing: ' + prediction['geometry']['status'])
                         if use_sim3:
