@@ -27,6 +27,7 @@ def main():
     p.add_argument('--split', choices=['test', 'validation'], default='test')
     p.add_argument('--limit', type=int, default=3)
     p.add_argument('--selection-seed', type=int, help='Fixed hash-ranked sample selection, independent of training RNG')
+    p.add_argument('--render-metrics', action='store_true', help='Original CUPID PSNR/SSIM/LPIPS and rendered mask IoU')
     args = p.parse_args()
     if not os.environ.get('SLURM_JOB_ID') or args.limit < 1:
         p.error('Slurm compute and positive sample limit required')
@@ -84,6 +85,10 @@ def main():
         del weights, state
     gc.collect()
     pipeline.cuda()
+    render_evaluator = None
+    if args.render_metrics:
+        from cupid.stereo_observability.checkpoint_render_metrics import CheckpointRenderMetrics, summarize_render_metrics
+        render_evaluator = CheckpointRenderMetrics()
     report = dict(checkpoint=args.checkpoint, checkpoint_sha256=args.checkpoint_sha256,
                   initialization='OFFICIAL_WEIGHTS_STEREO_SAMPLER' if args.official_baseline else 'STEREO_FINETUNED',
                   checkpoint_step=step, commit=subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
@@ -91,6 +96,13 @@ def main():
                   scope='BOUNDED_HELD_OUT_EMPIRICAL_GSO_CANONICAL', length_unit='scene_unit',
                   sampler='existing_pipeline_default_25_steps', samples=[])
     records = []
+    if render_evaluator is not None:
+        report['render_protocol'] = dict(self_check=render_evaluator.check,
+            functions='cupid.utils.loss_utils.psnr/ssim/lpips; VGG LPIPS',
+            image='native 512px full frame, black alpha composite, RGB [0,1], no image alignment',
+            left_dlt='original CUPID decoded left pose and predicted intrinsic',
+            stereo_sim3='stereo-estimated scale/rotation/translation; known stereo calibration for right camera',
+            claim='input-view reconstruction, not held-out novel-view synthesis or exact paper benchmark')
     for number, row in enumerate(selected):
         directory = out/f'sample_{number:03d}'
         directory.mkdir()
@@ -162,6 +174,8 @@ def main():
                 save_ply(directory/'mesh_canonical.ply', mesh.vertices.cpu().numpy(), mesh.faces.cpu().numpy())
                 extra['mesh_vertices'] = len(mesh.vertices)
                 extra['mesh_faces'] = len(mesh.faces)
+                if render_evaluator is not None:
+                    extra['render_metrics'] = render_evaluator.evaluate(prediction, pack, camera, directory)
             if fit is not None:
                 extra['triangulation_valid'] = geom['num_valid']
                 extra['similarity_fit_rmse'] = float(fit['rmse'])
@@ -183,6 +197,10 @@ def main():
         write_json(out/'evaluation.json',report)
         print(json.dumps(extra), flush=True)
     report['status'] = 'COMPLETED' if all(s['status']=='PREDICTED' and s['stage2_status']=='OK' for s in report['samples']) else 'PARTIAL_OR_FAILED'
+    if render_evaluator is not None and not all(
+            s.get('render_metrics', {}).get(label, {}).get('status') == 'OK'
+            for s in report['samples'] for label in render_evaluator.labels):
+        report['status'] = 'PARTIAL_OR_FAILED'
     summary = {'expected_pairs': len(selected),
                'prediction_success_fraction': sum(s['status']=='PREDICTED' for s in report['samples'])/len(selected),
                'mesh_success_fraction': sum(s.get('stage2_status')=='OK' for s in report['samples'])/len(selected)}
@@ -197,6 +215,8 @@ def main():
         if metric['mean'] is not None:
             summary[name] = metric['mean']
     report['scalar_summary'] = summary
+    if render_evaluator is not None:
+        summary.update(summarize_render_metrics(report['samples']))
     write_json(out/'evaluation.json',report)
     return 0 if report['status']=='COMPLETED' else 2
 

@@ -398,7 +398,7 @@ class StereoStage1Trainer:
                     '--config', str(self.output / 'resolved_config.json'),
                     '--checkpoint', str(path), '--checkpoint-sha256', sha256,
                     '--output', str(directory), '--split', split, '--limit', str(limit),
-                    '--selection-seed', str(spec['selection_seed'])]
+                    '--selection-seed', str(spec['selection_seed']), '--render-metrics']
                 with (self.output / f'eval_step_{self.step:08d}_{split}.log').open('x') as log:
                     completed = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT,
                                                timeout=spec['timeout_seconds'], check=False)

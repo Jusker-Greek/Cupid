@@ -20,10 +20,13 @@ export OMP_NUM_THREADS=8
 if [[ "${CUPID_OFFICIAL_BASELINE:-0}" == 1 ]]; then
     weight_args=(--official-baseline)
 else
-    weight_args=(--checkpoint /public/home/ricky/RESULTS/STEREO_CUPID_2DE057A_FULL_A8/output/step_00000809.pt
-      --checkpoint-sha256 8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c)
+    weight_args=(--checkpoint "${CUPID_EVAL_CHECKPOINT:-/public/home/ricky/RESULTS/STEREO_CUPID_2DE057A_FULL_A8/output/step_00000809.pt}"
+      --checkpoint-sha256 "${CUPID_EVAL_CHECKPOINT_SHA256:-8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c}")
 fi
+eval_args=(--split "${CUPID_EVAL_SPLIT:-test}")
+if [[ "${CUPID_RENDER_METRICS:-0}" == 1 ]]; then eval_args+=(--render-metrics); fi
+if [[ -n "${CUPID_EVAL_SELECTION_SEED:-}" ]]; then eval_args+=(--selection-seed "$CUPID_EVAL_SELECTION_SEED"); fi
 "$runtime/bin/python3" -u scripts/eval_stereo_checkpoint.py \
-  --config configs/stereo/train_stage1_full_gso_engineering_candidate.json \
-  "${weight_args[@]}" \
+  --config "${CUPID_EVAL_CONFIG:-configs/stereo/train_stage1_full_gso_engineering_candidate.json}" \
+  "${weight_args[@]}" "${eval_args[@]}" \
   --output "${CUPID_EVAL_OUTPUT:?}" --limit "${CUPID_EVAL_LIMIT:-3}"
