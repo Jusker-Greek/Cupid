@@ -41,6 +41,8 @@ def main():
     p.add_argument('--checkpoint-sha256', default='8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c')
     p.add_argument('--output', required=True)
     p.add_argument('--limit', type=int, default=3)
+    p.add_argument('--suite', choices=('paper', 'migration'), default='paper')
+    p.add_argument('--max-psnr-drop', type=float, default=.5)
     p.add_argument('--asset-root', default='/public/home/ricky/DATASET/Gazebo')
     args = p.parse_args()
     if not os.environ.get('SLURM_JOB_ID') or args.limit < 1:
@@ -145,7 +147,15 @@ def main():
     write(out/'evaluation.json', report)
 
     panels = {}
+    migration = args.suite == 'migration'
+    report['migration_protocol'] = dict(enabled=migration, max_psnr_drop=args.max_psnr_drop,
+        dataset_role='REUSED_TEST_SAMPLES_FOR_DEVELOPMENT_NOT_FINAL_CONFIRMATION',
+        order=['official_mono_crop', 'copy_left_shared', 'real_right_shared', 'real_right_independent'],
+        fixed='official weights, crop enabled, seed42, official CPU left and Stage2 RNG, left DLT, unchanged metrics')
     modes = ('official_mono_crop', 'official_mono_full', 'official_stereo', 'finetuned_stereo')
+    if migration:
+        modes = ('official_mono_crop', 'copy_left_shared', 'real_right_shared', 'real_right_independent')
+    completed_modes = []
     for mode in modes:
         if mode == 'finetuned_stereo':
             state = torch.load(args.checkpoint, map_location='cpu', weights_only=False, mmap=True)
@@ -164,18 +174,25 @@ def main():
                         mesh = prediction['mesh'][0]
                         render_poses = [(mode, prediction['pose'][0])]
                     else:
-                        prediction = pipe.run_stereo(*images, crop=False, seed=42, stage2=True, calibration=calibration)
+                        stereo_images = [images[0], images[0]] if mode == 'copy_left_shared' else images
+                        prediction = pipe.run_stereo(*stereo_images, crop=migration, seed=42, stage2=True,
+                            calibration=None if mode == 'copy_left_shared' else calibration,
+                            uv_noise='shared' if migration and mode != 'real_right_independent' else 'independent',
+                            noise_source='official_cpu' if migration else 'device')
+                        write(directory/'sampling.json', prediction['sampling'])
+                        write(directory/'geometry.json', prediction['geometry'])
                         if prediction.get('stage2_status') != 'OK':
                             raise ValueError(str(prediction.get('stage2_error', prediction.get('stage2_status'))))
                         mesh = prediction['canonical_outputs']['mesh'][0]
-                        render_poses = [(mode + '_left_dlt', prediction['pose_left'])]
+                        render_poses = [(mode if migration else mode + '_left_dlt', prediction['pose_left'])]
                         fit = prediction['geometry'].get('similarity')
-                        if fit is None:
+                        if fit is None and not migration:
                             raise ValueError('Stereo similarity missing: ' + prediction['geometry']['status'])
-                        sim = torch.eye(4, device='cuda')
-                        sim[:3,:3] = torch.tensor(fit['rotation'], device='cuda') * float(fit['scale'])
-                        sim[:3,3] = torch.tensor(fit['translation'], device='cuda')
-                        render_poses.append((mode + '_stereo_sim3', dict(extrinsic=sim, intrinsic=torch.tensor(k, device='cuda', dtype=torch.float32))))
+                        if not migration:
+                            sim = torch.eye(4, device='cuda')
+                            sim[:3,:3] = torch.tensor(fit['rotation'], device='cuda') * float(fit['scale'])
+                            sim[:3,3] = torch.tensor(fit['translation'], device='cuda')
+                            render_poses.append((mode + '_stereo_sim3', dict(extrinsic=sim, intrinsic=torch.tensor(k, device='cuda', dtype=torch.float32))))
                     if mesh.vertex_attrs is None or mesh.vertex_attrs.shape[1] < 3:
                         raise ValueError('Original mesh decoder did not provide RGB attributes')
                     np.savez_compressed(directory/'mesh.npz', vertices=mesh.vertices.cpu().numpy(), faces=mesh.faces.cpu().numpy(),
@@ -206,9 +223,25 @@ def main():
                 report['samples'].append(dict(mode=mode, sample_id=row['pair_id'], status='FAILED', error=str(error)))
             report['summary'] = summarize(report['samples'])
             write(out/'evaluation.json', report)
+        completed_modes.append(mode)
+        if migration:
+            stats = report['summary'][mode]
+            if stats['completed'] != len(selected):
+                report['migration_stop'] = dict(mode=mode, reason='INCOMPLETE_EVALUATION')
+                break
+            current = stats['image']['psnr']['mean']
+            baseline = report['summary']['official_mono_crop']['image']['psnr']['mean']
+            previous = report['summary'][completed_modes[-2]]['image']['psnr']['mean'] if len(completed_modes)>1 else current
+            report.setdefault('migration_decisions', []).append(dict(mode=mode, psnr=current,
+                delta_baseline=current-baseline, delta_previous=current-previous))
+            if min(current-baseline, current-previous) < -args.max_psnr_drop:
+                report['migration_stop'] = dict(mode=mode, reason='PSNR_REGRESSION_DIAGNOSE_BEFORE_NEXT_CHANGE')
+                break
     labels = ['official_mono_crop', 'official_mono_full', 'official_stereo_left_dlt', 'official_stereo_stereo_sim3',
               'finetuned_stereo_left_dlt', 'finetuned_stereo_stereo_sim3']
-    sheet = Image.new('RGB', (256*7, 286*len(packs)), 'white')
+    if migration:
+        labels = completed_modes
+    sheet = Image.new('RGB', (256*(len(labels)+1), 286*len(packs)), 'white')
     draw = ImageDraw.Draw(sheet)
     for index, (_, pack, _, _, _) in enumerate(packs):
         rgba = pack['views']['left']['rgba'].astype(np.float32)
@@ -219,7 +252,7 @@ def main():
                 sheet.paste(panel.resize((256,256)), (column*256,index*286+30))
             draw.text((column*256+3,index*286+5), label, fill='black')
     sheet.save(out/'comparison.png')
-    report['status'] = 'COMPLETED' if len(report['samples']) == len(selected)*6 and all(r['status']=='OK' for r in report['samples']) else 'PARTIAL_OR_FAILED'
+    report['status'] = 'COMPLETED' if len(report['samples']) == len(selected)*len(labels) and all(r['status']=='OK' for r in report['samples']) else 'PARTIAL_OR_FAILED'
     write(out/'evaluation.json', report)
     return 0 if report['status']=='COMPLETED' else 2
 

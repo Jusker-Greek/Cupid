@@ -18,4 +18,4 @@ done
 export PYTHONPATH="$PWD:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 export OMP_NUM_THREADS=8
 export http_proxy=http://hkuhpc.com:7999 https_proxy=http://hkuhpc.com:7999
-"$runtime/bin/python3" -u scripts/eval_stereo_paper_metrics.py --output "${CUPID_EVAL_OUTPUT:?}" --limit "${CUPID_EVAL_LIMIT:-3}"
+"$runtime/bin/python3" -u scripts/eval_stereo_paper_metrics.py --output "${CUPID_EVAL_OUTPUT:?}" --limit "${CUPID_EVAL_LIMIT:-3}" --suite "${CUPID_EVAL_SUITE:-paper}"

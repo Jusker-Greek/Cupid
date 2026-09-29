@@ -82,7 +82,7 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
     def run_stereo(
         self, left, right, *, mask_left=None, mask_right=None, seed=42,
         crop=True, stage2=False, calibration=None, sampler_params=None,
-        slat_sampler_params=None, uv_noise="independent",
+        slat_sampler_params=None, uv_noise="independent", noise_source="device",
         max_reprojection_px=2.0, min_ray_angle_deg=0.1,
     ):
         """Always return raw Stage1 support and both UV fields.
@@ -91,6 +91,8 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
         CALIBRATION_MISSING status. If requested, original left-view pose,
         Conditioner and Stage2 produce a canonical mesh. No inferred GT is used.
         """
+        if noise_source not in ("device", "official_cpu"):
+            raise ValueError("noise_source must be device or official_cpu")
         if uv_noise not in ("independent", "shared"):
             raise ValueError("uv_noise must be independent or shared")
         if calibration is not None and (left.size != calibration.image_size_left or right.size != calibration.image_size_right):
@@ -104,7 +106,15 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
         uv_channels = self.structure_decoder.uv_decoder.latent_channels
         if flow.in_channels != ss_channels + uv_channels:
             raise ValueError("The checkpoint must be joint SS+UV, not an occupancy-only flow")
-        noise = torch.randn(2, flow.in_channels, *([flow.resolution] * 3), device=self.device)
+        shape = (1, flow.in_channels, *([flow.resolution] * 3))
+        if noise_source == "official_cpu":
+            # Match the official left draw AND preserve its Stage2 CPU RNG state.
+            left_noise = torch.randn(*shape)
+            with torch.random.fork_rng(devices=[]):
+                right_noise = torch.randn(*shape)
+            noise = torch.cat((left_noise, right_noise)).to(self.device)
+        else:
+            noise = torch.randn(2, *shape[1:], device=self.device)
         if uv_noise == "shared":
             noise[1, ss_channels:] = noise[0, ss_channels:]
         params = {**self.sparse_structure_sampler_params, **(sampler_params or {})}
@@ -118,7 +128,7 @@ class StereoCupid3DPipeline(Cupid3DPipeline):
             trace['full_pixel_from_uv'] = affine.tolist()
             result[f'pixels_{side}'] = pixels
         result['preprocessing'] = {"left": trace_left, "right": trace_right}
-        result['sampling'] = {"seed": seed, "uv_noise": uv_noise, "parameters": params,
+        result['sampling'] = {"seed": seed, "uv_noise": uv_noise, "noise_source": noise_source, "parameters": params,
                               "ss_channels": ss_channels, "uv_channels": uv_channels,
                               "sampler": type(self.sparse_structure_sampler).__name__,
                               "structure_sharing": "equal_mean_after_each_guided_euler_update",
