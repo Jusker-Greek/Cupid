@@ -17,8 +17,13 @@ for d in /public/home/ricky/.local/lib/python3.12/site-packages/nvidia/*/lib; do
 done
 export PYTHONPATH="$PWD:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 export OMP_NUM_THREADS=8
+if [[ "${CUPID_OFFICIAL_BASELINE:-0}" == 1 ]]; then
+    weight_args=(--official-baseline)
+else
+    weight_args=(--checkpoint /public/home/ricky/RESULTS/STEREO_CUPID_2DE057A_FULL_A8/output/step_00000809.pt
+      --checkpoint-sha256 8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c)
+fi
 "$runtime/bin/python3" -u scripts/eval_stereo_checkpoint.py \
   --config configs/stereo/train_stage1_full_gso_engineering_candidate.json \
-  --checkpoint /public/home/ricky/RESULTS/STEREO_CUPID_2DE057A_FULL_A8/output/step_00000809.pt \
-  --checkpoint-sha256 8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c \
+  "${weight_args[@]}" \
   --output "${CUPID_EVAL_OUTPUT:?}" --limit "${CUPID_EVAL_LIMIT:-3}"

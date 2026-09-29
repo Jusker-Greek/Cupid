@@ -17,14 +17,20 @@ from run_stereo_cupid import save_ply, write_json
 def main():
     p = argparse.ArgumentParser(__doc__)
     p.add_argument('--config', required=True)
-    p.add_argument('--checkpoint', required=True)
-    p.add_argument('--checkpoint-sha256', required=True)
+    p.add_argument('--checkpoint')
+    p.add_argument('--checkpoint-sha256')
+    p.add_argument('--official-baseline', action='store_true',
+                   help='Keep official Stage1 weights; otherwise identical stereo evaluation')
     p.add_argument('--output', required=True)
     p.add_argument('--split', choices=['test', 'validation'], default='test')
     p.add_argument('--limit', type=int, default=3)
     args = p.parse_args()
     if not os.environ.get('SLURM_JOB_ID') or args.limit < 1:
         p.error('Slurm compute and positive sample limit required')
+    if args.official_baseline and (args.checkpoint or args.checkpoint_sha256):
+        p.error('Official baseline cannot also load a fine-tuned checkpoint')
+    if not args.official_baseline and not (args.checkpoint and args.checkpoint_sha256):
+        p.error('Fine-tuned evaluation requires checkpoint and SHA256')
     import numpy as np
     import torch
     from PIL import Image
@@ -41,6 +47,11 @@ def main():
                           ('target_index', config['preflight_contract']['target_index_sha256'])]:
         if sha256_file(data[key]) != expected:
             raise ValueError(key + ' SHA mismatch')
+    if args.official_baseline:
+        args.checkpoint = config['pretrained_init']['path'] + '.safetensors'
+        args.checkpoint_sha256 = config['pretrained_init']['sha256']
+        if sha256_file(config['pretrained_init']['path'] + '.json') != config['pretrained_init']['config_sha256']:
+            raise ValueError('Official model config SHA mismatch')
     if sha256_file(args.checkpoint) != args.checkpoint_sha256:
         raise ValueError('Checkpoint SHA mismatch')
     rows = [json.loads(line) for line in Path(data['manifest']).read_text().splitlines()]
@@ -52,19 +63,22 @@ def main():
                                                     dino_checkpoint=config['dino']['checkpoint'])
     # Existing Stage2 lazy encoder must use the local official asset.
     pipeline.models['slat_flow_model'].pretrained_slat_enc = str(root/'ckpts/slat_enc_swin8_B_64l8_fp16')
-    state = torch.load(args.checkpoint, map_location='cpu', weights_only=False, mmap=True)
-    if state['format'] != 'STEREO_STAGE1_CHECKPOINT_V1':
-        raise ValueError('Unexpected checkpoint format')
-    weights = state['model']
-    if not weights or not all(k.startswith('flow.') for k in weights):
-        raise ValueError('Expected SharedStereoFlow state dictionary')
-    pipeline.models['sparse_structure_flow_model'].load_state_dict(
-        {k[len('flow.'):]: v for k, v in weights.items()}, strict=True)
-    step = state['step']
-    del weights, state
+    step = 0
+    if not args.official_baseline:
+        state = torch.load(args.checkpoint, map_location='cpu', weights_only=False, mmap=True)
+        if state['format'] != 'STEREO_STAGE1_CHECKPOINT_V1':
+            raise ValueError('Unexpected checkpoint format')
+        weights = state['model']
+        if not weights or not all(k.startswith('flow.') for k in weights):
+            raise ValueError('Expected SharedStereoFlow state dictionary')
+        pipeline.models['sparse_structure_flow_model'].load_state_dict(
+            {k[len('flow.'):]: v for k, v in weights.items()}, strict=True)
+        step = state['step']
+        del weights, state
     gc.collect()
     pipeline.cuda()
     report = dict(checkpoint=args.checkpoint, checkpoint_sha256=args.checkpoint_sha256,
+                  initialization='OFFICIAL_WEIGHTS_STEREO_SAMPLER' if args.official_baseline else 'STEREO_FINETUNED',
                   checkpoint_step=step, commit=subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
                   job_id=os.environ['SLURM_JOB_ID'], split=args.split, expected=len(selected),
                   scope='BOUNDED_HELD_OUT_EMPIRICAL_GSO_CANONICAL', length_unit='scene_unit',
