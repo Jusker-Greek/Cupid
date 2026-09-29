@@ -21,7 +21,7 @@ export http_proxy=http://hkuhpc.com:7999 https_proxy=http://hkuhpc.com:7999
 # The shared setuptools installation has lost _distutils_hack source files.
 # Repair in a private job overlay, without mutating any running job environment.
 setuptools_overlay="/public/home/ricky/ENVIRONMENT/cupid_setuptools_${SLURM_JOB_ID}"
-"$runtime/bin/python3" -m pip install --disable-pip-version-check --no-deps --target "$setuptools_overlay" setuptools==75.8.0
+"$runtime/bin/python3" -m pip install --disable-pip-version-check --no-index --no-deps --target "$setuptools_overlay" "$PWD/third_party/setuptools-75.8.2-py3-none-any.whl"
 export PYTHONPATH="$setuptools_overlay:$PYTHONPATH"
 "$runtime/bin/python3" -c 'import setuptools, triton; print("SETUPTOOLS_TRITON_IMPORT_PASS", setuptools.__version__, triton.__version__, flush=True)'
 "$runtime/bin/python3" -u scripts/eval_stereo_paper_metrics.py --output "${CUPID_EVAL_OUTPUT:?}" --limit "${CUPID_EVAL_LIMIT:-3}" --suite "${CUPID_EVAL_SUITE:-paper}"
