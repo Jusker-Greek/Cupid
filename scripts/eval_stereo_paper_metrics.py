@@ -56,7 +56,8 @@ def main():
     p.add_argument('--checkpoint-sha256', default='8d477ffe6cad8582d5474bc12c5c9a6493d9a775933dfcf22b43607fe54d8c5c')
     p.add_argument('--output', required=True)
     p.add_argument('--limit', type=int, default=3)
-    p.add_argument('--suite', choices=('paper', 'migration', 'migration_weight', 'migration_next', 'migration_pose'), default='paper')
+    p.add_argument('--suite', choices=('paper', 'migration', 'migration_weight', 'migration_next', 'migration_pose', 'holdout_candidate'), default='paper')
+    p.add_argument('--start-index', type=int, default=0)
     p.add_argument('--max-psnr-drop', type=float, default=.5)
     p.add_argument('--asset-root', default='/public/home/ricky/DATASET/Gazebo')
     args = p.parse_args()
@@ -83,8 +84,11 @@ def main():
                            (args.checkpoint, args.checkpoint_sha256)):
         if sha256_file(path) != expected:
             raise ValueError('Asset SHA mismatch: ' + path)
+    if args.start_index < 0:
+        p.error('start-index must be nonnegative')
     selected = sorted((json.loads(l) for l in Path(data['manifest']).read_text().splitlines()
-                       if json.loads(l)['split'] == 'test'), key=lambda r: r['pair_id'])[:args.limit]
+                       if json.loads(l)['split'] == 'test'), key=lambda r: r['pair_id'])
+    selected = selected[args.start_index:args.start_index + args.limit]
     if len(selected) != args.limit:
         raise ValueError('Insufficient test samples')
     targets = {r['pair_id']: r for r in map(json.loads, Path(data['target_index']).read_text().splitlines())}
@@ -176,6 +180,8 @@ def main():
         modes = ('official_mono_crop', 'real_right_w010', 'real_right_w010_independent', 'real_right_w010_sim3')
     if args.suite == 'migration_pose':
         modes = ('official_mono_crop', 'real_right_w010', 'real_right_w010_shared_sim3')
+    if args.suite == 'holdout_candidate':
+        modes = ('official_mono_crop', 'real_right_w010')
     report['migration_protocol']['order'] = list(modes)
     completed_modes = []
     for mode in modes:
@@ -201,7 +207,7 @@ def main():
                             calibration=None if mode == 'copy_left_shared' else calibration,
                             uv_noise='shared' if migration and mode not in ('real_right_independent', 'real_right_w010_independent', 'real_right_w010_sim3') else 'independent',
                             noise_source='official_cpu' if migration else 'device',
-                            ss_right_weight=.1 if mode.startswith('real_right_w010') else (.25 if mode == 'real_right_w025' else .5))
+                            ss_right_weight=.1 if mode.startswith('real_right_w010') else (.1 if mode == 'holdout_candidate' else (.25 if mode == 'real_right_w025' else .5)))
                         write(directory/'sampling.json', prediction['sampling'])
                         write(directory/'geometry.json', geometry_json(prediction['geometry']))
                         if prediction.get('stage2_status') != 'OK':
