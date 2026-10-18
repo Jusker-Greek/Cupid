@@ -12,6 +12,10 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 def main():
     parser=argparse.ArgumentParser(__doc__)
     parser.add_argument('--output',required=True)
+    parser.add_argument('--local-jacobian-contract',action='store_true',
+                        help='Separate piecewise derivative check; retain the coarse FD failure field')
+    parser.add_argument('--rotation',type=float,default=.13)
+    parser.add_argument('--translation',type=float,default=.08)
     args=parser.parse_args()
     if not os.environ.get('SLURM_JOB_ID') or not os.environ.get('SLURMD_NODENAME'):
         parser.error('Slurm compute node required')
@@ -46,7 +50,7 @@ def main():
         weights=torch.linspace(.2,1.3,96,device=device)[None,None,:]
         def scalar(p):
             return (adapter.render(gs,pose(p),K)['color']*weights).mean()
-        p=torch.tensor([.13,.08],device=device,requires_grad=True)
+        p=torch.tensor([args.rotation,args.translation],device=device,requires_grad=True)
         a=adapter.render(gs,pose(p),K)['color']
         with torch.no_grad():
             n=native.render(gs,pose(p),K)['color']
@@ -83,12 +87,25 @@ def main():
         nonzero=bool((gp.abs()>1e-8).all() and gx.norm()>1e-8)
         # Both smaller FD steps for each pose component must meet the predeclared 5% bound.
         fd_pass=all(r['relative_error']<.05 for r in rows if r['eps'] in (1e-3,3e-4))
+        local_checks={}
+        for name in ('rotation_y','translation_x'):
+            stable=[r for r in boundary_diagnostics
+                    if r['parameter']==name and r['changed_nonzero_pixels']==0]
+            # Never choose only favorable epsilons: every observed stable-support
+            # derivative must pass, with at least two distinct step sizes.
+            local_checks[name]=dict(stable_steps=len(stable),
+                all_relative_errors_pass=len(stable)>=2 and all(r['relative_error']<.05 for r in stable))
+        local_pass=all(v['all_relative_errors_pass'] for v in local_checks.values())
+        selected_fd_pass=local_pass if args.local_jacobian_contract else fd_pass
         receipt.update(forward_max_abs=delta,forward_mean_abs=float((a-n).abs().mean().detach()),
             pose_gradient=gp.tolist(),primitive_gradient_norm=float(gx.norm()),finite_gradients=finite,
             nonzero_gradients=nonzero,finite_difference=rows,
             boundary_diagnostics=boundary_diagnostics,
+            fixture_pose=p.detach().tolist(),coarse_fd_contract='PASS' if fd_pass else 'FAIL',
+            local_jacobian_checks=local_checks,
+            selected_contract='LOCAL_JACOBIAN_SUPPORT_STABLE' if args.local_jacobian_contract else 'ORIGINAL_COARSE_FD',
             tolerances=dict(forward_max_abs=1e-4,pose_fd_relative=.05,nonzero_min=1e-8),
-            status='PASS' if delta<1e-4 and finite and nonzero and fd_pass else 'FAIL')
+            status='PASS' if delta<1e-4 and finite and nonzero and selected_fd_pass else 'FAIL')
         if receipt['status']!='PASS':
             raise RuntimeError('Adapter parity/gradient contract failed; thresholds remain frozen')
     except Exception as exc:

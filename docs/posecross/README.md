@@ -27,3 +27,13 @@ Existing callers are unchanged. `scripts/posecross_renderer_adapter_audit.py`
 checks native forward parity with anisotropic rotated primitives and compares
 rotation/translation derivatives against central finite differences. This is
 component-only evidence even if it passes; no full CUPID path is exercised.
+
+GPU 371350 diagnosed the original finite-difference mismatch: epsilons crossing
+nonzero-pixel support boundaries differ from a within-branch derivative. The
+original coarse check remains in receipts and remains FAIL. A separate
+`renderer-local-jacobian` component contract keeps the 5% tolerance and tests
+all observed zero-support-change epsilons (at least two per parameter), with
+three preregistered yaw/translation fixtures: (.13,.08), (-.17,-.06), (.21,.04).
+No renderer thresholds, filtering, losses, or primitive values are changed.
+A local derivative PASS does not make the renderer globally smooth and does
+not pass the model smoke or scientific gates.
