@@ -52,7 +52,8 @@ first derivatives only. Thresholds are a component proposal, not full-data
 eligibility. Native CUPID inference/training does not call this component.
 
 `scripts/posecross_known_k_audit.py` checks two noisy noncoplanar synthetic
-fixtures, 36 central-FD checks per pose (six coordinates, three eps, plus/minus),
+fixtures, 18 central-FD comparisons per pose (six coordinates, three eps;
+36 perturbed solves per pose),
 every relative error <1%, calibrated-K sensitivity and invalid-input rejection.
 It does not validate noisy predicted UV, full model gradients, pose ambiguity,
 optimizer/checkpoint/evaluation, or a scientific training result. The implicit
