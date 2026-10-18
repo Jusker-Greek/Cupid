@@ -37,7 +37,7 @@ def main():
         gs.from_scaling(torch.tensor([[.04,.07,.05],[.08,.03,.05],[.05,.04,.09]],device=device))
         gs.from_rotation(torch.nn.functional.normalize(torch.tensor([[1.,.1,.2,.0],[1.,-.2,.1,.1],[1.,.0,.2,-.1]],device=device),dim=1))
         gs.from_opacity(torch.full((3,1),.8,device=device))
-        gs.from_features(torch.tensor([[[1.],[0.],[.3]],[[0.],[1.],[.1]],[[.2],[.3],[1.]]],device=device))
+        gs.from_features(torch.tensor([[[1.],[0.],[.3]],[[0.],[1.],[.1]],[[.2],[.3],[1.]]],device=device).transpose(1,2).contiguous())
         K=torch.tensor([[.9,0,.46],[0,1.05,.53],[0,0,1.]],device=device)
         def pose(p):
             c,s=torch.cos(p[0]),torch.sin(p[0])
