@@ -37,3 +37,23 @@ three preregistered yaw/translation fixtures: (.13,.08), (-.17,-.06), (.21,.04).
 No renderer thresholds, filtering, losses, or primitive values are changed.
 A local derivative PASS does not make the renderer globally smooth and does
 not pass the model smoke or scientific gates.
+
+### Known-K component proposal
+
+`cupid/utils/known_k_pnp.py` implements a single-sample fixed-K/fixed-XYZ
+implicit PnP with an independent full reprojection Hessian backward. Forward
+uses EPNP, iterative PnP and LM (100 iterations, 1e-12 stop tolerance), without
+RANSAC. Rodrigues rotation plus direct translation is its 6D chart; translation
+is not the translational part of an SE(3) logarithm. It accepts calibrated,
+zero-skew pinhole K and corresponding normalized or pixel UV in matching units.
+It rejects near-planar support, nonpositive depth, nonstationarity and ill-
+conditioned Hessians instead of silently dropping losses. Float64 internally;
+first derivatives only. Thresholds are a component proposal, not full-data
+eligibility. Native CUPID inference/training does not call this component.
+
+`scripts/posecross_known_k_audit.py` checks two noisy noncoplanar synthetic
+fixtures, 36 central-FD checks per pose (six coordinates, three eps, plus/minus),
+every relative error <1%, calibrated-K sensitivity and invalid-input rejection.
+It does not validate noisy predicted UV, full model gradients, pose ambiguity,
+optimizer/checkpoint/evaluation, or a scientific training result. The implicit
+formulation follows [BPnP](https://github.com/BoChenYS/BPnP); no source vendored.

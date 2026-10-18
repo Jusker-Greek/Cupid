@@ -19,6 +19,7 @@ done
 export PYTHONPATH="$PWD:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 case "$POSECROSS_AUDIT_MODE" in
+  known-k-pnp) exec "$runtime/bin/python3" -u scripts/posecross_known_k_audit.py --output "$POSECROSS_AUDIT_OUTPUT" ;;
   renderer-local-jacobian)
     mkdir "$POSECROSS_AUDIT_OUTPUT"
     "$runtime/bin/python3" -u scripts/posecross_renderer_adapter_audit.py --output "$POSECROSS_AUDIT_OUTPUT/base" --local-jacobian-contract
