@@ -53,6 +53,7 @@ def main():
         loss=(a*weights).mean()
         gp,gx=torch.autograd.grad(loss,(p,xyz))
         rows=[]
+        boundary_diagnostics=[]
         with torch.no_grad():
             for index,name in enumerate(('rotation_y','translation_x')):
                 for eps in (3e-3,1e-3,3e-4):
@@ -63,6 +64,20 @@ def main():
                     ad=float(gp[index])
                     rows.append(dict(parameter=name,eps=eps,autograd=ad,finite_difference=fd,
                         absolute_error=abs(ad-fd),relative_error=abs(ad-fd)/max(abs(ad),abs(fd),1e-8)))
+                # A separate cause-finding sweep does not replace the acceptance
+                # rows/epsilons above. Track support changes across alpha cutoffs.
+                for eps in (1e-2,3e-3,1e-3,3e-4,1e-4,3e-5,1e-5,3e-6):
+                    plus,minus=p.detach().clone(),p.detach().clone()
+                    plus[index]+=eps
+                    minus[index]-=eps
+                    ip=adapter.render(gs,pose(plus),K)['color']
+                    im=adapter.render(gs,pose(minus),K)['color']
+                    fd=float(((ip-im)*weights).mean()/(2*eps))
+                    ad=float(gp[index])
+                    boundary_diagnostics.append(dict(parameter=name,eps=eps,
+                        autograd=ad,finite_difference=fd,
+                        changed_nonzero_pixels=int(((ip.abs().sum(0)>0)!=(im.abs().sum(0)>0)).sum()),
+                        relative_error=abs(ad-fd)/max(abs(ad),abs(fd),1e-8)))
         delta=float((a-n).abs().max().detach())
         finite=bool(torch.isfinite(gp).all() and torch.isfinite(gx).all())
         nonzero=bool((gp.abs()>1e-8).all() and gx.norm()>1e-8)
@@ -71,6 +86,7 @@ def main():
         receipt.update(forward_max_abs=delta,forward_mean_abs=float((a-n).abs().mean().detach()),
             pose_gradient=gp.tolist(),primitive_gradient_norm=float(gx.norm()),finite_gradients=finite,
             nonzero_gradients=nonzero,finite_difference=rows,
+            boundary_diagnostics=boundary_diagnostics,
             tolerances=dict(forward_max_abs=1e-4,pose_fd_relative=.05,nonzero_min=1e-8),
             status='PASS' if delta<1e-4 and finite and nonzero and fd_pass else 'FAIL')
         if receipt['status']!='PASS':
