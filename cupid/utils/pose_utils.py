@@ -177,9 +177,9 @@ def decompose_projection(proj_matrix: torch.Tensor) -> tuple[torch.Tensor, torch
     
     # Step 5
     det = (torch.linalg.det(R) < 0)
-    if det.any():
-        # should not arrive here because we have normalize proj_matrix
-        R[det] *= -1 
+    # Preserve autograd's saved factorization outputs; no in-place sign fix.
+    R = R * torch.where(det, -torch.ones_like(det, dtype=R.dtype),
+                        torch.ones_like(det, dtype=R.dtype))[:, None, None]
     
     # Step 6 normalize scale
     # if (K[:, 2:3, 2:3] < 1e-8).any():
@@ -267,7 +267,11 @@ def dlt_calibration(obj_points: torch.Tensor, img_points: torch.Tensor, weights:
 
     # there is a scale ambiguity (with sign), because we use opencv coordinate
     # the determine should be positive
-    P[torch.linalg.det(P[:,:3,:3]) < 0] *= -1
+    # P is a view of V returned by SVD. In-place indexing increments V's
+    # version even for an empty mask and invalidates LinalgSvdBackward0.
+    negative = torch.linalg.det(P[:,:3,:3]) < 0
+    P = P * torch.where(negative, -torch.ones_like(negative, dtype=P.dtype),
+                        torch.ones_like(negative, dtype=P.dtype))[:, None, None]
 
     return P
 
