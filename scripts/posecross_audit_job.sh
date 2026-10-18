@@ -19,6 +19,7 @@ done
 export PYTHONPATH="$PWD:/public/home/ricky/ENVIRONMENT/cupid_nvdiffrast_253ac4f_py312_v21r2:/public/home/ricky/ENVIRONMENT/cupid_trellis_py312_localcheck_b12f303_a29r1:${PYTHONPATH:-}"
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 case "$POSECROSS_AUDIT_MODE" in
+  renderer-adapter) exec "$runtime/bin/python3" -u scripts/posecross_renderer_adapter_audit.py --output "$POSECROSS_AUDIT_OUTPUT" ;;
   components) exec "$runtime/bin/python3" -u scripts/posecross_component_audit.py --output "$POSECROSS_AUDIT_OUTPUT" ;;
   data) exec "$runtime/bin/python3" -u scripts/posecross_data_audit.py --config configs/stereo/train_stage1_full_gso_engineering_candidate.json --output "$POSECROSS_AUDIT_OUTPUT" ;;
   *) echo 'Unknown diagnostic mode' >&2; exit 2 ;;

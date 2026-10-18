@@ -19,3 +19,11 @@ unchanged. The main method remains at S01 pending the design/data contract.
 
 A completed diagnostic can report a failed component contract. Read the JSON
 fields, not only the process exit. No optimizer/checkpoint/flow result is implied.
+
+`cupid/renderers/posecross_gaussian.py` adds an opt-in SH0 camera-gradient
+adapter. It transforms Gaussian means and covariances in Torch, preserving
+fixed calibrated K, and uses the native rasterizer with an identity view.
+Existing callers are unchanged. `scripts/posecross_renderer_adapter_audit.py`
+checks native forward parity with anisotropic rotated primitives and compares
+rotation/translation derivatives against central finite differences. This is
+component-only evidence even if it passes; no full CUPID path is exercised.
